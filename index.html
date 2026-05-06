@@ -402,7 +402,7 @@ footer {
   </div>
   <div class="avail-pill" id="avail-pill" onclick="toggleAvail()" title="Toggle availability">
     <span class="avail-dot"></span>
-    <span id="avail-text">Available for new work</span>
+    <span id="avail-text">Available</span>
   </div>
 </div>
 
@@ -585,7 +585,7 @@ function toggleAvail() {
   const pill = document.getElementById("avail-pill");
   const isOn = !pill.classList.contains("off");
   pill.classList.toggle("off", isOn);
-  document.getElementById("avail-text").textContent = isOn ? "Not available" : "Available for new work";
+  document.getElementById("avail-text").textContent = isOn ? "Not available" : "Available";
   localStorage.setItem("mekalav_avail", isOn ? "off" : "on");
 }
 (function() {
