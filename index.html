@@ -663,11 +663,17 @@ function deleteArticle() {
 }
 
 // ── Newsletter ─────────────────────────────────────────────────────────────────
-function nlSubmit(e) {
+async function nlSubmit(e) {
   e.preventDefault();
-  const email = document.getElementById("nl-email").value;
-  const subs = JSON.parse(localStorage.getItem("mekalav_subs") || "[]");
-  if (!subs.includes(email)) { subs.push(email); localStorage.setItem("mekalav_subs", JSON.stringify(subs)); }
+  const email = document.getElementById("nl-email").value.trim();
+  if (!email) return;
+  try {
+    await fetch("https://miru.humanagency.co/api/newsletter/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, source: "mekalav" })
+    });
+  } catch(_) {}
   document.getElementById("nl-success").style.display = "block";
   document.getElementById("nl-email").style.display = "none";
   document.querySelector(".nl-btn").style.display = "none";
