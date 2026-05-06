@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="system">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vikram Mekala</title>
 <meta name="description" content="AI and Digital Transformation. Building tools that make AI useful for everyday people.">
 <style>
+/* Light (default) */
 :root {
   --bg: #faf9f7;
   --surface: #ffffff;
@@ -16,9 +17,11 @@
   --accent: #d97706;
   --accent2: #2563eb;
   --nav-bg: rgba(250,249,247,0.92);
+  --search-bg: #ffffff;
 }
+/* System dark */
 @media (prefers-color-scheme: dark) {
-  :root {
+  html[data-theme="system"] {
     --bg: #181614;
     --surface: #211f1c;
     --surface2: #2a2724;
@@ -28,8 +31,36 @@
     --accent: #f59e0b;
     --accent2: #60a5fa;
     --nav-bg: rgba(24,22,20,0.92);
+    --search-bg: #211f1c;
   }
 }
+/* Forced dark */
+html[data-theme="dark"] {
+  --bg: #181614;
+  --surface: #211f1c;
+  --surface2: #2a2724;
+  --border: #332f2b;
+  --text: #f0ece6;
+  --muted: #8a8078;
+  --accent: #f59e0b;
+  --accent2: #60a5fa;
+  --nav-bg: rgba(24,22,20,0.92);
+  --search-bg: #211f1c;
+}
+/* Forced light */
+html[data-theme="light"] {
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --surface2: #f3f1ee;
+  --border: #e8e4df;
+  --text: #1a1714;
+  --muted: #7a7168;
+  --accent: #d97706;
+  --accent2: #2563eb;
+  --nav-bg: rgba(250,249,247,0.92);
+  --search-bg: #ffffff;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -37,6 +68,7 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  transition: background .2s, color .2s;
 }
 
 /* Nav */
@@ -45,23 +77,87 @@ nav {
   background: var(--nav-bg);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  padding: 14px 24px;
-  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.nav-name { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; cursor: pointer; user-select: none; }
+.nav-name { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; cursor: pointer; user-select: none; flex-shrink: 0; }
 .nav-name span { color: var(--accent); }
-.nav-links { display: flex; gap: 24px; }
+.nav-links { display: flex; gap: 20px; align-items: center; }
 .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
 .nav-links a:hover { color: var(--text); }
-@media (max-width: 600px) {
-  .nav-links { gap: 16px; }
-  .nav-links a { font-size: 12px; }
+.theme-toggle {
+  display: flex; align-items: center; gap: 2px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 99px; padding: 3px; flex-shrink: 0;
 }
+.theme-btn {
+  border: none; background: none; cursor: pointer;
+  font-size: 13px; padding: 4px 8px; border-radius: 99px;
+  color: var(--muted); transition: all .15s; line-height: 1;
+}
+.theme-btn.active {
+  background: var(--surface); color: var(--text);
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+@media (max-width: 640px) {
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: 12px; }
+  .nav-links a[href="#career"] { display: none; }
+}
+
+/* Search bar */
+.search-wrap {
+  max-width: 720px; margin: 0 auto;
+  padding: 0 24px 0;
+  position: relative;
+}
+.search-input-row {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--search-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 16px;
+  transition: border-color .15s;
+}
+.search-input-row:focus-within { border-color: var(--accent); }
+.search-icon { color: var(--muted); font-size: 15px; flex-shrink: 0; }
+.search-input {
+  flex: 1; border: none; outline: none;
+  background: transparent; font-size: 14px;
+  color: var(--text); font-family: inherit;
+}
+.search-input::placeholder { color: var(--muted); opacity: .6; }
+.search-clear {
+  border: none; background: none; cursor: pointer;
+  color: var(--muted); font-size: 16px; padding: 0; display: none;
+}
+.search-results {
+  display: none;
+  margin-top: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+}
+.search-results.open { display: block; }
+.sr-item {
+  display: block; padding: 12px 16px;
+  text-decoration: none; color: var(--text);
+  border-bottom: 1px solid var(--border);
+  transition: background .1s; cursor: pointer;
+}
+.sr-item:last-child { border-bottom: none; }
+.sr-item:hover { background: var(--surface2); }
+.sr-item-label { font-size: 11px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 2px; }
+.sr-item-title { font-size: 14px; font-weight: 600; }
+.sr-item-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.sr-empty { padding: 16px; font-size: 14px; color: var(--muted); text-align: center; }
 
 /* Hero */
 .hero {
   max-width: 720px; margin: 0 auto;
-  padding: 80px 24px 64px;
+  padding: 64px 24px 48px;
 }
 .hero-tag {
   display: inline-block;
@@ -82,38 +178,29 @@ nav {
   max-width: 560px; margin-bottom: 32px;
 }
 .hero-sub strong { color: var(--text); }
-
-/* Journey */
 .journey {
   display: flex; align-items: center;
   flex-wrap: wrap; gap: 6px; margin-bottom: 36px;
 }
 .journey-stop {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 99px;
-  padding: 6px 14px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 99px; padding: 6px 14px;
   font-size: 13px; font-weight: 600;
 }
 .journey-arrow { color: var(--muted); font-size: 14px; }
-
-/* Buttons */
 .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
 .btn-primary {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 24px;
-  background: var(--text); color: var(--bg);
+  padding: 12px 24px; background: var(--text); color: var(--bg);
   border-radius: 10px; font-weight: 700; font-size: 14px;
   text-decoration: none; transition: opacity .15s;
 }
 .btn-primary:hover { opacity: .8; }
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 24px;
-  background: var(--surface); color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 10px; font-weight: 600; font-size: 14px;
-  text-decoration: none; transition: border-color .15s;
+  padding: 12px 24px; background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: 10px;
+  font-weight: 600; font-size: 14px; text-decoration: none; transition: border-color .15s;
 }
 .btn-ghost:hover { border-color: var(--muted); }
 
@@ -121,12 +208,9 @@ nav {
 section { max-width: 720px; margin: 0 auto; padding: 64px 24px; border-top: 1px solid var(--border); }
 .section-label {
   font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
-  text-transform: uppercase; color: var(--accent);
-  margin-bottom: 20px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
 }
 h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px; }
-
-/* Story */
 .story-text { font-size: 16px; color: var(--muted); line-height: 1.85; }
 .story-text p { margin-bottom: 16px; }
 .story-text strong { color: var(--text); }
@@ -135,28 +219,21 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 .timeline { display: flex; flex-direction: column; }
 .tl-item {
   display: grid; grid-template-columns: 110px 1fr;
-  gap: 0 24px; padding: 20px 0;
-  border-bottom: 1px solid var(--border);
+  gap: 0 24px; padding: 20px 0; border-bottom: 1px solid var(--border);
 }
 .tl-item:last-child { border-bottom: none; }
 .tl-year { font-size: 12px; color: var(--muted); font-weight: 600; padding-top: 3px; }
 .tl-content h3 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
 .tl-content .tl-co { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
 .tl-content p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-@media (max-width: 500px) {
-  .tl-item { grid-template-columns: 1fr; }
-  .tl-year { margin-bottom: 4px; }
-}
+@media (max-width: 500px) { .tl-item { grid-template-columns: 1fr; } .tl-year { margin-bottom: 4px; } }
 
-/* Building now */
+/* Building */
 .now-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 560px) { .now-cards { grid-template-columns: 1fr; } }
 .now-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 20px;
-  transition: border-color .15s;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px; transition: border-color .15s;
 }
 .now-card:hover { border-color: var(--muted); }
 .now-card-icon { font-size: 28px; margin-bottom: 10px; }
@@ -167,86 +244,66 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 /* Articles */
 .articles-list { display: flex; flex-direction: column; gap: 14px; }
 .article-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px 20px;
-  text-decoration: none;
-  display: block;
-  transition: border-color .15s;
-  position: relative;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px 20px;
+  text-decoration: none; display: block;
+  transition: border-color .15s; position: relative;
 }
 .article-card:hover { border-color: var(--muted); }
 .article-tag {
   font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
-  text-transform: uppercase; color: var(--accent2);
-  margin-bottom: 6px; display: block;
+  text-transform: uppercase; color: var(--accent2); margin-bottom: 6px; display: block;
 }
 .article-card h3 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
 .article-card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
 .article-meta { font-size: 11px; color: var(--muted); opacity: .6; margin-top: 8px; }
 .edit-btn {
   position: absolute; top: 12px; right: 12px;
-  font-size: 11px; color: var(--muted);
-  background: var(--surface2); border: none;
-  border-radius: 6px; padding: 3px 8px;
-  cursor: pointer; display: none;
+  font-size: 11px; color: var(--muted); background: var(--surface2);
+  border: none; border-radius: 6px; padding: 3px 8px; cursor: pointer; display: none;
 }
 .edit-mode .edit-btn { display: block; }
 .add-btn {
-  display: none;
-  width: 100%; padding: 14px;
+  display: none; width: 100%; padding: 14px;
   background: none; border: 1.5px dashed var(--border);
-  border-radius: 14px; color: var(--muted);
-  font-size: 14px; cursor: pointer;
-  margin-top: 8px; transition: border-color .15s;
+  border-radius: 14px; color: var(--muted); font-size: 14px;
+  cursor: pointer; margin-top: 8px; transition: border-color .15s;
 }
 .add-btn:hover { border-color: var(--muted); color: var(--text); }
 .edit-mode .add-btn { display: block; }
 
 /* Newsletter */
 .newsletter-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 40px 32px;
-  text-align: center;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 40px 32px; text-align: center;
 }
 .newsletter-box h2 { margin-bottom: 10px; }
 .newsletter-box p { color: var(--muted); font-size: 15px; margin-bottom: 24px; max-width: 440px; margin-left: auto; margin-right: auto; }
 .nl-form { display: flex; gap: 10px; max-width: 400px; margin: 0 auto; }
 .nl-input {
-  flex: 1; padding: 12px 16px;
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: 10px; color: var(--text); font-size: 14px;
-  outline: none; transition: border-color .15s; font-family: inherit;
+  flex: 1; padding: 12px 16px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 10px;
+  color: var(--text); font-size: 14px; outline: none; font-family: inherit; transition: border-color .15s;
 }
 .nl-input:focus { border-color: var(--accent); }
 .nl-input::placeholder { color: var(--muted); opacity: .5; }
 .nl-btn {
-  padding: 12px 20px;
-  background: var(--text); color: var(--bg);
-  border: none; border-radius: 10px;
-  font-weight: 700; font-size: 14px; cursor: pointer;
-  white-space: nowrap; font-family: inherit;
+  padding: 12px 20px; background: var(--text); color: var(--bg);
+  border: none; border-radius: 10px; font-weight: 700;
+  font-size: 14px; cursor: pointer; white-space: nowrap; font-family: inherit;
 }
 @media (max-width: 480px) { .nl-form { flex-direction: column; } }
 .nl-success { display: none; color: #16a34a; font-size: 14px; font-weight: 600; margin-top: 12px; }
 
 /* Footer */
 footer {
-  max-width: 720px; margin: 0 auto;
-  padding: 32px 24px 48px;
+  max-width: 720px; margin: 0 auto; padding: 32px 24px 48px;
   border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 16px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
 }
 .footer-name { font-size: 13px; color: var(--muted); }
 .footer-links { display: flex; gap: 20px; }
-.footer-links a {
-  font-size: 13px; color: var(--muted); text-decoration: none;
-  transition: color .15s; font-weight: 600;
-}
+.footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; font-weight: 600; }
 .footer-links a:hover { color: var(--text); }
 
 /* Modal */
@@ -258,32 +315,21 @@ footer {
 .modal-overlay.open { display: flex; }
 .modal {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 18px; padding: 28px;
-  width: 100%; max-width: 520px;
+  border-radius: 18px; padding: 28px; width: 100%; max-width: 520px;
 }
 .modal h3 { font-size: 16px; font-weight: 700; margin-bottom: 18px; }
 .modal label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 5px; margin-top: 14px; }
 .modal input, .modal textarea {
-  width: 100%; padding: 10px 12px;
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: 8px; color: var(--text); font-size: 14px;
-  outline: none; font-family: inherit;
+  width: 100%; padding: 10px 12px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); font-size: 14px; outline: none; font-family: inherit;
 }
 .modal input:focus, .modal textarea:focus { border-color: var(--accent); }
 .modal textarea { resize: vertical; min-height: 72px; }
 .modal-actions { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
-.modal-save {
-  padding: 10px 22px; background: var(--text); color: var(--bg);
-  border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit;
-}
-.modal-cancel {
-  padding: 10px 22px; background: var(--surface2); color: var(--text);
-  border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-family: inherit;
-}
-.modal-delete {
-  padding: 10px 18px; background: #fef2f2; color: #dc2626;
-  border: 1px solid #fecaca; border-radius: 8px; cursor: pointer; margin-right: auto; font-family: inherit;
-}
+.modal-save { padding: 10px 22px; background: var(--text); color: var(--bg); border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.modal-cancel { padding: 10px 22px; background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-family: inherit; }
+.modal-delete { padding: 10px 18px; background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; border-radius: 8px; cursor: pointer; margin-right: auto; font-family: inherit; }
 </style>
 </head>
 <body>
@@ -292,9 +338,15 @@ footer {
   <div class="nav-name" id="logo-tap">Vikram<span>.</span></div>
   <div class="nav-links">
     <a href="#story">Story</a>
+    <a href="#career">Career</a>
     <a href="#building">Building</a>
     <a href="#articles">Articles</a>
     <a href="#newsletter">Newsletter</a>
+  </div>
+  <div class="theme-toggle">
+    <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
+    <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
+    <button class="theme-btn" data-t="dark" onclick="setTheme('dark')" title="Dark">🌙</button>
   </div>
 </nav>
 
@@ -306,7 +358,6 @@ footer {
     Spent two decades inside <strong>Unilever, Mars, Shell and BP</strong> making large technology programmes actually land.
     Now building AI tools that <strong>work for people who don't call themselves technical</strong>.
   </p>
-
   <div class="journey">
     <div class="journey-stop">🇮🇳 India</div>
     <div class="journey-arrow">→</div>
@@ -314,11 +365,20 @@ footer {
     <div class="journey-arrow">→</div>
     <div class="journey-stop">🇬🇧 London 2005</div>
   </div>
-
   <div class="hero-ctas">
     <a href="https://twitter.com/mekalav" target="_blank" rel="noopener" class="btn-primary">𝕏 @mekalav</a>
     <a href="https://www.linkedin.com/in/mekalavikram/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn</a>
   </div>
+</div>
+
+<!-- Search -->
+<div class="search-wrap" style="margin-bottom:8px">
+  <div class="search-input-row">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="search-input" type="text" placeholder="Search career, articles, projects…" autocomplete="off" oninput="doSearch(this.value)" onfocus="doSearch(this.value)">
+    <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
+  </div>
+  <div class="search-results" id="search-results"></div>
 </div>
 
 <section id="story">
@@ -347,9 +407,9 @@ footer {
     <div class="tl-item">
       <div class="tl-year">2024 to now</div>
       <div class="tl-content">
-        <div class="tl-co">RSI Softech · Director</div>
+        <div class="tl-co">Human Agency · Founder</div>
         <h3>Building AI products for real people</h3>
-        <p>Developing practical AI tools, from personal assistants to school communication platforms. Focus on everyday usability over technical novelty.</p>
+        <p>Building practical AI tools, from personal assistants to school communication platforms. Focus on everyday usability over technical novelty.</p>
       </div>
     </div>
     <div class="tl-item">
@@ -431,7 +491,7 @@ footer {
   <div class="footer-links">
     <a href="https://twitter.com/mekalav" target="_blank" rel="noopener">𝕏 Twitter</a>
     <a href="https://www.linkedin.com/in/mekalavikram/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://miru.humanagency.co" target="_blank" rel="noopener">Miru</a>
+    <a href="https://humanagency.co" target="_blank" rel="noopener">Human Agency</a>
   </div>
 </footer>
 
@@ -457,31 +517,77 @@ footer {
 </div>
 
 <script>
+// ── Theme toggle ───────────────────────────────────────────────────────────────
+function setTheme(t) {
+  document.documentElement.setAttribute("data-theme", t);
+  localStorage.setItem("mekalav_theme", t);
+  document.querySelectorAll(".theme-btn").forEach(b => b.classList.toggle("active", b.dataset.t === t));
+}
+(function() {
+  const saved = localStorage.getItem("mekalav_theme") || "system";
+  setTheme(saved);
+})();
+
+// ── Search index ───────────────────────────────────────────────────────────────
+const SEARCH_INDEX = [
+  { label: "Career", title: "Magnum Ice Cream separation (M&A)", sub: "Unilever · 2025", anchor: "#career" },
+  { label: "Career", title: "Human Agency · Founder", sub: "Building AI products · 2024 to now", anchor: "#career" },
+  { label: "Career", title: "Global Media Analytics Platform", sub: "Unilever · 2020 to 2024", anchor: "#career" },
+  { label: "Career", title: "Net Revenue Management", sub: "Unilever · 2018 to 2020", anchor: "#career" },
+  { label: "Career", title: "Digital platforms and BA leadership", sub: "Shell · Unilever · Leaseplan · 2013 to 2018", anchor: "#career" },
+  { label: "Career", title: "Engineer to Analyst to Programme Manager", sub: "Unilever · Mars · BP · 2000 to 2013", anchor: "#career" },
+  { label: "Building", title: "Miru", sub: "WhatsApp-first AI assistant · miru.humanagency.co", anchor: "#building", url: "https://miru.humanagency.co" },
+  { label: "Building", title: "Human Agency", sub: "AI and work · ai.humanagency.co", anchor: "#building", url: "https://ai.humanagency.co" },
+  { label: "Story", title: "India · Italy · London", sub: "25 years from engineer to founder", anchor: "#story" },
+];
+
+function getSearchIndex() {
+  const articles = loadData();
+  return [
+    ...SEARCH_INDEX,
+    ...articles.map(a => ({ label: "Article", title: a.title, sub: a.tag + (a.date ? " · " + a.date : ""), anchor: "#articles", url: a.url !== "#" ? a.url : null }))
+  ];
+}
+
+function doSearch(q) {
+  const res = document.getElementById("search-results");
+  const clear = document.getElementById("search-clear");
+  q = q.trim().toLowerCase();
+  clear.style.display = q ? "block" : "none";
+  if (!q || q.length < 2) { res.classList.remove("open"); return; }
+  const hits = getSearchIndex().filter(item =>
+    (item.title + " " + item.sub + " " + item.label).toLowerCase().includes(q)
+  ).slice(0, 6);
+  if (!hits.length) {
+    res.innerHTML = `<div class="sr-empty">No results for "${q}"</div>`;
+  } else {
+    res.innerHTML = hits.map(h => `
+      <a class="sr-item" href="${h.url || h.anchor}" ${h.url && h.url !== h.anchor ? 'target="_blank" rel="noopener"' : ''}>
+        <div class="sr-item-label">${h.label}</div>
+        <div class="sr-item-title">${h.title}</div>
+        ${h.sub ? `<div class="sr-item-sub">${h.sub}</div>` : ""}
+      </a>
+    `).join("");
+  }
+  res.classList.add("open");
+}
+
+function clearSearch() {
+  document.getElementById("search-input").value = "";
+  document.getElementById("search-results").classList.remove("open");
+  document.getElementById("search-clear").style.display = "none";
+}
+
+document.addEventListener("click", e => {
+  if (!e.target.closest(".search-wrap")) clearSearch();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") clearSearch(); });
+
+// ── Articles data ──────────────────────────────────────────────────────────────
 const DEFAULT_ARTICLES = [
-  {
-    id: "a1",
-    title: "Why most enterprise AI projects fail before they start",
-    tag: "AI · Transformation",
-    desc: "After 25 years inside Fortune 500 companies, the pattern is always the same. It is not the technology.",
-    url: "#",
-    date: "Coming soon"
-  },
-  {
-    id: "a2",
-    title: "What moving from India to London taught me about building products",
-    tag: "Career · Building",
-    desc: "Moving countries three times rewires how you think about who a product is really for.",
-    url: "#",
-    date: "Coming soon"
-  },
-  {
-    id: "a3",
-    title: "The WhatsApp test: if a 60-year-old can use it, it is ready",
-    tag: "AI · Product",
-    desc: "Why I build AI tools that start with WhatsApp, and what that constraint teaches you about real usability.",
-    url: "#",
-    date: "Coming soon"
-  },
+  { id: "a1", title: "Why most enterprise AI projects fail before they start", tag: "AI · Transformation", desc: "After 25 years inside Fortune 500 companies, the pattern is always the same. It is not the technology.", url: "#", date: "Coming soon" },
+  { id: "a2", title: "What moving from India to London taught me about building products", tag: "Career · Building", desc: "Moving countries three times rewires how you think about who a product is really for.", url: "#", date: "Coming soon" },
+  { id: "a3", title: "The WhatsApp test: if a 60-year-old can use it, it is ready", tag: "AI · Product", desc: "Why I build AI tools that start with WhatsApp, and what that constraint teaches you about real usability.", url: "#", date: "Coming soon" },
 ];
 
 function loadData() {
@@ -491,9 +597,8 @@ function loadData() {
 function saveData(data) { localStorage.setItem("mekalav_articles", JSON.stringify(data)); }
 
 function renderArticles() {
-  const articles = loadData();
   const list = document.getElementById("articles-list");
-  list.innerHTML = articles.map(a => `
+  list.innerHTML = loadData().map(a => `
     <a class="article-card" href="${a.url}" ${a.url !== '#' ? 'target="_blank" rel="noopener"' : 'onclick="return false"'}>
       <span class="article-tag">${a.tag}</span>
       <h3>${a.title}</h3>
@@ -504,6 +609,7 @@ function renderArticles() {
   `).join("");
 }
 
+// ── Edit mode ──────────────────────────────────────────────────────────────────
 let editMode = false, logoTaps = 0, logoTimer = null;
 document.getElementById("logo-tap").addEventListener("click", () => {
   logoTaps++;
@@ -516,6 +622,7 @@ function toggleEdit() {
   document.body.classList.toggle("edit-mode", editMode);
 }
 
+// ── Article modal ──────────────────────────────────────────────────────────────
 let _editingId = null;
 function openArticleModal(id) {
   _editingId = id || null;
@@ -533,13 +640,11 @@ function openArticleModal(id) {
   }
   document.getElementById("article-modal").classList.add("open");
 }
-function closeArticleModal() {
-  document.getElementById("article-modal").classList.remove("open");
-}
+function closeArticleModal() { document.getElementById("article-modal").classList.remove("open"); }
 function saveArticle() {
   const data = loadData();
   const entry = {
-    id:    _editingId || ("a" + Date.now()),
+    id: _editingId || ("a" + Date.now()),
     title: document.getElementById("af-title").value.trim(),
     tag:   document.getElementById("af-tag").value.trim(),
     desc:  document.getElementById("af-desc").value.trim(),
@@ -547,31 +652,23 @@ function saveArticle() {
     date:  document.getElementById("af-date").value.trim(),
   };
   if (!entry.title) return;
-  if (_editingId) {
-    const idx = data.findIndex(x => x.id === _editingId);
-    if (idx >= 0) data[idx] = entry;
-  } else {
-    data.push(entry);
-  }
-  saveData(data);
-  renderArticles();
-  closeArticleModal();
+  if (_editingId) { const i = data.findIndex(x => x.id === _editingId); if (i >= 0) data[i] = entry; }
+  else data.push(entry);
+  saveData(data); renderArticles(); closeArticleModal();
 }
 function deleteArticle() {
   if (!_editingId) return;
-  const data = loadData().filter(x => x.id !== _editingId);
-  saveData(data);
-  renderArticles();
-  closeArticleModal();
+  saveData(loadData().filter(x => x.id !== _editingId));
+  renderArticles(); closeArticleModal();
 }
 
+// ── Newsletter ─────────────────────────────────────────────────────────────────
 function nlSubmit(e) {
   e.preventDefault();
   const email = document.getElementById("nl-email").value;
   const subs = JSON.parse(localStorage.getItem("mekalav_subs") || "[]");
   if (!subs.includes(email)) { subs.push(email); localStorage.setItem("mekalav_subs", JSON.stringify(subs)); }
   document.getElementById("nl-success").style.display = "block";
-  document.getElementById("nl-email").value = "";
   document.getElementById("nl-email").style.display = "none";
   document.querySelector(".nl-btn").style.display = "none";
 }
