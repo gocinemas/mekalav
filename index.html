@@ -295,22 +295,18 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 @media (max-width: 480px) { .nl-form { flex-direction: column; } }
 .nl-success { display: none; color: #16a34a; font-size: 14px; font-weight: 600; margin-top: 12px; }
 
-/* Available now */
+/* Available badge */
 .avail-pill {
   display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 16px; cursor: pointer; user-select: none;
-  padding: 8px 16px; background: var(--surface);
-  border: 1.5px solid var(--border); border-radius: 99px;
-  font-size: 13px; font-weight: 600; transition: border-color .15s, opacity .15s;
+  margin-top: 16px; padding: 8px 16px;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 99px; font-size: 13px; font-weight: 600;
 }
-.avail-pill:hover { border-color: var(--muted); }
 .avail-dot {
   width: 8px; height: 8px; border-radius: 50%;
   background: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.2);
-  flex-shrink: 0; transition: background .2s, box-shadow .2s;
+  flex-shrink: 0;
 }
-.avail-pill.off .avail-dot { background: var(--muted); box-shadow: none; }
-.avail-pill.off { opacity: .6; }
 
 /* Contact */
 .contact-list { display: flex; flex-direction: column; gap: 12px; }
@@ -400,9 +396,9 @@ footer {
     <a href="https://twitter.com/mekalav" target="_blank" rel="noopener" class="btn-primary">𝕏 @mekalav</a>
     <a href="https://www.linkedin.com/in/mekalavikram/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn</a>
   </div>
-  <div class="avail-pill" id="avail-pill" onclick="toggleAvail()" title="Toggle availability">
+  <div class="avail-pill">
     <span class="avail-dot"></span>
-    <span id="avail-text">Available</span>
+    <span>Available</span>
   </div>
 </div>
 
@@ -580,21 +576,6 @@ footer {
 </div>
 
 <script>
-// ── Available now toggle ───────────────────────────────────────────────────────
-function toggleAvail() {
-  const pill = document.getElementById("avail-pill");
-  const isOn = !pill.classList.contains("off");
-  pill.classList.toggle("off", isOn);
-  document.getElementById("avail-text").textContent = isOn ? "Not available" : "Available";
-  localStorage.setItem("mekalav_avail", isOn ? "off" : "on");
-}
-(function() {
-  if ((localStorage.getItem("mekalav_avail") || "on") === "off") {
-    document.getElementById("avail-pill").classList.add("off");
-    document.getElementById("avail-text").textContent = "Not available";
-  }
-})();
-
 // ── Theme toggle ───────────────────────────────────────────────────────────────
 function setTheme(t) {
   document.documentElement.setAttribute("data-theme", t);
