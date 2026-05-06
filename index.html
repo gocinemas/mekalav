@@ -295,6 +295,36 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 @media (max-width: 480px) { .nl-form { flex-direction: column; } }
 .nl-success { display: none; color: #16a34a; font-size: 14px; font-weight: 600; margin-top: 12px; }
 
+/* Available now */
+.avail-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 16px; cursor: pointer; user-select: none;
+  padding: 8px 16px; background: var(--surface);
+  border: 1.5px solid var(--border); border-radius: 99px;
+  font-size: 13px; font-weight: 600; transition: border-color .15s, opacity .15s;
+}
+.avail-pill:hover { border-color: var(--muted); }
+.avail-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.2);
+  flex-shrink: 0; transition: background .2s, box-shadow .2s;
+}
+.avail-pill.off .avail-dot { background: var(--muted); box-shadow: none; }
+.avail-pill.off { opacity: .6; }
+
+/* Contact */
+.contact-list { display: flex; flex-direction: column; gap: 12px; }
+.contact-item {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 16px 20px;
+  text-decoration: none; color: var(--text); transition: border-color .15s;
+}
+.contact-item:hover { border-color: var(--muted); }
+.contact-icon { font-size: 22px; flex-shrink: 0; }
+.contact-label { font-size: 11px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 2px; }
+.contact-value { font-size: 14px; font-weight: 600; }
+
 /* Footer */
 footer {
   max-width: 720px; margin: 0 auto; padding: 32px 24px 48px;
@@ -341,6 +371,7 @@ footer {
     <a href="#career">Career</a>
     <a href="#building">Building</a>
     <a href="#articles">Articles</a>
+    <a href="#contact">Contact</a>
     <a href="#newsletter">Newsletter</a>
   </div>
   <div class="theme-toggle">
@@ -368,6 +399,10 @@ footer {
   <div class="hero-ctas">
     <a href="https://twitter.com/mekalav" target="_blank" rel="noopener" class="btn-primary">𝕏 @mekalav</a>
     <a href="https://www.linkedin.com/in/mekalavikram/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn</a>
+  </div>
+  <div class="avail-pill" id="avail-pill" onclick="toggleAvail()" title="Toggle availability">
+    <span class="avail-dot"></span>
+    <span id="avail-text">Available for new work</span>
   </div>
 </div>
 
@@ -460,7 +495,7 @@ footer {
     <div class="now-card">
       <div class="now-card-icon">🏢</div>
       <h3>Human Agency</h3>
-      <p>How AI changes the relationship between humans and work. Frameworks, tools and thinking for organisations trying to figure out what comes next.</p>
+      <p>A free AI literacy site. AI explained in plain language — basics, use cases, key researchers, jargon decoder, curated articles, videos and podcasts. Built for people who want to understand AI without a CS degree.</p>
       <a href="https://ai.humanagency.co" target="_blank" rel="noopener">ai.humanagency.co →</a>
     </div>
   </div>
@@ -471,6 +506,34 @@ footer {
   <h2>Things worth reading</h2>
   <div class="articles-list" id="articles-list"></div>
   <button class="add-btn" id="add-article-btn" onclick="openArticleModal()">+ Add article</button>
+</section>
+
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2>Get in touch</h2>
+  <div class="contact-list">
+    <a href="mailto:mekala@gmail.com" class="contact-item">
+      <span class="contact-icon">✉️</span>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">mekala@gmail.com</div>
+      </div>
+    </a>
+    <a href="tel:+447595075735" class="contact-item">
+      <span class="contact-icon">📞</span>
+      <div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">+44 759 507 5735</div>
+      </div>
+    </a>
+    <a href="https://wa.me/447595075735" target="_blank" rel="noopener" class="contact-item">
+      <span class="contact-icon">💬</span>
+      <div>
+        <div class="contact-label">WhatsApp</div>
+        <div class="contact-value">+44 759 507 5735</div>
+      </div>
+    </a>
+  </div>
 </section>
 
 <section id="newsletter" style="border-top:none;padding-top:0">
@@ -517,6 +580,21 @@ footer {
 </div>
 
 <script>
+// ── Available now toggle ───────────────────────────────────────────────────────
+function toggleAvail() {
+  const pill = document.getElementById("avail-pill");
+  const isOn = !pill.classList.contains("off");
+  pill.classList.toggle("off", isOn);
+  document.getElementById("avail-text").textContent = isOn ? "Not available" : "Available for new work";
+  localStorage.setItem("mekalav_avail", isOn ? "off" : "on");
+}
+(function() {
+  if ((localStorage.getItem("mekalav_avail") || "on") === "off") {
+    document.getElementById("avail-pill").classList.add("off");
+    document.getElementById("avail-text").textContent = "Not available";
+  }
+})();
+
 // ── Theme toggle ───────────────────────────────────────────────────────────────
 function setTheme(t) {
   document.documentElement.setAttribute("data-theme", t);
