@@ -240,33 +240,115 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 .now-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
 .now-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
 .now-card a { color: var(--accent); text-decoration: none; font-size: 12px; font-weight: 600; margin-top: 10px; display: inline-block; }
-.tech-btn {
-  display: inline-flex; align-items: center; gap: 5px; margin-top: 12px;
-  font-size: 11px; font-weight: 700; color: var(--accent2);
-  background: none; border: 1.5px solid var(--accent2); border-radius: 8px;
-  padding: 5px 10px; cursor: pointer; letter-spacing: .02em; transition: background .15s;
+.card-problem { font-size: 12px; color: var(--muted); font-style: italic; line-height: 1.5; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.card-stack { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+.stack-tag { font-size: 10px; font-weight: 600; letter-spacing: .4px; padding: 2px 8px; border-radius: 99px; background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+.built-badge { font-size: 10px; color: var(--muted); margin-top: 10px; display: block; }
+
+/* Resume modal */
+.resume-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6);
+  z-index: 1000; align-items: flex-start; justify-content: center;
+  padding: 20px; overflow-y: auto;
 }
-.tech-btn:hover { background: color-mix(in srgb, var(--accent2) 10%, transparent); }
-.tech-reveal {
-  display: none; margin-top: 14px; border-radius: 12px; overflow: hidden;
-  border: 1px solid var(--border);
+.resume-overlay.open { display: flex; }
+.resume-modal {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 20px; width: 100%; max-width: 680px;
+  padding: 40px 40px 48px; margin: auto; position: relative;
 }
-.tech-reveal.open { display: block; }
-.tech-code {
-  background: #0d1117; padding: 14px 16px; overflow-x: auto;
-  font-family: 'SFMono-Regular', Consolas, monospace; font-size: 11.5px;
-  line-height: 1.7; color: #e6edf3; margin: 0;
+@media (max-width: 560px) { .resume-modal { padding: 24px 20px 36px; } }
+.resume-close {
+  position: absolute; top: 16px; right: 16px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 10px; cursor: pointer;
+  font-size: 13px; color: var(--muted); font-family: inherit;
 }
-.tech-code .cm  { color: #8b949e; }  /* comment */
-.tech-code .kw  { color: #ff7b72; }  /* keyword */
-.tech-code .fn  { color: #d2a8ff; }  /* function */
-.tech-code .st  { color: #a5d6ff; }  /* string */
-.tech-code .nu  { color: #79c0ff; }  /* number/const */
-.tech-annotation {
-  background: var(--surface2); padding: 11px 14px;
-  font-size: 12px; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border);
+.resume-close:hover { color: var(--text); }
+.resume-print {
+  position: absolute; top: 16px; right: 64px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 10px; cursor: pointer;
+  font-size: 13px; color: var(--muted); font-family: inherit;
 }
-.tech-annotation strong { color: var(--text); }
+.resume-print:hover { color: var(--text); }
+.cv-name { font-size: 26px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 4px; }
+.cv-title { font-size: 14px; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+.cv-meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.cv-meta a { color: var(--muted); text-decoration: none; }
+.cv-meta a:hover { color: var(--text); }
+.cv-section { margin-bottom: 24px; }
+.cv-section-title { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.cv-role { padding: 12px 0; border-bottom: 1px solid var(--border); }
+.cv-role:last-child { border-bottom: none; }
+.cv-role-header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 2px; }
+.cv-role-title { font-size: 14px; font-weight: 700; }
+.cv-role-period { font-size: 12px; color: var(--muted); flex-shrink: 0; }
+.cv-role-co { font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.cv-role-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.cv-skills { display: flex; flex-wrap: wrap; gap: 8px; }
+.cv-skill { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 99px; background: var(--surface2); border: 1px solid var(--border); color: var(--text); }
+@media print {
+  .resume-overlay { display: flex !important; position: static; background: none; padding: 0; }
+  .resume-modal { border: none; max-width: 100%; padding: 20px; border-radius: 0; }
+  .resume-close, .resume-print, nav, .chat-fab { display: none !important; }
+}
+
+/* Chat widget */
+.chat-fab {
+  position: fixed; bottom: 24px; right: 24px; z-index: 900;
+  background: var(--text); color: var(--bg);
+  border: none; border-radius: 99px; padding: 12px 20px;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  display: flex; align-items: center; gap: 8px;
+  transition: transform .15s, opacity .15s; font-family: inherit;
+}
+.chat-fab:hover { transform: translateY(-2px); opacity: .9; }
+.chat-panel {
+  position: fixed; bottom: 84px; right: 24px; z-index: 900;
+  width: 360px; max-height: 520px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,.15);
+  display: none; flex-direction: column; overflow: hidden;
+}
+.chat-panel.open { display: flex; }
+@media (max-width: 420px) { .chat-panel { width: calc(100vw - 32px); right: 16px; bottom: 80px; } }
+.chat-header {
+  padding: 14px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.chat-header-info { display: flex; align-items: center; gap: 10px; }
+.chat-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 15px; }
+.chat-header-name { font-size: 14px; font-weight: 700; }
+.chat-header-sub { font-size: 11px; color: var(--muted); }
+.chat-close { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 18px; padding: 0; }
+.chat-messages {
+  flex: 1; overflow-y: auto; padding: 14px 14px 8px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.chat-msg { max-width: 85%; padding: 9px 13px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
+.chat-msg.user { background: var(--text); color: var(--bg); align-self: flex-end; border-bottom-right-radius: 4px; }
+.chat-msg.ai { background: var(--surface2); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+.chat-msg.typing { color: var(--muted); font-style: italic; }
+.chat-starters { display: flex; flex-direction: column; gap: 6px; padding: 0 14px 8px; }
+.chat-starter { background: none; border: 1px solid var(--border); border-radius: 99px; padding: 6px 12px; font-size: 12px; color: var(--muted); cursor: pointer; text-align: left; font-family: inherit; transition: border-color .1s; }
+.chat-starter:hover { border-color: var(--muted); color: var(--text); }
+.chat-input-row {
+  padding: 10px 12px; border-top: 1px solid var(--border);
+  display: flex; gap: 8px; align-items: center;
+}
+.chat-input {
+  flex: 1; border: 1px solid var(--border); border-radius: 10px;
+  padding: 8px 12px; font-size: 13px; background: var(--bg);
+  color: var(--text); outline: none; font-family: inherit;
+}
+.chat-input:focus { border-color: var(--accent); }
+.chat-send {
+  background: var(--text); color: var(--bg);
+  border: none; border-radius: 10px; padding: 8px 14px;
+  font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
+}
 
 /* Articles */
 .articles-list { display: flex; flex-direction: column; gap: 14px; }
@@ -422,6 +504,7 @@ footer {
   <div class="hero-ctas">
     <a href="https://twitter.com/mekalav" target="_blank" rel="noopener" class="btn-primary">𝕏 @mekalav</a>
     <a href="https://www.linkedin.com/in/mekalavikram/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn</a>
+    <button class="btn-ghost" onclick="openResume()" style="cursor:pointer;font-family:inherit">📄 Full CV</button>
   </div>
   <div class="avail-pill">
     <span class="avail-dot"></span>
@@ -513,68 +596,32 @@ footer {
     <div class="now-card">
       <div class="now-card-icon">🤖</div>
       <h3>Miru</h3>
-      <p>A WhatsApp-first personal AI assistant. School comms, fuel prices, train times, area reports. Useful AI for people who don't call themselves tech-savvy.</p>
+      <p class="card-problem">Schools scatter updates across emails, apps and letters. Non-technical parents miss most of it.</p>
+      <p>A WhatsApp AI assistant that reads all school channels and answers plain-English questions. No app, no login — just WhatsApp. Also covers fuel prices, train times and local area reports.</p>
       <a href="https://miru.humanagency.co" target="_blank" rel="noopener">miru.humanagency.co →</a>
-      <br>
-      <button class="tech-btn" onclick="toggleTech('miru-tech', this)">
-        <span>⌥</span> View Technical Logic
-      </button>
-      <div id="miru-tech" class="tech-reveal">
-        <pre class="tech-code"><span class="cm"># Area Report — mirror fallback + 30-min cache</span>
-
-<span class="kw">def</span> <span class="fn">_overpass_mirrors</span>(query):
-    <span class="kw">for</span> url <span class="kw">in</span> _OVERPASS_URLS:          <span class="cm"># 2 mirrors</span>
-        r = requests.post(url, data={<span class="st">"data"</span>: query}, timeout=<span class="nu">14</span>)
-        <span class="kw">if</span> r.status_code == <span class="nu">200</span>:
-            <span class="kw">return</span> r.json().get(<span class="st">"elements"</span>, [])
-    <span class="kw">return</span> []
-
-<span class="kw">@app</span>.route(<span class="st">"/api/shops"</span>)
-<span class="kw">def</span> <span class="fn">api_shops</span>():
-    cache_key = <span class="st">f"shops:{postcode}"</span>
-    hit = _services_cache.get(cache_key)
-    <span class="kw">if</span> hit <span class="kw">and</span> time.time() - hit[<span class="st">"ts"</span>] &lt; <span class="nu">1800</span>:
-        <span class="kw">return</span> jsonify(hit[<span class="st">"data"</span>])   <span class="cm"># instant replay</span>
-    supermarkets = _fetch_supermarkets(lat, lon)
-    _services_cache[cache_key] = {<span class="st">"data"</span>: result, <span class="st">"ts"</span>: time.time()}
-    <span class="kw">return</span> jsonify(result)</pre>
-        <div class="tech-annotation">
-          <strong>Why it matters:</strong> OpenStreetMap's Overpass API is free but unreliable — one mirror returns 406, the other works fine. Without the fallback, every Area Report would silently return empty. The 30-min cache means a second search of the same postcode is instant, and Railway doesn't hammer the API on every tap.
-        </div>
+      <div class="card-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">WhatsApp API</span>
+        <span class="stack-tag">OpenStreetMap</span>
+        <span class="stack-tag">Railway</span>
+        <span class="stack-tag">Groq</span>
       </div>
+      <span class="built-badge">Built by writing the problem clearly enough for AI to solve it.</span>
     </div>
 
     <div class="now-card">
       <div class="now-card-icon">🏢</div>
       <h3>Human Agency</h3>
-      <p>A free AI literacy site. AI explained in plain language — basics, use cases, key researchers, jargon decoder, curated articles, videos and podcasts. Built for people who want to understand AI without a CS degree.</p>
+      <p class="card-problem">AI literacy content exists — but it's written for people who already understand AI.</p>
+      <p>A free plain-language site explaining AI from scratch: basics, jargon decoder, key researchers, curated articles and videos. Built for everyone who isn't in tech.</p>
       <a href="https://ai.humanagency.co" target="_blank" rel="noopener">ai.humanagency.co →</a>
-      <br>
-      <button class="tech-btn" onclick="toggleTech('agency-tech', this)">
-        <span>⌥</span> View Technical Logic
-      </button>
-      <div id="agency-tech" class="tech-reveal">
-        <pre class="tech-code"><span class="cm">// No API key needed — YouTube's undocumented playlist endpoint</span>
-
-<span class="kw">function</span> <span class="fn">watchAll</span>() {
-  <span class="kw">const</span> ids = (DATA.videos || [])
-    .map(v =&gt; <span class="fn">_ytId</span>(v.videoId || v.url || <span class="st">''</span>))
-    .filter(Boolean);
-
-  window.open(
-    <span class="st">'https://youtube.com/watch_videos?video_ids='</span>
-    + ids.join(<span class="st">','</span>),
-    <span class="st">'_blank'</span>
-  );
-}
-
-<span class="cm">// _ytId extracts from full URL or bare ID:</span>
-<span class="cm">// "dQw4w9WgXcQ" → "dQw4w9WgXcQ"</span>
-<span class="cm">// "youtu.be/dQw4w9WgXcQ" → "dQw4w9WgXcQ"</span></pre>
-        <div class="tech-annotation">
-          <strong>Why it matters:</strong> YouTube's <code style="font-family:monospace;font-size:11px">watch_videos</code> endpoint creates a temporary playlist from a comma-separated list of IDs — no OAuth, no API quota, no backend. One function turns a curated content list into a watchable queue. Small decision, big UX difference for someone who wants to learn AI end-to-end in one sitting.
-        </div>
+      <div class="card-stack">
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">Groq</span>
+        <span class="stack-tag">YouTube</span>
+        <span class="stack-tag">Vanilla JS</span>
       </div>
+      <span class="built-badge">Built by writing the problem clearly enough for AI to solve it.</span>
     </div>
 
   </div>
@@ -637,6 +684,123 @@ footer {
   </div>
 </footer>
 
+<!-- ── Resume modal ── -->
+<div class="resume-overlay" id="resume-modal" onclick="if(event.target===this)closeResume()">
+  <div class="resume-modal">
+    <button class="resume-print" onclick="window.print()">🖨 Print</button>
+    <button class="resume-close" onclick="closeResume()">✕ Close</button>
+    <div class="cv-name">Vikram Mekala</div>
+    <div class="cv-title">Transformation Programme Manager &amp; AI Builder</div>
+    <div class="cv-meta">
+      <span>📍 London, UK</span>
+      <a href="mailto:mekala@gmail.com">✉ mekala@gmail.com</a>
+      <a href="tel:+447595075735">📞 +44 759 507 5735</a>
+      <a href="https://www.linkedin.com/in/mekalavikram/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://twitter.com/mekalav" target="_blank" rel="noopener">𝕏 @mekalav</a>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-section-title">Summary</div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.7">
+        25 years delivering technology transformation at global scale — from writing code in India to running £5M+ programmes at Unilever, Mars, Shell and BP across three continents.
+        Now building AI products for people who don't consider themselves technical, with a focus on real usability over technical novelty.
+        Available for AI strategy, digital transformation leadership, and M&amp;A technology workstreams.
+      </p>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-section-title">Experience</div>
+      <div class="cv-role">
+        <div class="cv-role-header"><span class="cv-role-title">Transformation Consultant</span><span class="cv-role-period">2025</span></div>
+        <div class="cv-role-co">Unilever</div>
+        <div class="cv-role-desc">Brought in to support the Magnum Ice Cream business separation from Unilever. Led the technology and programme workstream within a complex M&amp;A transaction, managing cross-functional delivery across legal, IT and commercial teams.</div>
+      </div>
+      <div class="cv-role">
+        <div class="cv-role-header"><span class="cv-role-title">Founder</span><span class="cv-role-period">2024 – present</span></div>
+        <div class="cv-role-co">Human Agency</div>
+        <div class="cv-role-desc">Building practical AI tools for non-technical people. Products include Miru (WhatsApp-first AI assistant for school comms, fuel prices, train times and local services) and a free AI literacy site. Directing development through plain-English product briefs and AI pair programming.</div>
+      </div>
+      <div class="cv-role">
+        <div class="cv-role-header"><span class="cv-role-title">Transformation Programme Lead — Global Media Analytics</span><span class="cv-role-period">2020 – 2024</span></div>
+        <div class="cv-role-co">Unilever</div>
+        <div class="cv-role-desc">Enterprise-wide data transformation: Tableau to Power BI migration across 50 markets. £5M budget, 50-person team, 3 continents. 98% on-time delivery. Redesigned the analytics operating model and governance framework adopted globally.</div>
+      </div>
+      <div class="cv-role">
+        <div class="cv-role-header"><span class="cv-role-title">Global Transformation Manager — Net Revenue Management</span><span class="cv-role-period">2018 – 2020</span></div>
+        <div class="cv-role-co">Unilever</div>
+        <div class="cv-role-desc">Analytics suite for pricing, portfolio and promotional strategy. Integrated eCommerce and Amazon data. Built emerging-markets growth tools. Worked across FMCG, finance and data science teams globally.</div>
+      </div>
+      <div class="cv-role">
+        <div class="cv-role-header"><span class="cv-role-title">Senior Programme Manager / Business Analyst Lead</span><span class="cv-role-period">2013 – 2018</span></div>
+        <div class="cv-role-co">Shell · Unilever · Leaseplan</div>
+        <div class="cv-role-desc">B2B eCommerce platform at Shell. Unilever brand platform across 160 markets. Digital transformation programme at Leaseplan. Consistent delivery across FMCG, energy and financial services.</div>
+      </div>
+      <div class="cv-role">
+        <div class="cv-role-header"><span class="cv-role-title">Engineer → Analyst → Programme Manager</span><span class="cv-role-period">2000 – 2013</span></div>
+        <div class="cv-role-co">Unilever · Mars · BP</div>
+        <div class="cv-role-desc">Started as a software engineer in India. R&amp;D systems at Mars. Global brand platforms and SAP programmes at Unilever. Operations and procurement technology at BP. Grew through every role from individual contributor to programme leadership.</div>
+      </div>
+    </div>
+
+    <div class="cv-section">
+      <div class="cv-section-title">Skills</div>
+      <div class="cv-skills">
+        <span class="cv-skill">AI Strategy</span>
+        <span class="cv-skill">Digital Transformation</span>
+        <span class="cv-skill">Programme Governance</span>
+        <span class="cv-skill">M&amp;A Technology</span>
+        <span class="cv-skill">Data Platforms</span>
+        <span class="cv-skill">Product Management</span>
+        <span class="cv-skill">Stakeholder Management</span>
+        <span class="cv-skill">Power BI / Tableau</span>
+        <span class="cv-skill">eCommerce</span>
+        <span class="cv-skill">SAP</span>
+        <span class="cv-skill">Agile / Waterfall</span>
+        <span class="cv-skill">AI Pair Programming</span>
+      </div>
+    </div>
+
+    <div class="cv-section" style="margin-bottom:0">
+      <div class="cv-section-title">Built</div>
+      <div class="cv-role" style="padding-top:0">
+        <div class="cv-role-header"><span class="cv-role-title">Miru</span></div>
+        <div class="cv-role-desc">WhatsApp-first AI assistant. Live at <a href="https://miru.humanagency.co" target="_blank" rel="noopener" style="color:var(--accent)">miru.humanagency.co</a></div>
+      </div>
+      <div class="cv-role">
+        <div class="cv-role-header"><span class="cv-role-title">Human Agency</span></div>
+        <div class="cv-role-desc">Free AI literacy site in plain language. <a href="https://ai.humanagency.co" target="_blank" rel="noopener" style="color:var(--accent)">ai.humanagency.co</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Chat widget ── -->
+<button class="chat-fab" id="chat-fab" onclick="toggleChat()">💬 Ask me anything</button>
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-avatar">🤖</div>
+      <div>
+        <div class="chat-header-name">Vikram's AI</div>
+        <div class="chat-header-sub">Ask me anything about his work</div>
+      </div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-msg ai">Hi! I can answer questions about Vikram's career, projects or availability. What would you like to know?</div>
+  </div>
+  <div class="chat-starters" id="chat-starters">
+    <button class="chat-starter" onclick="chatSend('What has Vikram worked on at Unilever?')">What has he done at Unilever?</button>
+    <button class="chat-starter" onclick="chatSend('Is Vikram available for consulting?')">Is he available for consulting?</button>
+    <button class="chat-starter" onclick="chatSend('What is Miru?')">What is Miru?</button>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chat-input" type="text" placeholder="Ask something…" onkeydown="if(event.key==='Enter')chatSend()">
+    <button class="chat-send" onclick="chatSend()">→</button>
+  </div>
+</div>
+
 <div class="modal-overlay" id="article-modal">
   <div class="modal">
     <h3 id="modal-title">Add article</h3>
@@ -659,12 +823,57 @@ footer {
 </div>
 
 <script>
-function toggleTech(id, btn) {
-  var el = document.getElementById(id);
-  var open = el.classList.toggle('open');
-  btn.innerHTML = open
-    ? '<span>⌥</span> Hide Technical Logic'
-    : '<span>⌥</span> View Technical Logic';
+// ── Resume modal ───────────────────────────────────────────────────────────────
+function openResume() { document.getElementById("resume-modal").classList.add("open"); }
+function closeResume() { document.getElementById("resume-modal").classList.remove("open"); }
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeResume(); closeChat(); } });
+
+// ── Chat widget ────────────────────────────────────────────────────────────────
+const _chatHistory = [];
+let _chatOpen = false;
+
+function toggleChat() {
+  _chatOpen = !_chatOpen;
+  document.getElementById("chat-panel").classList.toggle("open", _chatOpen);
+  if (_chatOpen) document.getElementById("chat-input").focus();
+}
+function closeChat() {
+  _chatOpen = false;
+  document.getElementById("chat-panel").classList.remove("open");
+}
+
+async function chatSend(preset) {
+  const input = document.getElementById("chat-input");
+  const msg = (preset || input.value).trim();
+  if (!msg) return;
+  input.value = "";
+  document.getElementById("chat-starters").style.display = "none";
+
+  const msgs = document.getElementById("chat-messages");
+  msgs.innerHTML += `<div class="chat-msg user">${msg.replace(/</g,"&lt;")}</div>`;
+  const typing = document.createElement("div");
+  typing.className = "chat-msg ai typing";
+  typing.textContent = "Thinking…";
+  msgs.appendChild(typing);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  _chatHistory.push({ role: "user", content: msg });
+  try {
+    const r = await fetch("https://miru.humanagency.co/api/mekalav/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: msg, history: _chatHistory.slice(-6) })
+    });
+    const d = await r.json();
+    const reply = d.reply || "Sorry, I couldn't get a response. Try emailing mekala@gmail.com directly.";
+    _chatHistory.push({ role: "assistant", content: reply });
+    typing.className = "chat-msg ai";
+    typing.textContent = reply;
+  } catch(_) {
+    typing.className = "chat-msg ai";
+    typing.textContent = "Something went wrong — please try again or email mekala@gmail.com.";
+  }
+  msgs.scrollTop = msgs.scrollHeight;
 }
 
 // ── Theme toggle ───────────────────────────────────────────────────────────────
