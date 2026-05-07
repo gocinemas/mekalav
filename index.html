@@ -220,12 +220,41 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 .tl-item {
   display: grid; grid-template-columns: 110px 1fr;
   gap: 0 24px; padding: 20px 0; border-bottom: 1px solid var(--border);
+  cursor: pointer;
 }
 .tl-item:last-child { border-bottom: none; }
 .tl-year { font-size: 12px; color: var(--muted); font-weight: 600; padding-top: 3px; }
-.tl-content h3 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.tl-content h3 { font-size: 15px; font-weight: 700; margin-bottom: 2px; display: flex; align-items: center; gap: 6px; }
+.tl-chevron { font-size: 10px; color: var(--muted); transition: transform .2s; flex-shrink: 0; }
+.tl-item.open .tl-chevron { transform: rotate(90deg); }
 .tl-content .tl-co { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
 .tl-content p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.tl-detail {
+  display: none; margin-top: 12px; padding-top: 12px;
+  border-top: 1px dashed var(--border);
+}
+.tl-item.open .tl-detail { display: block; }
+.tl-detail ul { list-style: none; padding: 0; margin-bottom: 10px; }
+.tl-detail li { font-size: 12px; color: var(--muted); line-height: 1.65; padding: 3px 0 3px 16px; position: relative; }
+.tl-detail li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+.tl-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.tl-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 99px; background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+/* AI summary */
+.career-ai-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 4px 10px; cursor: pointer;
+  font-family: inherit; transition: color .15s, border-color .15s;
+  margin-left: 10px; vertical-align: middle;
+}
+.career-ai-btn:hover { color: var(--accent); border-color: var(--accent); }
+.career-ai-box {
+  display: none; margin-top: 14px; padding: 14px 16px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; font-size: 13px; color: var(--muted); line-height: 1.75;
+}
+.career-ai-box.visible { display: block; }
 @media (max-width: 500px) { .tl-item { grid-template-columns: 1fr; } .tl-year { margin-bottom: 4px; } }
 
 /* Builder's Lab */
@@ -534,56 +563,151 @@ footer {
 
 <section id="career">
   <div class="section-label">Career</div>
-  <h2>Where I've been</h2>
+  <h2>Where I've been <button class="career-ai-btn" onclick="careerAiSummary(event)">✦ AI summary</button></h2>
+  <div id="career-ai-box" class="career-ai-box"></div>
   <div class="timeline">
-    <div class="tl-item">
+
+    <div class="tl-item" onclick="tlToggle(this)">
       <div class="tl-year">2025</div>
       <div class="tl-content">
         <div class="tl-co">Unilever · Transformation Consultant</div>
-        <h3>Magnum Ice Cream separation (M&amp;A)</h3>
+        <h3>Magnum Ice Cream separation (M&amp;A) <span class="tl-chevron">▶</span></h3>
         <p>Brought in to support the Magnum Ice Cream business separation from Unilever. Technology and programme workstream within a complex M&amp;A transaction.</p>
+        <div class="tl-detail">
+          <ul>
+            <li>Led cross-functional delivery across legal, IT and commercial teams during business carve-out</li>
+            <li>Managed programme governance, milestone tracking and risk escalation across workstreams</li>
+            <li>Navigated complex stakeholder landscape spanning Unilever HQ and incoming Magnum leadership</li>
+            <li>Technology integration planning: data separation, system handoffs and continuity protocols</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">M&amp;A</span>
+            <span class="tl-tag">Programme governance</span>
+            <span class="tl-tag">Stakeholder management</span>
+            <span class="tl-tag">Technology integration</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="tl-item">
+
+    <div class="tl-item" onclick="tlToggle(this)">
       <div class="tl-year">2024 to now</div>
       <div class="tl-content">
         <div class="tl-co">Human Agency · Founder</div>
-        <h3>Building AI products for real people</h3>
+        <h3>Building AI products for real people <span class="tl-chevron">▶</span></h3>
         <p>Building practical AI tools, from personal assistants to school communication platforms. Focus on everyday usability over technical novelty.</p>
+        <div class="tl-detail">
+          <ul>
+            <li>Miru — WhatsApp-first AI assistant: school comms, fuel prices, train times, area reports (live at miru.humanagency.co)</li>
+            <li>ai.humanagency.co — free AI literacy site in plain language for non-technical audiences</li>
+            <li>Directing development entirely through product briefs and AI pair programming — no code authorship</li>
+            <li>Proving that clear problem articulation is the real skill; the coding is secondary</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">AI product</span>
+            <span class="tl-tag">WhatsApp API</span>
+            <span class="tl-tag">Python / Flask</span>
+            <span class="tl-tag">Groq</span>
+            <span class="tl-tag">Founder</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="tl-item">
+
+    <div class="tl-item" onclick="tlToggle(this)">
       <div class="tl-year">2020 to 2024</div>
       <div class="tl-content">
         <div class="tl-co">Unilever · Transformation Programme Lead</div>
-        <h3>Global Media Analytics Platform</h3>
+        <h3>Global Media Analytics Platform <span class="tl-chevron">▶</span></h3>
         <p>Enterprise-wide data transformation. Tableau to Power BI migration, £5M budget, 50 person team across 3 continents. 98% on-time delivery.</p>
+        <div class="tl-detail">
+          <ul>
+            <li>Led migration of Tableau estate to Power BI across 50 markets globally</li>
+            <li>£5M programme budget; 50-person team spanning Europe, Asia and Americas</li>
+            <li>98% on-time delivery — one of Unilever's largest analytics transformations</li>
+            <li>Redesigned the analytics operating model and governance framework, adopted globally post-programme</li>
+            <li>Embedded self-serve capability across marketing and commercial functions</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Power BI</span>
+            <span class="tl-tag">Data transformation</span>
+            <span class="tl-tag">£5M budget</span>
+            <span class="tl-tag">50 markets</span>
+            <span class="tl-tag">Operating model design</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="tl-item">
+
+    <div class="tl-item" onclick="tlToggle(this)">
       <div class="tl-year">2018 to 2020</div>
       <div class="tl-content">
         <div class="tl-co">Unilever · Global Transformation Manager</div>
-        <h3>Net Revenue Management</h3>
+        <h3>Net Revenue Management <span class="tl-chevron">▶</span></h3>
         <p>Analytics suite for pricing, portfolio and promotional strategy. Built in eCommerce and Amazon data. Emerging markets growth tools.</p>
+        <div class="tl-detail">
+          <ul>
+            <li>Built global analytics suite for pricing, portfolio mix and promotional effectiveness</li>
+            <li>Integrated Amazon Vendor Central and direct eCommerce data into reporting stack</li>
+            <li>Developed growth diagnostic tools used by emerging-markets teams across Asia and Africa</li>
+            <li>Worked across FMCG, finance, supply chain and data science disciplines</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Revenue management</span>
+            <span class="tl-tag">eCommerce data</span>
+            <span class="tl-tag">Pricing analytics</span>
+            <span class="tl-tag">Emerging markets</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="tl-item">
+
+    <div class="tl-item" onclick="tlToggle(this)">
       <div class="tl-year">2013 to 2018</div>
       <div class="tl-content">
         <div class="tl-co">Shell · Unilever · Leaseplan</div>
-        <h3>Digital platforms and BA leadership</h3>
+        <h3>Digital platforms and BA leadership <span class="tl-chevron">▶</span></h3>
         <p>B2B eCommerce at Shell. Brand platform across 160 markets at Unilever. Digital transformation at Leaseplan.</p>
+        <div class="tl-detail">
+          <ul>
+            <li>Shell: led B2B eCommerce platform build, integrating fuel card, invoicing and fleet management journeys</li>
+            <li>Unilever: brand and content platform rollout across 160 markets — one of the largest digital deployments in FMCG</li>
+            <li>Leaseplan: digital transformation programme covering fleet management, customer portal and back-office modernisation</li>
+            <li>Consistent senior BA and programme delivery across energy, FMCG and financial services</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">B2B eCommerce</span>
+            <span class="tl-tag">Digital platforms</span>
+            <span class="tl-tag">Business analysis</span>
+            <span class="tl-tag">Multi-industry</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="tl-item">
+
+    <div class="tl-item" onclick="tlToggle(this)">
       <div class="tl-year">2000 to 2013</div>
       <div class="tl-content">
         <div class="tl-co">Unilever · Mars · BP</div>
-        <h3>Engineer to Analyst to Programme Manager</h3>
+        <h3>Engineer to Analyst to Programme Manager <span class="tl-chevron">▶</span></h3>
         <p>The foundations. R&D systems at Mars, global brand platforms at Unilever, the full stack from writing code to running programmes.</p>
+        <div class="tl-detail">
+          <ul>
+            <li>Mars: R&D software engineer — built laboratory data systems and process automation tools</li>
+            <li>Unilever: moved into analytics and data — supporting global brand and consumer insight platforms</li>
+            <li>BP: programme management for digital infrastructure and process transformation initiatives</li>
+            <li>13-year arc from writing code to leading cross-functional programmes across 3 global companies</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Software engineering</span>
+            <span class="tl-tag">Analytics</span>
+            <span class="tl-tag">Programme management</span>
+            <span class="tl-tag">Energy / FMCG</span>
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -822,6 +946,43 @@ footer {
 </div>
 
 <script>
+// ── Career timeline toggle ─────────────────────────────────────────────────────
+function tlToggle(item) {
+  item.classList.toggle("open");
+}
+
+// ── Career AI summary ──────────────────────────────────────────────────────────
+let _aiSummaryDone = false;
+async function careerAiSummary(e) {
+  e.stopPropagation();
+  const box = document.getElementById("career-ai-box");
+  const btn = e.currentTarget;
+  if (_aiSummaryDone) {
+    box.classList.toggle("visible");
+    return;
+  }
+  btn.textContent = "✦ Thinking…";
+  btn.disabled = true;
+  box.classList.add("visible");
+  box.textContent = "";
+  try {
+    const r = await fetch("https://miru.humanagency.co/api/mekalav/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: "Give me a sharp 3-sentence career summary for Vikram that captures his arc from engineer to transformation leader to AI founder — suitable for a professional reading his portfolio for the first time." })
+    });
+    const d = await r.json();
+    box.textContent = d.reply || "Couldn't generate summary — read the timeline below.";
+    _aiSummaryDone = true;
+    btn.textContent = "✦ AI summary";
+    btn.disabled = false;
+  } catch {
+    box.textContent = "Couldn't load summary right now.";
+    btn.textContent = "✦ AI summary";
+    btn.disabled = false;
+  }
+}
+
 // ── Resume modal ───────────────────────────────────────────────────────────────
 function openResume() { document.getElementById("resume-modal").classList.add("open"); }
 function closeResume() { document.getElementById("resume-modal").classList.remove("open"); }
