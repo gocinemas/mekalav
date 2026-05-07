@@ -228,7 +228,7 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 .tl-content p { font-size: 13px; color: var(--muted); line-height: 1.6; }
 @media (max-width: 500px) { .tl-item { grid-template-columns: 1fr; } .tl-year { margin-bottom: 4px; } }
 
-/* Building */
+/* Builder's Lab */
 .now-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 560px) { .now-cards { grid-template-columns: 1fr; } }
 .now-card {
@@ -240,6 +240,33 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 .now-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
 .now-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
 .now-card a { color: var(--accent); text-decoration: none; font-size: 12px; font-weight: 600; margin-top: 10px; display: inline-block; }
+.tech-btn {
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 12px;
+  font-size: 11px; font-weight: 700; color: var(--accent2);
+  background: none; border: 1.5px solid var(--accent2); border-radius: 8px;
+  padding: 5px 10px; cursor: pointer; letter-spacing: .02em; transition: background .15s;
+}
+.tech-btn:hover { background: color-mix(in srgb, var(--accent2) 10%, transparent); }
+.tech-reveal {
+  display: none; margin-top: 14px; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.tech-reveal.open { display: block; }
+.tech-code {
+  background: #0d1117; padding: 14px 16px; overflow-x: auto;
+  font-family: 'SFMono-Regular', Consolas, monospace; font-size: 11.5px;
+  line-height: 1.7; color: #e6edf3; margin: 0;
+}
+.tech-code .cm  { color: #8b949e; }  /* comment */
+.tech-code .kw  { color: #ff7b72; }  /* keyword */
+.tech-code .fn  { color: #d2a8ff; }  /* function */
+.tech-code .st  { color: #a5d6ff; }  /* string */
+.tech-code .nu  { color: #79c0ff; }  /* number/const */
+.tech-annotation {
+  background: var(--surface2); padding: 11px 14px;
+  font-size: 12px; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border);
+}
+.tech-annotation strong { color: var(--text); }
 
 /* Articles */
 .articles-list { display: flex; flex-direction: column; gap: 14px; }
@@ -365,7 +392,7 @@ footer {
   <div class="nav-links">
     <a href="#story">Story</a>
     <a href="#career">Career</a>
-    <a href="#building">Building</a>
+    <a href="#building">Builder's Lab</a>
     <a href="#articles">Articles</a>
     <a href="#contact">Contact</a>
     <a href="#newsletter">Newsletter</a>
@@ -479,21 +506,77 @@ footer {
 </section>
 
 <section id="building">
-  <div class="section-label">Now</div>
+  <div class="section-label">Builder's Lab</div>
   <h2>What I'm building</h2>
   <div class="now-cards">
+
     <div class="now-card">
       <div class="now-card-icon">🤖</div>
       <h3>Miru</h3>
       <p>A WhatsApp-first personal AI assistant. School comms, fuel prices, train times, area reports. Useful AI for people who don't call themselves tech-savvy.</p>
       <a href="https://miru.humanagency.co" target="_blank" rel="noopener">miru.humanagency.co →</a>
+      <br>
+      <button class="tech-btn" onclick="toggleTech('miru-tech', this)">
+        <span>⌥</span> View Technical Logic
+      </button>
+      <div id="miru-tech" class="tech-reveal">
+        <pre class="tech-code"><span class="cm"># Area Report — mirror fallback + 30-min cache</span>
+
+<span class="kw">def</span> <span class="fn">_overpass_mirrors</span>(query):
+    <span class="kw">for</span> url <span class="kw">in</span> _OVERPASS_URLS:          <span class="cm"># 2 mirrors</span>
+        r = requests.post(url, data={<span class="st">"data"</span>: query}, timeout=<span class="nu">14</span>)
+        <span class="kw">if</span> r.status_code == <span class="nu">200</span>:
+            <span class="kw">return</span> r.json().get(<span class="st">"elements"</span>, [])
+    <span class="kw">return</span> []
+
+<span class="kw">@app</span>.route(<span class="st">"/api/shops"</span>)
+<span class="kw">def</span> <span class="fn">api_shops</span>():
+    cache_key = <span class="st">f"shops:{postcode}"</span>
+    hit = _services_cache.get(cache_key)
+    <span class="kw">if</span> hit <span class="kw">and</span> time.time() - hit[<span class="st">"ts"</span>] &lt; <span class="nu">1800</span>:
+        <span class="kw">return</span> jsonify(hit[<span class="st">"data"</span>])   <span class="cm"># instant replay</span>
+    supermarkets = _fetch_supermarkets(lat, lon)
+    _services_cache[cache_key] = {<span class="st">"data"</span>: result, <span class="st">"ts"</span>: time.time()}
+    <span class="kw">return</span> jsonify(result)</pre>
+        <div class="tech-annotation">
+          <strong>Why it matters:</strong> OpenStreetMap's Overpass API is free but unreliable — one mirror returns 406, the other works fine. Without the fallback, every Area Report would silently return empty. The 30-min cache means a second search of the same postcode is instant, and Railway doesn't hammer the API on every tap.
+        </div>
+      </div>
     </div>
+
     <div class="now-card">
       <div class="now-card-icon">🏢</div>
       <h3>Human Agency</h3>
       <p>A free AI literacy site. AI explained in plain language — basics, use cases, key researchers, jargon decoder, curated articles, videos and podcasts. Built for people who want to understand AI without a CS degree.</p>
       <a href="https://ai.humanagency.co" target="_blank" rel="noopener">ai.humanagency.co →</a>
+      <br>
+      <button class="tech-btn" onclick="toggleTech('agency-tech', this)">
+        <span>⌥</span> View Technical Logic
+      </button>
+      <div id="agency-tech" class="tech-reveal">
+        <pre class="tech-code"><span class="cm">// No API key needed — YouTube's undocumented playlist endpoint</span>
+
+<span class="kw">function</span> <span class="fn">watchAll</span>() {
+  <span class="kw">const</span> ids = (DATA.videos || [])
+    .map(v =&gt; <span class="fn">_ytId</span>(v.videoId || v.url || <span class="st">''</span>))
+    .filter(Boolean);
+
+  window.open(
+    <span class="st">'https://youtube.com/watch_videos?video_ids='</span>
+    + ids.join(<span class="st">','</span>),
+    <span class="st">'_blank'</span>
+  );
+}
+
+<span class="cm">// _ytId extracts from full URL or bare ID:</span>
+<span class="cm">// "dQw4w9WgXcQ" → "dQw4w9WgXcQ"</span>
+<span class="cm">// "youtu.be/dQw4w9WgXcQ" → "dQw4w9WgXcQ"</span></pre>
+        <div class="tech-annotation">
+          <strong>Why it matters:</strong> YouTube's <code style="font-family:monospace;font-size:11px">watch_videos</code> endpoint creates a temporary playlist from a comma-separated list of IDs — no OAuth, no API quota, no backend. One function turns a curated content list into a watchable queue. Small decision, big UX difference for someone who wants to learn AI end-to-end in one sitting.
+        </div>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -576,6 +659,14 @@ footer {
 </div>
 
 <script>
+function toggleTech(id, btn) {
+  var el = document.getElementById(id);
+  var open = el.classList.toggle('open');
+  btn.innerHTML = open
+    ? '<span>⌥</span> Hide Technical Logic'
+    : '<span>⌥</span> View Technical Logic';
+}
+
 // ── Theme toggle ───────────────────────────────────────────────────────────────
 function setTheme(t) {
   document.documentElement.setAttribute("data-theme", t);
