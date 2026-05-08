@@ -160,6 +160,17 @@ h1 {
   text-decoration: none;
   font-weight: 600;
 }
+.edit-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 32px;
+  font-size: 12px;
+  color: #b5b0a8;
+  text-decoration: none;
+  transition: color .15s;
+}
+.edit-link:hover { color: #7a7168; }
 </style>
 </head>
 <body>
@@ -184,57 +195,57 @@ h1 {
 
   <div class="article-body">
 
-    <p>When I started building Miru, I made one rule: it has to work on WhatsApp.</p>
+    <p>When I started building Miru, I set one simple rule: it must work on WhatsApp.</p>
 
-    <p>Not because WhatsApp is technically impressive. It isn't. It is a messaging app most people already have on their phone, that most people already know how to use, that requires no installation, no account creation, no tutorial.</p>
+    <p>It's not about the technology being impressive. It isn't. But it's an app people already have on their phones, they know how to use it, and it requires no new accounts or tutorials.</p>
 
     <p>That is exactly the point.</p>
 
     <hr>
 
-    <p>I have spent 25 years watching enterprise technology fail. Not fail technically — the code usually works. Fail because the people it was built for never really used it, or used it reluctantly, or had to be trained on it for three days before they could get anything out of it.</p>
+    <p>I've spent 25 years watching enterprise software fail. The code usually works fine, but the people it was built for don't use it. They avoid it, or they need days of training just to get anything out of it.</p>
 
-    <p>The pattern is always the same. You build something capable. You add features. You make it more powerful. Then you find out that the people you built it for are still doing the same thing in Excel, or in their head, or by phoning someone.</p>
+    <p>The pattern is always the same. You build something capable. You add more features. You make it more powerful. Then you realise your users are still doing their work in Excel or just calling someone on the phone.</p>
 
-    <p>The technology was not wrong. The usability was wrong.</p>
-
-    <hr>
-
-    <p>When I started building AI tools for people outside the tech industry, I thought about my mum. She is in her sixties. She lives in India. She uses WhatsApp all day — family groups, friends, news. She does not use apps she has never heard of. She does not create accounts. She does not read onboarding flows.</p>
-
-    <p>If I built something and she could not use it within thirty seconds of first contact, I had built the wrong thing.</p>
-
-    <div class="pull-quote">That became the test. Not "is this technically capable?" but "would a 60-year-old who isn't interested in technology actually use this?"</div>
-
-    <p>It sounds obvious. It is not. Most AI products are built by technical people, for other technical people, and then someone writes a press release about democratising AI.</p>
+    <p>The technology wasn't wrong. The usability was.</p>
 
     <hr>
 
-    <p>WhatsApp as a constraint forces you to be useful immediately.</p>
+    <p>When I started building AI tools for non-technical people, I thought about my mum. She is in her sixties, lives in India, and uses WhatsApp all day for family and news. She doesn't download new apps, she doesn't create accounts, and she doesn't read through onboarding flows.</p>
 
-    <p>There is no interface to design around. You cannot hide bad thinking behind a beautiful UI. The user types something in plain English and either gets something useful back, or they do not. If they do not, they will not come back.</p>
+    <p>If she couldn't use a tool within thirty seconds of first opening it, I knew I had built the wrong thing.</p>
 
-    <p>That constraint is brutal. It is also clarifying.</p>
+    <div class="pull-quote">I stopped asking, "Is this technically capable?" and started asking, "Would a 60-year-old who isn't interested in technology actually use this?"</div>
 
-    <p>When I built the fuel price feature in Miru, I did not build a dashboard with filters and comparison charts. I built something that works when you send it a postcode. When I built the school communications feature, I did not build a notification centre. I built something that reads your school emails and WhatsApps you when there is something you need to know. When I built the train times feature, you just type your station and get the next departures. Nothing else.</p>
-
-    <p>The technology underneath is the same as what the big AI companies are building. The difference is the surface. The thing people actually touch.</p>
+    <p>It sounds obvious, but it isn't. Most AI products are built by technical people for other technical people, followed by a press release about democratising AI.</p>
 
     <hr>
 
-    <p>There is a concept in product design called affordance — the idea that an object should suggest how it is used. A door handle says pull. A push plate says push. Get it wrong and people do the wrong thing, feel stupid, and blame themselves instead of the design.</p>
+    <p>Using WhatsApp as a constraint forces you to be useful immediately.</p>
 
-    <p>WhatsApp has perfect affordance for conversation. You know exactly what to do: type something. No instruction required. No app store. No version update. No "allow notifications" popup.</p>
+    <p>There is no interface to hide behind. You can't mask bad thinking with a beautiful design. The user types something in plain English and they get something useful back, or they don't. If they don't, they won't come back.</p>
 
-    <p>That is why I keep building there first. Not as a limitation but as a design principle. If something works well in a text message, you understand what you are actually building. Then you can expand it to other surfaces — a web app, a dashboard, an API. But if you cannot make it work in plain text first, you probably do not understand it well enough yet.</p>
+    <p>That constraint is brutal, but it creates real clarity.</p>
+
+    <p>When I built the fuel price feature in Miru, I didn't build a dashboard with filters and charts. I built a way to send a postcode and get the price. When I built the school communication feature, I didn't build a notification centre. I built a tool that reads school emails and messages you only when something needs your attention. When I built the train times feature, you type your station or use your location to get the next departures.</p>
+
+    <p>The tech underneath is the same as what the big AI companies are building. The difference is the surface — the part people touch.</p>
 
     <hr>
 
-    <p>The 60-year-old test is not really about age. It is about honesty.</p>
+    <p>In design, there is a concept called affordance. It means an object should suggest how it is used. A door handle says pull. A push plate says push. Get that wrong and people feel stupid, blaming themselves instead of the design.</p>
 
-    <p>It forces you to ask: have I made this genuinely easy, or have I just made it powerful? Are real people going to use this, or am I building something that other people in the AI industry will find impressive?</p>
+    <p>WhatsApp has perfect affordance for conversation. You know exactly what to do because you just type. No instructions required. No app store. No version updates.</p>
 
-    <p>Those are very different products.</p>
+    <p>That is why I build there first. Not as a limitation, but as a design principle. If something works well in a text message, you understand what you are building. You can always expand to a web app or a dashboard later. But if you cannot make it work in plain text first, you probably don't understand the problem well enough yet.</p>
+
+    <hr>
+
+    <p>The "60-year-old test" isn't really about age. It is about honesty.</p>
+
+    <p>It forces you to ask: have I made this genuinely easy, or have I just made it powerful? Are real people going to use this, or am I just building something that other people in the AI industry will find impressive?</p>
+
+    <p>Those are two very different products.</p>
 
     <p>I know which one I want to build.</p>
 
@@ -248,6 +259,8 @@ h1 {
       <a href="/">mekalav.com</a> · <a href="https://www.linkedin.com/in/mekalavikram/" target="_blank" rel="noopener">LinkedIn</a></div>
     </div>
   </div>
+
+  <a href="https://github.com/gocinemas/mekalav/edit/main/whatsapp-test.html" target="_blank" rel="noopener" class="edit-link">✏️ Edit this article</a>
 
 </div>
 
