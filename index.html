@@ -778,25 +778,25 @@ footer {
   <div class="section-label">Contact</div>
   <h2>Get in touch</h2>
   <div class="contact-list">
-    <a href="mailto:mekala@gmail.com" class="contact-item">
+    <a id="contact-email-link" href="#" class="contact-item">
       <span class="contact-icon">✉️</span>
       <div>
         <div class="contact-label">Email</div>
-        <div class="contact-value">mekala@gmail.com</div>
+        <div class="contact-value" id="contact-email-val"></div>
       </div>
     </a>
-    <a href="tel:+447595075735" class="contact-item">
+    <a id="contact-phone-link" href="#" class="contact-item">
       <span class="contact-icon">📞</span>
       <div>
         <div class="contact-label">Phone</div>
-        <div class="contact-value">+44 759 507 5735</div>
+        <div class="contact-value" id="contact-phone-val"></div>
       </div>
     </a>
-    <a href="https://wa.me/447595075735" target="_blank" rel="noopener" class="contact-item">
+    <a id="contact-wa-link" href="#" target="_blank" rel="noopener" class="contact-item">
       <span class="contact-icon">💬</span>
       <div>
         <div class="contact-label">WhatsApp</div>
-        <div class="contact-value">+44 759 507 5735</div>
+        <div class="contact-value" id="contact-wa-val"></div>
       </div>
     </a>
   </div>
@@ -836,8 +836,8 @@ footer {
     <div class="cv-title">Transformation Programme Manager &amp; AI Builder</div>
     <div class="cv-meta">
       <span>📍 London, UK</span>
-      <a href="mailto:mekala@gmail.com">✉ mekala@gmail.com</a>
-      <a href="tel:+447595075735">📞 +44 759 507 5735</a>
+      <a id="cv-email-link" href="#">✉ <span id="cv-email-val"></span></a>
+      <a id="cv-phone-link" href="#">📞 <span id="cv-phone-val"></span></a>
       <a href="https://www.linkedin.com/in/mekalavikram/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://twitter.com/mekalav" target="_blank" rel="noopener">𝕏 @mekalav</a>
     </div>
@@ -1004,6 +1004,22 @@ async function careerAiSummary(e) {
 }
 
 // ── Resume modal ───────────────────────────────────────────────────────────────
+(function() {
+  const e = ["mekala","@","gmail",".","com"].join("");
+  const p = ["+44","759","507","5735"].join(" ");
+  const praw = "447595075735";
+  document.getElementById("contact-email-link").href = "mailto:" + e;
+  document.getElementById("contact-email-val").textContent = e;
+  document.getElementById("contact-phone-link").href = "tel:+" + praw;
+  document.getElementById("contact-phone-val").textContent = p;
+  document.getElementById("contact-wa-link").href = "https://wa.me/" + praw;
+  document.getElementById("contact-wa-val").textContent = p;
+  document.getElementById("cv-email-link").href = "mailto:" + e;
+  document.getElementById("cv-email-val").textContent = e;
+  document.getElementById("cv-phone-link").href = "tel:+" + praw;
+  document.getElementById("cv-phone-val").textContent = p;
+})();
+
 function openResume() { document.getElementById("resume-modal").classList.add("open"); }
 function closeResume() { document.getElementById("resume-modal").classList.remove("open"); }
 function downloadCV() {
@@ -1051,13 +1067,13 @@ async function chatSend(preset) {
       body: JSON.stringify({ message: msg, history: _chatHistory.slice(-6) })
     });
     const d = await r.json();
-    const reply = d.reply || "Sorry, I couldn't get a response. Try emailing mekala@gmail.com directly.";
+    const reply = d.reply || "Sorry, I couldn't get a response. Try emailing me directly.";
     _chatHistory.push({ role: "assistant", content: reply });
     typing.className = "chat-msg ai";
     typing.textContent = reply;
   } catch(_) {
     typing.className = "chat-msg ai";
-    typing.textContent = "Something went wrong — please try again or email mekala@gmail.com.";
+    typing.textContent = "Something went wrong — please try again or email me directly.";
   }
   msgs.scrollTop = msgs.scrollHeight;
 }
