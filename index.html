@@ -296,13 +296,22 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
   font-size: 13px; color: var(--muted); font-family: inherit;
 }
 .resume-close:hover { color: var(--text); }
-.resume-print {
+.resume-actions {
   position: absolute; top: 16px; right: 64px;
+  display: flex; gap: 6px;
+}
+.resume-print {
   background: var(--surface2); border: 1px solid var(--border);
   border-radius: 8px; padding: 6px 10px; cursor: pointer;
   font-size: 13px; color: var(--muted); font-family: inherit;
 }
 .resume-print:hover { color: var(--text); }
+.resume-pdf {
+  background: var(--accent); border: none;
+  border-radius: 8px; padding: 6px 12px; cursor: pointer;
+  font-size: 13px; font-weight: 700; color: #fff; font-family: inherit;
+}
+.resume-pdf:hover { opacity: .88; }
 .cv-name { font-size: 26px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 4px; }
 .cv-title { font-size: 14px; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
 .cv-meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
@@ -320,9 +329,12 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 .cv-skills { display: flex; flex-wrap: wrap; gap: 8px; }
 .cv-skill { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 99px; background: var(--surface2); border: 1px solid var(--border); color: var(--text); }
 @media print {
+  body > *:not(.resume-overlay) { display: none !important; }
   .resume-overlay { display: flex !important; position: static; background: none; padding: 0; }
-  .resume-modal { border: none; max-width: 100%; padding: 20px; border-radius: 0; }
-  .resume-close, .resume-print, nav, .chat-fab { display: none !important; }
+  .resume-modal { border: none; box-shadow: none; max-width: 100%; width: 100%; padding: 20px; border-radius: 0; }
+  .resume-actions, .resume-close, nav, .chat-fab { display: none !important; }
+  .cv-role-desc { color: #444 !important; }
+  .cv-section-title { color: #b45309 !important; }
 }
 
 /* Chat widget */
@@ -815,7 +827,10 @@ footer {
 <!-- ── Resume modal ── -->
 <div class="resume-overlay" id="resume-modal" onclick="if(event.target===this)closeResume()">
   <div class="resume-modal">
-    <button class="resume-print" onclick="window.print()">🖨 Print</button>
+    <div class="resume-actions">
+      <button class="resume-pdf" onclick="downloadCV()">⬇ Download PDF</button>
+      <button class="resume-print" onclick="window.print()">🖨 Print</button>
+    </div>
     <button class="resume-close" onclick="closeResume()">✕ Close</button>
     <div class="cv-name">Vikram Mekala</div>
     <div class="cv-title">Transformation Programme Manager &amp; AI Builder</div>
@@ -991,6 +1006,12 @@ async function careerAiSummary(e) {
 // ── Resume modal ───────────────────────────────────────────────────────────────
 function openResume() { document.getElementById("resume-modal").classList.add("open"); }
 function closeResume() { document.getElementById("resume-modal").classList.remove("open"); }
+function downloadCV() {
+  const orig = document.title;
+  document.title = "Vikram Mekala — CV";
+  window.print();
+  setTimeout(() => document.title = orig, 1000);
+}
 document.addEventListener("keydown", e => { if (e.key === "Escape") { closeResume(); closeChat(); } });
 
 // ── Chat widget ────────────────────────────────────────────────────────────────
