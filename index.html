@@ -80,7 +80,9 @@ nav {
   padding: 12px 24px;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.nav-name { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; cursor: pointer; user-select: none; flex-shrink: 0; }
+.nav-brand { display: flex; align-items: center; gap: 9px; cursor: pointer; user-select: none; flex-shrink: 0; }
+.nav-brand-photo { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border); flex-shrink: 0; }
+.nav-name { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
 .nav-name span { color: var(--accent); }
 .nav-links { display: flex; gap: 20px; align-items: center; }
 .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
@@ -158,18 +160,6 @@ nav {
 .hero {
   max-width: 720px; margin: 0 auto;
   padding: 64px 24px 48px;
-}
-.hero-photo {
-  width: 44px; height: 44px;
-  border-radius: 50%; object-fit: cover;
-  border: 2px solid var(--border);
-  flex-shrink: 0;
-}
-.hero-byline {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 24px;
 }
 .hero-tag {
   display: inline-block;
@@ -511,7 +501,10 @@ footer {
 <body>
 
 <nav>
-  <div class="nav-name" id="logo-tap">Vikram<span>.</span></div>
+  <div class="nav-brand" id="logo-tap">
+    <img src="/vikram.jpg" alt="Vikram" class="nav-brand-photo">
+    <div class="nav-name">Vikram<span>.</span></div>
+  </div>
   <div class="nav-links">
     <a href="#story">Story</a>
     <a href="#career">Career</a>
@@ -528,10 +521,6 @@ footer {
 </nav>
 
 <div class="hero">
-  <div class="hero-byline">
-    <img src="/vikram.jpg" alt="Vikram Mekala" class="hero-photo">
-    <span style="font-size:14px;font-weight:700;color:var(--text);">Vikram Mekala</span>
-  </div>
   <div class="hero-tag">AI · Transformation · Builder</div>
   <h1>Engineer.<br>Builder.<br><span>25 years in.</span></h1>
   <p class="hero-sub">
