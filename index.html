@@ -160,11 +160,16 @@ nav {
   padding: 64px 24px 48px;
 }
 .hero-photo {
-  width: 88px; height: 88px;
+  width: 44px; height: 44px;
   border-radius: 50%; object-fit: cover;
-  border: 3px solid var(--border);
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+.hero-byline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 24px;
-  display: block;
 }
 .hero-tag {
   display: inline-block;
@@ -523,7 +528,10 @@ footer {
 </nav>
 
 <div class="hero">
-  <img src="/vikram.jpg" alt="Vikram Mekala" class="hero-photo">
+  <div class="hero-byline">
+    <img src="/vikram.jpg" alt="Vikram Mekala" class="hero-photo">
+    <span style="font-size:14px;font-weight:700;color:var(--text);">Vikram Mekala</span>
+  </div>
   <div class="hero-tag">AI · Transformation · Builder</div>
   <h1>Engineer.<br>Builder.<br><span>25 years in.</span></h1>
   <p class="hero-sub">
