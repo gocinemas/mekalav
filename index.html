@@ -159,6 +159,13 @@ nav {
   max-width: 720px; margin: 0 auto;
   padding: 64px 24px 48px;
 }
+.hero-photo {
+  width: 88px; height: 88px;
+  border-radius: 50%; object-fit: cover;
+  border: 3px solid var(--border);
+  margin-bottom: 24px;
+  display: block;
+}
 .hero-tag {
   display: inline-block;
   font-size: 12px; font-weight: 700; letter-spacing: 1px;
@@ -516,6 +523,7 @@ footer {
 </nav>
 
 <div class="hero">
+  <img src="/vikram.jpg" alt="Vikram Mekala" class="hero-photo">
   <div class="hero-tag">AI · Transformation · Builder</div>
   <h1>Engineer.<br>Builder.<br><span>25 years in.</span></h1>
   <p class="hero-sub">
@@ -1104,9 +1112,9 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") clearSearch(
 
 // ── Articles data ──────────────────────────────────────────────────────────────
 const DEFAULT_ARTICLES = [
+  { id: "a3", title: "The WhatsApp test: if a 60-year-old can use it, it is ready", tag: "AI · Product", desc: "Why I build AI tools that start with WhatsApp, and what that constraint teaches you about real usability.", url: "/whatsapp-test.html", date: "May 2026" },
   { id: "a1", title: "Why most enterprise AI projects fail before they start", tag: "AI · Transformation", desc: "After 25 years inside Fortune 500 companies, the pattern is always the same. It is not the technology.", url: "#", date: "Coming soon" },
   { id: "a2", title: "What moving from India to London taught me about building products", tag: "Career · Building", desc: "Moving countries three times rewires how you think about who a product is really for.", url: "#", date: "Coming soon" },
-  { id: "a3", title: "The WhatsApp test: if a 60-year-old can use it, it is ready", tag: "AI · Product", desc: "Why I build AI tools that start with WhatsApp, and what that constraint teaches you about real usability.", url: "#", date: "Coming soon" },
 ];
 
 function loadData() {

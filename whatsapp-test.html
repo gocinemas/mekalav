@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The WhatsApp test: if a 60-year-old can use it, it is ready — Vikram Mekala</title>
+<meta name="description" content="Why I build AI tools that start with WhatsApp, and what that constraint teaches you about real usability.">
+<meta property="og:title" content="The WhatsApp test: if a 60-year-old can use it, it is ready">
+<meta property="og:description" content="Why I build AI tools that start with WhatsApp, and what that constraint teaches you about real usability.">
+<meta property="og:image" content="https://mekalav.com/vikram.jpg">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #faf9f7;
+  color: #1a1714;
+  line-height: 1.7;
+}
+
+nav {
+  background: rgba(250,249,247,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e8e4df;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-home {
+  font-weight: 800;
+  font-size: 16px;
+  color: #1a1714;
+  text-decoration: none;
+  letter-spacing: -0.3px;
+}
+.nav-home:hover { color: #d97706; }
+.nav-back {
+  font-size: 13px;
+  color: #7a7168;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.nav-back:hover { color: #1a1714; }
+
+.article-wrap {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 56px 24px 100px;
+}
+
+.article-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-size: clamp(26px, 5vw, 36px);
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  line-height: 1.2;
+  color: #1a1714;
+  margin-bottom: 20px;
+}
+
+.byline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #e8e4df;
+}
+.byline-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.byline-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1714;
+}
+.byline-meta {
+  font-size: 12px;
+  color: #7a7168;
+  margin-top: 1px;
+}
+
+.article-body p {
+  font-size: 17px;
+  color: #2d2a27;
+  line-height: 1.78;
+  margin-bottom: 26px;
+}
+.article-body p:last-child { margin-bottom: 0; }
+
+.article-body hr {
+  border: none;
+  border-top: 1px solid #e8e4df;
+  margin: 36px 0;
+}
+
+.article-body strong {
+  color: #1a1714;
+  font-weight: 700;
+}
+
+.pull-quote {
+  border-left: 3px solid #d97706;
+  padding: 4px 0 4px 20px;
+  margin: 36px 0;
+  font-size: 19px;
+  font-weight: 600;
+  color: #1a1714;
+  line-height: 1.5;
+  letter-spacing: -0.2px;
+}
+
+.article-footer {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid #e8e4df;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.article-footer-photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.article-footer-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1714;
+  margin-bottom: 2px;
+}
+.article-footer-bio {
+  font-size: 13px;
+  color: #7a7168;
+  line-height: 1.5;
+}
+.article-footer-bio a {
+  color: #d97706;
+  text-decoration: none;
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-home">Vikram Mekala</a>
+  <a href="/#articles" class="nav-back">← All articles</a>
+</nav>
+
+<div class="article-wrap">
+
+  <div class="article-tag">AI · Product</div>
+  <h1>The WhatsApp test: if a 60-year-old can use it, it is ready</h1>
+
+  <div class="byline">
+    <img src="/vikram.jpg" alt="Vikram Mekala" class="byline-photo">
+    <div>
+      <div class="byline-name">Vikram Mekala</div>
+      <div class="byline-meta">May 2026 · 5 min read</div>
+    </div>
+  </div>
+
+  <div class="article-body">
+
+    <p>When I started building Miru, I made one rule: it has to work on WhatsApp.</p>
+
+    <p>Not because WhatsApp is technically impressive. It isn't. It is a messaging app most people already have on their phone, that most people already know how to use, that requires no installation, no account creation, no tutorial.</p>
+
+    <p>That is exactly the point.</p>
+
+    <hr>
+
+    <p>I have spent 25 years watching enterprise technology fail. Not fail technically — the code usually works. Fail because the people it was built for never really used it, or used it reluctantly, or had to be trained on it for three days before they could get anything out of it.</p>
+
+    <p>The pattern is always the same. You build something capable. You add features. You make it more powerful. Then you find out that the people you built it for are still doing the same thing in Excel, or in their head, or by phoning someone.</p>
+
+    <p>The technology was not wrong. The usability was wrong.</p>
+
+    <hr>
+
+    <p>When I started building AI tools for people outside the tech industry, I thought about my mum. She is in her sixties. She lives in India. She uses WhatsApp all day — family groups, friends, news. She does not use apps she has never heard of. She does not create accounts. She does not read onboarding flows.</p>
+
+    <p>If I built something and she could not use it within thirty seconds of first contact, I had built the wrong thing.</p>
+
+    <div class="pull-quote">That became the test. Not "is this technically capable?" but "would a 60-year-old who isn't interested in technology actually use this?"</div>
+
+    <p>It sounds obvious. It is not. Most AI products are built by technical people, for other technical people, and then someone writes a press release about democratising AI.</p>
+
+    <hr>
+
+    <p>WhatsApp as a constraint forces you to be useful immediately.</p>
+
+    <p>There is no interface to design around. You cannot hide bad thinking behind a beautiful UI. The user types something in plain English and either gets something useful back, or they do not. If they do not, they will not come back.</p>
+
+    <p>That constraint is brutal. It is also clarifying.</p>
+
+    <p>When I built the fuel price feature in Miru, I did not build a dashboard with filters and comparison charts. I built something that works when you send it a postcode. When I built the school communications feature, I did not build a notification centre. I built something that reads your school emails and WhatsApps you when there is something you need to know. When I built the train times feature, you just type your station and get the next departures. Nothing else.</p>
+
+    <p>The technology underneath is the same as what the big AI companies are building. The difference is the surface. The thing people actually touch.</p>
+
+    <hr>
+
+    <p>There is a concept in product design called affordance — the idea that an object should suggest how it is used. A door handle says pull. A push plate says push. Get it wrong and people do the wrong thing, feel stupid, and blame themselves instead of the design.</p>
+
+    <p>WhatsApp has perfect affordance for conversation. You know exactly what to do: type something. No instruction required. No app store. No version update. No "allow notifications" popup.</p>
+
+    <p>That is why I keep building there first. Not as a limitation but as a design principle. If something works well in a text message, you understand what you are actually building. Then you can expand it to other surfaces — a web app, a dashboard, an API. But if you cannot make it work in plain text first, you probably do not understand it well enough yet.</p>
+
+    <hr>
+
+    <p>The 60-year-old test is not really about age. It is about honesty.</p>
+
+    <p>It forces you to ask: have I made this genuinely easy, or have I just made it powerful? Are real people going to use this, or am I building something that other people in the AI industry will find impressive?</p>
+
+    <p>Those are very different products.</p>
+
+    <p>I know which one I want to build.</p>
+
+  </div>
+
+  <div class="article-footer">
+    <img src="/vikram.jpg" alt="Vikram Mekala" class="article-footer-photo">
+    <div>
+      <div class="article-footer-name">Vikram Mekala</div>
+      <div class="article-footer-bio">25 years in technology transformation. Now building <a href="https://miru.humanagency.co" target="_blank" rel="noopener">Miru</a> — AI tools that work for people who don't call themselves technical. Based in London.<br>
+      <a href="/">mekalav.com</a> · <a href="https://www.linkedin.com/in/mekalavikram/" target="_blank" rel="noopener">LinkedIn</a></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
