@@ -274,6 +274,10 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 }
 .badge-live { background: #dcfce7; color: #16a34a; border: 1px solid #bbf7d0; }
 .badge-building { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+.badge-shipped { background: #ede9fe; color: #7c3aed; border: 1px solid #ddd6fe; }
+.project-platform { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.project-platform a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.project-platform a:hover { text-decoration: underline; }
 .project-body h3 { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 6px; line-height: 1.2; }
 .project-body h3 a { color: var(--text); text-decoration: none; }
 .project-body h3 a:hover { color: var(--accent); }
@@ -743,27 +747,40 @@ footer {
   <h2>What I've built</h2>
   <div class="project-list">
 
+    <div class="project-platform">
+      Everything below runs on <a href="https://miru.humanagency.co" target="_blank" rel="noopener">Miru</a> — a WhatsApp assistant for everyday life. No app download, no login. Just message. Built on Python / Flask, Groq LLM, Twilio and Supabase, deployed on Railway.
+    </div>
+
     <div class="project-item">
       <div class="project-meta">
-        <div class="project-year">2024</div>
+        <div class="project-year">2025</div>
         <span class="project-badge badge-live">Live</span>
       </div>
       <div class="project-body">
-        <h3><a href="https://miru.humanagency.co" target="_blank" rel="noopener">Miru</a></h3>
-        <p class="project-problem">Schools scatter updates across emails, apps and letters. Parents miss most of it and there's no single place to ask a question.</p>
-        <p class="project-desc">
-          WhatsApp-first AI assistant — <strong>no app download, no login</strong>, just a message. Covers school communications, fuel prices, train times, local area reports, book scanning and household bill tracking.
-          Handles <strong>15+ intents</strong> in plain English, including typos and casual phrasing, using Groq-powered intent classification with Twilio as the delivery layer.
-        </p>
-        <div class="card-stack">
-          <span class="stack-tag">Python / Flask</span>
-          <span class="stack-tag">Twilio WhatsApp</span>
-          <span class="stack-tag">Groq LLM</span>
-          <span class="stack-tag">Supabase</span>
-          <span class="stack-tag">Google APIs</span>
-          <span class="stack-tag">Railway</span>
-        </div>
-        <a class="project-link" href="https://miru.humanagency.co" target="_blank" rel="noopener">miru.humanagency.co →</a>
+        <h3>My Details — Bill &amp; Renewal Tracker</h3>
+        <p class="project-desc">Scans your Gmail for energy, broadband, insurance and water bills. Extracts account numbers, renewal dates and prices and imports them into a personal dashboard with one tap.</p>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-meta">
+        <div class="project-year">2025</div>
+        <span class="project-badge badge-live">Live</span>
+      </div>
+      <div class="project-body">
+        <h3>Book Scanner &amp; Personal Library</h3>
+        <p class="project-desc">Send a barcode photo on WhatsApp and Miru decodes the ISBN and looks up the book. Tracks your personal library across read, reading and want-to-read. Searchable by title, author or status.</p>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-meta">
+        <div class="project-year">2025</div>
+        <span class="project-badge badge-live">Live</span>
+      </div>
+      <div class="project-body">
+        <h3>WhatsApp Saves</h3>
+        <p class="project-desc">Send any URL to save it for later. Retrieve anything with plain-English search: <em>"restaurants I saved last week"</em>, <em>"articles about AI"</em>, <em>"books by Seth Godin"</em>. Your personal memory, on WhatsApp.</p>
       </div>
     </div>
 
@@ -773,17 +790,63 @@ footer {
         <span class="project-badge badge-live">Live</span>
       </div>
       <div class="project-body">
-        <h3><a href="https://ai.humanagency.co" target="_blank" rel="noopener">Human Agency</a></h3>
-        <p class="project-problem">AI literacy content exists — but it's written for people who already understand AI.</p>
-        <p class="project-desc">
-          Free, plain-language site explaining AI from scratch. Covers <strong>fundamentals, a jargon decoder, key researchers, curated articles and videos</strong>.
-          Built for everyone who isn't in tech — the people who need it most and are currently left out of the conversation.
-        </p>
-        <div class="card-stack">
-          <span class="stack-tag">HTML / Vanilla JS</span>
-          <span class="stack-tag">Groq</span>
-          <span class="stack-tag">YouTube API</span>
-        </div>
+        <h3>Find Cheap Fuel</h3>
+        <p class="project-desc">Ask <em>"cheapest petrol near KT15"</em> and get a live-ranked list of local pump prices. Covers petrol and diesel across all nearby stations, pulling from the UK government's real-time fuel price API.</p>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-meta">
+        <div class="project-year">2024</div>
+        <span class="project-badge badge-live">Live</span>
+      </div>
+      <div class="project-body">
+        <h3>Next Train</h3>
+        <p class="project-desc">Live UK train departures in plain English. <em>"Next train from Woking to Waterloo"</em> returns the next few services with platform, departure time and any delays — no app, no timetable.</p>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-meta">
+        <div class="project-year">2024</div>
+        <span class="project-badge badge-live">Live</span>
+      </div>
+      <div class="project-body">
+        <h3>My Area — Local Services</h3>
+        <p class="project-desc">Type a postcode and get a report on your local area: nearest pubs, cafes, schools, pharmacies and parks. Save favourites with address and phone. Powered by Google Places and OpenStreetMap.</p>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-meta">
+        <div class="project-year">2024</div>
+        <span class="project-badge badge-live">Live</span>
+      </div>
+      <div class="project-body">
+        <h3>School Communications</h3>
+        <p class="project-desc">Connects with school email updates and newsletters. Parents ask questions in plain English — <em>"what time does school finish on Friday?"</em> — and get answers pulled directly from the school's own comms.</p>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-meta">
+        <div class="project-year">2024</div>
+        <span class="project-badge badge-shipped">Shipped</span>
+      </div>
+      <div class="project-body">
+        <h3>Your Local Election Results</h3>
+        <p class="project-desc">Built for the May 2024 UK local elections. Type a postcode, get your ward name, candidates, parties and live results as they came in. Retired after the count.</p>
+      </div>
+    </div>
+
+    <div class="project-item" style="margin-top:16px;padding-top:32px;border-top:2px solid var(--border)">
+      <div class="project-meta">
+        <div class="project-year">2024</div>
+        <span class="project-badge badge-live">Live</span>
+      </div>
+      <div class="project-body">
+        <h3><a href="https://ai.humanagency.co" target="_blank" rel="noopener">Human Agency — AI Literacy</a></h3>
+        <p class="project-desc">AI content exists everywhere — but it's written for people who already understand AI. This is a free, plain-language site explaining it from scratch: basics, jargon decoder, key researchers, curated articles and videos. Built for everyone who isn't in tech.</p>
         <a class="project-link" href="https://ai.humanagency.co" target="_blank" rel="noopener">ai.humanagency.co →</a>
       </div>
     </div>
@@ -1121,7 +1184,14 @@ const SEARCH_INDEX = [
   { label: "Career", title: "Net Revenue Management", sub: "Unilever · 2018 to 2020", anchor: "#career" },
   { label: "Career", title: "Digital platforms and BA leadership", sub: "Shell · Unilever · Leaseplan · 2013 to 2018", anchor: "#career" },
   { label: "Career", title: "Engineer to Analyst to Programme Manager", sub: "Unilever · Mars · BP · 2000 to 2013", anchor: "#career" },
-  { label: "Built", title: "Miru", sub: "WhatsApp AI assistant · school comms, fuel, trains, books · Live", anchor: "#building", url: "https://miru.humanagency.co" },
+  { label: "Built", title: "Find Cheap Fuel", sub: "Live pump prices ranked by postcode · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
+  { label: "Built", title: "Next Train", sub: "Live UK departures in plain English · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
+  { label: "Built", title: "School Communications", sub: "WhatsApp Q&A from school newsletters · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
+  { label: "Built", title: "My Area — Local Services", sub: "Pubs, cafes, schools, pharmacies by postcode · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
+  { label: "Built", title: "Local Election Results", sub: "May 2024 UK local elections by ward · Shipped", anchor: "#building" },
+  { label: "Built", title: "Book Scanner & Library", sub: "ISBN scan + personal reading tracker · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
+  { label: "Built", title: "WhatsApp Saves", sub: "Save URLs, search in plain English · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
+  { label: "Built", title: "My Details — Bill Tracker", sub: "Gmail scan for bills, renewals, account numbers · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
   { label: "Built", title: "Human Agency", sub: "Free AI literacy platform in plain language · Live", anchor: "#building", url: "https://ai.humanagency.co" },
   { label: "Story", title: "India · Italy · London", sub: "25 years from engineer to founder", anchor: "#story" },
 ];
