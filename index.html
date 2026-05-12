@@ -259,36 +259,40 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 .career-ai-box.visible { display: block; }
 @media (max-width: 500px) { .tl-item { grid-template-columns: 1fr; } .tl-year { margin-bottom: 4px; } }
 
-/* Builder's Lab — project list */
-.project-list { display: flex; flex-direction: column; }
-.project-item {
-  display: grid; grid-template-columns: 72px 1fr;
-  gap: 0 28px; padding: 28px 0; border-bottom: 1px solid var(--border);
-}
-.project-item:last-child { border-bottom: none; }
-.project-meta { padding-top: 2px; }
-.project-year { font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 8px; letter-spacing: .3px; }
+/* Builder's Lab — project rows */
 .project-badge {
-  display: inline-block; font-size: 10px; font-weight: 700;
-  padding: 2px 8px; border-radius: 99px; letter-spacing: .4px; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 99px; letter-spacing: .5px; text-transform: uppercase;
+  white-space: nowrap; flex-shrink: 0;
 }
-.badge-live { background: #dcfce7; color: #16a34a; border: 1px solid #bbf7d0; }
+.badge-live     { background: #dcfce7; color: #16a34a; border: 1px solid #bbf7d0; }
 .badge-building { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
-.badge-shipped { background: #ede9fe; color: #7c3aed; border: 1px solid #ddd6fe; }
-.project-platform { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.badge-shipped  { background: #ede9fe; color: #7c3aed; border: 1px solid #ddd6fe; }
+.badge-advisory { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+
+.proj-list { display: flex; flex-direction: column; }
+.proj-item { border-bottom: 1px solid var(--border); cursor: pointer; }
+.proj-item:last-child { border-bottom: none; }
+.proj-header {
+  display: flex; align-items: center; gap: 20px; padding: 18px 4px;
+}
+.proj-header:hover .proj-name { color: var(--accent); }
+.proj-year  { width: 44px; font-size: 13px; color: var(--muted); font-weight: 600; flex-shrink: 0; }
+.proj-name  { flex: 1; font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.3; transition: color .15s; }
+.proj-chev  { font-size: 13px; color: var(--muted); flex-shrink: 0; transition: transform .2s; }
+.proj-item.open .proj-chev { transform: rotate(180deg); }
+.proj-detail {
+  display: none; padding: 0 4px 18px 64px;
+  font-size: 13px; color: var(--muted); line-height: 1.7;
+}
+.proj-item.open .proj-detail { display: block; }
+.proj-detail a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.proj-detail a:hover { text-decoration: underline; }
+.project-platform { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
 .project-platform a { color: var(--accent); font-weight: 600; text-decoration: none; }
 .project-platform a:hover { text-decoration: underline; }
-.project-body h3 { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 6px; line-height: 1.2; }
-.project-body h3 a { color: var(--text); text-decoration: none; }
-.project-body h3 a:hover { color: var(--accent); }
-.project-problem { font-size: 13px; color: var(--muted); font-style: italic; margin-bottom: 10px; line-height: 1.55; }
-.project-desc { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 14px; }
-.project-desc strong { color: var(--text); font-weight: 700; }
-.project-link { font-size: 13px; font-weight: 700; color: var(--accent); text-decoration: none; }
-.project-link:hover { text-decoration: underline; }
-.card-stack { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
-.stack-tag { font-size: 10px; font-weight: 600; letter-spacing: .4px; padding: 2px 8px; border-radius: 99px; background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
-@media (max-width: 480px) { .project-item { grid-template-columns: 1fr; } .project-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; } }
+@media (max-width: 480px) { .proj-year { width: 36px; font-size: 12px; } .proj-name { font-size: 14px; } .proj-detail { padding-left: 56px; } }
 
 /* Resume modal */
 .resume-overlay {
@@ -745,110 +749,131 @@ footer {
 <section id="building">
   <div class="section-label">Builder's Lab</div>
   <h2>What I've built</h2>
-  <div class="project-list">
 
-    <div class="project-platform">
-      Everything below runs on <a href="https://miru.humanagency.co" target="_blank" rel="noopener">Miru</a> — a WhatsApp assistant for everyday life. No app download, no login. Just message. Built on Python / Flask, Groq LLM, Twilio and Supabase, deployed on Railway.
+  <div class="project-platform">
+    Most of what's below runs on <a href="https://miru.humanagency.co" target="_blank" rel="noopener">Miru</a> — a WhatsApp-first AI assistant for everyday life. No app, no login. Built on Python / Flask, Groq, Twilio and Supabase on Railway.
+  </div>
+
+  <div class="proj-list">
+
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2026</span>
+        <span class="proj-name">Nifty 500 Momentum Picker</span>
+        <span class="project-badge badge-live">● Live</span>
+        <span class="proj-chev">∨</span>
+      </div>
+      <div class="proj-detail">Ranks all 500 stocks in the Nifty 500 index by price and volume momentum. Filters for entry-ready setups. Built for Indian equity traders who want systematic, not emotional, stock selection.</div>
     </div>
 
-    <div class="project-item">
-      <div class="project-meta">
-        <div class="project-year">2025</div>
-        <span class="project-badge badge-live">Live</span>
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2026</span>
+        <span class="proj-name">Multi-Asset Portfolio Allocator</span>
+        <span class="project-badge badge-live">● Live</span>
+        <span class="proj-chev">∨</span>
       </div>
-      <div class="project-body">
-        <h3>My Details — Bill &amp; Renewal Tracker</h3>
-        <p class="project-desc">Scans your Gmail for energy, broadband, insurance and water bills. Extracts account numbers, renewal dates and prices and imports them into a personal dashboard with one tap.</p>
-      </div>
+      <div class="proj-detail">Portfolio construction tool that distributes capital across equities, gold, bonds and cash based on risk level and investment timeframe. Rebalances recommendations monthly.</div>
     </div>
 
-    <div class="project-item">
-      <div class="project-meta">
-        <div class="project-year">2025</div>
-        <span class="project-badge badge-live">Live</span>
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2026</span>
+        <span class="proj-name">CT and MRI Explainer and Comparer</span>
+        <span class="project-badge badge-shipped">● Shipped</span>
+        <span class="proj-chev">∨</span>
       </div>
-      <div class="project-body">
-        <h3>Book Scanner &amp; Personal Library</h3>
-        <p class="project-desc">Send a barcode photo on WhatsApp and Miru decodes the ISBN and looks up the book. Tracks your personal library across read, reading and want-to-read. Searchable by title, author or status.</p>
-      </div>
+      <div class="proj-detail">Upload a radiology report and get a plain-English explanation of the findings. Compare two reports side by side to track changes over time. Built for patients who want to understand their own scans.</div>
     </div>
 
-    <div class="project-item">
-      <div class="project-meta">
-        <div class="project-year">2025</div>
-        <span class="project-badge badge-live">Live</span>
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2026</span>
+        <span class="proj-name">LLM-Powered Knowledge Base</span>
+        <span class="project-badge badge-live">● Live</span>
+        <span class="proj-chev">∨</span>
       </div>
-      <div class="project-body">
-        <h3>WhatsApp Saves</h3>
-        <p class="project-desc">Send any URL to save it for later. Retrieve anything with plain-English search: <em>"restaurants I saved last week"</em>, <em>"articles about AI"</em>, <em>"books by Seth Godin"</em>. Your personal memory, on WhatsApp.</p>
-      </div>
+      <div class="proj-detail">Drop in a set of documents — PDFs, notes, reports — and ask questions in plain English. Answers are grounded in your own files, not trained knowledge. No hallucination, no guessing.</div>
     </div>
 
-    <div class="project-item">
-      <div class="project-meta">
-        <div class="project-year">2024</div>
-        <span class="project-badge badge-live">Live</span>
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2026</span>
+        <span class="proj-name">Bulk YouTube Channel Transcriber</span>
+        <span class="project-badge badge-shipped">● Shipped</span>
+        <span class="proj-chev">∨</span>
       </div>
-      <div class="project-body">
-        <h3>Find Cheap Fuel</h3>
-        <p class="project-desc">Ask <em>"cheapest petrol near KT15"</em> and get a live-ranked list of local pump prices. Covers petrol and diesel across all nearby stations, pulling from the UK government's real-time fuel price API.</p>
-      </div>
+      <div class="proj-detail">Give it a YouTube channel URL and it pulls transcripts from every video in bulk — searchable and exportable. Built for researchers and content analysts who work with video at scale.</div>
     </div>
 
-    <div class="project-item">
-      <div class="project-meta">
-        <div class="project-year">2024</div>
-        <span class="project-badge badge-live">Live</span>
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2026</span>
+        <span class="proj-name">Personal AI Agent Team</span>
+        <span class="project-badge badge-live">● Live</span>
+        <span class="proj-chev">∨</span>
       </div>
-      <div class="project-body">
-        <h3>Next Train</h3>
-        <p class="project-desc">Live UK train departures in plain English. <em>"Next train from Woking to Waterloo"</em> returns the next few services with platform, departure time and any delays — no app, no timetable.</p>
-      </div>
+      <div class="proj-detail">A configurable team of AI agents — researcher, writer, scheduler, email responder — that work together on complex tasks. Brief the team once; they divide, run and report back.</div>
     </div>
 
-    <div class="project-item">
-      <div class="project-meta">
-        <div class="project-year">2024</div>
-        <span class="project-badge badge-live">Live</span>
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2026</span>
+        <span class="proj-name">Mutual Fund Regret Calculator</span>
+        <span class="project-badge badge-shipped">● Shipped</span>
+        <span class="proj-chev">∨</span>
       </div>
-      <div class="project-body">
-        <h3>My Area — Local Services</h3>
-        <p class="project-desc">Type a postcode and get a report on your local area: nearest pubs, cafes, schools, pharmacies and parks. Save favourites with address and phone. Powered by Google Places and OpenStreetMap.</p>
-      </div>
+      <div class="proj-detail">Shows how much you'd have made if you'd invested in a different fund. Honest comparison for Indian investors reviewing past decisions — without the spin of a fund house marketing deck.</div>
     </div>
 
-    <div class="project-item">
-      <div class="project-meta">
-        <div class="project-year">2024</div>
-        <span class="project-badge badge-live">Live</span>
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2026</span>
+        <span class="proj-name">Cricket Highlights Reel Feed</span>
+        <span class="project-badge badge-shipped">● Shipped</span>
+        <span class="proj-chev">∨</span>
       </div>
-      <div class="project-body">
-        <h3>School Communications</h3>
-        <p class="project-desc">Connects with school email updates and newsletters. Parents ask questions in plain English — <em>"what time does school finish on Friday?"</em> — and get answers pulled directly from the school's own comms.</p>
-      </div>
+      <div class="proj-detail">Automated daily digest of cricket match highlights from live tournaments. No commentary, no filler — just the key moments: wickets, sixes, run chases, match results.</div>
     </div>
 
-    <div class="project-item">
-      <div class="project-meta">
-        <div class="project-year">2024</div>
-        <span class="project-badge badge-shipped">Shipped</span>
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2026</span>
+        <span class="proj-name">Atlas x Wordle</span>
+        <span class="project-badge badge-shipped">● Shipped</span>
+        <span class="proj-chev">∨</span>
       </div>
-      <div class="project-body">
-        <h3>Your Local Election Results</h3>
-        <p class="project-desc">Built for the May 2024 UK local elections. Type a postcode, get your ward name, candidates, parties and live results as they came in. Retired after the count.</p>
-      </div>
+      <div class="proj-detail">Geography-based word game. Identify countries from progressively revealed map fragments and clues. Competitive daily challenge format — same puzzle for everyone each day.</div>
     </div>
 
-    <div class="project-item" style="margin-top:16px;padding-top:32px;border-top:2px solid var(--border)">
-      <div class="project-meta">
-        <div class="project-year">2024</div>
-        <span class="project-badge badge-live">Live</span>
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2025</span>
+        <span class="proj-name">Advisory — HealthTech Startup</span>
+        <span class="project-badge badge-advisory">● Advisory</span>
+        <span class="proj-chev">∨</span>
       </div>
-      <div class="project-body">
-        <h3><a href="https://ai.humanagency.co" target="_blank" rel="noopener">Human Agency — AI Literacy</a></h3>
-        <p class="project-desc">AI content exists everywhere — but it's written for people who already understand AI. This is a free, plain-language site explaining it from scratch: basics, jargon decoder, key researchers, curated articles and videos. Built for everyone who isn't in tech.</p>
-        <a class="project-link" href="https://ai.humanagency.co" target="_blank" rel="noopener">ai.humanagency.co →</a>
+      <div class="proj-detail">Advised an early-stage health technology startup on AI product strategy: use-case prioritisation, model selection and go-to-market positioning. Hands-on advisory alongside the founding team.</div>
+    </div>
+
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2025</span>
+        <span class="proj-name">Miru — WhatsApp AI Assistant</span>
+        <span class="project-badge badge-live">● Live</span>
+        <span class="proj-chev">∨</span>
       </div>
+      <div class="proj-detail">WhatsApp-first AI platform for everyday life: school communications, fuel prices, train times, local services, Gmail bill scanning, book library and personal saves. No app download. Just message. Live at <a href="https://miru.humanagency.co" target="_blank" rel="noopener">miru.humanagency.co →</a></div>
+    </div>
+
+    <div class="proj-item" onclick="projToggle(this)">
+      <div class="proj-header">
+        <span class="proj-year">2024</span>
+        <span class="proj-name">Human Agency — AI Literacy</span>
+        <span class="project-badge badge-live">● Live</span>
+        <span class="proj-chev">∨</span>
+      </div>
+      <div class="proj-detail">Free plain-language site explaining AI from scratch — basics, jargon decoder, key researchers, curated articles and videos. Built for everyone who isn't in tech. <a href="https://ai.humanagency.co" target="_blank" rel="noopener">ai.humanagency.co →</a></div>
     </div>
 
   </div>
@@ -1058,6 +1083,11 @@ function tlToggle(item) {
   item.classList.toggle("open");
 }
 
+// ── Project row toggle ─────────────────────────────────────────────────────────
+function projToggle(item) {
+  item.classList.toggle("open");
+}
+
 // ── Career AI summary ──────────────────────────────────────────────────────────
 let _aiSummaryDone = false;
 async function careerAiSummary(e) {
@@ -1184,14 +1214,17 @@ const SEARCH_INDEX = [
   { label: "Career", title: "Net Revenue Management", sub: "Unilever · 2018 to 2020", anchor: "#career" },
   { label: "Career", title: "Digital platforms and BA leadership", sub: "Shell · Unilever · Leaseplan · 2013 to 2018", anchor: "#career" },
   { label: "Career", title: "Engineer to Analyst to Programme Manager", sub: "Unilever · Mars · BP · 2000 to 2013", anchor: "#career" },
-  { label: "Built", title: "Find Cheap Fuel", sub: "Live pump prices ranked by postcode · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
-  { label: "Built", title: "Next Train", sub: "Live UK departures in plain English · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
-  { label: "Built", title: "School Communications", sub: "WhatsApp Q&A from school newsletters · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
-  { label: "Built", title: "My Area — Local Services", sub: "Pubs, cafes, schools, pharmacies by postcode · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
-  { label: "Built", title: "Local Election Results", sub: "May 2024 UK local elections by ward · Shipped", anchor: "#building" },
-  { label: "Built", title: "Book Scanner & Library", sub: "ISBN scan + personal reading tracker · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
-  { label: "Built", title: "WhatsApp Saves", sub: "Save URLs, search in plain English · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
-  { label: "Built", title: "My Details — Bill Tracker", sub: "Gmail scan for bills, renewals, account numbers · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
+  { label: "Built", title: "Nifty 500 Momentum Picker", sub: "Indian equity momentum screener · 2026 · Live", anchor: "#building" },
+  { label: "Built", title: "Multi-Asset Portfolio Allocator", sub: "Equities, gold, bonds, cash allocation · 2026 · Live", anchor: "#building" },
+  { label: "Built", title: "CT and MRI Explainer and Comparer", sub: "Plain-English radiology report tool · 2026 · Shipped", anchor: "#building" },
+  { label: "Built", title: "LLM-Powered Knowledge Base", sub: "Ask questions across your own documents · 2026 · Live", anchor: "#building" },
+  { label: "Built", title: "Bulk YouTube Channel Transcriber", sub: "Transcript all videos in a channel · 2026 · Shipped", anchor: "#building" },
+  { label: "Built", title: "Personal AI Agent Team", sub: "Configurable multi-agent task runner · 2026 · Live", anchor: "#building" },
+  { label: "Built", title: "Mutual Fund Regret Calculator", sub: "Compare past fund choices vs alternatives · 2026", anchor: "#building" },
+  { label: "Built", title: "Cricket Highlights Reel Feed", sub: "Automated daily match highlights digest · 2026", anchor: "#building" },
+  { label: "Built", title: "Atlas x Wordle", sub: "Geography word game from map fragments · 2026", anchor: "#building" },
+  { label: "Built", title: "Advisory — HealthTech Startup", sub: "AI product strategy advisory · 2025", anchor: "#building" },
+  { label: "Built", title: "Miru — WhatsApp AI Assistant", sub: "School comms, fuel, trains, local services · Live", anchor: "#building", url: "https://miru.humanagency.co" },
   { label: "Built", title: "Human Agency", sub: "Free AI literacy platform in plain language · Live", anchor: "#building", url: "https://ai.humanagency.co" },
   { label: "Story", title: "India · Italy · London", sub: "25 years from engineer to founder", anchor: "#story" },
 ];
