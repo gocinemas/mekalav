@@ -270,7 +270,16 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 .badge-building { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
 .badge-shipped  { background: #ede9fe; color: #7c3aed; border: 1px solid #ddd6fe; }
 .badge-advisory { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+.badge-pipeline { background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; }
 
+.proj-area { margin-bottom: 32px; }
+.proj-area-header {
+  display: flex; align-items: baseline; gap: 10px;
+  margin-bottom: 4px; padding-bottom: 10px;
+  border-bottom: 2px solid var(--text);
+}
+.proj-area-name { font-size: 18px; font-weight: 800; color: var(--text); }
+.proj-area-url  { font-size: 12px; color: var(--muted); font-weight: 500; }
 .proj-list { display: flex; flex-direction: column; }
 .proj-item { border-bottom: 1px solid var(--border); cursor: pointer; }
 .proj-item:last-child { border-bottom: none; }
@@ -750,123 +759,188 @@ footer {
   <div class="section-label">Builder's Lab</div>
   <h2>What I've built</h2>
 
-  <div class="project-platform">
-    Most of what's below runs on <a href="https://miru.humanagency.co" target="_blank" rel="noopener">Miru</a> — a WhatsApp-first AI assistant for everyday life. No app, no login. Built on Python / Flask, Groq, Twilio and Supabase, deployed on Railway.
+  <!-- ── Miru ───────────────────────────────────────────────────── -->
+  <div class="proj-area">
+    <div class="proj-area-header">
+      <span class="proj-area-name">Miru</span>
+      <span class="proj-area-url">miru.humanagency.co</span>
+    </div>
+    <div class="project-platform">
+      WhatsApp-first AI assistant for everyday life — no app, no login. Built on Python / Flask, Groq, Twilio and Supabase, deployed on Railway.
+    </div>
+    <div class="proj-list">
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2026</span>
+          <span class="proj-name">School Communications</span>
+          <span class="project-badge badge-live">● Live</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Connects to school email updates and newsletters. Parents ask questions in plain English — <em>"what time does school finish on Friday?"</em> — and get answers pulled directly from the school's own comms.</div>
+      </div>
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2026</span>
+          <span class="proj-name">My Details — Bill &amp; Renewal Tracker</span>
+          <span class="project-badge badge-live">● Live</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Scans your Gmail for energy, broadband, insurance and water bills. Extracts account numbers, renewal dates and prices and imports them into a personal dashboard with one tap.</div>
+      </div>
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2026</span>
+          <span class="proj-name">Book Scanner &amp; Personal Library</span>
+          <span class="project-badge badge-live">● Live</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Send a barcode photo on WhatsApp and Miru decodes the ISBN and looks up the book. Tracks your personal library across read, reading and want-to-read. Searchable by title, author or status.</div>
+      </div>
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2026</span>
+          <span class="proj-name">WhatsApp Saves</span>
+          <span class="project-badge badge-live">● Live</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Send any URL, photo or idea to save it for later. Retrieve anything with plain-English search: <em>"restaurants I saved last week"</em>, <em>"articles about AI"</em>. Your personal memory, on WhatsApp.</div>
+      </div>
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2026</span>
+          <span class="proj-name">My Area — Local Services</span>
+          <span class="project-badge badge-live">● Live</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Enter a postcode and get a report on your local area: nearest pubs, cafes, schools, pharmacies and parks. Save favourites with address and phone. Powered by Google Places and OpenStreetMap.</div>
+      </div>
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2026</span>
+          <span class="proj-name">Find Cheap Fuel</span>
+          <span class="project-badge badge-live">● Live</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Ask <em>"cheapest petrol near KT15"</em> and get a live-ranked list of local pump prices. Covers petrol and diesel across all nearby stations, pulling from the UK government's real-time fuel price API.</div>
+      </div>
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2026</span>
+          <span class="proj-name">Next Train</span>
+          <span class="project-badge badge-live">● Live</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Live UK train departures in plain English. <em>"Next train from Woking to Waterloo"</em> returns the next few services with platform, departure time and any delays — no app, no timetable.</div>
+      </div>
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2024</span>
+          <span class="proj-name">Your Local Election Results</span>
+          <span class="project-badge badge-shipped">● Shipped</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Built for the May 2024 UK local elections. Enter a postcode, get your ward name, candidates, parties and live results as they came in. Retired after the count.</div>
+      </div>
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">—</span>
+          <span class="proj-name">More in pipeline</span>
+          <span class="project-badge badge-pipeline">● Pipeline</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Several new Miru features in active development — health, finance, home and personal productivity. Drop me a line if you want early access.</div>
+      </div>
+
+    </div>
   </div>
 
-  <div class="proj-list">
-
-    <div class="proj-item" onclick="projToggle(this)">
-      <div class="proj-header">
-        <span class="proj-year">2026</span>
-        <span class="proj-name">Brand &amp; Company Intelligence</span>
-        <span class="project-badge badge-live">● Live</span>
-        <span class="proj-chev">∨</span>
-      </div>
-      <div class="proj-detail">Deep-dive on any company or brand: financials, strategy, news, campaigns, leadership and market position — all in one place. Built for people who need real business context fast. Live at <a href="https://intel.humanagency.co" target="_blank" rel="noopener">intel.humanagency.co →</a></div>
+  <!-- ── Intel ──────────────────────────────────────────────────── -->
+  <div class="proj-area">
+    <div class="proj-area-header">
+      <span class="proj-area-name">Intel</span>
+      <span class="proj-area-url">intel.humanagency.co</span>
     </div>
-
-    <div class="proj-item" onclick="projToggle(this)">
-      <div class="proj-header">
-        <span class="proj-year">2026</span>
-        <span class="proj-name">My Details — Bill &amp; Renewal Tracker</span>
-        <span class="project-badge badge-live">● Live</span>
-        <span class="proj-chev">∨</span>
-      </div>
-      <div class="proj-detail">Scans your Gmail for energy, broadband, insurance and water bills. Extracts account numbers, renewal dates and prices and imports them into a personal dashboard with one tap. Part of Miru.</div>
+    <div class="project-platform">
+      Brand and company intelligence — built for people who need real business context fast without wading through analyst reports.
     </div>
+    <div class="proj-list">
 
-    <div class="proj-item" onclick="projToggle(this)">
-      <div class="proj-header">
-        <span class="proj-year">2026</span>
-        <span class="proj-name">Book Scanner &amp; Personal Library</span>
-        <span class="project-badge badge-live">● Live</span>
-        <span class="proj-chev">∨</span>
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2026</span>
+          <span class="proj-name">Brand &amp; Company Intelligence</span>
+          <span class="project-badge badge-live">● Live</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Deep-dive on any company or brand: financials, strategy, news, campaigns, leadership and market position — all in one place. <a href="https://intel.humanagency.co" target="_blank" rel="noopener">intel.humanagency.co →</a></div>
       </div>
-      <div class="proj-detail">Send a barcode photo on WhatsApp and Miru decodes the ISBN and looks up the book. Tracks your personal library across read, reading and want-to-read. Searchable by title, author or status.</div>
-    </div>
 
-    <div class="proj-item" onclick="projToggle(this)">
-      <div class="proj-header">
-        <span class="proj-year">2026</span>
-        <span class="proj-name">WhatsApp Saves</span>
-        <span class="project-badge badge-live">● Live</span>
-        <span class="proj-chev">∨</span>
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">—</span>
+          <span class="proj-name">More in pipeline</span>
+          <span class="project-badge badge-pipeline">● Pipeline</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Expanding into sector intelligence, competitor tracking and investment context. Early ideas taking shape.</div>
       </div>
-      <div class="proj-detail">Send any URL, photo or idea to save it for later. Retrieve anything with plain-English search: <em>"restaurants I saved last week"</em>, <em>"articles about AI"</em>. Your personal memory, on WhatsApp.</div>
-    </div>
 
-    <div class="proj-item" onclick="projToggle(this)">
-      <div class="proj-header">
-        <span class="proj-year">2026</span>
-        <span class="proj-name">My Area — Local Services</span>
-        <span class="project-badge badge-live">● Live</span>
-        <span class="proj-chev">∨</span>
-      </div>
-      <div class="proj-detail">Enter a postcode and get a report on your local area: nearest pubs, cafes, schools, pharmacies and parks. Save favourites with address and phone. Powered by Google Places and OpenStreetMap.</div>
     </div>
-
-    <div class="proj-item" onclick="projToggle(this)">
-      <div class="proj-header">
-        <span class="proj-year">2026</span>
-        <span class="proj-name">School Communications</span>
-        <span class="project-badge badge-live">● Live</span>
-        <span class="proj-chev">∨</span>
-      </div>
-      <div class="proj-detail">Connects to school email updates and newsletters. Parents ask questions in plain English — <em>"what time does school finish on Friday?"</em> — and get answers pulled directly from the school's own comms.</div>
-    </div>
-
-    <div class="proj-item" onclick="projToggle(this)">
-      <div class="proj-header">
-        <span class="proj-year">2026</span>
-        <span class="proj-name">Find Cheap Fuel</span>
-        <span class="project-badge badge-live">● Live</span>
-        <span class="proj-chev">∨</span>
-      </div>
-      <div class="proj-detail">Ask <em>"cheapest petrol near KT15"</em> and get a live-ranked list of local pump prices. Covers petrol and diesel across all nearby stations, pulling from the UK government's real-time fuel price API.</div>
-    </div>
-
-    <div class="proj-item" onclick="projToggle(this)">
-      <div class="proj-header">
-        <span class="proj-year">2026</span>
-        <span class="proj-name">Next Train</span>
-        <span class="project-badge badge-live">● Live</span>
-        <span class="proj-chev">∨</span>
-      </div>
-      <div class="proj-detail">Live UK train departures in plain English. <em>"Next train from Woking to Waterloo"</em> returns the next few services with platform, departure time and any delays — no app, no timetable.</div>
-    </div>
-
-    <div class="proj-item" onclick="projToggle(this)">
-      <div class="proj-header">
-        <span class="proj-year">2025</span>
-        <span class="proj-name">Advisory — HealthTech Startup</span>
-        <span class="project-badge badge-advisory">● Advisory</span>
-        <span class="proj-chev">∨</span>
-      </div>
-      <div class="proj-detail">Advised an early-stage health technology startup on AI product strategy: use-case prioritisation, model selection and go-to-market positioning. Hands-on advisory alongside the founding team.</div>
-    </div>
-
-    <div class="proj-item" onclick="projToggle(this)">
-      <div class="proj-header">
-        <span class="proj-year">2024</span>
-        <span class="proj-name">Human Agency — AI Literacy</span>
-        <span class="project-badge badge-live">● Live</span>
-        <span class="proj-chev">∨</span>
-      </div>
-      <div class="proj-detail">Free plain-language site explaining AI from scratch — basics, jargon decoder, key researchers, curated articles and videos. Built for everyone who isn't in tech. <a href="https://ai.humanagency.co" target="_blank" rel="noopener">ai.humanagency.co →</a></div>
-    </div>
-
-    <div class="proj-item" onclick="projToggle(this)">
-      <div class="proj-header">
-        <span class="proj-year">2024</span>
-        <span class="proj-name">Your Local Election Results</span>
-        <span class="project-badge badge-shipped">● Shipped</span>
-        <span class="proj-chev">∨</span>
-      </div>
-      <div class="proj-detail">Built for the May 2024 UK local elections. Enter a postcode, get your ward name, candidates, parties and live results as they came in. Retired after the count.</div>
-    </div>
-
   </div>
+
+  <!-- ── AI ─────────────────────────────────────────────────────── -->
+  <div class="proj-area">
+    <div class="proj-area-header">
+      <span class="proj-area-name">AI</span>
+      <span class="proj-area-url">ai.humanagency.co</span>
+    </div>
+    <div class="project-platform">
+      Making AI genuinely accessible — plain language resources and hands-on advisory for people and organisations outside the tech bubble.
+    </div>
+    <div class="proj-list">
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2025</span>
+          <span class="proj-name">Human Agency — AI Literacy</span>
+          <span class="project-badge badge-live">● Live</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Free plain-language site explaining AI from scratch — basics, jargon decoder, key researchers, curated articles and videos. Built for everyone who isn't in tech. <a href="https://ai.humanagency.co" target="_blank" rel="noopener">ai.humanagency.co →</a></div>
+      </div>
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2025</span>
+          <span class="proj-name">Advisory — HealthTech Startup</span>
+          <span class="project-badge badge-advisory">● Advisory</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Advised an early-stage health technology startup on AI product strategy: use-case prioritisation, model selection and go-to-market positioning. Hands-on advisory alongside the founding team.</div>
+      </div>
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">—</span>
+          <span class="proj-name">More in pipeline</span>
+          <span class="project-badge badge-pipeline">● Pipeline</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">AI education and advisory work continuing to grow — new formats and tools in development.</div>
+      </div>
+
+    </div>
+  </div>
+
 </section>
 
 <section id="articles">
