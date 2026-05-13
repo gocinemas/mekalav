@@ -84,6 +84,16 @@ nav {
 .nav-brand-photo { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border); flex-shrink: 0; }
 .nav-name { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
 .nav-name span { color: var(--accent); }
+.nav-avail {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600; color: #16a34a;
+  background: rgba(22,163,74,.1); border: 1px solid rgba(22,163,74,.25);
+  border-radius: 99px; padding: 3px 9px; letter-spacing: 0.1px;
+}
+.nav-avail-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #16a34a; flex-shrink: 0;
+}
 .nav-links { display: flex; gap: 20px; align-items: center; }
 .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
 .nav-links a:hover { color: var(--text); }
@@ -543,6 +553,7 @@ footer {
   <a href="/" class="nav-brand" id="logo-tap" style="text-decoration:none">
     <img src="/vikram.jpg" alt="Vikram" class="nav-brand-photo">
     <div class="nav-name">Vikram<span>.</span></div>
+    <span class="nav-avail"><span class="nav-avail-dot"></span>Available</span>
   </a>
   <div class="nav-links">
     <a href="#story">Story</a>
@@ -565,7 +576,7 @@ footer {
   <p class="hero-sub">
     Started writing code in India. Moved to Italy, then London.
     Spent two decades inside <strong>Unilever, Mars, Shell and BP</strong> making large technology programmes actually land.
-    Now building three things: <strong>Miru</strong> (WhatsApp-first AI assistant), <strong>Intel</strong> (brand &amp; company intelligence) and <strong>AI</strong> (plain-language literacy for everyone outside tech).
+    Now building four things: <strong>Miru</strong> (WhatsApp-first AI assistant), <strong>Intel</strong> (brand &amp; company intelligence), <strong>Space</strong> (UK space, simplified) and <strong>AI</strong> (plain-language literacy for everyone outside tech).
   </p>
   <div class="journey">
     <div class="journey-stop">🇮🇳 India</div>
@@ -580,7 +591,7 @@ footer {
   </div>
   <div class="avail-pill">
     <span class="avail-dot"></span>
-    <span>Available for contracts · AI Transformation · SAP M&A</span>
+    <span>Open to Programme &amp; Senior Roles · AI &amp; Digital Transformation</span>
   </div>
 </div>
 
