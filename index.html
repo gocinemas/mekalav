@@ -290,6 +290,10 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 }
 .proj-area-name { font-size: 18px; font-weight: 800; color: var(--text); }
 .proj-area-url  { font-size: 12px; color: var(--muted); font-weight: 500; }
+.proj-area-url a { color: var(--muted); text-decoration: none; }
+.proj-area-url a:hover { color: var(--accent); }
+.proj-try { display: inline-block; font-size: 12px; font-weight: 700; color: var(--accent); border: 1.5px solid var(--accent); border-radius: 99px; padding: 4px 14px; text-decoration: none; transition: background .15s, color .15s; }
+.proj-try:hover { background: var(--accent); color: #fff; }
 .proj-list { display: flex; flex-direction: column; }
 .proj-item { border-bottom: 1px solid var(--border); cursor: pointer; }
 .proj-item:last-child { border-bottom: none; }
@@ -775,7 +779,8 @@ footer {
   <div class="proj-area">
     <div class="proj-area-header">
       <span class="proj-area-name">Miru</span>
-      <span class="proj-area-url">miru.humanagency.co</span>
+      <span class="proj-area-url"><a href="https://miru.humanagency.co" target="_blank" rel="noopener">miru.humanagency.co</a></span>
+      <a class="proj-try" href="https://miru.humanagency.co" target="_blank" rel="noopener">Try it →</a>
     </div>
     <div class="project-platform">
       WhatsApp-first AI assistant for everyday life — no app, no login. Built on Python / Flask, Groq, Twilio and Supabase, deployed on Railway.
@@ -889,7 +894,8 @@ footer {
   <div class="proj-area">
     <div class="proj-area-header">
       <span class="proj-area-name">Intel</span>
-      <span class="proj-area-url">intel.humanagency.co</span>
+      <span class="proj-area-url"><a href="https://intel.humanagency.co" target="_blank" rel="noopener">intel.humanagency.co</a></span>
+      <a class="proj-try" href="https://intel.humanagency.co" target="_blank" rel="noopener">Try it →</a>
     </div>
     <div class="project-platform">
       Brand and company intelligence — built for people who need real business context fast without wading through analyst reports.
@@ -923,7 +929,8 @@ footer {
   <div class="proj-area">
     <div class="proj-area-header">
       <span class="proj-area-name">AI</span>
-      <span class="proj-area-url">ai.humanagency.co</span>
+      <span class="proj-area-url"><a href="https://ai.humanagency.co" target="_blank" rel="noopener">ai.humanagency.co</a></span>
+      <a class="proj-try" href="https://ai.humanagency.co" target="_blank" rel="noopener">Try it →</a>
     </div>
     <div class="project-platform">
       Making AI genuinely accessible — plain language resources and hands-on advisory for people and organisations outside the tech bubble.
