@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Now — Vikram Mekala</title>
+<meta name="description" content="What Vikram Mekala is working on, reading and thinking about right now.">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #faf9f7;
+  color: #1a1714;
+  line-height: 1.7;
+}
+nav {
+  background: rgba(250,249,247,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e8e4df;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-home { font-weight: 800; font-size: 16px; color: #1a1714; text-decoration: none; letter-spacing: -0.3px; }
+.nav-home:hover { color: #d97706; }
+.nav-back { font-size: 13px; color: #7a7168; text-decoration: none; }
+.nav-back:hover { color: #1a1714; }
+
+.wrap { max-width: 660px; margin: 0 auto; padding: 56px 24px 100px; }
+
+.page-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #d97706; margin-bottom: 16px; }
+h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 900; letter-spacing: -1px; line-height: 1.15; margin-bottom: 12px; }
+.updated { font-size: 13px; color: #7a7168; margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid #e8e4df; }
+
+.now-block { margin-bottom: 48px; }
+.now-block:last-of-type { margin-bottom: 0; }
+.now-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: #d97706; margin-bottom: 14px;
+}
+.now-block h2 { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 12px; }
+.now-block p { font-size: 16px; color: #2d2a27; line-height: 1.78; margin-bottom: 16px; }
+.now-block p:last-child { margin-bottom: 0; }
+.now-block ul { margin: 0 0 16px 0; padding: 0; list-style: none; }
+.now-block ul li {
+  font-size: 16px; color: #2d2a27; line-height: 1.7;
+  padding: 8px 0 8px 20px; position: relative;
+  border-bottom: 1px solid #f3f1ee;
+}
+.now-block ul li:last-child { border-bottom: none; }
+.now-block ul li::before { content: "—"; position: absolute; left: 0; color: #d97706; }
+
+.reading-card {
+  background: #fff; border: 1px solid #e8e4df; border-radius: 12px;
+  padding: 20px 24px; display: flex; align-items: center; gap: 16px;
+}
+.reading-icon { font-size: 32px; flex-shrink: 0; }
+.reading-title { font-size: 16px; font-weight: 700; color: #1a1714; }
+.reading-author { font-size: 13px; color: #7a7168; margin-top: 2px; }
+
+.note-card {
+  border-left: 3px solid #d97706;
+  padding: 4px 0 4px 20px;
+  font-size: 18px; font-weight: 500; color: #1a1714;
+  line-height: 1.6; font-style: italic;
+}
+
+.footer-bio { margin-top: 64px; padding-top: 32px; border-top: 1px solid #e8e4df; font-size: 13px; color: #7a7168; line-height: 1.6; }
+.footer-bio a { color: #d97706; text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-home">Vikram Mekala</a>
+  <a href="/" class="nav-back">← Back</a>
+</nav>
+
+<div class="wrap">
+
+  <div class="page-tag">Now</div>
+  <h1>What I'm doing now</h1>
+  <p class="updated">Updated May 2026 · London</p>
+
+  <div class="now-block">
+    <div class="now-label">This week</div>
+    <ul>
+      <li>New design for Miru — cleaner, faster, more human</li>
+      <li>Optimising search and search results across the product</li>
+      <li>Tube stations in train times — London users needed this</li>
+      <li>Local council features: report a pothole, find your bin day, council tax help</li>
+    </ul>
+  </div>
+
+  <div class="now-block">
+    <div class="now-label">Building</div>
+    <p>Four live AI products, all built alone. No VC. No team. Just useful tools for real life in the UK.</p>
+    <ul>
+      <li><strong>Miru</strong> — WhatsApp-first AI assistant for everyday UK life</li>
+      <li><strong>Intel</strong> — company and brand intelligence without the analyst reports</li>
+      <li><strong>Space</strong> — UK space, in plain English</li>
+      <li><strong>AI</strong> — free AI literacy for people outside the tech bubble</li>
+    </ul>
+  </div>
+
+  <div class="now-block">
+    <div class="now-label">Reading</div>
+    <div class="reading-card">
+      <div class="reading-icon">📖</div>
+      <div>
+        <div class="reading-title">The Human Experience</div>
+        <div class="reading-author">John Sills</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="now-block">
+    <div class="now-label">Thinking about</div>
+    <div class="note-card">We are born on this planet to tell stories to each other. That's it. Everything else is commentary.</div>
+  </div>
+
+  <div class="now-block">
+    <div class="now-label">Open to</div>
+    <p>Programme and senior roles in AI and digital transformation. 25 years in. Day 0 Hypercare Lead on the Magnum/Unilever separation. Now building and available.</p>
+    <p><a href="mailto:mekala@gmail.com" style="color:#d97706;font-weight:600;text-decoration:none">Get in touch →</a></p>
+  </div>
+
+  <div class="footer-bio">
+    This is a <a href="https://nownownow.com/about" target="_blank" rel="noopener">/now page</a> — a simple page about what I'm focused on right now. Updated roughly once a month.<br><br>
+    <a href="/">mekalav.com</a> · <a href="https://www.linkedin.com/in/mekalavikram/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -488,6 +488,41 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 @media (max-width: 480px) { .nl-form { flex-direction: column; } }
 .nl-success { display: none; color: #16a34a; font-size: 14px; font-weight: 600; margin-top: 12px; }
 
+/* Quote strip */
+.quote-strip {
+  max-width: 720px; margin: 0 auto;
+  padding: 0 24px 48px;
+  text-align: center;
+}
+.quote-inner {
+  font-size: 16px; font-style: italic;
+  color: var(--muted); line-height: 1.7;
+}
+.quote-mark { font-size: 22px; color: var(--accent); font-style: normal; vertical-align: -2px; }
+
+/* Now section */
+.now-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px; margin-top: 8px;
+}
+@media (max-width: 640px) { .now-grid { grid-template-columns: 1fr; } }
+.now-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px 22px;
+}
+.now-card-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+}
+.now-card-text { font-size: 15px; color: var(--text); line-height: 1.65; }
+.now-card-text em { font-style: italic; color: var(--muted); }
+.now-page-link {
+  display: inline-block; margin-top: 20px;
+  font-size: 13px; color: var(--accent); font-weight: 600;
+  text-decoration: none;
+}
+.now-page-link:hover { text-decoration: underline; }
+
 /* Available badge */
 .avail-pill {
   display: inline-flex; align-items: center; gap: 8px;
@@ -564,8 +599,8 @@ footer {
     <a href="#career">Career</a>
     <a href="#building">Builder's Lab</a>
     <a href="#articles">Articles</a>
+    <a href="/now">Now</a>
     <a href="#contact">Contact</a>
-    <a href="#newsletter">Newsletter</a>
   </div>
   <div class="theme-toggle">
     <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
@@ -580,7 +615,7 @@ footer {
   <p class="hero-sub">
     Started writing code in India. Moved to Italy, then London.
     Spent two decades inside <strong>Unilever, Mars, Shell and BP</strong> making large technology programmes actually land.
-    Now building three things: <strong>Miru</strong> (WhatsApp-first AI assistant for UK life), <strong>Intel</strong> (brand &amp; company intelligence) and <strong>AI</strong> (plain-language AI literacy for everyone outside tech).
+    Now building four things: <strong>Miru</strong> (WhatsApp-first AI assistant for UK life), <strong>Intel</strong> (brand &amp; company intelligence), <strong>Space</strong> (UK space, simplified) and <strong>AI</strong> (plain-language AI literacy for everyone outside tech).
   </p>
   <div class="journey">
     <div class="journey-stop">🇮🇳 India</div>
@@ -596,6 +631,13 @@ footer {
   <div class="avail-pill">
     <span class="avail-dot"></span>
     <span>Open to Programme &amp; Senior Roles · AI &amp; Digital Transformation</span>
+  </div>
+</div>
+
+<!-- Quote -->
+<div class="quote-strip">
+  <div class="quote-inner">
+    <span class="quote-mark">"</span><span id="daily-quote"></span><span class="quote-mark">"</span>
   </div>
 </div>
 
@@ -994,6 +1036,26 @@ footer {
   <button class="add-btn" id="add-article-btn" onclick="openArticleModal()">+ Add article</button>
 </section>
 
+<section id="now">
+  <div class="section-label">Now</div>
+  <h2>What's on</h2>
+  <div class="now-grid">
+    <div class="now-card">
+      <div class="now-card-label">This week</div>
+      <div class="now-card-text">New Miru design, tube stations in train times, and local council features — report a pothole, find your bin day.</div>
+    </div>
+    <div class="now-card">
+      <div class="now-card-label">Reading</div>
+      <div class="now-card-text"><em>The Human Experience</em> — John Sills</div>
+    </div>
+    <div class="now-card">
+      <div class="now-card-label">Note</div>
+      <div class="now-card-text">We are born on this planet to tell stories to each other. That's it. Everything else is commentary.</div>
+    </div>
+  </div>
+  <a href="/now" class="now-page-link">Full now page →</a>
+</section>
+
 <section id="contact">
   <div class="section-label">Contact</div>
   <h2>Get in touch</h2>
@@ -1186,6 +1248,22 @@ footer {
 </div>
 
 <script>
+// ── Daily quote ────────────────────────────────────────────────────────────────
+(function() {
+  const quotes = [
+    "AI can give you the answers, but it can't give you the understanding.",
+    "Complexity is easy. Clarity is the hard part.",
+    "The best technology disappears. It just works.",
+    "Transformation is not a project. It's a decision.",
+    "Technology is only as good as the decision it enables.",
+    "You learn more from shipping something broken than planning something perfect.",
+    "Most digital transformations fail not because of technology. But because of people.",
+    "The gap between knowing and doing is where most organisations live."
+  ];
+  const day = Math.floor(Date.now() / 86400000);
+  document.getElementById("daily-quote").textContent = quotes[day % quotes.length];
+})();
+
 // ── Career timeline toggle ─────────────────────────────────────────────────────
 function tlToggle(item) {
   item.classList.toggle("open");
