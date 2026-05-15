@@ -1233,7 +1233,7 @@ footer {
     <button class="chat-close" onclick="toggleChat()">✕</button>
   </div>
   <div class="chat-messages" id="chat-messages">
-    <div class="chat-msg ai">Hi! I can answer questions about Vikram's career, projects or availability. What would you like to know?</div>
+    <div class="chat-msg ai">Hi, I'm an extension of Vikram and can answer questions about his career, projects or availability or anything you have in mind. I've also got interesting content on this site which is useful to you and covers a lot of useful ground. What can I answer?</div>
   </div>
   <div class="chat-starters" id="chat-starters">
     <button class="chat-starter" onclick="chatSend('What has Vikram worked on at Unilever?')">What has he done at Unilever?</button>
@@ -1477,40 +1477,10 @@ document.addEventListener("click", e => {
 document.addEventListener("keydown", e => { if (e.key === "Escape") clearSearch(); });
 
 // ── Charts data ──────────────────────────────────────────────────────────────
-// type: 'iframe' = live embed  |  type: 'image' = screenshot + source link
+// type: 'iframe' = live embed (desktop only, link on mobile)
+// type: 'image'  = screenshot + source link
+// type: 'stat'   = key number card
 const CHARTS = [
-  {
-    type: 'iframe',
-    title: 'Global private investment in AI',
-    desc: 'Annual private investment in AI has grown from under $5bn in 2013 to over $90bn — with enterprise AI and generative AI accounting for the bulk of recent growth.',
-    source: 'Our World in Data',
-    source_url: 'https://ourworldindata.org/grapher/private-investment-in-artificial-intelligence',
-    iframe_src: 'https://ourworldindata.org/grapher/private-investment-in-artificial-intelligence'
-  },
-  {
-    type: 'iframe',
-    title: 'Share of people using the internet',
-    desc: 'From 16% of the world in 2000 to over 67% today. The infrastructure that AI is now being built on top of.',
-    source: 'Our World in Data',
-    source_url: 'https://ourworldindata.org/grapher/share-of-individuals-using-the-internet',
-    iframe_src: 'https://ourworldindata.org/grapher/share-of-individuals-using-the-internet'
-  },
-  {
-    type: 'iframe',
-    title: 'Share of job postings mentioning AI skills',
-    desc: 'The share of job ads requiring AI skills has risen steadily across sectors — a direct signal of where enterprise hiring is moving and which roles are being reshaped fastest.',
-    source: 'Our World in Data',
-    source_url: 'https://ourworldindata.org/grapher/share-artificial-intelligence-job-postings',
-    iframe_src: 'https://ourworldindata.org/grapher/share-artificial-intelligence-job-postings'
-  },
-  {
-    type: 'iframe',
-    title: 'Companies using AI — share by sector',
-    desc: 'Enterprise AI adoption is uneven across industries. Tech and finance are furthest ahead; healthcare and manufacturing are catching up fast.',
-    source: 'Our World in Data',
-    source_url: 'https://ourworldindata.org/grapher/share-companies-using-artificial-intelligence',
-    iframe_src: 'https://ourworldindata.org/grapher/share-companies-using-artificial-intelligence'
-  },
   {
     type: 'image',
     title: 'AI is moving from assistants to agents',
@@ -1534,23 +1504,88 @@ const CHARTS = [
     source: 'Coatue C/Takes',
     source_url: 'https://www.coatue.com/c/takes',
     img_src: 'https://images.ctfassets.net/iqem6dz8q0mk/5yZvABsjBKYYSEuu3cTZZh/5d11878786b9b9da4be114ef0cf76ab0/Traditional_SWE_vs_AI_Native_Software_Engineers_1.1.png?fm=webp&w=1200&q=80'
+  },
+  {
+    type: 'iframe',
+    title: 'Global private investment in AI',
+    desc: 'Annual private investment in AI has grown from under $5bn in 2013 to over $90bn — with enterprise AI and generative AI accounting for the bulk of recent growth.',
+    source: 'Our World in Data',
+    source_url: 'https://ourworldindata.org/grapher/private-investment-in-artificial-intelligence',
+    iframe_src: 'https://ourworldindata.org/grapher/private-investment-in-artificial-intelligence'
+  },
+  {
+    type: 'stat',
+    title: 'Enterprise AI adoption by sector (2024)',
+    desc: 'McKinsey Global Survey on AI adoption. Financial services and tech lead; energy, manufacturing and retail are accelerating fastest — often where operational complexity is highest.',
+    source: 'McKinsey & Company',
+    source_url: 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai',
+    stats: [
+      { label: 'Financial services', pct: 72 },
+      { label: 'Technology / Telecom', pct: 70 },
+      { label: 'Healthcare', pct: 54 },
+      { label: 'Retail / Consumer', pct: 51 },
+      { label: 'Energy / Materials', pct: 48 },
+      { label: 'Manufacturing', pct: 44 }
+    ]
+  },
+  {
+    type: 'stat',
+    title: 'UK digital economy in numbers (2024)',
+    desc: 'The UK remains one of the top three global tech hubs by investment, employment and startup density. The AI opportunity is concentrated in London, Manchester and Edinburgh.',
+    source: 'Technation / DCMS',
+    source_url: 'https://technation.io/report/',
+    stats: [
+      { label: 'UK tech sector value', pct: 100, label2: '£1 trillion+' },
+      { label: 'Tech jobs in UK', pct: 84, label2: '3m+ roles' },
+      { label: 'AI startup growth (3yr)', pct: 76, label2: '+76%' },
+      { label: 'VC investment (2023)', pct: 62, label2: '$29bn raised' }
+    ]
   }
 ];
 
 function _renderCharts() {
   const grid = document.getElementById('charts-grid');
   if (!grid) return;
+  const isMobile = window.innerWidth < 640;
   grid.innerHTML = CHARTS.map(c => {
-    const media = c.type === 'iframe'
-      ? `<div style="position:relative;width:100%;padding-top:56%;border-radius:12px;overflow:hidden;background:#f3f4f6">
-           <iframe src="${c.iframe_src}" loading="lazy"
-             style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
-             allowfullscreen></iframe>
-         </div>`
-      : `<a href="${c.source_url}" target="_blank" rel="noopener" style="display:block;border-radius:12px;overflow:hidden">
-           <img src="${c.img_src}" alt="${c.title}" style="width:100%;display:block;border-radius:12px;border:1px solid var(--border)">
-         </a>`;
-    return `<div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;padding:0">
+    let media = '';
+    if (c.type === 'iframe') {
+      if (isMobile) {
+        media = `<a href="${c.source_url}" target="_blank" rel="noopener"
+          style="display:flex;align-items:center;gap:12px;padding:18px 20px;background:var(--surface2);text-decoration:none;border-bottom:1px solid var(--border)">
+          <span style="font-size:28px">📊</span>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text)">View interactive chart</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">${c.source} · Opens in browser</div>
+          </div>
+          <span style="margin-left:auto;font-size:16px;color:var(--muted)">→</span>
+        </a>`;
+      } else {
+        media = `<div style="position:relative;width:100%;padding-top:56%;background:#f3f4f6;overflow:hidden">
+          <iframe src="${c.iframe_src}" loading="lazy"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+            allowfullscreen></iframe>
+        </div>`;
+      }
+    } else if (c.type === 'image') {
+      media = `<a href="${c.source_url}" target="_blank" rel="noopener" style="display:block;overflow:hidden">
+        <img src="${c.img_src}" alt="${c.title}" loading="lazy"
+          style="width:100%;display:block;border-bottom:1px solid var(--border)">
+      </a>`;
+    } else if (c.type === 'stat') {
+      const bars = (c.stats||[]).map(s => `
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+            <span style="color:var(--text);font-weight:600">${s.label}</span>
+            <span style="color:var(--muted)">${s.label2 || s.pct+'%'}</span>
+          </div>
+          <div style="height:6px;border-radius:3px;background:var(--surface2);overflow:hidden">
+            <div style="height:100%;width:${s.pct}%;background:linear-gradient(90deg,var(--accent),#3b82f6);border-radius:3px;transition:width .6s"></div>
+          </div>
+        </div>`).join('');
+      media = `<div style="padding:20px 20px 4px;border-bottom:1px solid var(--border)">${bars}</div>`;
+    }
+    return `<div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
       ${media}
       <div style="padding:16px 20px 20px">
         <div style="font-size:15px;font-weight:700;margin-bottom:6px;letter-spacing:-.2px">${c.title}</div>
