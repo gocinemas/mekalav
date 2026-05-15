@@ -1484,12 +1484,22 @@ const CHARTS = [
   },
   {
     type: 'iframe',
-    title: 'AI/ML job postings vs software engineering',
-    desc: 'AI and ML roles are surging in job postings while traditional software engineering roles have stayed flat — a real-time signal of where enterprise is placing its bets.',
+    title: 'Share of job postings mentioning AI skills',
+    desc: 'The share of job ads requiring AI skills has risen steadily across sectors — a direct signal of where enterprise hiring is moving and which roles are being reshaped fastest.',
     source: 'Our World in Data',
-    source_url: 'https://ourworldindata.org/grapher/indeed-job-postings-ai',
-    iframe_src: 'https://ourworldindata.org/grapher/indeed-job-postings-ai'
+    source_url: 'https://ourworldindata.org/grapher/share-artificial-intelligence-job-postings',
+    iframe_src: 'https://ourworldindata.org/grapher/share-artificial-intelligence-job-postings'
+  },
+  {
+    type: 'iframe',
+    title: 'Companies using AI — share by sector',
+    desc: 'Enterprise AI adoption is uneven across industries. Tech and finance are furthest ahead; healthcare and manufacturing are catching up fast.',
+    source: 'Our World in Data',
+    source_url: 'https://ourworldindata.org/grapher/share-companies-using-artificial-intelligence',
+    iframe_src: 'https://ourworldindata.org/grapher/share-companies-using-artificial-intelligence'
   }
+  // To add a Coatue screenshot chart:
+  // { type:'image', title:'...', desc:'...', source:'Coatue C/Takes', source_url:'https://www.coatue.com/c/takes', img_src:'/charts/coatue-CHARTNAME.png' }
 ];
 
 function _renderCharts() {
