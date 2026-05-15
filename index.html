@@ -117,6 +117,19 @@ nav {
   .nav-links a { font-size: 12px; }
   .nav-links a[href="#career"] { display: none; }
 }
+@media (max-width: 480px) {
+  nav { padding: 10px 16px; gap: 8px; }
+  .nav-avail { display: none; }
+  .nav-links a[href="#story"],
+  .nav-links a[href="#articles"] { display: none; }
+  .nav-links { gap: 10px; }
+  .theme-toggle { display: none; }
+  .nl-input { font-size: 16px; }
+  .search-input { font-size: 16px; }
+}
+@media (max-width: 360px) {
+  .nav-links a[href="/now"] { display: none; }
+}
 
 /* Search bar */
 .search-wrap {
