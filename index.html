@@ -1029,6 +1029,13 @@ footer {
 
 </section>
 
+<section id="charts">
+  <div class="section-label">Charts & Data</div>
+  <h2>What the numbers say</h2>
+  <p style="color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6">Data and visualisations I find useful — AI, technology, markets. Sources credited and linked.</p>
+  <div id="charts-grid" style="display:flex;flex-direction:column;gap:32px;"></div>
+</section>
+
 <section id="articles">
   <div class="section-label">Articles</div>
   <h2>Things worth reading</h2>
@@ -1456,6 +1463,62 @@ document.addEventListener("click", e => {
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape") clearSearch(); });
 
+// ── Charts data ──────────────────────────────────────────────────────────────
+// type: 'iframe' = live embed  |  type: 'image' = screenshot + source link
+const CHARTS = [
+  {
+    type: 'iframe',
+    title: 'Global private investment in AI',
+    desc: 'Annual private investment in AI has grown from under $5bn in 2013 to over $90bn — with enterprise AI and generative AI accounting for the bulk of recent growth.',
+    source: 'Our World in Data',
+    source_url: 'https://ourworldindata.org/grapher/private-investment-in-artificial-intelligence',
+    iframe_src: 'https://ourworldindata.org/grapher/private-investment-in-artificial-intelligence'
+  },
+  {
+    type: 'iframe',
+    title: 'Share of people using the internet',
+    desc: 'From 16% of the world in 2000 to over 67% today. The infrastructure that AI is now being built on top of.',
+    source: 'Our World in Data',
+    source_url: 'https://ourworldindata.org/grapher/share-of-individuals-using-the-internet',
+    iframe_src: 'https://ourworldindata.org/grapher/share-of-individuals-using-the-internet'
+  },
+  {
+    type: 'iframe',
+    title: 'AI/ML job postings vs software engineering',
+    desc: 'AI and ML roles are surging in job postings while traditional software engineering roles have stayed flat — a real-time signal of where enterprise is placing its bets.',
+    source: 'Our World in Data',
+    source_url: 'https://ourworldindata.org/grapher/indeed-job-postings-ai',
+    iframe_src: 'https://ourworldindata.org/grapher/indeed-job-postings-ai'
+  }
+];
+
+function _renderCharts() {
+  const grid = document.getElementById('charts-grid');
+  if (!grid) return;
+  grid.innerHTML = CHARTS.map(c => {
+    const media = c.type === 'iframe'
+      ? `<div style="position:relative;width:100%;padding-top:56%;border-radius:12px;overflow:hidden;background:#f3f4f6">
+           <iframe src="${c.iframe_src}" loading="lazy"
+             style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+             allowfullscreen></iframe>
+         </div>`
+      : `<a href="${c.source_url}" target="_blank" rel="noopener" style="display:block;border-radius:12px;overflow:hidden">
+           <img src="${c.img_src}" alt="${c.title}" style="width:100%;display:block;border-radius:12px;border:1px solid var(--border)">
+         </a>`;
+    return `<div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;padding:0">
+      ${media}
+      <div style="padding:16px 20px 20px">
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px;letter-spacing:-.2px">${c.title}</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px">${c.desc}</div>
+        <a href="${c.source_url}" target="_blank" rel="noopener"
+           style="font-size:12px;font-weight:600;color:var(--accent);text-decoration:none">
+          Source: ${c.source} →
+        </a>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 // ── Articles data ──────────────────────────────────────────────────────────────
 const DEFAULT_ARTICLES = [
   { id: "a4", title: "What Day 0 actually feels like", tag: "M&A · Transformation", desc: "Everyone talks about the programme. Nobody talks about the moment it either works or doesn't. This is what a demerger looks like from inside.", url: "/day-0.html", date: "May 2026" },
@@ -1553,6 +1616,7 @@ document.getElementById("article-modal").addEventListener("click", function(e) {
 });
 
 renderArticles();
+_renderCharts();
 </script>
 </body>
 </html>
