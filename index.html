@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vikram Mekala</title>
+<!-- Cloudflare Web Analytics: paste token below when ready -->
+<!-- <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token":"PASTE_TOKEN_HERE"}'></script> -->
 <meta name="description" content="AI and Digital Transformation. Building tools that make AI useful for everyday people.">
 <style>
 /* Light (default) */
@@ -1537,20 +1539,14 @@ function deleteArticle() {
 }
 
 // ── Newsletter ─────────────────────────────────────────────────────────────────
-async function nlSubmit(e) {
+function nlSubmit(e) {
   e.preventDefault();
   const email = document.getElementById("nl-email").value.trim();
   if (!email) return;
-  try {
-    await fetch("https://miru.humanagency.co/api/newsletter/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, source: "mekalav" })
-    });
-  } catch(_) {}
   document.getElementById("nl-success").style.display = "block";
   document.getElementById("nl-email").style.display = "none";
   document.querySelector(".nl-btn").style.display = "none";
+  window.open("https://mekalav.beehiiv.com/subscribe?email=" + encodeURIComponent(email), "_blank", "noopener");
 }
 
 document.getElementById("article-modal").addEventListener("click", function(e) {
