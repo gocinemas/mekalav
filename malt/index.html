@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vikram Mekala · For Malt UK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0c0b09;
+    --paper:      #f6f3ee;
+    --red:        #d63b22;
+    --warm-mid:   #7a746c;
+    --rule:       #ddd8cf;
+    --card-bg:    #faf8f4;
+    --dark-bg:    #141210;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    border-bottom: 1px solid var(--rule);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(246,243,238,0.95);
+    backdrop-filter: blur(4px);
+  }
+
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .topbar-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .topbar-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: var(--dark-bg);
+    color: var(--paper);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    padding: 0.38rem 0.8rem;
+    border-radius: 2px;
+  }
+
+  .dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; display: inline-block; }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid var(--rule);
+    animation: up 0.7s ease both;
+  }
+
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 680px;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--red); }
+
+  .hero-body { max-width: 580px; color: #3a3530; font-size: 1rem; }
+  .hero-body p + p { margin-top: 0.9rem; }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    margin-top: 0.2rem;
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--rule);
+    animation: up 0.6s ease both;
+  }
+
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .section-intro {
+    color: #3a3530;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+  }
+
+  /* MATCH GRID */
+  .match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--rule);
+    background: var(--rule);
+  }
+
+  .match-card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    transition: background 0.2s;
+  }
+
+  .match-card:hover { background: #fff; }
+
+  .mc-flag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.57rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.45rem;
+  }
+
+  .mc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.98rem;
+    margin-bottom: 0.55rem;
+    line-height: 1.3;
+  }
+
+  .match-card p { font-size: 0.83rem; color: var(--warm-mid); line-height: 1.6; }
+
+  /* QUOTE */
+  .quote-block {
+    border-left: 3px solid var(--red);
+    padding: 1rem 1.4rem;
+    margin-top: 2rem;
+    background: var(--card-bg);
+  }
+
+  .quote-block blockquote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    color: #3a3530;
+    line-height: 1.6;
+  }
+
+  .quote-block cite {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    margin-top: 0.6rem;
+    font-style: normal;
+  }
+
+  /* PROGRAMMES */
+  .prog-list { display: flex; flex-direction: column; }
+
+  .prog-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .prog-item:last-child { border-bottom: none; }
+
+  .prog-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--warm-mid);
+    letter-spacing: 0.04em;
+    padding-top: 0.2rem;
+    line-height: 1.6;
+  }
+
+  .prog-year strong { display: block; color: var(--red); font-weight: 500; font-size: 0.7rem; }
+
+  .prog-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+
+  .prog-body p { font-size: 0.85rem; color: var(--warm-mid); max-width: 520px; line-height: 1.65; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.7rem; }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.57rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--rule);
+    color: #555;
+    padding: 0.18rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  /* OFFER TABLE */
+  .offer-table { border-top: 1px solid var(--rule); margin-top: 1.5rem; }
+
+  .offer-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0 2.5rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .offer-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    padding-top: 0.15rem;
+  }
+
+  .offer-value { font-size: 0.88rem; color: var(--ink); line-height: 1.6; }
+  .offer-value strong { font-weight: 500; }
+
+  /* TOOLS */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .tool-card {
+    border: 1px solid var(--rule);
+    padding: 1.2rem;
+    background: var(--card-bg);
+    border-radius: 2px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .tool-card:hover { border-color: var(--red); transform: translateY(-2px); }
+
+  .tool-card a {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .tool-card a::after { content: ' →'; color: var(--red); }
+  .tool-card p { font-size: 0.78rem; color: var(--warm-mid); line-height: 1.55; }
+
+  /* CTA */
+  .cta {
+    background: var(--dark-bg);
+    color: var(--paper);
+    padding: 3.5rem 3rem;
+    margin-top: 4rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 3rem;
+    flex-wrap: wrap;
+    border-radius: 2px;
+  }
+
+  .cta h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    line-height: 1.15;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  .cta h3 em { font-style: italic; color: #d6a99a; }
+
+  .cta-sub { font-size: 0.85rem; color: #9a9088; max-width: 360px; line-height: 1.65; }
+
+  .cta-links { display: flex; flex-direction: column; gap: 0.7rem; min-width: 180px; }
+
+  .cta-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--paper);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+    border-bottom: 1px solid #2a2724;
+    padding-bottom: 0.7rem;
+  }
+
+  .cta-link:last-child { border-bottom: none; padding-bottom: 0; }
+  .cta-link:hover { color: #d6a99a; }
+  .cta-link::before { content: '→'; color: var(--red); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 0;
+    border-top: 1px solid var(--rule);
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer span, footer a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    color: var(--warm-mid);
+    text-decoration: none;
+  }
+
+  footer a:hover { color: var(--red); }
+
+  /* ANIM */
+  @keyframes up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+
+  /* MOBILE */
+  @media (max-width: 580px) {
+    .prog-item { grid-template-columns: 1fr; gap: 0.3rem; }
+    .offer-row { grid-template-columns: 1fr; gap: 0.2rem; }
+    .offer-label { color: var(--red); }
+    .cta { padding: 2rem 1.5rem; }
+    .hero-stats { gap: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <span class="topbar-name">Vikram Mekala</span>
+    <div class="topbar-badge"><span class="dot"></span> Prepared for Malt UK · May 2026</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="kicker">Senior Programme Manager · AI Builder · Available now</p>
+    <h1>The PM who bridges <em>enterprise delivery</em> and the AI era.</h1>
+    <div class="hero-body">
+      <p>25 years inside Unilever, Shell, BP and Mars. I started writing code, moved into business analysis, then ran large-scale IT transformation programmes across three continents. I understand how enterprise technology behaves when real organisations touch it.</p>
+      <p>Since 2024 I've been building four live AI products at humanagency.co. Not as a career pivot — as evidence that I understand what AI can actually do, not just what it's supposed to. That combination is rare at this level.</p>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">25</div><div class="stat-label">Years in enterprise</div></div>
+      <div><div class="stat-num">4</div><div class="stat-label">Live AI products</div></div>
+      <div><div class="stat-num">£5M+</div><div class="stat-label">Programmes delivered</div></div>
+      <div><div class="stat-num">3</div><div class="stat-label">Sectors covered</div></div>
+    </div>
+  </div>
+
+  <!-- WHY MALT STRATEGY -->
+  <div class="section">
+    <p class="kicker">The fit</p>
+    <h2>Why Malt Strategy — and why now</h2>
+    <p class="section-intro">Malt Strategy is for senior interim executives and management consultants with deep industry track records. I meet the criteria exactly — and I bring something most profiles at this level don't: a live AI practice alongside the enterprise credentials.</p>
+
+    <div class="match-grid">
+      <div class="match-card">
+        <p class="mc-flag">Malt Strategy criteria</p>
+        <p class="mc-title">Interim Executive — 25 years</p>
+        <p>The threshold is 10 years in senior roles at a large company. I have 25, across Unilever, Shell, BP and Mars. The profile fits without stretching — and I come with a programme track record to match.</p>
+      </div>
+      <div class="match-card">
+        <p class="mc-flag">Malt's named client</p>
+        <p class="mc-title">Unilever — from the inside</p>
+        <p>Unilever is a public Malt Strategy client. I've just completed a programme there — the Magnum IT separation. I understand how Unilever resources transformation work, how Fieldglass governs procurement, and what makes a senior PM credible to their stakeholders.</p>
+      </div>
+      <div class="match-card">
+        <p class="mc-flag">Malt Tech Trends 2026</p>
+        <p class="mc-title">AI demand × 60 — I'm already there</p>
+        <p>Malt's own 2026 data shows AI agent demand multiplied by 60 vs 2024. I have four AI products live in production. Not claimed skills — demonstrated ones, built and running now.</p>
+      </div>
+      <div class="match-card">
+        <p class="mc-flag">Malt UK IR35 work</p>
+        <p class="mc-title">Outside IR35 · Fieldglass-ready</p>
+        <p>Malt UK has run IR35 briefings to help enterprise clients hire with confidence. I operate outside IR35 through my limited company and I'm Fieldglass-familiar — the procurement system Malt integrates with across its major accounts.</p>
+      </div>
+      <div class="match-card">
+        <p class="mc-flag">Malt UK enterprise base</p>
+        <p class="mc-title">FMCG · Energy · FS — covered</p>
+        <p>Malt's UK clients span Unilever, Reckitt, L'Oréal and others. My background covers FMCG (Unilever, Mars), Energy (Shell, BP) and Financial Services (LeasePlan) — credible across all three without ramp-up.</p>
+      </div>
+      <div class="match-card">
+        <p class="mc-flag">Malt's own positioning</p>
+        <p class="mc-title">Bridging the AI gap</p>
+        <p>Malt UK has positioned senior freelancers as the people who bridge the AI gap for enterprise clients. That is precisely my position: programme management discipline combined with hands-on AI product knowledge. The fit is already named.</p>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <blockquote>"They offered timely and clear communication. The execution of the whole process was very structured and included the support we needed for our project."</blockquote>
+      <cite>Hermann Woebse · Head of Customer Operations, Unilever — on working with Malt Strategy</cite>
+    </div>
+  </div>
+
+  <!-- PROGRAMMES -->
+  <div class="section">
+    <p class="kicker">Track record</p>
+    <h2>The programmes that matter</h2>
+    <p class="section-intro">Selected engagements across separation, data transformation and digital platform delivery — the types of work Malt's enterprise clients post.</p>
+
+    <div class="prog-list">
+      <div class="prog-item">
+        <div class="prog-year"><strong>2025</strong>Unilever</div>
+        <div class="prog-body">
+          <p class="prog-title">Magnum Ice Cream IT Separation — M&A Programme</p>
+          <p>Technology workstream for the post-demerger carve-out of Magnum from Unilever. Four SAP ECC landscapes, 100+ systems migrated, zero outages, 99%+ SLA maintained throughout. Complex stakeholder management across Unilever HQ and incoming Magnum leadership.</p>
+          <div class="tags">
+            <span class="tag">IT Separation</span><span class="tag">M&A</span><span class="tag">SAP ECC</span><span class="tag">Programme Governance</span><span class="tag">Stakeholder Management</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="prog-item">
+        <div class="prog-year"><strong>2020–24</strong>Unilever</div>
+        <div class="prog-body">
+          <p class="prog-title">Global Media Analytics Transformation</p>
+          <p>Tableau to Power BI migration across 50+ markets globally. £5M budget, 50-person team across three continents. 98% on-time delivery. Analytics operating model redesigned and adopted globally post-programme.</p>
+          <div class="tags">
+            <span class="tag">£5M Budget</span><span class="tag">Data Transformation</span><span class="tag">Power BI</span><span class="tag">50 Markets</span><span class="tag">Operating Model</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="prog-item">
+        <div class="prog-year"><strong>2013–18</strong>Shell · Unilever · LeasePlan</div>
+        <div class="prog-body">
+          <p class="prog-title">B2B eCommerce · Global Brand Platform · Digital Transformation</p>
+          <p>Shell B2B eCommerce integrating fuel card, invoicing and fleet management. Unilever brand and content platform across 160 markets — one of the largest digital deployments in FMCG. LeasePlan end-to-end digital transformation across customer portal and back office.</p>
+          <div class="tags">
+            <span class="tag">B2B eCommerce</span><span class="tag">160 Markets</span><span class="tag">Energy</span><span class="tag">FMCG</span><span class="tag">Financial Services</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="prog-item">
+        <div class="prog-year"><strong>2024–now</strong>NHS Accelerator</div>
+        <div class="prog-body">
+          <p class="prog-title">Strategic AI Advisory — HealthTech Startups</p>
+          <p>Ongoing advisory to early-stage healthtech startups within an NHS accelerator programme. AI product strategy: use-case prioritisation, model selection, go-to-market positioning. Hands-on alongside founding teams.</p>
+          <div class="tags">
+            <span class="tag">AI Strategy</span><span class="tag">HealthTech</span><span class="tag">Advisory</span><span class="tag">Ongoing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OFFER -->
+  <div class="section">
+    <p class="kicker">What I offer</p>
+    <h2>For Malt UK — how this works</h2>
+    <p class="section-intro">As a Malt Strategy freelancer and as structural context for Malt's Unilever UK&I account expansion.</p>
+
+    <div class="offer-table">
+      <div class="offer-row">
+        <span class="offer-label">Profile tier</span>
+        <span class="offer-value"><strong>Malt Strategy — Interim Executive.</strong> 25 years, senior management roles across FMCG, Energy and Financial Services. Meets the 10-year threshold with significant headroom.</span>
+      </div>
+      <div class="offer-row">
+        <span class="offer-label">Availability</span>
+        <span class="offer-value">Immediate. Available for programmes starting now.</span>
+      </div>
+      <div class="offer-row">
+        <span class="offer-label">Rate</span>
+        <span class="offer-value">£600+/day. Commensurate with programme complexity and client scale.</span>
+      </div>
+      <div class="offer-row">
+        <span class="offer-label">Engagement type</span>
+        <span class="offer-value">12–18 month IT transformation and separation programmes. Open to shorter advisory or interim engagements for the right brief.</span>
+      </div>
+      <div class="offer-row">
+        <span class="offer-label">IR35</span>
+        <span class="offer-value">Outside IR35. Limited company. Fieldglass-familiar — no procurement friction with Malt's enterprise clients.</span>
+      </div>
+      <div class="offer-row">
+        <span class="offer-label">Sector coverage</span>
+        <span class="offer-value">FMCG (Unilever, Mars) · Energy (Shell, BP) · Financial Services (LeasePlan). Credible day one across Malt UK's core enterprise client base.</span>
+      </div>
+      <div class="offer-row">
+        <span class="offer-label">AI differentiator</span>
+        <span class="offer-value">Four live AI products in production. Directly useful for clients running AI-adjacent transformation programmes who need a PM with genuine AI fluency — not a claimed skill on a CV.</span>
+      </div>
+      <div class="offer-row">
+        <span class="offer-label">Unilever context</span>
+        <span class="offer-value">Structural context on how large IT transformation programmes are resourced and governed at Unilever. Useful for Malt's UK&I expansion without crossing into confidential territory.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="section">
+    <p class="kicker">What I'm building</p>
+    <h2>Four AI products. Live. Running.</h2>
+    <p class="section-intro">Malt's own 2026 Tech Trends data shows AI agent demand at 60× 2024 levels. These are not prototypes — they are in production, with real users, real infrastructure, real data. This is how I stay ahead of what is possible right now.</p>
+
+    <div class="tools-grid">
+      <div class="tool-card">
+        <a href="https://miru.humanagency.co" target="_blank">Miru</a>
+        <p>WhatsApp-first AI assistant for everyday UK life. School comms, bill tracking, fuel prices, train times, local area reports. No app, no login. Built on Python / Flask, Groq, Twilio, Supabase.</p>
+      </div>
+      <div class="tool-card">
+        <a href="https://intel.humanagency.co" target="_blank">Intel</a>
+        <p>Brand and company intelligence. Financials, strategy, news, leadership in one place. Built for people who need real business context fast — without analyst reports.</p>
+      </div>
+      <div class="tool-card">
+        <a href="https://ai.humanagency.co" target="_blank">AI Literacy</a>
+        <p>Plain-language AI from scratch — for everyone outside tech. No jargon, no hype. Free to use. Built because the AI gap is real and most resources assume you're already technical.</p>
+      </div>
+      <div class="tool-card">
+        <a href="https://miru.humanagency.co/space" target="_blank">Space</a>
+        <p>UK space intelligence. ISS live tracking, upcoming launches, UK agencies and the people behind them. Built for anyone curious about what the UK is actually doing in space.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div>
+      <h3>Let's talk about<br><em>what fits.</em></h3>
+      <p class="cta-sub">Available now. Happy to discuss specific client briefs, how Malt Strategy works for a profile like mine, or the structural context I can offer on the Unilever UK&I expansion.</p>
+    </div>
+    <div class="cta-links">
+      <a href="https://mekalav.com" class="cta-link">mekalav.com</a>
+      <a href="https://linkedin.com/in/mekalavikram" class="cta-link">LinkedIn</a>
+      <a href="mailto:mekala@gmail.com" class="cta-link">mekala@gmail.com</a>
+      <a href="https://miru.humanagency.co" class="cta-link">miru.humanagency.co</a>
+      <a href="https://intel.humanagency.co" class="cta-link">intel.humanagency.co</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>Vikram Mekala · mekalav.com/malt · May 2026</span>
+    <a href="https://mekalav.com">← Back to mekalav.com</a>
+  </footer>
+
+</div><!-- /wrap -->
+</body>
+</html>
