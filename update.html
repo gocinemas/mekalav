@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Update location</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #faf9f7; color: #1a1714; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+.card { background: #fff; border: 1px solid #e8e4df; border-radius: 20px; padding: 32px 28px; width: 100%; max-width: 380px; }
+h2 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+.sub { font-size: 13px; color: #7a7168; margin-bottom: 24px; }
+label { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #7a7168; display: block; margin-bottom: 6px; }
+input { width: 100%; border: 1.5px solid #e8e4df; border-radius: 12px; padding: 12px 14px; font-size: 15px; background: #faf9f7; color: #1a1714; outline: none; margin-bottom: 16px; font-family: inherit; }
+input:focus { border-color: #d97706; }
+button { width: 100%; padding: 14px; background: #d97706; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+.msg { margin-top: 16px; font-size: 14px; font-weight: 600; text-align: center; display: none; }
+.msg.ok { color: #16a34a; }
+.msg.err { color: #dc2626; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>📍 Update location</h2>
+  <p class="sub">Shows as "Last seen" on mekalav.com</p>
+  <label>Place</label>
+  <input id="loc" type="text" placeholder="e.g. The Ivy, Chez Bruce" autocomplete="off">
+  <label>City (optional)</label>
+  <input id="city" type="text" placeholder="e.g. London" autocomplete="off">
+  <label>Token</label>
+  <input id="tok" type="password" placeholder="••••••••">
+  <button id="btn" onclick="save()">Save</button>
+  <div class="msg ok" id="ok">✓ Updated</div>
+  <div class="msg err" id="err"></div>
+</div>
+<script>
+var inp = document.getElementById('tok');
+var saved = localStorage.getItem('_me_tok');
+if (saved) inp.value = saved;
+
+async function save() {
+  var loc = document.getElementById('loc').value.trim();
+  var city = document.getElementById('city').value.trim();
+  var tok = inp.value.trim();
+  if (!loc || !tok) return;
+  localStorage.setItem('_me_tok', tok);
+  var btn = document.getElementById('btn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  document.getElementById('ok').style.display = 'none';
+  document.getElementById('err').style.display = 'none';
+  try {
+    var r = await fetch('https://miru.humanagency.co/api/me/location', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'X-Admin-Token': tok},
+      body: JSON.stringify({location: loc, city: city})
+    });
+    var d = await r.json();
+    if (d.ok) {
+      document.getElementById('ok').style.display = 'block';
+      document.getElementById('loc').value = '';
+    } else {
+      document.getElementById('err').textContent = d.error || 'Failed';
+      document.getElementById('err').style.display = 'block';
+    }
+  } catch(e) {
+    document.getElementById('err').textContent = 'Network error';
+    document.getElementById('err').style.display = 'block';
+  }
+  btn.disabled = false; btn.textContent = 'Save';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') save();
+});
+</script>
+</body>
+</html>

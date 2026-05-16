@@ -568,6 +568,15 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
   flex-shrink: 0;
 }
 
+.last-seen {
+  display: none; align-items: center; gap: 6px;
+  margin-top: 10px; font-size: 12px; color: var(--muted);
+}
+.last-seen-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--muted); opacity: .5; flex-shrink: 0;
+}
+
 /* Contact */
 .contact-list { display: flex; flex-direction: column; gap: 12px; }
 .contact-item {
@@ -697,6 +706,10 @@ footer {
   <div class="avail-pill">
     <span class="avail-dot"></span>
     <span>Open to Programme &amp; Senior Roles · AI &amp; Digital Transformation</span>
+  </div>
+  <div class="last-seen" id="last-seen">
+    <span class="last-seen-dot"></span>
+    <span id="last-seen-text"></span>
   </div>
 </div>
 
@@ -1859,8 +1872,26 @@ fetch('/quotes.json').then(r=>r.json()).then(quotes=>{
   const day = Math.floor(Date.now() / 86400000); // changes daily
   const q = quotes[day % quotes.length];
   const el = document.getElementById('footer-quote');
-  if (el) el.textContent = '“' + q.text + '”' + (q.author ? ' — ' + q.author : '');
+  if (el) el.textContent = '”' + q.text + '”' + (q.author ? ' — ' + q.author : '');
 }).catch(()=>{});
+
+// Last seen
+fetch('https://miru.humanagency.co/api/me/location').then(r=>r.json()).then(function(d){
+  if (!d.location) return;
+  var el = document.getElementById('last-seen');
+  var txt = document.getElementById('last-seen-text');
+  if (!el || !txt) return;
+  var ago = '';
+  if (d.updated_at) {
+    var diff = Math.floor((Date.now() - new Date(d.updated_at + 'Z').getTime()) / 60000);
+    if (diff < 60) ago = diff + 'm ago';
+    else if (diff < 1440) ago = Math.floor(diff/60) + 'h ago';
+    else ago = Math.floor(diff/1440) + 'd ago';
+  }
+  var place = d.location + (d.city ? ', ' + d.city : '');
+  txt.textContent = (ago ? 'Last seen ' + ago + ' · ' : 'Last seen at ') + place;
+  el.style.display = 'flex';
+}).catch(function(){});
 </script>
 </body>
 </html>
