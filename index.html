@@ -112,23 +112,26 @@ nav {
   background: var(--surface); color: var(--text);
   box-shadow: 0 1px 3px rgba(0,0,0,.1);
 }
+.nav-mobile-cta {
+  display: none;
+  padding: 7px 16px; background: var(--accent); color: #fff !important;
+  border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none !important;
+  white-space: nowrap; flex-shrink: 0;
+}
 @media (max-width: 640px) {
   .nav-links { gap: 12px; }
   .nav-links a { font-size: 12px; }
-  .nav-links a[href="#career"] { display: none; }
+  .nav-links a[href="#career"],
+  .nav-links a[href="#articles"] { display: none; }
 }
 @media (max-width: 480px) {
-  nav { padding: 10px 16px; gap: 8px; }
+  nav { padding: 10px 16px; gap: 0; }
   .nav-avail { display: none; }
-  .nav-links a[href="#story"],
-  .nav-links a[href="#articles"] { display: none; }
-  .nav-links { gap: 10px; }
+  .nav-links { display: none; }
   .theme-toggle { display: none; }
   .nl-input { font-size: 16px; }
   .search-input { font-size: 16px; }
-}
-@media (max-width: 360px) {
-  .nav-links a[href="/now"] { display: none; }
+  .nav-mobile-cta { display: inline-flex; margin-left: auto; }
 }
 
 /* Search bar */
@@ -733,6 +736,7 @@ footer {
     <a href="/now">Now</a>
     <a href="#contact">Contact</a>
   </div>
+  <a href="#contact" class="nav-mobile-cta">Contact</a>
   <div class="theme-toggle">
     <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
     <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
