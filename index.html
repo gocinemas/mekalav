@@ -660,6 +660,39 @@ footer {
 .modal-save { padding: 10px 22px; background: var(--text); color: var(--bg); border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; }
 .modal-cancel { padding: 10px 22px; background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-family: inherit; }
 .modal-delete { padding: 10px 18px; background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; border-radius: 8px; cursor: pointer; margin-right: auto; font-family: inherit; }
+
+/* ── Mobile responsive ── */
+@media (max-width: 640px) {
+  .hero { padding: 40px 20px 32px; }
+  .hero h1 { font-size: clamp(30px, 9vw, 42px); letter-spacing: -1px; }
+  .hero-sub { font-size: 16px; margin-bottom: 24px; }
+  section { padding: 40px 20px; }
+  .search-wrap { padding: 0 20px; }
+  .quote-strip { padding: 0 20px 32px; }
+  .quote-inner { font-size: 14px; }
+  footer { padding: 24px 20px 100px; flex-direction: column; gap: 10px; }
+  .newsletter-box { padding: 28px 20px; }
+  .nl-form { flex-direction: column; }
+  h2 { font-size: 22px; }
+  .avail-pill { font-size: 12px; padding: 7px 14px; }
+  .proj-area-header { flex-wrap: wrap; gap: 6px; }
+  .proj-header { gap: 12px; }
+  .proj-detail { padding-left: 48px; }
+  .chat-fab { padding: 10px 16px; font-size: 13px; bottom: 16px; right: 16px; }
+}
+
+@media (max-width: 400px) {
+  .hero { padding: 28px 16px 24px; }
+  section { padding: 32px 16px; }
+  .search-wrap { padding: 0 16px; }
+  .hero h1 { font-size: clamp(26px, 10vw, 36px); }
+  .hero-sub { font-size: 14px; }
+  .btn-primary, .btn-ghost { padding: 10px 18px; font-size: 13px; }
+  .hero-ctas { gap: 8px; }
+  .proj-detail { padding-left: 36px; }
+  .newsletter-box { padding: 24px 16px; }
+  footer { padding: 20px 16px 100px; }
+}
 </style>
 </head>
 <body>
