@@ -594,18 +594,9 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 
 /* Footer */
 .closing-quote {
-  max-width: 720px; margin: 0 auto; padding: 56px 24px 40px;
-  text-align: center;
-}
-.closing-quote p {
-  font-size: 17px; line-height: 1.9; color: var(--muted);
-  font-style: italic; margin: 0;
-}
-.closing-quote cite {
-  display: block; margin-top: 20px;
-  font-size: 12px; font-style: normal;
-  font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--muted); opacity: .6;
+  font-size: 12px; font-style: italic;
+  color: var(--muted); opacity: .7;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 footer {
@@ -1161,16 +1152,11 @@ footer {
   </div>
 </section>
 
-<div class="closing-quote">
-  <p>point out the good when you see it.<br>
-  in life, in others, in yourself.<br><br>
-  because the world needs to remember<br>
-  what kindness and love look like.</p>
-  <cite>— Topher Kearby</cite>
-</div>
-
 <footer>
-  <div class="footer-name">Vikram Mekala · London</div>
+  <div>
+    <div class="footer-name">Vikram Mekala · London</div>
+    <div class="closing-quote">"point out the good when you see it" — Topher Kearby</div>
+  </div>
   <div class="footer-links">
     <a href="https://twitter.com/mekalav" target="_blank" rel="noopener">𝕏 Twitter</a>
     <a href="https://www.linkedin.com/in/mekalavikram/" target="_blank" rel="noopener">LinkedIn</a>
