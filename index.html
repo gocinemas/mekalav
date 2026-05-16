@@ -1155,7 +1155,7 @@ footer {
 <footer>
   <div>
     <div class="footer-name">Vikram Mekala · London</div>
-    <div class="closing-quote">"point out the good when you see it" — Topher Kearby</div>
+    <div class="closing-quote" id="footer-quote"></div>
   </div>
   <div class="footer-links">
     <a href="https://twitter.com/mekalav" target="_blank" rel="noopener">𝕏 Twitter</a>
@@ -1783,5 +1783,14 @@ _renderCharts();
   </a>
 </div>
 
+<script>
+fetch('/quotes.json').then(r=>r.json()).then(quotes=>{
+  if (!quotes.length) return;
+  const day = Math.floor(Date.now() / 86400000); // changes daily
+  const q = quotes[day % quotes.length];
+  const el = document.getElementById('footer-quote');
+  if (el) el.textContent = '“' + q.text + '”' + (q.author ? ' — ' + q.author : '');
+}).catch(()=>{});
+</script>
 </body>
 </html>
