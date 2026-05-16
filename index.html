@@ -515,6 +515,24 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 .quote-mark { font-size: 22px; color: var(--accent); font-style: normal; vertical-align: -2px; }
 
 /* Now section */
+.web-links-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px; margin-top: 8px;
+}
+@media (max-width: 640px) { .web-links-grid { grid-template-columns: 1fr 1fr; } }
+.web-link-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 16px 18px;
+  text-decoration: none; display: block;
+  transition: border-color .15s;
+}
+.web-link-card:hover { border-color: var(--muted); }
+.web-link-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; color: var(--accent2); margin-bottom: 6px; display: block;
+}
+.web-link-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.web-link-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
 .now-grid {
   display: grid; grid-template-columns: 1fr 1fr 1fr;
   gap: 16px; margin-top: 8px;
@@ -1089,6 +1107,58 @@ footer {
   <h2>Things worth reading</h2>
   <div class="articles-list" id="articles-list"></div>
   <button class="add-btn" id="add-article-btn" onclick="openArticleModal()">+ Add article</button>
+</section>
+
+<section id="cool-web">
+  <div class="section-label">Cool web</div>
+  <h2>Sites worth your time</h2>
+  <div class="web-links-grid">
+    <a class="web-link-card" href="https://aidanjs.com/" target="_blank" rel="noopener">
+      <span class="web-link-tag">Portfolio</span>
+      <div class="web-link-name">Aidan</div>
+      <div class="web-link-desc">The bar for personal site design.</div>
+    </a>
+    <a class="web-link-card" href="https://www.chloeyan.me/" target="_blank" rel="noopener">
+      <span class="web-link-tag">Portfolio</span>
+      <div class="web-link-name">Chloe Yan</div>
+      <div class="web-link-desc">Product design with actual opinion in it.</div>
+    </a>
+    <a class="web-link-card" href="https://www.laxspace.co/" target="_blank" rel="noopener">
+      <span class="web-link-tag">Creative</span>
+      <div class="web-link-name">Laxspace</div>
+      <div class="web-link-desc">Quiet, considered, beautifully made.</div>
+    </a>
+    <a class="web-link-card" href="https://posthog.com/" target="_blank" rel="noopener">
+      <span class="web-link-tag">Tool</span>
+      <div class="web-link-name">PostHog</div>
+      <div class="web-link-desc">Open source product analytics. What I use.</div>
+    </a>
+    <a class="web-link-card" href="https://www.yukiasakura.com/" target="_blank" rel="noopener">
+      <span class="web-link-tag">Art</span>
+      <div class="web-link-name">Yuki Asakura</div>
+      <div class="web-link-desc">Illustration that makes you stop scrolling.</div>
+    </a>
+    <a class="web-link-card" href="https://www.virgilabloh.com/" target="_blank" rel="noopener">
+      <span class="web-link-tag">Design</span>
+      <div class="web-link-name">Virgil Abloh</div>
+      <div class="web-link-desc">Archive of a mind that changed what design means.</div>
+    </a>
+    <a class="web-link-card" href="https://www.10000yearclock.net/index.html" target="_blank" rel="noopener">
+      <span class="web-link-tag">Idea</span>
+      <div class="web-link-name">10,000 Year Clock</div>
+      <div class="web-link-desc">A clock being built to tick for 10 millennia. Reframes everything.</div>
+    </a>
+    <a class="web-link-card" href="https://romonitorstats.com/" target="_blank" rel="noopener">
+      <span class="web-link-tag">Data</span>
+      <div class="web-link-name">RoMonitor Stats</div>
+      <div class="web-link-desc">What good public data viz looks like.</div>
+    </a>
+    <a class="web-link-card" href="https://asoftmurmur.com/" target="_blank" rel="noopener">
+      <span class="web-link-tag">Ambient</span>
+      <div class="web-link-name">A Soft Murmur</div>
+      <div class="web-link-desc">Rain + thunder + fire. Mix your own focus sound.</div>
+    </a>
+  </div>
 </section>
 
 <section id="now">
