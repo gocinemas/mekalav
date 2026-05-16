@@ -1552,6 +1552,14 @@ function closeChat() {
   document.getElementById("chat-panel").classList.remove("open");
 }
 
+function _linkify(text) {
+  const safe = text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  return safe.replace(/(https?:\/\/[^\s<]+|mekalav\.com\/\S+|miru\.humanagency\.co\/\S*|intel\.humanagency\.co\/\S*)/g, m => {
+    const href = m.startsWith('http') ? m : 'https://' + m;
+    return `<a href="${href}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;text-decoration:underline">${m}</a>`;
+  });
+}
+
 async function chatSend(preset) {
   const input = document.getElementById("chat-input");
   const msg = (preset || input.value).trim();
@@ -1578,10 +1586,10 @@ async function chatSend(preset) {
     const reply = d.reply || "Sorry, I couldn't get a response. Try emailing me directly.";
     _chatHistory.push({ role: "assistant", content: reply });
     typing.className = "chat-msg ai";
-    typing.textContent = reply;
+    typing.innerHTML = _linkify(reply);
   } catch(_) {
     typing.className = "chat-msg ai";
-    typing.textContent = "Something went wrong — please try again or email me directly.";
+    typing.innerHTML = _linkify("Something went wrong — please try again or email me directly.");
   }
   msgs.scrollTop = msgs.scrollHeight;
 }
