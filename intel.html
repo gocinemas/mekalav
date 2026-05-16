@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intel — Company Research</title>
+<meta name="description" content="Live company intelligence powered by AI. Built by Vikram Mekala.">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #faf9f7; --surface: #ffffff; --border: #e8e4df;
+  --text: #1a1714; --muted: #7a7168; --accent: #d97706;
+  --radius: 16px;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #181614; --surface: #211f1c; --border: #332f2b; --text: #f0ece6; --muted: #8a8078; --accent: #f59e0b; }
+}
+body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.page { max-width: 680px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* header */
+.back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; margin-bottom: 28px; }
+.back:hover { color: var(--accent); }
+.header { margin-bottom: 28px; }
+.header h1 { font-size: 28px; font-weight: 900; letter-spacing: -1px; margin-bottom: 4px; }
+.header p  { font-size: 14px; color: var(--muted); }
+
+/* search bar */
+.search-wrap { display: flex; gap: 10px; margin-bottom: 28px; }
+.search-input {
+  flex: 1; border: 1.5px solid var(--border); border-radius: 12px;
+  padding: 14px 16px; font-size: 16px; font-family: inherit;
+  background: var(--surface); color: var(--text); outline: none;
+}
+.search-input:focus { border-color: var(--accent); }
+.search-btn {
+  padding: 14px 22px; background: var(--accent); color: #fff;
+  border: none; border-radius: 12px; font-size: 15px; font-weight: 700;
+  cursor: pointer; font-family: inherit; white-space: nowrap;
+}
+.search-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* quick chips */
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+.chip {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 7px 14px; font-size: 13px; font-weight: 600;
+  color: var(--muted); cursor: pointer; transition: border-color .15s, color .15s;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+
+/* loading */
+.loading { display: none; padding: 48px 0; text-align: center; }
+.spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-label { font-size: 14px; color: var(--muted); }
+.loading-steps { font-size: 12px; color: var(--muted); margin-top: 6px; min-height: 18px; }
+
+/* results */
+.result { display: none; }
+.company-name { font-size: 22px; font-weight: 900; letter-spacing: -.5px; margin-bottom: 4px; }
+.confidence-badge {
+  display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px;
+  border-radius: 10px; margin-bottom: 18px; letter-spacing: .3px; text-transform: uppercase;
+}
+.conf-high   { background: rgba(22,163,74,.1);  color: #16a34a; }
+.conf-medium { background: rgba(217,119,6,.1);  color: #d97706; }
+.conf-low    { background: rgba(239,68,68,.1);  color: #dc2626; }
+
+.headline {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius); padding: 18px 20px; margin-bottom: 16px;
+  font-size: 17px; font-weight: 700; line-height: 1.4; color: var(--text);
+}
+
+.cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px 20px;
+}
+.card-label { font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.card-body  { font-size: 14px; line-height: 1.6; color: var(--text); }
+
+.risks-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.risks-list li { font-size: 14px; color: var(--text); line-height: 1.5; padding-left: 20px; position: relative; }
+.risks-list li::before { content: "⚠"; position: absolute; left: 0; font-size: 12px; top: 2px; }
+
+/* pitch */
+.pitch {
+  margin-top: 28px;
+  background: linear-gradient(135deg, #1a1714, #2d2620);
+  border-radius: var(--radius); padding: 24px 24px;
+  color: #fff;
+}
+.pitch-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px; }
+.pitch h3 { font-size: 17px; font-weight: 800; margin-bottom: 10px; }
+.pitch p  { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,.7); margin-bottom: 14px; }
+.pitch-links { display: flex; gap: 10px; flex-wrap: wrap; }
+.pitch-link {
+  font-size: 13px; font-weight: 700; padding: 9px 16px;
+  border-radius: 10px; text-decoration: none;
+}
+.pitch-link.primary { background: var(--accent); color: #fff; }
+.pitch-link.secondary { background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); }
+
+.error { display: none; background: #fef2f2; border: 1px solid #fca5a5; border-radius: var(--radius); padding: 18px 20px; font-size: 14px; color: #dc2626; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back" href="https://mekalav.com">← mekalav.com</a>
+
+  <div class="header">
+    <h1>Company Intel</h1>
+    <p>Live AI research — strategy, leadership signals, hiring trends. Takes ~20 seconds.</p>
+  </div>
+
+  <div class="search-wrap">
+    <input class="search-input" id="q" type="text" placeholder="Enter company name e.g. Unilever, Mars, HSBC" autocomplete="off">
+    <button class="search-btn" id="run-btn" onclick="runResearch()">Research →</button>
+  </div>
+
+  <div class="chips" id="chips">
+    <span class="chip" onclick="quickSearch('Unilever')">Unilever</span>
+    <span class="chip" onclick="quickSearch('Mars')">Mars</span>
+    <span class="chip" onclick="quickSearch('HSBC')">HSBC</span>
+    <span class="chip" onclick="quickSearch('Tesco')">Tesco</span>
+    <span class="chip" onclick="quickSearch('Diageo')">Diageo</span>
+    <span class="chip" onclick="quickSearch('Vodafone')">Vodafone</span>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-label">Researching<span id="loading-company"></span>…</div>
+    <div class="loading-steps" id="loading-steps">Scanning news and signals</div>
+  </div>
+
+  <div class="error" id="error"></div>
+
+  <div class="result" id="result">
+    <div class="company-name" id="r-company"></div>
+    <div class="confidence-badge" id="r-conf"></div>
+    <div class="headline" id="r-headline"></div>
+    <div class="cards">
+      <div class="card"><div class="card-label">Strategy</div><div class="card-body" id="r-strategy"></div></div>
+      <div class="card"><div class="card-label">Leadership</div><div class="card-body" id="r-leadership"></div></div>
+      <div class="card"><div class="card-label">Hiring signals</div><div class="card-body" id="r-hiring"></div></div>
+      <div class="card"><div class="card-label">Risks</div><ul class="risks-list" id="r-risks"></ul></div>
+      <div class="card" style="border-left:3px solid var(--accent)">
+        <div class="card-label">Opportunity angle</div>
+        <div class="card-body" id="r-opportunity"></div>
+      </div>
+    </div>
+    <div class="pitch">
+      <div class="pitch-eyebrow">Built by</div>
+      <h3>Vikram Mekala — AI &amp; Transformation</h3>
+      <p>Intel is one of the tools I've built to make AI genuinely useful for business decisions — not just demos, but working products. I help organisations identify where AI creates real leverage, then deliver it.</p>
+      <div class="pitch-links">
+        <a class="pitch-link primary" href="https://mekalav.com">About me →</a>
+        <a class="pitch-link secondary" href="mailto:mekala@gmail.com">Get in touch</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+const API = 'https://miru.humanagency.co/api/intel/research';
+
+const _STEPS = [
+  'Scanning recent news…',
+  'Checking leadership signals…',
+  'Reading hiring trends…',
+  'Analysing strategic moves…',
+  'Compiling brief…',
+];
+
+function quickSearch(name) {
+  document.getElementById('q').value = name;
+  runResearch();
+}
+
+async function runResearch() {
+  const q = document.getElementById('q').value.trim();
+  if (!q) return;
+
+  const btn = document.getElementById('run-btn');
+  btn.disabled = true;
+  btn.textContent = 'Researching…';
+  document.getElementById('chips').style.display = 'none';
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('error').style.display = 'none';
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('loading-company').textContent = ' ' + q;
+
+  // Cycle through loading step labels
+  let si = 0;
+  const stepsEl = document.getElementById('loading-steps');
+  stepsEl.textContent = _STEPS[0];
+  const stepTimer = setInterval(() => {
+    si = (si + 1) % _STEPS.length;
+    stepsEl.textContent = _STEPS[si];
+  }, 4000);
+
+  // Update URL so the link is shareable
+  const url = new URL(location.href);
+  url.searchParams.set('q', q);
+  history.replaceState(null, '', url.toString());
+
+  try {
+    const r = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ company: q }),
+    });
+    clearInterval(stepTimer);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const d = await r.json();
+    if (d.error) throw new Error(d.error);
+    renderResult(q, d);
+  } catch (e) {
+    clearInterval(stepTimer);
+    document.getElementById('loading').style.display = 'none';
+    const errEl = document.getElementById('error');
+    errEl.textContent = 'Research failed: ' + (e.message || 'unknown error') + '. Try again in a moment.';
+    errEl.style.display = 'block';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Research →';
+}
+
+function renderResult(company, d) {
+  document.getElementById('loading').style.display = 'none';
+
+  document.getElementById('r-company').textContent = d.company || company;
+
+  const conf = (d.confidence || 'medium').toLowerCase();
+  const confEl = document.getElementById('r-conf');
+  confEl.textContent = conf + ' confidence';
+  confEl.className = 'confidence-badge conf-' + (conf === 'high' ? 'high' : conf === 'low' ? 'low' : 'medium');
+
+  document.getElementById('r-headline').textContent    = d.headline    || '';
+  document.getElementById('r-strategy').textContent    = d.strategy    || 'Not available';
+  document.getElementById('r-leadership').textContent  = d.leadership  || 'Not available';
+  document.getElementById('r-hiring').textContent      = d.hiring_signals || 'Not available';
+  document.getElementById('r-opportunity').textContent = d.opportunity_angle || 'Not available';
+
+  const risksList = document.getElementById('r-risks');
+  risksList.innerHTML = '';
+  const risks = Array.isArray(d.risks) ? d.risks : (d.risks ? [d.risks] : []);
+  if (risks.length) {
+    risks.forEach(r => {
+      const li = document.createElement('li');
+      li.textContent = r;
+      risksList.appendChild(li);
+    });
+  } else {
+    risksList.innerHTML = '<li>No specific risks identified</li>';
+  }
+
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Auto-run if ?q= in URL
+(function() {
+  const params = new URLSearchParams(location.search);
+  const q = params.get('q');
+  if (q) {
+    document.getElementById('q').value = q;
+    runResearch();
+  }
+  document.getElementById('q').addEventListener('keydown', e => {
+    if (e.key === 'Enter') runResearch();
+  });
+})();
+</script>
+</body>
+</html>
