@@ -663,35 +663,57 @@ footer {
 
 /* ── Mobile responsive ── */
 @media (max-width: 640px) {
-  .hero { padding: 40px 20px 32px; }
-  .hero h1 { font-size: clamp(30px, 9vw, 42px); letter-spacing: -1px; }
-  .hero-sub { font-size: 16px; margin-bottom: 24px; }
+  /* Hero */
+  .hero { padding: 36px 20px 28px; }
+  .hero h1 { font-size: clamp(30px, 9vw, 44px); letter-spacing: -1px; margin-bottom: 16px; }
+  .hero-sub { font-size: 15px; line-height: 1.65; margin-bottom: 24px; }
+  .avail-pill { font-size: 12px; padding: 6px 14px; }
+
+  /* Layout */
   section { padding: 40px 20px; }
   .search-wrap { padding: 0 20px; }
-  .quote-strip { padding: 0 20px 32px; }
+  .quote-strip { padding: 0 20px 28px; }
   .quote-inner { font-size: 14px; }
   footer { padding: 24px 20px 100px; flex-direction: column; gap: 10px; }
+  .footer-links { gap: 14px; }
+
+  /* Typography */
+  h2 { font-size: 22px; letter-spacing: -0.3px; }
+  .story-text { font-size: 15px; }
   .newsletter-box { padding: 28px 20px; }
-  .nl-form { flex-direction: column; }
-  h2 { font-size: 22px; }
-  .avail-pill { font-size: 12px; padding: 7px 14px; }
+
+  /* Builder's Lab — remove desktop indent in detail view */
   .proj-area-header { flex-wrap: wrap; gap: 6px; }
-  .proj-header { gap: 12px; }
-  .proj-detail { padding-left: 48px; }
-  .chat-fab { padding: 10px 16px; font-size: 13px; bottom: 16px; right: 16px; }
+  .proj-header { gap: 10px; padding: 14px 4px; }
+  .proj-detail { padding: 0 0 16px 0; }
+  .project-badge { font-size: 9px; padding: 2px 8px; }
+
+  /* Chat FAB: lift above the float nav pill */
+  .chat-fab { padding: 10px 16px; font-size: 13px; bottom: 72px; right: 16px; }
+  .chat-panel { right: 16px; bottom: 126px; width: calc(100vw - 32px); max-height: 420px; }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+  /* Hero */
   .hero { padding: 28px 16px 24px; }
+  .hero h1 { font-size: clamp(26px, 8.5vw, 34px); }
+  .hero-sub { font-size: 14px; }
+  /* Stack CTA buttons full-width on phones */
+  .hero-ctas { flex-direction: column; gap: 8px; }
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; padding: 12px 20px; }
+
+  /* Layout */
   section { padding: 32px 16px; }
   .search-wrap { padding: 0 16px; }
-  .hero h1 { font-size: clamp(26px, 10vw, 36px); }
-  .hero-sub { font-size: 14px; }
-  .btn-primary, .btn-ghost { padding: 10px 18px; font-size: 13px; }
-  .hero-ctas { gap: 8px; }
-  .proj-detail { padding-left: 36px; }
+  .quote-strip { padding: 0 16px 20px; }
   .newsletter-box { padding: 24px 16px; }
   footer { padding: 20px 16px 100px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; }
+}
+
+@media (max-width: 390px) {
+  .hero h1 { font-size: 26px; letter-spacing: -0.5px; }
+  .hero-sub { font-size: 13px; }
 }
 </style>
 </head>
