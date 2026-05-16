@@ -148,6 +148,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
       <div class="card"><div class="card-label">Strategy</div><div class="card-body" id="r-strategy"></div></div>
       <div class="card"><div class="card-label">Leadership</div><div class="card-body" id="r-leadership"></div></div>
       <div class="card"><div class="card-label">Hiring signals</div><div class="card-body" id="r-hiring"></div></div>
+      <div class="card" style="border-left:3px solid #2563eb">
+        <div class="card-label" style="color:#2563eb">AI focus</div>
+        <div class="card-body" id="r-ai-focus"></div>
+      </div>
       <div class="card"><div class="card-label">Risks</div><ul class="risks-list" id="r-risks"></ul></div>
       <div class="card" style="border-left:3px solid var(--accent)">
         <div class="card-label">Opportunity angle</div>
@@ -246,6 +250,7 @@ function renderResult(company, d) {
   document.getElementById('r-strategy').textContent    = d.strategy    || 'Not available';
   document.getElementById('r-leadership').textContent  = d.leadership  || 'Not available';
   document.getElementById('r-hiring').textContent      = d.hiring_signals || 'Not available';
+  document.getElementById('r-ai-focus').textContent    = d.ai_focus || 'Not publicly available';
   document.getElementById('r-opportunity').textContent = d.opportunity_angle || 'Not available';
 
   const risksList = document.getElementById('r-risks');
