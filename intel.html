@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Intel — Company Research</title>
-<meta name="description" content="Live company intelligence powered by AI. Built by Vikram Mekala.">
+<title>Intel — Agentic AI in action</title>
+<meta name="description" content="Watch an AI agent autonomously research any company — news, leadership, strategy, hiring signals — and return a structured brief in seconds. Built by Vikram Mekala.">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -22,9 +22,24 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 /* header */
 .back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; margin-bottom: 28px; }
 .back:hover { color: var(--accent); }
-.header { margin-bottom: 28px; }
-.header h1 { font-size: 28px; font-weight: 900; letter-spacing: -1px; margin-bottom: 4px; }
-.header p  { font-size: 14px; color: var(--muted); }
+.agent-badge { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg,#1e1b4b,#312e81); color: #a5b4fc; font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 12px; border-radius: 99px; margin-bottom: 14px; }
+.agent-badge-dot { width: 6px; height: 6px; background: #818cf8; border-radius: 50%; animation: pulse-dot 1.8s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+.header { margin-bottom: 20px; }
+.header h1 { font-size: 28px; font-weight: 900; letter-spacing: -1px; margin-bottom: 6px; }
+.header p  { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+/* pipeline */
+.pipeline { display: flex; align-items: center; gap: 0; margin-bottom: 28px; overflow-x: auto; padding-bottom: 4px; }
+.pipeline::-webkit-scrollbar { display: none; }
+.pipe-step { display: flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; white-space: nowrap; flex-shrink: 0; }
+.pipe-step.active { border-color: #818cf8; background: rgba(129,140,248,.08); }
+.pipe-step.done   { border-color: #16a34a; background: rgba(22,163,74,.07); }
+.pipe-step-icon { font-size: 14px; }
+.pipe-step-label { font-size: 11px; font-weight: 700; color: var(--muted); }
+.pipe-step.active .pipe-step-label { color: #818cf8; }
+.pipe-step.done   .pipe-step-label { color: #16a34a; }
+.pipe-arrow { font-size: 12px; color: var(--border); margin: 0 4px; flex-shrink: 0; }
 
 /* search bar */
 .search-wrap { display: flex; gap: 10px; margin-bottom: 28px; }
@@ -51,11 +66,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 .chip:hover { border-color: var(--accent); color: var(--accent); }
 
 /* loading */
-.loading { display: none; padding: 48px 0; text-align: center; }
-.spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 16px; }
+.loading { display: none; padding: 32px 0; }
+.loading-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.spinner { width: 28px; height: 28px; border: 2.5px solid var(--border); border-top-color: #818cf8; border-radius: 50%; animation: spin .8s linear infinite; flex-shrink: 0; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.loading-label { font-size: 14px; color: var(--muted); }
-.loading-steps { font-size: 12px; color: var(--muted); margin-top: 6px; min-height: 18px; }
+.loading-label { font-size: 15px; font-weight: 700; color: var(--text); }
+.loading-steps-list { display: flex; flex-direction: column; gap: 8px; }
+.loading-step-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); opacity: .4; transition: opacity .3s; }
+.loading-step-row.ls-active { opacity: 1; color: var(--text); }
+.loading-step-row.ls-done   { opacity: .7; }
+.ls-icon { font-size: 15px; width: 22px; text-align: center; flex-shrink: 0; }
+.ls-check { font-size: 13px; color: #16a34a; margin-left: auto; opacity: 0; transition: opacity .3s; }
+.loading-step-row.ls-done .ls-check { opacity: 1; }
 
 /* results */
 .result { display: none; }
@@ -90,20 +112,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 /* pitch */
 .pitch {
   margin-top: 28px;
-  background: linear-gradient(135deg, #1a1714, #2d2620);
+  background: linear-gradient(135deg, #1e1b4b, #312e81);
   border-radius: var(--radius); padding: 24px 24px;
   color: #fff;
 }
-.pitch-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px; }
+.pitch-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 10px; }
 .pitch h3 { font-size: 17px; font-weight: 800; margin-bottom: 10px; }
-.pitch p  { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,.7); margin-bottom: 14px; }
+.pitch p  { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,.7); margin-bottom: 14px; }
 .pitch-links { display: flex; gap: 10px; flex-wrap: wrap; }
-.pitch-link {
-  font-size: 13px; font-weight: 700; padding: 9px 16px;
-  border-radius: 10px; text-decoration: none;
-}
-.pitch-link.primary { background: var(--accent); color: #fff; }
+.pitch-link { font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 10px; text-decoration: none; }
+.pitch-link.primary { background: #f59e0b; color: #fff; }
 .pitch-link.secondary { background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); }
+.what-is-agentic { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid #818cf8; border-radius: var(--radius); padding: 16px 18px; margin-bottom: 28px; }
+.what-is-agentic p { font-size: 13px; line-height: 1.65; color: var(--muted); }
+.what-is-agentic strong { color: var(--text); }
 
 .error { display: none; background: #fef2f2; border: 1px solid #fca5a5; border-radius: var(--radius); padding: 18px 20px; font-size: 14px; color: #dc2626; }
 </style>
@@ -113,14 +135,33 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 
   <a class="back" href="https://mekalav.com">← mekalav.com</a>
 
+  <div class="agent-badge"><span class="agent-badge-dot"></span>Agentic AI in action</div>
+
   <div class="header">
     <h1>Company Intel</h1>
-    <p>Live AI research — strategy, leadership signals, hiring trends. Takes ~20 seconds.</p>
+    <p>Type a company name. An AI agent autonomously searches news, reads leadership signals, scans hiring trends, and returns a structured brief — without you doing anything else.</p>
+  </div>
+
+  <div class="what-is-agentic">
+    <p><strong>What makes this agentic?</strong> It's not a chatbot answering a question. It's an agent — it decides what to research, runs multiple searches in parallel, synthesises across sources, and produces structured output. You give it a goal; it figures out how to get there.</p>
+  </div>
+
+  <!-- Pipeline visualization -->
+  <div class="pipeline" id="pipeline">
+    <div class="pipe-step" id="ps-0"><span class="pipe-step-icon">🌐</span><span class="pipe-step-label">Scan news</span></div>
+    <span class="pipe-arrow">›</span>
+    <div class="pipe-step" id="ps-1"><span class="pipe-step-icon">👤</span><span class="pipe-step-label">Leadership</span></div>
+    <span class="pipe-arrow">›</span>
+    <div class="pipe-step" id="ps-2"><span class="pipe-step-icon">📋</span><span class="pipe-step-label">Hiring signals</span></div>
+    <span class="pipe-arrow">›</span>
+    <div class="pipe-step" id="ps-3"><span class="pipe-step-icon">🎯</span><span class="pipe-step-label">Strategy</span></div>
+    <span class="pipe-arrow">›</span>
+    <div class="pipe-step" id="ps-4"><span class="pipe-step-icon">📄</span><span class="pipe-step-label">Brief</span></div>
   </div>
 
   <div class="search-wrap">
-    <input class="search-input" id="q" type="text" placeholder="Enter company name e.g. Unilever, Mars, HSBC" autocomplete="off">
-    <button class="search-btn" id="run-btn" onclick="runResearch()">Research →</button>
+    <input class="search-input" id="q" type="text" placeholder="e.g. Unilever, Tesco, HSBC, Mars…" autocomplete="off">
+    <button class="search-btn" id="run-btn" onclick="runResearch()">Run agent →</button>
   </div>
 
   <div class="chips" id="chips">
@@ -133,9 +174,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
   </div>
 
   <div class="loading" id="loading">
-    <div class="spinner"></div>
-    <div class="loading-label">Researching<span id="loading-company"></span>…</div>
-    <div class="loading-steps" id="loading-steps">Scanning news and signals</div>
+    <div class="loading-header">
+      <div class="spinner"></div>
+      <div class="loading-label">Agent running on <span id="loading-company" style="color:#818cf8"></span></div>
+    </div>
+    <div class="loading-steps-list">
+      <div class="loading-step-row" id="ls-0"><span class="ls-icon">🌐</span>Scanning recent news<span class="ls-check">✓</span></div>
+      <div class="loading-step-row" id="ls-1"><span class="ls-icon">👤</span>Checking leadership signals<span class="ls-check">✓</span></div>
+      <div class="loading-step-row" id="ls-2"><span class="ls-icon">📋</span>Reading hiring trends<span class="ls-check">✓</span></div>
+      <div class="loading-step-row" id="ls-3"><span class="ls-icon">🎯</span>Analysing strategic moves<span class="ls-check">✓</span></div>
+      <div class="loading-step-row" id="ls-4"><span class="ls-icon">📄</span>Compiling brief<span class="ls-check">✓</span></div>
+    </div>
   </div>
 
   <div class="error" id="error"></div>
@@ -159,12 +208,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
       </div>
     </div>
     <div class="pitch">
-      <div class="pitch-eyebrow">Built by</div>
+      <div class="pitch-eyebrow">Agentic AI · Built by</div>
       <h3>Vikram Mekala — AI &amp; Transformation</h3>
-      <p>Intel is one of the tools I've built to make AI genuinely useful for business decisions — not just demos, but working products. I help organisations identify where AI creates real leverage, then deliver it.</p>
+      <p>Intel is a working example of what agentic AI looks like in production — not a demo, not a wrapper around a chatbot. The agent decides what to research, runs it autonomously, and delivers structured output you can act on.</p>
+      <p>I build these kinds of systems for organisations — identifying where agents create real leverage, then shipping them. If you're thinking about what agentic AI could do for your business, let's talk.</p>
       <div class="pitch-links">
         <a class="pitch-link primary" href="https://mekalav.com">About me →</a>
-        <a class="pitch-link secondary" href="mailto:mekala@gmail.com">Get in touch</a>
+        <a class="pitch-link secondary" href="mailto:mekala@gmail.com">Let's talk</a>
       </div>
     </div>
   </div>
@@ -173,13 +223,27 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 <script>
 const API = 'https://miru.humanagency.co/api/intel/research';
 
-const _STEPS = [
-  'Scanning recent news…',
-  'Checking leadership signals…',
-  'Reading hiring trends…',
-  'Analysing strategic moves…',
-  'Compiling brief…',
-];
+const _STEP_COUNT = 5;
+const _STEP_INTERVAL = 4200; // ms per step
+
+function _resetPipeline() {
+  for (let i = 0; i < _STEP_COUNT; i++) {
+    const ps = document.getElementById(`ps-${i}`);
+    const ls = document.getElementById(`ls-${i}`);
+    if (ps) { ps.classList.remove('active','done'); }
+    if (ls) { ls.classList.remove('ls-active','ls-done'); }
+  }
+}
+
+function _animatePipeline(stepIndex) {
+  for (let i = 0; i < _STEP_COUNT; i++) {
+    const ps = document.getElementById(`ps-${i}`);
+    const ls = document.getElementById(`ls-${i}`);
+    if (i < stepIndex)  { ps && ps.classList.add('done');   ls && ls.classList.add('ls-done');   ls && ls.classList.remove('ls-active'); }
+    if (i === stepIndex){ ps && ps.classList.add('active'); ls && ls.classList.add('ls-active'); ls && ls.classList.remove('ls-done');  }
+    if (i > stepIndex)  { ps && ps.classList.remove('active','done'); ls && ls.classList.remove('ls-active','ls-done'); }
+  }
+}
 
 function quickSearch(name) {
   document.getElementById('q').value = name;
@@ -192,21 +256,21 @@ async function runResearch() {
 
   const btn = document.getElementById('run-btn');
   btn.disabled = true;
-  btn.textContent = 'Researching…';
+  btn.textContent = 'Agent running…';
   document.getElementById('chips').style.display = 'none';
   document.getElementById('result').style.display = 'none';
   document.getElementById('error').style.display = 'none';
   document.getElementById('loading').style.display = 'block';
-  document.getElementById('loading-company').textContent = ' ' + q;
+  document.getElementById('loading-company').textContent = q;
 
-  // Cycle through loading step labels
+  // Animate pipeline steps sequentially
+  _resetPipeline();
   let si = 0;
-  const stepsEl = document.getElementById('loading-steps');
-  stepsEl.textContent = _STEPS[0];
+  _animatePipeline(0);
   const stepTimer = setInterval(() => {
-    si = (si + 1) % _STEPS.length;
-    stepsEl.textContent = _STEPS[si];
-  }, 4000);
+    si = Math.min(si + 1, _STEP_COUNT - 1);
+    _animatePipeline(si);
+  }, _STEP_INTERVAL);
 
   // Update URL so the link is shareable
   const url = new URL(location.href);
@@ -233,7 +297,8 @@ async function runResearch() {
   }
 
   btn.disabled = false;
-  btn.textContent = 'Research →';
+  btn.textContent = 'Run agent →';
+  _resetPipeline();
 }
 
 function renderResult(company, d) {
