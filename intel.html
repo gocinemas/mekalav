@@ -1,351 +1,238 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="system">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Intel — Agentic AI in action</title>
-<meta name="description" content="Watch an AI agent autonomously research any company — news, leadership, strategy, hiring signals — and return a structured brief in seconds. Built by Vikram Mekala.">
+<title>Intel — Brand &amp; Company Intelligence · Vikram Mekala</title>
+<meta name="description" content="Ask Intel about any brand or company. Get instant structured intelligence — revenue, strategy, history, competitors, and AI focus. Built by Vikram Mekala.">
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ffb31d8ceb804b16836442dae1ca65f4"}'></script>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg: #faf9f7; --surface: #ffffff; --border: #e8e4df;
-  --text: #1a1714; --muted: #7a7168; --accent: #d97706;
-  --radius: 16px;
+  --bg: #faf9f7; --surface: #ffffff; --surface2: #f3f1ee;
+  --border: #e8e4df; --text: #1a1714; --muted: #7a7168;
+  --accent: #d97706; --accent2: #2563eb;
+  --nav-bg: rgba(250,249,247,0.92);
 }
 @media (prefers-color-scheme: dark) {
-  :root { --bg: #181614; --surface: #211f1c; --border: #332f2b; --text: #f0ece6; --muted: #8a8078; --accent: #f59e0b; }
+  html[data-theme="system"] {
+    --bg: #181614; --surface: #211f1c; --surface2: #2a2724;
+    --border: #332f2b; --text: #f0ece6; --muted: #8a8078;
+    --accent: #f59e0b; --accent2: #60a5fa;
+    --nav-bg: rgba(24,22,20,0.92);
+  }
 }
-body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
-.page { max-width: 680px; margin: 0 auto; padding: 32px 20px 80px; }
-
-/* header */
-.back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; margin-bottom: 28px; }
-.back:hover { color: var(--accent); }
-.agent-badge { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg,#1e1b4b,#312e81); color: #a5b4fc; font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 12px; border-radius: 99px; margin-bottom: 14px; }
-.agent-badge-dot { width: 6px; height: 6px; background: #818cf8; border-radius: 50%; animation: pulse-dot 1.8s ease-in-out infinite; }
-@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
-.header { margin-bottom: 20px; }
-.header h1 { font-size: 28px; font-weight: 900; letter-spacing: -1px; margin-bottom: 6px; }
-.header p  { font-size: 14px; color: var(--muted); line-height: 1.55; }
-
-/* pipeline */
-.pipeline { display: flex; align-items: center; gap: 0; margin-bottom: 28px; overflow-x: auto; padding-bottom: 4px; }
-.pipeline::-webkit-scrollbar { display: none; }
-.pipe-step { display: flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; white-space: nowrap; flex-shrink: 0; }
-.pipe-step.active { border-color: #818cf8; background: rgba(129,140,248,.08); }
-.pipe-step.done   { border-color: #16a34a; background: rgba(22,163,74,.07); }
-.pipe-step-icon { font-size: 14px; }
-.pipe-step-label { font-size: 11px; font-weight: 700; color: var(--muted); }
-.pipe-step.active .pipe-step-label { color: #818cf8; }
-.pipe-step.done   .pipe-step-label { color: #16a34a; }
-.pipe-arrow { font-size: 12px; color: var(--border); margin: 0 4px; flex-shrink: 0; }
-
-/* search bar */
-.search-wrap { display: flex; gap: 10px; margin-bottom: 28px; }
-.search-input {
-  flex: 1; border: 1.5px solid var(--border); border-radius: 12px;
-  padding: 14px 16px; font-size: 16px; font-family: inherit;
-  background: var(--surface); color: var(--text); outline: none;
+html[data-theme="dark"] {
+  --bg: #181614; --surface: #211f1c; --surface2: #2a2724;
+  --border: #332f2b; --text: #f0ece6; --muted: #8a8078;
+  --accent: #f59e0b; --accent2: #60a5fa;
+  --nav-bg: rgba(24,22,20,0.92);
 }
-.search-input:focus { border-color: var(--accent); }
-.search-btn {
-  padding: 14px 22px; background: var(--accent); color: #fff;
-  border: none; border-radius: 12px; font-size: 15px; font-weight: 700;
-  cursor: pointer; font-family: inherit; white-space: nowrap;
+html[data-theme="light"] {
+  --bg: #faf9f7; --surface: #ffffff; --surface2: #f3f1ee;
+  --border: #e8e4df; --text: #1a1714; --muted: #7a7168;
+  --accent: #d97706; --accent2: #2563eb;
+  --nav-bg: rgba(250,249,247,0.92);
 }
-.search-btn:disabled { opacity: .5; cursor: not-allowed; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; transition: background .2s, color .2s; }
 
-/* quick chips */
-.chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--nav-bg); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.nav-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--text); flex-shrink: 0; }
+.nav-brand-photo { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border); }
+.nav-name { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
+.nav-name span { color: var(--accent); }
+.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
+.nav-links a:hover { color: var(--text); }
+.theme-toggle { display: flex; align-items: center; gap: 2px; background: var(--surface2); border: 1px solid var(--border); border-radius: 99px; padding: 3px; flex-shrink: 0; }
+.theme-btn { border: none; background: none; cursor: pointer; font-size: 13px; padding: 4px 8px; border-radius: 99px; color: var(--muted); transition: all .15s; line-height: 1; }
+.theme-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+@media (max-width: 480px) { nav { padding: 10px 16px; } .nav-links { display: none; } .theme-toggle { display: none; } }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+.hero { padding: 64px 0 48px; }
+.hero-tag {
+  display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--accent);
+  background: rgba(217,119,6,.08); border: 1px solid rgba(217,119,6,.2);
+  border-radius: 99px; padding: 4px 14px; margin-bottom: 24px;
+}
+.hero h1 { font-size: clamp(34px, 6vw, 54px); font-weight: 900; letter-spacing: -2px; line-height: 1.05; margin-bottom: 20px; }
+.hero h1 span { color: var(--accent); }
+.hero-sub { font-size: 18px; color: var(--muted); line-height: 1.7; max-width: 540px; margin-bottom: 36px; }
+.hero-sub strong { color: var(--text); }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: var(--text); color: var(--bg);
+  border-radius: 10px; font-weight: 700; font-size: 15px;
+  text-decoration: none; transition: opacity .15s;
+}
+.btn-primary:hover { opacity: .8; }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 24px; background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: 10px;
+  font-weight: 600; font-size: 14px; text-decoration: none; transition: border-color .15s;
+}
+.btn-ghost:hover { border-color: var(--muted); }
+
+section { padding: 56px 0; border-top: 1px solid var(--border); }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px; }
+.prose { font-size: 16px; color: var(--muted); line-height: 1.85; }
+.prose strong { color: var(--text); }
+
+.examples { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
 .chip {
+  display: inline-flex; align-items: center; gap: 6px;
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 20px; padding: 7px 14px; font-size: 13px; font-weight: 600;
-  color: var(--muted); cursor: pointer; transition: border-color .15s, color .15s;
+  border-radius: 99px; padding: 8px 16px;
+  font-size: 13px; font-weight: 600; color: var(--text);
+  text-decoration: none; transition: border-color .15s, background .15s;
 }
-.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip:hover { border-color: var(--accent); background: var(--surface2); }
 
-/* loading */
-.loading { display: none; padding: 32px 0; }
-.loading-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-.spinner { width: 28px; height: 28px; border: 2.5px solid var(--border); border-top-color: #818cf8; border-radius: 50%; animation: spin .8s linear infinite; flex-shrink: 0; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.loading-label { font-size: 15px; font-weight: 700; color: var(--text); }
-.loading-steps-list { display: flex; flex-direction: column; gap: 8px; }
-.loading-step-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); opacity: .4; transition: opacity .3s; }
-.loading-step-row.ls-active { opacity: 1; color: var(--text); }
-.loading-step-row.ls-done   { opacity: .7; }
-.ls-icon { font-size: 15px; width: 22px; text-align: center; flex-shrink: 0; }
-.ls-check { font-size: 13px; color: #16a34a; margin-left: auto; opacity: 0; transition: opacity .3s; }
-.loading-step-row.ls-done .ls-check { opacity: 1; }
+.feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+@media (max-width: 520px) { .feature-grid { grid-template-columns: 1fr; } }
+.feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+.feature-icon { font-size: 24px; margin-bottom: 10px; }
+.feature-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.feature-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-/* results */
-.result { display: none; }
-.company-name { font-size: 22px; font-weight: 900; letter-spacing: -.5px; margin-bottom: 4px; }
-.confidence-badge {
-  display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px;
-  border-radius: 10px; margin-bottom: 18px; letter-spacing: .3px; text-transform: uppercase;
-}
-.conf-high   { background: rgba(22,163,74,.1);  color: #16a34a; }
-.conf-medium { background: rgba(217,119,6,.1);  color: #d97706; }
-.conf-low    { background: rgba(239,68,68,.1);  color: #dc2626; }
+.stack-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.stack-pill { background: var(--surface2); border: 1px solid var(--border); border-radius: 99px; padding: 5px 14px; font-size: 12px; font-weight: 600; color: var(--muted); }
 
-.headline {
-  background: var(--surface); border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: var(--radius); padding: 18px 20px; margin-bottom: 16px;
-  font-size: 17px; font-weight: 700; line-height: 1.4; color: var(--text);
-}
-
-.cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
-.card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 18px 20px;
-}
-.card-label { font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-.card-body  { font-size: 14px; line-height: 1.6; color: var(--text); }
-
-.risks-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.risks-list li { font-size: 14px; color: var(--text); line-height: 1.5; padding-left: 20px; position: relative; }
-.risks-list li::before { content: "⚠"; position: absolute; left: 0; font-size: 12px; top: 2px; }
-
-/* pitch */
-.pitch {
-  margin-top: 28px;
-  background: linear-gradient(135deg, #1e1b4b, #312e81);
-  border-radius: var(--radius); padding: 24px 24px;
-  color: #fff;
-}
-.pitch-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 10px; }
-.pitch h3 { font-size: 17px; font-weight: 800; margin-bottom: 10px; }
-.pitch p  { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,.7); margin-bottom: 14px; }
-.pitch-links { display: flex; gap: 10px; flex-wrap: wrap; }
-.pitch-link { font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 10px; text-decoration: none; }
-.pitch-link.primary { background: #f59e0b; color: #fff; }
-.pitch-link.secondary { background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); }
-.what-is-agentic { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid #818cf8; border-radius: var(--radius); padding: 16px 18px; margin-bottom: 28px; }
-.what-is-agentic p { font-size: 13px; line-height: 1.65; color: var(--muted); }
-.what-is-agentic strong { color: var(--text); }
-
-.error { display: none; background: #fef2f2; border: 1px solid #fca5a5; border-radius: var(--radius); padding: 18px 20px; font-size: 14px; color: #dc2626; }
+footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; font-size: 13px; color: var(--muted); }
+footer a { color: var(--accent); text-decoration: none; }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <a class="back" href="https://mekalav.com">← mekalav.com</a>
-
-  <div class="agent-badge"><span class="agent-badge-dot"></span>Agentic AI in action</div>
-
-  <div class="header">
-    <h1>Company Intel</h1>
-    <p>Type a company name. An AI agent autonomously searches news, reads leadership signals, scans hiring trends, and returns a structured brief — without you doing anything else.</p>
+<nav>
+  <a href="/" class="nav-brand">
+    <img src="vikram.jpg" alt="Vikram" class="nav-brand-photo">
+    <span class="nav-name">mekala<span>v</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="/">← Portfolio</a>
+    <a href="https://intel.humanagency.co" target="_blank" rel="noopener">Try Intel ↗</a>
   </div>
-
-  <div class="what-is-agentic">
-    <p><strong>What makes this agentic?</strong> It's not a chatbot answering a question. It's an agent — it decides what to research, runs multiple searches in parallel, synthesises across sources, and produces structured output. You give it a goal; it figures out how to get there.</p>
+  <div class="theme-toggle">
+    <button class="theme-btn" id="tb-light" onclick="setTheme('light')">☀️</button>
+    <button class="theme-btn active" id="tb-sys" onclick="setTheme('system')">💻</button>
+    <button class="theme-btn" id="tb-dark" onclick="setTheme('dark')">🌙</button>
   </div>
+</nav>
 
-  <!-- Pipeline visualization -->
-  <div class="pipeline" id="pipeline">
-    <div class="pipe-step" id="ps-0"><span class="pipe-step-icon">🌐</span><span class="pipe-step-label">Scan news</span></div>
-    <span class="pipe-arrow">›</span>
-    <div class="pipe-step" id="ps-1"><span class="pipe-step-icon">👤</span><span class="pipe-step-label">Leadership</span></div>
-    <span class="pipe-arrow">›</span>
-    <div class="pipe-step" id="ps-2"><span class="pipe-step-icon">📋</span><span class="pipe-step-label">Hiring signals</span></div>
-    <span class="pipe-arrow">›</span>
-    <div class="pipe-step" id="ps-3"><span class="pipe-step-icon">🎯</span><span class="pipe-step-label">Strategy</span></div>
-    <span class="pipe-arrow">›</span>
-    <div class="pipe-step" id="ps-4"><span class="pipe-step-icon">📄</span><span class="pipe-step-label">Brief</span></div>
-  </div>
+<div class="wrap">
 
-  <div class="search-wrap">
-    <input class="search-input" id="q" type="text" placeholder="e.g. Unilever, Tesco, HSBC, Mars…" autocomplete="off">
-    <button class="search-btn" id="run-btn" onclick="runResearch()">Run agent →</button>
-  </div>
-
-  <div class="chips" id="chips">
-    <span class="chip" onclick="quickSearch('Unilever')">Unilever</span>
-    <span class="chip" onclick="quickSearch('Mars')">Mars</span>
-    <span class="chip" onclick="quickSearch('HSBC')">HSBC</span>
-    <span class="chip" onclick="quickSearch('Tesco')">Tesco</span>
-    <span class="chip" onclick="quickSearch('Diageo')">Diageo</span>
-    <span class="chip" onclick="quickSearch('Vodafone')">Vodafone</span>
-  </div>
-
-  <div class="loading" id="loading">
-    <div class="loading-header">
-      <div class="spinner"></div>
-      <div class="loading-label">Agent running on <span id="loading-company" style="color:#818cf8"></span></div>
-    </div>
-    <div class="loading-steps-list">
-      <div class="loading-step-row" id="ls-0"><span class="ls-icon">🌐</span>Scanning recent news<span class="ls-check">✓</span></div>
-      <div class="loading-step-row" id="ls-1"><span class="ls-icon">👤</span>Checking leadership signals<span class="ls-check">✓</span></div>
-      <div class="loading-step-row" id="ls-2"><span class="ls-icon">📋</span>Reading hiring trends<span class="ls-check">✓</span></div>
-      <div class="loading-step-row" id="ls-3"><span class="ls-icon">🎯</span>Analysing strategic moves<span class="ls-check">✓</span></div>
-      <div class="loading-step-row" id="ls-4"><span class="ls-icon">📄</span>Compiling brief<span class="ls-check">✓</span></div>
+  <div class="hero">
+    <div class="hero-tag">Builder's Lab</div>
+    <h1>Brand &amp; Company<br><span>Intelligence</span></h1>
+    <p class="hero-sub">
+      Ask Intel about any brand or company. Get <strong>structured intelligence</strong> — revenue, strategy, history, competitors, AI focus — in seconds, not hours of research.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://intel.humanagency.co" target="_blank" rel="noopener" class="btn-primary">Try Intel ↗</a>
+      <a href="/" class="btn-ghost">← Back to portfolio</a>
     </div>
   </div>
 
-  <div class="error" id="error"></div>
+  <section>
+    <div class="section-label">Try it now</div>
+    <h2>Start with any brand or company</h2>
+    <p class="prose">Type a name and Intel returns a structured brief — no prompting required. Works for global brands, UK high street names, and fast-moving tech companies alike.</p>
+    <div class="examples">
+      <a href="https://intel.humanagency.co?q=Nike" target="_blank" rel="noopener" class="chip">👟 Nike</a>
+      <a href="https://intel.humanagency.co?q=Tesco" target="_blank" rel="noopener" class="chip">🛒 Tesco</a>
+      <a href="https://intel.humanagency.co?q=OpenAI" target="_blank" rel="noopener" class="chip">🤖 OpenAI</a>
+      <a href="https://intel.humanagency.co?q=Rolls-Royce" target="_blank" rel="noopener" class="chip">🚗 Rolls-Royce</a>
+      <a href="https://intel.humanagency.co?q=Monzo" target="_blank" rel="noopener" class="chip">💳 Monzo</a>
+      <a href="https://intel.humanagency.co?q=Dyson" target="_blank" rel="noopener" class="chip">🌀 Dyson</a>
+    </div>
+  </section>
 
-  <div class="result" id="result">
-    <div class="company-name" id="r-company"></div>
-    <div class="confidence-badge" id="r-conf"></div>
-    <div class="headline" id="r-headline"></div>
-    <div class="cards">
-      <div class="card"><div class="card-label">Strategy</div><div class="card-body" id="r-strategy"></div></div>
-      <div class="card"><div class="card-label">Leadership</div><div class="card-body" id="r-leadership"></div></div>
-      <div class="card"><div class="card-label">Hiring signals</div><div class="card-body" id="r-hiring"></div></div>
-      <div class="card" style="border-left:3px solid #2563eb">
-        <div class="card-label" style="color:#2563eb">AI focus</div>
-        <div class="card-body" id="r-ai-focus"></div>
+  <section>
+    <div class="section-label">What Intel returns</div>
+    <h2>A brief, not a search result</h2>
+    <p class="prose">Intel doesn't give you ten blue links. It returns a <strong>structured brief</strong> — the kind a research analyst would produce, delivered in seconds.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <div class="feature-title">Revenue &amp; Financials</div>
+        <div class="feature-desc">Turnover, headcount, key markets — sourced and structured, not scraped.</div>
       </div>
-      <div class="card"><div class="card-label">Risks</div><ul class="risks-list" id="r-risks"></ul></div>
-      <div class="card" style="border-left:3px solid var(--accent)">
-        <div class="card-label">Opportunity angle</div>
-        <div class="card-body" id="r-opportunity"></div>
+      <div class="feature-card">
+        <div class="feature-icon">♟️</div>
+        <div class="feature-title">Strategy &amp; Direction</div>
+        <div class="feature-desc">Where the company is heading, recent pivots, and stated priorities.</div>
       </div>
-    </div>
-    <div class="pitch">
-      <div class="pitch-eyebrow">Agentic AI · Built by</div>
-      <h3>Vikram Mekala — AI &amp; Transformation</h3>
-      <p>Intel is a working example of what agentic AI looks like in production — not a demo, not a wrapper around a chatbot. The agent decides what to research, runs it autonomously, and delivers structured output you can act on.</p>
-      <p>I build these kinds of systems for organisations — identifying where agents create real leverage, then shipping them. If you're thinking about what agentic AI could do for your business, let's talk.</p>
-      <div class="pitch-links">
-        <a class="pitch-link primary" href="https://mekalav.com">About me →</a>
-        <a class="pitch-link secondary" href="mailto:mekala@gmail.com">Let's talk</a>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title">AI &amp; Tech Focus</div>
+        <div class="feature-desc">What AI they're building or buying, and where it sits in the business.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚔️</div>
+        <div class="feature-title">Competitors &amp; Positioning</div>
+        <div class="feature-desc">Who they're up against and how they differentiate.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <div class="feature-title">History &amp; Evolution</div>
+        <div class="feature-desc">Founding story, key moments, how the brand has shifted over time.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📰</div>
+        <div class="feature-title">Latest News</div>
+        <div class="feature-desc">Recent headlines, product launches, leadership changes.</div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <section>
+    <div class="section-label">Under the hood</div>
+    <h2>Built for speed and structure</h2>
+    <p class="prose">
+      Intel uses <strong>Groq-hosted LLaMA</strong> for near-instant inference — responses land in under two seconds. The output is <strong>structured extraction</strong>, not a free-form answer: every field is defined, typed, and rendered consistently regardless of the company queried.
+    </p>
+    <p class="prose" style="margin-top:14px">
+      Part of <strong>Human Agency</strong> — a suite of AI tools built to be genuinely useful, not just technically impressive.
+    </p>
+    <div class="stack-row">
+      <span class="stack-pill">Groq · LLaMA 3.1</span>
+      <span class="stack-pill">Structured Extraction</span>
+      <span class="stack-pill">Python · Flask</span>
+      <span class="stack-pill">Railway</span>
+      <span class="stack-pill">Supabase</span>
+    </div>
+  </section>
 
 </div>
+
+<footer>
+  Built by <a href="/">Vikram Mekala</a> · Part of <a href="https://humanagency.co" target="_blank" rel="noopener">Human Agency</a>
+</footer>
+
 <script>
-const API = 'https://miru.humanagency.co/api/intel/research';
-
-const _STEP_COUNT = 5;
-const _STEP_INTERVAL = 4200; // ms per step
-
-function _resetPipeline() {
-  for (let i = 0; i < _STEP_COUNT; i++) {
-    const ps = document.getElementById(`ps-${i}`);
-    const ls = document.getElementById(`ls-${i}`);
-    if (ps) { ps.classList.remove('active','done'); }
-    if (ls) { ls.classList.remove('ls-active','ls-done'); }
-  }
+function setTheme(t) {
+  document.documentElement.setAttribute("data-theme", t);
+  localStorage.setItem("theme", t);
+  document.querySelectorAll(".theme-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("tb-" + (t === "system" ? "sys" : t)).classList.add("active");
 }
-
-function _animatePipeline(stepIndex) {
-  for (let i = 0; i < _STEP_COUNT; i++) {
-    const ps = document.getElementById(`ps-${i}`);
-    const ls = document.getElementById(`ls-${i}`);
-    if (i < stepIndex)  { ps && ps.classList.add('done');   ls && ls.classList.add('ls-done');   ls && ls.classList.remove('ls-active'); }
-    if (i === stepIndex){ ps && ps.classList.add('active'); ls && ls.classList.add('ls-active'); ls && ls.classList.remove('ls-done');  }
-    if (i > stepIndex)  { ps && ps.classList.remove('active','done'); ls && ls.classList.remove('ls-active','ls-done'); }
-  }
-}
-
-function quickSearch(name) {
-  document.getElementById('q').value = name;
-  runResearch();
-}
-
-async function runResearch() {
-  const q = document.getElementById('q').value.trim();
-  if (!q) return;
-
-  const btn = document.getElementById('run-btn');
-  btn.disabled = true;
-  btn.textContent = 'Agent running…';
-  document.getElementById('chips').style.display = 'none';
-  document.getElementById('result').style.display = 'none';
-  document.getElementById('error').style.display = 'none';
-  document.getElementById('loading').style.display = 'block';
-  document.getElementById('loading-company').textContent = q;
-
-  // Animate pipeline steps sequentially
-  _resetPipeline();
-  let si = 0;
-  _animatePipeline(0);
-  const stepTimer = setInterval(() => {
-    si = Math.min(si + 1, _STEP_COUNT - 1);
-    _animatePipeline(si);
-  }, _STEP_INTERVAL);
-
-  // Update URL so the link is shareable
-  const url = new URL(location.href);
-  url.searchParams.set('q', q);
-  history.replaceState(null, '', url.toString());
-
-  try {
-    const r = await fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ company: q }),
-    });
-    clearInterval(stepTimer);
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const d = await r.json();
-    if (d.error) throw new Error(d.error);
-    renderResult(q, d);
-  } catch (e) {
-    clearInterval(stepTimer);
-    document.getElementById('loading').style.display = 'none';
-    const errEl = document.getElementById('error');
-    errEl.textContent = 'Research failed: ' + (e.message || 'unknown error') + '. Try again in a moment.';
-    errEl.style.display = 'block';
-  }
-
-  btn.disabled = false;
-  btn.textContent = 'Run agent →';
-  _resetPipeline();
-}
-
-function renderResult(company, d) {
-  document.getElementById('loading').style.display = 'none';
-
-  document.getElementById('r-company').textContent = d.company || company;
-
-  const conf = (d.confidence || 'medium').toLowerCase();
-  const confEl = document.getElementById('r-conf');
-  confEl.textContent = conf + ' confidence';
-  confEl.className = 'confidence-badge conf-' + (conf === 'high' ? 'high' : conf === 'low' ? 'low' : 'medium');
-
-  document.getElementById('r-headline').textContent    = d.headline    || '';
-  document.getElementById('r-strategy').textContent    = d.strategy    || 'Not available';
-  document.getElementById('r-leadership').textContent  = d.leadership  || 'Not available';
-  document.getElementById('r-hiring').textContent      = d.hiring_signals || 'Not available';
-  document.getElementById('r-ai-focus').textContent    = d.ai_focus || 'Not publicly available';
-  document.getElementById('r-opportunity').textContent = d.opportunity_angle || 'Not available';
-
-  const risksList = document.getElementById('r-risks');
-  risksList.innerHTML = '';
-  const risks = Array.isArray(d.risks) ? d.risks : (d.risks ? [d.risks] : []);
-  if (risks.length) {
-    risks.forEach(r => {
-      const li = document.createElement('li');
-      li.textContent = r;
-      risksList.appendChild(li);
-    });
-  } else {
-    risksList.innerHTML = '<li>No specific risks identified</li>';
-  }
-
-  document.getElementById('result').style.display = 'block';
-  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// Auto-run if ?q= in URL
 (function() {
-  const params = new URLSearchParams(location.search);
-  const q = params.get('q');
-  if (q) {
-    document.getElementById('q').value = q;
-    runResearch();
-  }
-  document.getElementById('q').addEventListener('keydown', e => {
-    if (e.key === 'Enter') runResearch();
-  });
+  const saved = localStorage.getItem("theme") || "system";
+  setTheme(saved);
 })();
 </script>
 </body>
