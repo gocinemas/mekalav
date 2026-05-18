@@ -776,8 +776,8 @@ footer {
     <a href="#story">Story</a>
     <a href="#career">Career</a>
     <a href="#building">Builder's Lab</a>
-    <a href="#ai-patterns">AI in Practice</a>
-    <a href="#articles">Articles</a>
+    <a href="#ai-patterns">AI Patterns</a>
+    <a href="#articles">Notes</a>
     <a href="/now">Now</a>
     <a href="#contact">Contact</a>
   </div>
@@ -998,7 +998,7 @@ footer {
 <section id="building">
   <div class="section-label">Builder's Lab</div>
   <h2>What I've built</h2>
-  <p style="font-size:15px;color:var(--muted);margin-bottom:32px;line-height:1.7">Three live AI products and one passion project. Built them, shipped them, running them.</p>
+  <p style="font-size:15px;color:var(--muted);margin-bottom:32px;line-height:1.7">Live AI products and tools. Built them, shipped them, running them.</p>
 
   <!-- ── Miru ───────────────────────────────────────────────────── -->
   <div class="proj-area">
@@ -1115,15 +1115,50 @@ footer {
     </div>
   </div>
 
-  <!-- ── Intel ──────────────────────────────────────────────────── -->
+  <!-- ── Intel (mekalav.com/intel) ────────────────────────────── -->
   <div class="proj-area">
     <div class="proj-area-header">
       <span class="proj-area-name">Intel</span>
-      <span class="proj-area-url"><a href="https://intel.humanagency.co" target="_blank" rel="noopener">intel.humanagency.co</a></span>
-      <a class="proj-try" href="/intel">See Intel →</a>
+      <span class="proj-area-url"><a href="/intel">mekalav.com/intel</a></span>
+      <a class="proj-try" href="/intel">Try it →</a>
     </div>
     <div class="project-platform">
-      Brand and company intelligence — real business context in seconds, without wading through analyst reports or press releases.
+      Standalone agentic AI demo — type any company name, watch the agent autonomously research news, leadership, hiring signals and strategy, and return a structured brief in seconds.
+    </div>
+    <div class="proj-list">
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2026</span>
+          <span class="proj-name">Company Research Agent</span>
+          <span class="project-badge badge-live">● Live</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Type a company. The agent decides what to research, runs multiple searches in parallel, synthesises across sources and returns a structured brief — strategy, leadership, hiring signals, AI focus, risks and opportunity angle. <a href="/intel" style="color:var(--accent);font-weight:700;text-decoration:none" onclick="event.stopPropagation()">Try it →</a></div>
+      </div>
+
+      <div class="proj-item" onclick="projToggle(this)">
+        <div class="proj-header">
+          <span class="proj-year">2026</span>
+          <span class="proj-name">Head-to-Head Compare</span>
+          <span class="project-badge badge-live">● Live</span>
+          <span class="proj-chev">∨</span>
+        </div>
+        <div class="proj-detail">Compare any two companies across five dimensions the AI selects based on what actually matters for those specific businesses — not a generic template. Includes a verdict and an edge for each side.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Intel within Miru ──────────────────────────────────────── -->
+  <div class="proj-area">
+    <div class="proj-area-header">
+      <span class="proj-area-name">Intel <span style="font-weight:500;color:var(--muted);font-size:13px">— inside Miru</span></span>
+      <span class="proj-area-url"><a href="https://miru.humanagency.co/intel" target="_blank" rel="noopener">miru.humanagency.co/intel</a></span>
+      <a class="proj-try" href="https://miru.humanagency.co/intel" target="_blank" rel="noopener">Try it →</a>
+    </div>
+    <div class="project-platform">
+      Brand and company intelligence integrated inside Miru — real business context in seconds, without wading through analyst reports or press releases.
     </div>
     <div class="proj-list">
 
@@ -1140,21 +1175,11 @@ footer {
       <div class="proj-item" onclick="projToggle(this)">
         <div class="proj-header">
           <span class="proj-year">2026</span>
-          <span class="proj-name">Head-to-Head Compare</span>
-          <span class="project-badge badge-live">● Live</span>
-          <span class="proj-chev">∨</span>
-        </div>
-        <div class="proj-detail">Compare any two companies or brands across five dimensions the AI picks based on what actually matters for those specific businesses — not a generic template. Includes a verdict and an edge for each side.</div>
-      </div>
-
-      <div class="proj-item" onclick="projToggle(this)">
-        <div class="proj-header">
-          <span class="proj-year">2026</span>
           <span class="proj-name">Deep Research Brief</span>
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">One click triggers a multi-source research run — web search, news aggregation, document synthesis — and returns a structured briefing document. Closer to analyst output than a search result. <a href="/intel" style="color:var(--accent);font-weight:700;text-decoration:none" onclick="event.stopPropagation()">Try it on any company →</a></div>
+        <div class="proj-detail">Multi-source research run — web search, news aggregation, document synthesis — returns a structured briefing document closer to analyst output than a search result.</div>
       </div>
 
       <div class="proj-item" onclick="projToggle(this)">
@@ -1243,7 +1268,7 @@ footer {
 </section>
 
 <section id="ai-patterns">
-  <div class="section-label">Under the Hood</div>
+  <div class="section-label">AI Patterns</div>
   <h2>AI in practice</h2>
   <p style="color:var(--muted);font-size:14px;line-height:1.7;max-width:560px">
     Not as academic exercises. These are the actual patterns powering Miru, Intel and the rest — each one solving a real problem for a real user.
@@ -1257,7 +1282,7 @@ footer {
         <div class="ai-concept-def">Ground the model in real data before generating — search first, generate second.</div>
       </div>
       <div class="ai-concept-right">
-        <div class="ai-concept-example">Intel fetches live web articles, financials and news <em>before</em> generating a brand report — so the output is accurate, not hallucinated. Miru searches your saved WhatsApp items to answer "what was that restaurant?" without touching an LLM until needed.</div>
+        <div class="ai-concept-example">Intel fetches live web articles, financials and news <em>before</em> generating a brand report — so the output is accurate, not hallucinated. Miru searches your saved WhatsApp items to answer "what was that restaurant?" without touching an LLM until needed. Miru's 2026 local elections feature retrieves real-time Democracy Club results at query time and synthesises them into a postcode-personalised ward brief — the model never guesses who won; it reads the live count first.</div>
         <div class="ai-prod-badges">
           <span class="ai-prod-badge apb-intel">Intel</span>
           <span class="ai-prod-badge apb-miru">Miru</span>
@@ -1332,19 +1357,25 @@ footer {
       </div>
     </div>
 
+    <div class="ai-concept-row">
+      <div class="ai-concept-left">
+        <div class="ai-concept-name">Proactive AI Agent</div>
+        <div class="ai-concept-def">Monitor external state and push relevant information to users without them asking.</div>
+      </div>
+      <div class="ai-concept-right">
+        <div class="ai-concept-example">Miru's 2026 local council elections feature runs a background agent that polls Democracy Club for new results, detects when a user's ward has declared, and pushes a WhatsApp alert automatically — the AI acts on a real-world trigger, not a user request. Live at <a href="https://miru.humanagency.co/elections" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">miru.humanagency.co/elections</a>.</div>
+        <div class="ai-prod-badges">
+          <span class="ai-prod-badge apb-miru">Miru</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<section id="charts">
-  <div class="section-label">Charts & Data</div>
-  <h2>What the numbers say</h2>
-  <p style="color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6">Data and visualisations I find useful — AI, technology, markets. Sources credited and linked.</p>
-  <div id="charts-grid" style="display:flex;flex-direction:column;gap:32px;"></div>
-</section>
-
 <section id="articles">
-  <div class="section-label">Articles</div>
-  <h2>Things worth reading</h2>
+  <div class="section-label">Notes</div>
+  <h2>Things on my mind</h2>
   <div class="articles-list" id="articles-list"></div>
   <button class="add-btn" id="add-article-btn" onclick="openArticleModal()">+ Add article</button>
 </section>
@@ -1795,7 +1826,7 @@ function getSearchIndex() {
   const articles = loadData();
   return [
     ...SEARCH_INDEX,
-    ...articles.map(a => ({ label: "Article", title: a.title, sub: a.tag + (a.date ? " · " + a.date : ""), anchor: "#articles", url: a.url !== "#" ? a.url : null }))
+    ...articles.map(a => ({ label: "Note", title: a.title, sub: a.tag + (a.date ? " · " + a.date : ""), anchor: "#articles", url: a.url !== "#" ? a.url : null }))
   ];
 }
 
@@ -2053,7 +2084,6 @@ document.getElementById("article-modal").addEventListener("click", function(e) {
 });
 
 renderArticles();
-_renderCharts();
 
 // ── FLOATING NAV active state on scroll ──────────────────────
 (function() {
