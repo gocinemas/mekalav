@@ -5,37 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Intel — Brand &amp; Company Intelligence · Vikram Mekala</title>
 <meta name="description" content="Ask Intel about any brand or company. Get instant structured intelligence — revenue, strategy, history, competitors, and AI focus. Built by Vikram Mekala.">
-<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ffb31d8ceb804b16836442dae1ca65f4"}'></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ffb31d8ceb804b16836442dae1ca65f4"}'></script>
 <style>
 :root {
   --bg: #faf9f7; --surface: #ffffff; --surface2: #f3f1ee;
   --border: #e8e4df; --text: #1a1714; --muted: #7a7168;
-  --accent: #d97706; --accent2: #2563eb;
-  --nav-bg: rgba(250,249,247,0.92);
+  --accent: #d97706; --nav-bg: rgba(250,249,247,0.92);
 }
 @media (prefers-color-scheme: dark) {
   html[data-theme="system"] {
     --bg: #181614; --surface: #211f1c; --surface2: #2a2724;
     --border: #332f2b; --text: #f0ece6; --muted: #8a8078;
-    --accent: #f59e0b; --accent2: #60a5fa;
-    --nav-bg: rgba(24,22,20,0.92);
+    --accent: #f59e0b; --nav-bg: rgba(24,22,20,0.92);
   }
 }
 html[data-theme="dark"] {
   --bg: #181614; --surface: #211f1c; --surface2: #2a2724;
   --border: #332f2b; --text: #f0ece6; --muted: #8a8078;
-  --accent: #f59e0b; --accent2: #60a5fa;
-  --nav-bg: rgba(24,22,20,0.92);
+  --accent: #f59e0b; --nav-bg: rgba(24,22,20,0.92);
 }
 html[data-theme="light"] {
   --bg: #faf9f7; --surface: #ffffff; --surface2: #f3f1ee;
   --border: #e8e4df; --text: #1a1714; --muted: #7a7168;
-  --accent: #d97706; --accent2: #2563eb;
-  --nav-bg: rgba(250,249,247,0.92);
+  --accent: #d97706; --nav-bg: rgba(250,249,247,0.92);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; transition: background .2s, color .2s; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
 nav {
   position: sticky; top: 0; z-index: 100;
@@ -44,72 +40,44 @@ nav {
   padding: 12px 24px;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.nav-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--text); flex-shrink: 0; }
+.nav-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--text); }
 .nav-brand-photo { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border); }
 .nav-name { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
 .nav-name span { color: var(--accent); }
-.nav-links { display: flex; gap: 20px; align-items: center; }
-.nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
-.nav-links a:hover { color: var(--text); }
-.theme-toggle { display: flex; align-items: center; gap: 2px; background: var(--surface2); border: 1px solid var(--border); border-radius: 99px; padding: 3px; flex-shrink: 0; }
+.nav-back { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
+.nav-back:hover { color: var(--text); }
+.theme-toggle { display: flex; align-items: center; gap: 2px; background: var(--surface2); border: 1px solid var(--border); border-radius: 99px; padding: 3px; }
 .theme-btn { border: none; background: none; cursor: pointer; font-size: 13px; padding: 4px 8px; border-radius: 99px; color: var(--muted); transition: all .15s; line-height: 1; }
 .theme-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
-@media (max-width: 480px) { nav { padding: 10px 16px; } .nav-links { display: none; } .theme-toggle { display: none; } }
+@media (max-width: 480px) { nav { padding: 10px 16px; } .theme-toggle { display: none; } }
 
-.wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+.wrap { max-width: 640px; margin: 0 auto; padding: 0 24px; }
 
-.hero { padding: 64px 0 48px; }
-.hero-tag {
-  display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; color: var(--accent);
-  background: rgba(217,119,6,.08); border: 1px solid rgba(217,119,6,.2);
-  border-radius: 99px; padding: 4px 14px; margin-bottom: 24px;
-}
-.hero h1 { font-size: clamp(34px, 6vw, 54px); font-weight: 900; letter-spacing: -2px; line-height: 1.05; margin-bottom: 20px; }
-.hero h1 span { color: var(--accent); }
-.hero-sub { font-size: 18px; color: var(--muted); line-height: 1.7; max-width: 540px; margin-bottom: 36px; }
+.hero { padding: 72px 0 56px; }
+.hero-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+.hero h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 900; letter-spacing: -2px; line-height: 1.05; margin-bottom: 20px; }
+.hero-sub { font-size: 17px; color: var(--muted); line-height: 1.75; max-width: 480px; margin-bottom: 36px; }
 .hero-sub strong { color: var(--text); }
-.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
 .btn-primary {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 28px; background: var(--text); color: var(--bg);
+  padding: 13px 26px; background: var(--text); color: var(--bg);
   border-radius: 10px; font-weight: 700; font-size: 15px;
   text-decoration: none; transition: opacity .15s;
 }
-.btn-primary:hover { opacity: .8; }
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 24px; background: var(--surface); color: var(--text);
-  border: 1px solid var(--border); border-radius: 10px;
-  font-weight: 600; font-size: 14px; text-decoration: none; transition: border-color .15s;
-}
-.btn-ghost:hover { border-color: var(--muted); }
+.btn-primary:hover { opacity: .75; }
 
-section { padding: 56px 0; border-top: 1px solid var(--border); }
-.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
-h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px; }
-.prose { font-size: 16px; color: var(--muted); line-height: 1.85; }
-.prose strong { color: var(--text); }
-
-.examples { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.examples { padding: 48px 0; border-top: 1px solid var(--border); }
+.examples-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.examples h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 12px; }
+.examples p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
   display: inline-flex; align-items: center; gap: 6px;
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 99px; padding: 8px 16px;
-  font-size: 13px; font-weight: 600; color: var(--text);
-  text-decoration: none; transition: border-color .15s, background .15s;
+  border-radius: 99px; padding: 7px 16px;
+  font-size: 13px; font-weight: 600; color: var(--muted);
 }
-.chip:hover { border-color: var(--accent); background: var(--surface2); }
-
-.feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
-@media (max-width: 520px) { .feature-grid { grid-template-columns: 1fr; } }
-.feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
-.feature-icon { font-size: 24px; margin-bottom: 10px; }
-.feature-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-.feature-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
-.stack-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.stack-pill { background: var(--surface2); border: 1px solid var(--border); border-radius: 99px; padding: 5px 14px; font-size: 12px; font-weight: 600; color: var(--muted); }
 
 footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; font-size: 13px; color: var(--muted); }
 footer a { color: var(--accent); text-decoration: none; }
@@ -122,9 +90,7 @@ footer a { color: var(--accent); text-decoration: none; }
     <img src="vikram.jpg" alt="Vikram" class="nav-brand-photo">
     <span class="nav-name">mekala<span>v</span></span>
   </a>
-  <div class="nav-links">
-    <a href="/">← Portfolio</a>
-  </div>
+  <a href="/" class="nav-back">← Portfolio</a>
   <div class="theme-toggle">
     <button class="theme-btn" id="tb-light" onclick="setTheme('light')">☀️</button>
     <button class="theme-btn active" id="tb-sys" onclick="setTheme('system')">💻</button>
@@ -135,24 +101,19 @@ footer a { color: var(--accent); text-decoration: none; }
 <div class="wrap">
 
   <div class="hero">
-    <div class="hero-tag">Builder's Lab</div>
-    <h1>Brand &amp; Company<br><span>Intelligence</span></h1>
+    <div class="hero-eyebrow">Intel</div>
+    <h1>Brand &amp; company<br>intelligence</h1>
     <p class="hero-sub">
-      Type any brand or company name. Intel returns a structured brief — revenue, strategy, competitors, AI focus, and latest news — in seconds, not hours.
+      Type any brand or company name. Get a <strong>structured research brief</strong> — revenue, strategy, competitors, AI focus, and headlines — in seconds.
     </p>
-    <div class="hero-ctas">
-      <a href="https://intel.humanagency.co" target="_blank" rel="noopener" class="btn-primary">Try Intel ↗</a>
-      <a href="/" class="btn-ghost">← Portfolio</a>
-    </div>
+    <a href="https://intel.humanagency.co" target="_blank" rel="noopener" class="btn-primary">Try Intel ↗</a>
   </div>
 
-  <section>
-    <div class="section-label">What you get</div>
-    <h2>A research brief, not a search result</h2>
-    <p class="prose">
-      Intel doesn't return ten blue links. It returns a <strong>structured brief</strong> — the kind a research analyst would produce: financials, strategy, AI focus, competitors, and recent headlines, all in one place.
-    </p>
-    <div class="examples" style="margin-top:20px">
+  <div class="examples">
+    <div class="examples-label">Examples</div>
+    <h2>Works on any brand or company</h2>
+    <p>From global consumer brands to niche B2B companies — Intel returns the same structured brief every time.</p>
+    <div class="chips">
       <span class="chip">👟 Nike</span>
       <span class="chip">🛒 Tesco</span>
       <span class="chip">🤖 OpenAI</span>
@@ -160,7 +121,7 @@ footer a { color: var(--accent); text-decoration: none; }
       <span class="chip">💳 Monzo</span>
       <span class="chip">🌀 Dyson</span>
     </div>
-  </section>
+  </div>
 
 </div>
 
