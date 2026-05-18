@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 0 Readiness Check — Vikram Mekala</title>
+<meta name="description" content="5 questions. 2 minutes. Get a structured brief on your IT separation readiness — where you stand, what's missing, and what to do next.">
+<meta property="og:title" content="Day 0 Readiness Check">
+<meta property="og:description" content="5 questions. 2 minutes. A structured brief on your IT separation readiness.">
+<meta property="og:image" content="https://mekalav.com/vikram.jpg">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #faf9f7; --surface: #ffffff; --border: #e8e4df;
+  --text: #1a1714; --muted: #7a7168; --accent: #d97706;
+  --radius: 16px;
+  --green: #16a34a; --amber: #d97706; --red: #dc2626;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #181614; --surface: #211f1c; --border: #332f2b; --text: #f0ece6; --muted: #8a8078; --accent: #f59e0b; }
+}
+body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.page { max-width: 680px; margin: 0 auto; padding: 32px 20px 80px; }
+
+.back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; margin-bottom: 28px; }
+.back:hover { color: var(--accent); }
+
+.diag-badge { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg,#14532d,#166534); color: #86efac; font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 12px; border-radius: 99px; margin-bottom: 14px; }
+.diag-badge-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; }
+
+.header { margin-bottom: 28px; }
+.header h1 { font-size: 28px; font-weight: 900; letter-spacing: -1px; margin-bottom: 8px; }
+.header p  { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+.what-is { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid #16a34a; border-radius: var(--radius); padding: 16px 18px; margin-bottom: 28px; }
+.what-is p { font-size: 13px; line-height: 1.65; color: var(--muted); }
+.what-is strong { color: var(--text); }
+
+/* progress */
+.progress-wrap { margin-bottom: 24px; }
+.progress-meta { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 8px; display: flex; justify-content: space-between; }
+.progress-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; background: #16a34a; border-radius: 2px; transition: width .4s ease; }
+
+/* question */
+.question-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 24px 20px; margin-bottom: 14px; }
+.q-number { font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.q-text { font-size: 18px; font-weight: 800; letter-spacing: -.3px; line-height: 1.35; margin-bottom: 20px; }
+
+.options { display: flex; flex-direction: column; gap: 9px; }
+.option-btn {
+  display: block; width: 100%;
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 13px 16px; cursor: pointer;
+  transition: border-color .15s, background .15s;
+  text-align: left; font-family: inherit; color: var(--text);
+}
+.option-btn:hover { border-color: var(--accent); background: var(--surface); }
+.option-btn.selected { border-color: #16a34a; background: rgba(22,163,74,.06); }
+.option-label { font-size: 15px; font-weight: 700; line-height: 1.3; }
+.option-sub { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+
+.q-nav { display: flex; justify-content: flex-end; gap: 10px; }
+.btn-back { padding: 11px 20px; border: 1.5px solid var(--border); background: transparent; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; color: var(--muted); }
+.btn-back:hover { border-color: var(--text); color: var(--text); }
+.btn-next { padding: 11px 22px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: opacity .15s; }
+.btn-next:disabled { opacity: .35; cursor: not-allowed; }
+
+/* result */
+.result { display: none; }
+
+.rag-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; padding: 6px 14px; border-radius: 99px; margin-bottom: 18px; }
+.rag-green { background: rgba(22,163,74,.1);  color: #16a34a; }
+.rag-amber { background: rgba(217,119,6,.1);  color: #d97706; }
+.rag-red   { background: rgba(220,38,38,.1);  color: #dc2626; }
+.rag-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.rag-dot-green { background: #16a34a; }
+.rag-dot-amber { background: #d97706; }
+.rag-dot-red   { background: #dc2626; }
+
+.result-headline { font-size: 22px; font-weight: 900; letter-spacing: -.5px; margin-bottom: 8px; line-height: 1.25; }
+.result-sub { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
+
+.score-bar-wrap { margin-bottom: 28px; }
+.score-bar-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; display: flex; justify-content: space-between; }
+.score-bar-track { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.score-bar-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
+.score-fill-green { background: #16a34a; }
+.score-fill-amber { background: #d97706; }
+.score-fill-red   { background: #dc2626; }
+
+.cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+.card-label { font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.card-body  { font-size: 14px; line-height: 1.65; color: var(--text); }
+.card-list  { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; }
+.card-list li { font-size: 14px; color: var(--text); line-height: 1.5; padding-left: 22px; position: relative; }
+.card-list.gaps    li::before { content: "⚠"; position: absolute; left: 0; font-size: 12px; top: 2px; }
+.card-list.actions li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 800; top: 0; }
+
+.pitch { margin-top: 28px; background: linear-gradient(135deg, #14532d, #166534); border-radius: var(--radius); padding: 24px; color: #fff; }
+.pitch-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 10px; }
+.pitch h3 { font-size: 17px; font-weight: 800; margin-bottom: 10px; }
+.pitch p  { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,.75); margin-bottom: 14px; }
+.pitch-links { display: flex; gap: 10px; flex-wrap: wrap; }
+.pitch-link { font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 10px; text-decoration: none; }
+.pitch-link.primary   { background: #22c55e; color: #fff; }
+.pitch-link.secondary { background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); }
+
+.restart-wrap { margin-top: 20px; display: flex; justify-content: center; }
+.restart-btn { background: none; border: none; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; padding: 8px 0; }
+.restart-btn:hover { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back" href="https://mekalav.com">← mekalav.com</a>
+
+  <div class="diag-badge"><span class="diag-badge-dot"></span>Day 0 Readiness Check</div>
+
+  <div class="header">
+    <h1>How ready are you for Day 0?</h1>
+    <p>5 questions. 2 minutes. A structured brief on where you stand — current state, gaps, and what needs to happen next.</p>
+  </div>
+
+  <div class="what-is">
+    <p><strong>What this is:</strong> A diagnostic built from experience running IT separation programmes in complex M&amp;A transactions. The questions are the ones I ask in week one. The output is the brief I'd write before the first steering committee.</p>
+  </div>
+
+  <!-- Quiz -->
+  <div id="quiz">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span id="prog-label">Question 1 of 5</span>
+        <span id="prog-pct">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+
+    <div class="question-card">
+      <div class="q-number" id="q-number">Question 1</div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+    </div>
+
+    <div class="q-nav">
+      <button class="btn-back" id="btn-back" onclick="goBack()" style="display:none">← Back</button>
+      <button class="btn-next" id="btn-next" onclick="goNext()" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result" id="result">
+
+    <div class="rag-badge" id="rag-badge">
+      <div class="rag-dot" id="rag-dot"></div>
+      <span id="rag-label"></span>
+    </div>
+    <div class="result-headline" id="result-headline"></div>
+    <div class="result-sub" id="result-sub"></div>
+
+    <div class="score-bar-wrap">
+      <div class="score-bar-label"><span>Risk level</span><span id="score-text"></span></div>
+      <div class="score-bar-track"><div class="score-bar-fill" id="score-fill"></div></div>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">Current state</div>
+        <div class="card-body" id="r-state"></div>
+      </div>
+      <div class="card" style="border-left:3px solid #dc2626" id="r-gaps-card">
+        <div class="card-label" style="color:#dc2626">Gaps identified</div>
+        <ul class="card-list gaps" id="r-gaps"></ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent)">
+        <div class="card-label">Next phase — priorities</div>
+        <ul class="card-list actions" id="r-actions"></ul>
+      </div>
+    </div>
+
+    <div class="pitch">
+      <div class="pitch-eyebrow">IT Separation · Built by</div>
+      <h3>Vikram Mekala — Transformation &amp; IT Separation</h3>
+      <p>I've run IT separation programmes in complex M&amp;A transactions — from dependency mapping through to Day 0 go-live. This brief reflects what I look for when I walk into a programme for the first time.</p>
+      <p>If you want to talk through what this means for your situation — or stress-test the plan you already have — I'm happy to give you an honest read.</p>
+      <div class="pitch-links">
+        <a class="pitch-link primary" href="mailto:mekala@gmail.com?subject=Day%200%20readiness%20—%20let%27s%20talk">Start a conversation →</a>
+        <a class="pitch-link secondary" href="https://mekalav.com/day-0.html">What Day 0 actually feels like</a>
+      </div>
+    </div>
+
+    <div class="restart-wrap">
+      <button class="restart-btn" onclick="restart()">↩ Start again</button>
+    </div>
+  </div>
+
+</div>
+<script>
+const QUESTIONS = [
+  {
+    text: "What type of separation are you preparing for?",
+    options: [
+      { label: "Carve-out or divestiture",    sub: "Separating a division or entity to sell",             score: 0, state: "preparing for a carve-out or divestiture",                     gap: null,  action: null },
+      { label: "Merger or acquisition",        sub: "Integrating or absorbing another business",           score: 0, state: "preparing for a merger or acquisition",                         gap: null,  action: null },
+      { label: "IPO or spin-off",              sub: "Creating a standalone entity from within",            score: 1, state: "planning an IPO or spin-off",                                   gap: null,  action: "Confirm entity design and legal separation structure early — IPO timelines compress fast once announced" },
+      { label: "Not decided yet",              sub: "Still in early planning or feasibility",              score: 2, state: "still in early feasibility — transaction type not confirmed",   gap: "Transaction type not yet defined — scope, systems, and Day 0 requirements all depend on this decision", action: "Confirm transaction structure and legal entity design first — this is the decision that unlocks everything else" },
+    ],
+  },
+  {
+    text: "How entangled is your IT with the parent or counterpart?",
+    options: [
+      { label: "Fully shared",            sub: "ERP, email, HR, finance all on shared infrastructure",     score: 2, state: "running on fully shared IT infrastructure",              gap: "Fully shared IT is the highest-risk starting point — dependency mapping and a clean separation strategy must begin immediately", action: "Commission a full IT dependency audit before any other workstream — shared infrastructure scope drives cost, timeline, and risk" },
+      { label: "Partially shared",        sub: "Some standalone systems, some on shared platforms",         score: 1, state: "working with partially shared IT",                        gap: "Partial entanglement means hidden dependencies are likely — a targeted audit is needed before cutover planning starts",          action: "Run a structured integration audit to surface hidden dependencies — partial entanglement routinely hides complexity" },
+      { label: "Mostly independent",      sub: "Only minor integrations or data flows to untangle",         score: 0, state: "operating with mostly independent IT",                    gap: null,  action: null },
+      { label: "No clear picture yet",    sub: "No dependency mapping done yet",                            score: 2, state: "without a clear picture of IT dependencies",              gap: "No dependency mapping in place — without this, scope, cost, and timeline are all guesses",                                      action: "Commission a full IT dependency audit before any other workstream — this is the critical first step" },
+    ],
+  },
+  {
+    text: "What's your target timeline to Day 0?",
+    options: [
+      { label: "Under 6 months",     sub: "Imminent — execution already underway or nearly so",   score: 2, state: "working to an imminent Day 0 (under 6 months)",       gap: "Sub-6-month timeline creates extreme delivery pressure — immediate triage of what is achievable by Day 0 vs. what moves to TSA is essential",  action: "Triage deliverables immediately — confirm what is in scope for Day 0 and what moves to Transitional Service Agreement" },
+      { label: "6–12 months",        sub: "Near-term — planning in progress",                     score: 1, state: "targeting Day 0 in 6–12 months",                       gap: "6–12 months is tight if IT is entangled — parallel workstreams and fast decision-making will be essential from day one",                       action: "Start programme planning now — with this timeline, there is no room for sequential thinking" },
+      { label: "12–18 months",       sub: "Enough runway to plan properly",                        score: 0, state: "working to a 12–18 month Day 0 horizon",               gap: null,  action: null },
+      { label: "Not defined yet",    sub: "No firm timeline agreed",                               score: 2, state: "without a confirmed Day 0 date",                       gap: "No Day 0 timeline agreed — without a fixed date, programme sequencing, resourcing, and vendor planning cannot begin",                          action: "Agree a realistic Day 0 date with legal, commercial, and IT aligned — then build the programme plan backwards from it" },
+    ],
+  },
+  {
+    text: "Who owns your IT separation programme right now?",
+    options: [
+      { label: "Dedicated programme team",            sub: "Named programme manager, executive sponsor, steering in place",    score: 0, state: "with a dedicated programme team and executive sponsor in place",   gap: null,  action: null },
+      { label: "IT managing it alongside BAU",        sub: "No dedicated resource — IT running it as a project",               score: 1, state: "with IT managing the separation alongside business-as-usual",       gap: "IT managing alongside BAU creates capacity and prioritisation risk — separation programmes consistently fail without dedicated governance", action: "Ring-fence dedicated IT programme capacity — BAU conflicts will delay every workstream" },
+      { label: "Just started scoping it",             sub: "Early conversations, no programme structure yet",                   score: 2, state: "in early scoping — no programme structure yet established",         gap: "No programme structure in place — IT separations without dedicated governance routinely fail or overrun",                                  action: "Appoint a dedicated programme director with an executive sponsor before any other workstream begins" },
+      { label: "No programme in place",               sub: "Not yet started",                                                    score: 2, state: "without any programme structure in place",                        gap: "No programme in place — IT separation without dedicated governance routinely fails",                                                       action: "Appoint a dedicated programme director with an executive sponsor before any other workstream begins" },
+    ],
+  },
+  {
+    text: "Does your team have prior IT separation experience?",
+    options: [
+      { label: "Yes — multiple times",              sub: "Team has run separations more than once",               score: 0, state: "with an experienced team that has done this multiple times",   gap: null,  action: null },
+      { label: "Yes — once, recently",              sub: "Done it before, within the last 3 years",               score: 0, state: "with a team that has prior separation experience",              gap: null,  action: null },
+      { label: "No — but external support lined up", sub: "Bringing in a partner or advisor with experience",    score: 1, state: "with external separation expertise lined up to supplement the team", gap: null, action: "Define clear knowledge transfer milestones with your external partner — don't let the expertise leave when the contract ends" },
+      { label: "No prior experience",               sub: "First time for most or all of the team",                score: 2, state: "without prior IT separation experience on the core team",        gap: "No prior separation experience — the first time is always the hardest; external expertise significantly reduces the risk of costly mistakes",  action: "Bring in an experienced IT separation partner early — the cost of learning on the job inside an M&A transaction is high" },
+    ],
+  },
+];
+
+let current = 0;
+let answers = [];
+
+function renderQuestion(idx) {
+  const q = QUESTIONS[idx];
+  document.getElementById('q-number').textContent = `Question ${idx + 1}`;
+  document.getElementById('q-text').textContent = q.text;
+
+  const pct = Math.round((idx / QUESTIONS.length) * 100);
+  document.getElementById('prog-label').textContent = `Question ${idx + 1} of ${QUESTIONS.length}`;
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  const container = document.getElementById('options');
+  container.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn' + (answers[idx] === i ? ' selected' : '');
+    btn.innerHTML = `<div class="option-label">${opt.label}</div><div class="option-sub">${opt.sub}</div>`;
+    btn.onclick = () => selectOption(i);
+    container.appendChild(btn);
+  });
+
+  document.getElementById('btn-back').style.display = idx > 0 ? 'inline-block' : 'none';
+  document.getElementById('btn-next').disabled = answers[idx] === undefined;
+  document.getElementById('btn-next').textContent = idx === QUESTIONS.length - 1 ? 'Get my brief →' : 'Next →';
+}
+
+function selectOption(i) {
+  answers[current] = i;
+  document.querySelectorAll('.option-btn').forEach((b, idx) => b.classList.toggle('selected', idx === i));
+  document.getElementById('btn-next').disabled = false;
+}
+
+function goNext() {
+  if (answers[current] === undefined) return;
+  if (current < QUESTIONS.length - 1) { current++; renderQuestion(current); }
+  else showResult();
+}
+
+function goBack() {
+  if (current > 0) { current--; renderQuestion(current); }
+}
+
+function showResult() {
+  document.getElementById('quiz').style.display = 'none';
+  const resultEl = document.getElementById('result');
+  resultEl.style.display = 'block';
+
+  const score = answers.reduce((s, ai, qi) => s + (QUESTIONS[qi].options[ai]?.score || 0), 0);
+  const maxScore = QUESTIONS.length * 2;
+  const pct = Math.round((score / maxScore) * 100);
+
+  let rag, ragLabel, headline, sub;
+  if (score <= 3) {
+    rag = 'green';
+    ragLabel = 'Well positioned';
+    headline = 'You have the foundations in place.';
+    sub = "Your answers suggest a programme that's reasonably set up for success. The priorities below are refinements — things to strengthen, not structural problems to fix.";
+  } else if (score <= 6) {
+    rag = 'amber';
+    ragLabel = 'Gaps to address';
+    headline = 'Solid in places — but there are gaps that will slow you down.';
+    sub = "Your programme has some strong foundations, but the issues below need attention before they become blockers. None are insurmountable if you act on them now.";
+  } else {
+    rag = 'red';
+    ragLabel = 'High risk — act now';
+    headline = 'Significant gaps that need immediate action.';
+    sub = "Based on your answers, there are structural gaps that routinely cause Day 0 failures. These aren't things to monitor — they need intervention now, before they compound.";
+  }
+
+  const ragBadge = document.getElementById('rag-badge');
+  ragBadge.className = `rag-badge rag-${rag}`;
+  document.getElementById('rag-dot').className = `rag-dot rag-dot-${rag}`;
+  document.getElementById('rag-label').textContent = ragLabel;
+  document.getElementById('result-headline').textContent = headline;
+  document.getElementById('result-sub').textContent = sub;
+
+  const fill = document.getElementById('score-fill');
+  fill.style.width = pct + '%';
+  fill.className = `score-bar-fill score-fill-${rag}`;
+  document.getElementById('score-text').textContent = `${score} / ${maxScore}`;
+
+  // Current state narrative
+  const stateParts = QUESTIONS.map((q, i) => q.options[answers[i]]?.state).filter(Boolean);
+  const joined = stateParts.length > 1
+    ? stateParts.slice(0, -1).join(', ') + ', and ' + stateParts[stateParts.length - 1]
+    : stateParts[0] || '';
+  document.getElementById('r-state').textContent = 'You are ' + joined + '.';
+
+  // Gaps
+  const gaps = QUESTIONS.map((q, i) => q.options[answers[i]]?.gap).filter(Boolean);
+  const gapsEl = document.getElementById('r-gaps');
+  gapsEl.innerHTML = '';
+  if (gaps.length === 0) {
+    document.getElementById('r-gaps-card').style.display = 'none';
+  } else {
+    gaps.forEach(g => { const li = document.createElement('li'); li.textContent = g; gapsEl.appendChild(li); });
+  }
+
+  // Actions
+  const actions = QUESTIONS.map((q, i) => q.options[answers[i]]?.action).filter(Boolean);
+  const actionsEl = document.getElementById('r-actions');
+  actionsEl.innerHTML = '';
+  if (actions.length === 0) {
+    const li = document.createElement('li');
+    li.textContent = 'Continue building on your existing foundations — stress-test the plan and prepare for the unexpected';
+    actionsEl.appendChild(li);
+  } else {
+    actions.forEach(a => { const li = document.createElement('li'); li.textContent = a; actionsEl.appendChild(li); });
+  }
+
+  resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function restart() {
+  answers = [];
+  current = 0;
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('r-gaps-card').style.display = '';
+  document.getElementById('quiz').style.display = 'block';
+  renderQuestion(0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+renderQuestion(0);
+</script>
+</body>
+</html>

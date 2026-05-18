@@ -1282,7 +1282,7 @@ footer {
         <div class="ai-concept-def">Ground the model in real data before generating — search first, generate second.</div>
       </div>
       <div class="ai-concept-right">
-        <div class="ai-concept-example">Intel fetches live web articles, financials and news <em>before</em> generating a brand report — so the output is accurate, not hallucinated. Miru searches your saved WhatsApp items to answer "what was that restaurant?" without touching an LLM until needed. Miru's 2026 local elections feature retrieves real-time Democracy Club results at query time and synthesises them into a postcode-personalised ward brief — the model never guesses who won; it reads the live count first.</div>
+        <div class="ai-concept-example">Intel fetches live web articles, financials and news <em>before</em> generating a brand report — so the output is accurate, not hallucinated. Miru searches your saved WhatsApp items to answer "what was that restaurant?" without touching an LLM until needed. <a href="/intel" style="color:var(--accent);font-weight:600;text-decoration:none">Try RAG in action →</a></div>
         <div class="ai-prod-badges">
           <span class="ai-prod-badge apb-intel">Intel</span>
           <span class="ai-prod-badge apb-miru">Miru</span>
@@ -1820,6 +1820,13 @@ const SEARCH_INDEX = [
   { label: "Built", title: "Human Agency — AI Literacy", sub: "Free AI literacy platform in plain language · Live", anchor: "#building", url: "https://ai.humanagency.co" },
   { label: "Built", title: "Local Election Results", sub: "May 2024 UK local elections by ward · Shipped", anchor: "#building" },
   { label: "Story", title: "India · Italy · London", sub: "25 years from engineer to founder", anchor: "#story" },
+  { label: "AI Pattern", title: "Retrieval-Augmented Generation (RAG)", sub: "Search first, generate second — Intel & Miru", anchor: "#ai-patterns", url: "/intel" },
+  { label: "AI Pattern", title: "Orchestration", sub: "Chain multiple AI steps into one response — Miru", anchor: "#ai-patterns" },
+  { label: "AI Pattern", title: "Structured Extraction", sub: "Pull schema-valid data from messy input — Miru", anchor: "#ai-patterns" },
+  { label: "AI Pattern", title: "Multi-Modal Input", sub: "Images, audio and text as first-class inputs — Miru", anchor: "#ai-patterns" },
+  { label: "AI Pattern", title: "Persistent AI Memory", sub: "Per-user context that survives across sessions — Miru", anchor: "#ai-patterns" },
+  { label: "AI Pattern", title: "Tool Use / Function Calling", sub: "Model decides which API to call — Intel", anchor: "#ai-patterns" },
+  { label: "AI Pattern", title: "Proactive AI Agent", sub: "Push alerts on real-world triggers without user asking — Miru", anchor: "#ai-patterns" },
 ];
 
 function getSearchIndex() {
