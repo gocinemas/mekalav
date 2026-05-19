@@ -709,6 +709,9 @@ footer {
 .modal-delete { padding: 10px 18px; background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; border-radius: 8px; cursor: pointer; margin-right: auto; font-family: inherit; }
 
 /* ── Mobile responsive ── */
+@media (max-width: 560px) {
+  .tools-grid { grid-template-columns: 1fr !important; }
+}
 @media (max-width: 640px) {
   /* Hero */
   .hero { padding: 36px 20px 28px; }
@@ -832,6 +835,35 @@ footer {
     <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
   </div>
   <div class="search-results" id="search-results"></div>
+</div>
+
+<!-- Live tools strip -->
+<div style="max-width:720px;margin:0 auto;padding:0 24px 48px">
+  <div style="font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Try these · live tools</div>
+  <div class="tools-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+
+    <a href="/intel" style="text-decoration:none;display:block;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 16px;transition:border-color .15s,box-shadow .15s" onmouseover="this.style.borderColor='var(--accent)';this.style.boxShadow='0 2px 12px rgba(0,0,0,.06)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+      <div style="font-size:20px;margin-bottom:10px">🔍</div>
+      <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:5px;letter-spacing:-.2px">Company Intel</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:12px">Research any brand or company in 30 seconds. Strategy, leadership, hiring signals.</div>
+      <div style="font-size:12px;font-weight:700;color:var(--accent)">Try it →</div>
+    </a>
+
+    <a href="/readiness.html" style="text-decoration:none;display:block;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 16px;transition:border-color .15s,box-shadow .15s" onmouseover="this.style.borderColor='var(--accent)';this.style.boxShadow='0 2px 12px rgba(0,0,0,.06)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+      <div style="font-size:20px;margin-bottom:10px">🏁</div>
+      <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:5px;letter-spacing:-.2px">Day 0 Readiness</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:12px">Are you ready for separation day? 5 questions, 2 minutes, a structured brief.</div>
+      <div style="font-size:12px;font-weight:700;color:var(--accent)">Run check →</div>
+    </a>
+
+    <a href="/readiness.html" style="text-decoration:none;display:block;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 16px;transition:border-color .15s,box-shadow .15s" onmouseover="this.style.borderColor='var(--accent)';this.style.boxShadow='0 2px 12px rgba(0,0,0,.06)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+      <div style="font-size:20px;margin-bottom:10px">🤖</div>
+      <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:5px;letter-spacing:-.2px">AI Programme Readiness</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:12px">Where does your AI programme actually stand? Structured brief in 2 minutes.</div>
+      <div style="font-size:12px;font-weight:700;color:var(--accent)">Run check →</div>
+    </a>
+
+  </div>
 </div>
 
 <section id="story">
