@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Day 0 Readiness Check — Vikram Mekala</title>
-<meta name="description" content="5 questions. 2 minutes. Get a structured brief on your IT separation readiness — where you stand, what's missing, and what to do next.">
-<meta property="og:title" content="Day 0 Readiness Check">
-<meta property="og:description" content="5 questions. 2 minutes. A structured brief on your IT separation readiness.">
+<title>Readiness Checks — Vikram Mekala</title>
+<meta name="description" content="Interactive readiness diagnostics for IT separation and AI transformation. 5 questions, 2 minutes, a structured brief on where you stand.">
+<meta property="og:title" content="Readiness Checks — Vikram Mekala">
+<meta property="og:description" content="5 questions. 2 minutes. A structured brief on where you stand — gaps, priorities, next phase.">
 <meta property="og:image" content="https://mekalav.com/vikram.jpg">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,7 +14,6 @@
   --bg: #faf9f7; --surface: #ffffff; --border: #e8e4df;
   --text: #1a1714; --muted: #7a7168; --accent: #d97706;
   --radius: 16px;
-  --green: #16a34a; --amber: #d97706; --red: #dc2626;
 }
 @media (prefers-color-scheme: dark) {
   :root { --bg: #181614; --surface: #211f1c; --border: #332f2b; --text: #f0ece6; --muted: #8a8078; --accent: #f59e0b; }
@@ -25,24 +24,53 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 .back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; margin-bottom: 28px; }
 .back:hover { color: var(--accent); }
 
-.diag-badge { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg,#14532d,#166534); color: #86efac; font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 12px; border-radius: 99px; margin-bottom: 14px; }
-.diag-badge-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; }
+/* ── Selector ── */
+#selector { display: block; }
+.sel-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.sel-h1 { font-size: 28px; font-weight: 900; letter-spacing: -1px; margin-bottom: 8px; }
+.sel-sub { font-size: 14px; color: var(--muted); line-height: 1.55; margin-bottom: 32px; }
+.sel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 520px) { .sel-grid { grid-template-columns: 1fr; } }
+.sel-card {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: 22px 20px 18px;
+  text-align: left; cursor: pointer; font-family: inherit; color: var(--text);
+  transition: border-color .15s, box-shadow .15s;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.sel-card:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+.sel-badge { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 99px; width: fit-content; }
+.sel-badge-green  { background: rgba(22,163,74,.1);  color: #16a34a; }
+.sel-badge-indigo { background: rgba(79,70,229,.1);  color: #4f46e5; }
+.sel-title { font-size: 17px; font-weight: 900; letter-spacing: -.3px; }
+.sel-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+.sel-cta { font-size: 13px; font-weight: 700; color: var(--accent); margin-top: 4px; }
 
-.header { margin-bottom: 28px; }
-.header h1 { font-size: 28px; font-weight: 900; letter-spacing: -1px; margin-bottom: 8px; }
-.header p  { font-size: 14px; color: var(--muted); line-height: 1.55; }
+/* ── Quiz ── */
+#quiz { display: none; }
+.quiz-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.quiz-diag-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 12px; border-radius: 99px; }
+.qbadge-green  { background: linear-gradient(135deg,#14532d,#166534); color: #86efac; }
+.qbadge-indigo { background: linear-gradient(135deg,#1e1b4b,#312e81); color: #a5b4fc; }
+.qbadge-dot { width: 6px; height: 6px; border-radius: 50%; }
+.qbadge-dot-green  { background: #4ade80; }
+.qbadge-dot-indigo { background: #818cf8; }
+.change-btn { font-size: 12px; font-weight: 600; color: var(--muted); background: none; border: none; cursor: pointer; font-family: inherit; padding: 0; }
+.change-btn:hover { color: var(--text); }
 
-.what-is { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid #16a34a; border-radius: var(--radius); padding: 16px 18px; margin-bottom: 28px; }
+.what-is { border-radius: var(--radius); padding: 14px 18px; margin-bottom: 24px; border: 1px solid var(--border); background: var(--surface); }
+.what-is.wi-green  { border-left: 4px solid #16a34a; }
+.what-is.wi-indigo { border-left: 4px solid #4f46e5; }
 .what-is p { font-size: 13px; line-height: 1.65; color: var(--muted); }
 .what-is strong { color: var(--text); }
 
-/* progress */
-.progress-wrap { margin-bottom: 24px; }
+.progress-wrap { margin-bottom: 22px; }
 .progress-meta { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 8px; display: flex; justify-content: space-between; }
 .progress-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
-.progress-fill { height: 100%; background: #16a34a; border-radius: 2px; transition: width .4s ease; }
+.progress-fill { height: 100%; border-radius: 2px; transition: width .4s ease; }
+.pf-green  { background: #16a34a; }
+.pf-indigo { background: #4f46e5; }
 
-/* question */
 .question-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 24px 20px; margin-bottom: 14px; }
 .q-number { font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
 .q-text { font-size: 18px; font-weight: 800; letter-spacing: -.3px; line-height: 1.35; margin-bottom: 20px; }
@@ -56,19 +84,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
   text-align: left; font-family: inherit; color: var(--text);
 }
 .option-btn:hover { border-color: var(--accent); background: var(--surface); }
-.option-btn.selected { border-color: #16a34a; background: rgba(22,163,74,.06); }
+.option-btn.sel-green  { border-color: #16a34a; background: rgba(22,163,74,.06); }
+.option-btn.sel-indigo { border-color: #4f46e5; background: rgba(79,70,229,.06); }
 .option-label { font-size: 15px; font-weight: 700; line-height: 1.3; }
 .option-sub { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
 
 .q-nav { display: flex; justify-content: flex-end; gap: 10px; }
 .btn-back { padding: 11px 20px; border: 1.5px solid var(--border); background: transparent; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; color: var(--muted); }
 .btn-back:hover { border-color: var(--text); color: var(--text); }
-.btn-next { padding: 11px 22px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: opacity .15s; }
+.btn-next { padding: 11px 22px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; }
 .btn-next:disabled { opacity: .35; cursor: not-allowed; }
 
-/* result */
-.result { display: none; }
-
+/* ── Result ── */
+#result { display: none; }
 .rag-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; padding: 6px 14px; border-radius: 99px; margin-bottom: 18px; }
 .rag-green { background: rgba(22,163,74,.1);  color: #16a34a; }
 .rag-amber { background: rgba(217,119,6,.1);  color: #d97706; }
@@ -77,7 +105,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 .rag-dot-green { background: #16a34a; }
 .rag-dot-amber { background: #d97706; }
 .rag-dot-red   { background: #dc2626; }
-
 .result-headline { font-size: 22px; font-weight: 900; letter-spacing: -.5px; margin-bottom: 8px; line-height: 1.25; }
 .result-sub { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
 
@@ -85,29 +112,32 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 .score-bar-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; display: flex; justify-content: space-between; }
 .score-bar-track { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
 .score-bar-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
-.score-fill-green { background: #16a34a; }
-.score-fill-amber { background: #d97706; }
-.score-fill-red   { background: #dc2626; }
+.sfill-green { background: #16a34a; }
+.sfill-amber { background: #d97706; }
+.sfill-red   { background: #dc2626; }
 
 .cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
 .card-label { font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
 .card-body  { font-size: 14px; line-height: 1.65; color: var(--text); }
-.card-list  { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; }
-.card-list li { font-size: 14px; color: var(--text); line-height: 1.5; padding-left: 22px; position: relative; }
+.card-list  { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; }
+.card-list li { font-size: 14px; color: var(--text); line-height: 1.55; padding-left: 22px; position: relative; }
 .card-list.gaps    li::before { content: "⚠"; position: absolute; left: 0; font-size: 12px; top: 2px; }
 .card-list.actions li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 800; top: 0; }
 
-.pitch { margin-top: 28px; background: linear-gradient(135deg, #14532d, #166534); border-radius: var(--radius); padding: 24px; color: #fff; }
+.pitch { margin-top: 28px; border-radius: var(--radius); padding: 24px; color: #fff; }
+.pitch-green  { background: linear-gradient(135deg, #14532d, #166534); }
+.pitch-indigo { background: linear-gradient(135deg, #1e1b4b, #312e81); }
 .pitch-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 10px; }
 .pitch h3 { font-size: 17px; font-weight: 800; margin-bottom: 10px; }
 .pitch p  { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,.75); margin-bottom: 14px; }
 .pitch-links { display: flex; gap: 10px; flex-wrap: wrap; }
 .pitch-link { font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 10px; text-decoration: none; }
-.pitch-link.primary   { background: #22c55e; color: #fff; }
+.pitch-link.primary-green  { background: #22c55e; color: #fff; }
+.pitch-link.primary-indigo { background: #818cf8; color: #fff; }
 .pitch-link.secondary { background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); }
 
-.restart-wrap { margin-top: 20px; display: flex; justify-content: center; }
+.bottom-actions { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
 .restart-btn { background: none; border: none; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; padding: 8px 0; }
 .restart-btn:hover { color: var(--text); }
 </style>
@@ -117,19 +147,34 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 
   <a class="back" href="https://mekalav.com">← mekalav.com</a>
 
-  <div class="diag-badge"><span class="diag-badge-dot"></span>Day 0 Readiness Check</div>
-
-  <div class="header">
-    <h1>How ready are you for Day 0?</h1>
-    <p>5 questions. 2 minutes. A structured brief on where you stand — current state, gaps, and what needs to happen next.</p>
+  <!-- ── SELECTOR ── -->
+  <div id="selector">
+    <div class="sel-eyebrow">Diagnostic tools</div>
+    <h1 class="sel-h1">Readiness checks</h1>
+    <p class="sel-sub">Pick the one that fits where you are. 5 questions, 2 minutes, a structured brief on where you stand — gaps, priorities, and what to do next.</p>
+    <div class="sel-grid">
+      <button class="sel-card" onclick="startDiagnostic('day0')">
+        <div class="sel-badge sel-badge-green">IT Separation</div>
+        <div class="sel-title">Day 0 Readiness</div>
+        <div class="sel-desc">M&amp;A, carve-outs, and spin-offs. Transaction structure, IT entanglement, timeline, and programme governance.</div>
+        <div class="sel-cta">Take the check →</div>
+      </button>
+      <button class="sel-card" onclick="startDiagnostic('ai')">
+        <div class="sel-badge sel-badge-indigo">AI Transformation</div>
+        <div class="sel-title">AI Programme Readiness</div>
+        <div class="sel-desc">Before you start building. Use cases, data quality, user research, and programme ownership.</div>
+        <div class="sel-cta">Take the check →</div>
+      </button>
+    </div>
   </div>
 
-  <div class="what-is">
-    <p><strong>What this is:</strong> A diagnostic built from experience running IT separation programmes in complex M&amp;A transactions. The questions are the ones I ask in week one. The output is the brief I'd write before the first steering committee.</p>
-  </div>
-
-  <!-- Quiz -->
+  <!-- ── QUIZ ── -->
   <div id="quiz">
+    <div class="quiz-topbar">
+      <div class="quiz-diag-badge" id="quiz-badge"></div>
+      <button class="change-btn" onclick="backToSelector()">← Change check</button>
+    </div>
+    <div class="what-is" id="quiz-intro"></div>
     <div class="progress-wrap">
       <div class="progress-meta">
         <span id="prog-label">Question 1 of 5</span>
@@ -137,34 +182,26 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
       </div>
       <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
     </div>
-
     <div class="question-card">
       <div class="q-number" id="q-number">Question 1</div>
       <div class="q-text" id="q-text"></div>
       <div class="options" id="options"></div>
     </div>
-
     <div class="q-nav">
       <button class="btn-back" id="btn-back" onclick="goBack()" style="display:none">← Back</button>
       <button class="btn-next" id="btn-next" onclick="goNext()" disabled>Next →</button>
     </div>
   </div>
 
-  <!-- Result -->
-  <div class="result" id="result">
-
-    <div class="rag-badge" id="rag-badge">
-      <div class="rag-dot" id="rag-dot"></div>
-      <span id="rag-label"></span>
-    </div>
+  <!-- ── RESULT ── -->
+  <div id="result">
+    <div class="rag-badge" id="rag-badge"><div class="rag-dot" id="rag-dot"></div><span id="rag-label"></span></div>
     <div class="result-headline" id="result-headline"></div>
     <div class="result-sub" id="result-sub"></div>
-
     <div class="score-bar-wrap">
       <div class="score-bar-label"><span>Risk level</span><span id="score-text"></span></div>
       <div class="score-bar-track"><div class="score-bar-fill" id="score-fill"></div></div>
     </div>
-
     <div class="cards">
       <div class="card">
         <div class="card-label">Current state</div>
@@ -179,83 +216,205 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
         <ul class="card-list actions" id="r-actions"></ul>
       </div>
     </div>
-
-    <div class="pitch">
-      <div class="pitch-eyebrow">IT Separation · Built by</div>
-      <h3>Vikram Mekala — Transformation &amp; IT Separation</h3>
-      <p>I've run IT separation programmes in complex M&amp;A transactions — from dependency mapping through to Day 0 go-live. This brief reflects what I look for when I walk into a programme for the first time.</p>
-      <p>If you want to talk through what this means for your situation — or stress-test the plan you already have — I'm happy to give you an honest read.</p>
-      <div class="pitch-links">
-        <a class="pitch-link primary" href="mailto:mekala@gmail.com?subject=Day%200%20readiness%20—%20let%27s%20talk">Start a conversation →</a>
-        <a class="pitch-link secondary" href="https://mekalav.com/day-0.html">What Day 0 actually feels like</a>
-      </div>
-    </div>
-
-    <div class="restart-wrap">
-      <button class="restart-btn" onclick="restart()">↩ Start again</button>
+    <div class="pitch" id="r-pitch"></div>
+    <div class="bottom-actions">
+      <button class="restart-btn" onclick="restart()">↩ Redo this check</button>
+      <button class="restart-btn" onclick="backToSelector()">Try another check →</button>
     </div>
   </div>
 
 </div>
 <script>
-const QUESTIONS = [
-  {
-    text: "What type of separation are you preparing for?",
-    options: [
-      { label: "Carve-out or divestiture",    sub: "Separating a division or entity to sell",             score: 0, state: "preparing for a carve-out or divestiture",                     gap: null,  action: null },
-      { label: "Merger or acquisition",        sub: "Integrating or absorbing another business",           score: 0, state: "preparing for a merger or acquisition",                         gap: null,  action: null },
-      { label: "IPO or spin-off",              sub: "Creating a standalone entity from within",            score: 1, state: "planning an IPO or spin-off",                                   gap: null,  action: "Confirm entity design and legal separation structure early — IPO timelines compress fast once announced" },
-      { label: "Not decided yet",              sub: "Still in early planning or feasibility",              score: 2, state: "still in early feasibility — transaction type not confirmed",   gap: "Transaction type not yet defined — scope, systems, and Day 0 requirements all depend on this decision", action: "Confirm transaction structure and legal entity design first — this is the decision that unlocks everything else" },
-    ],
-  },
-  {
-    text: "How entangled is your IT with the parent or counterpart?",
-    options: [
-      { label: "Fully shared",            sub: "ERP, email, HR, finance all on shared infrastructure",     score: 2, state: "running on fully shared IT infrastructure",              gap: "Fully shared IT is the highest-risk starting point — dependency mapping and a clean separation strategy must begin immediately", action: "Commission a full IT dependency audit before any other workstream — shared infrastructure scope drives cost, timeline, and risk" },
-      { label: "Partially shared",        sub: "Some standalone systems, some on shared platforms",         score: 1, state: "working with partially shared IT",                        gap: "Partial entanglement means hidden dependencies are likely — a targeted audit is needed before cutover planning starts",          action: "Run a structured integration audit to surface hidden dependencies — partial entanglement routinely hides complexity" },
-      { label: "Mostly independent",      sub: "Only minor integrations or data flows to untangle",         score: 0, state: "operating with mostly independent IT",                    gap: null,  action: null },
-      { label: "No clear picture yet",    sub: "No dependency mapping done yet",                            score: 2, state: "without a clear picture of IT dependencies",              gap: "No dependency mapping in place — without this, scope, cost, and timeline are all guesses",                                      action: "Commission a full IT dependency audit before any other workstream — this is the critical first step" },
-    ],
-  },
-  {
-    text: "What's your target timeline to Day 0?",
-    options: [
-      { label: "Under 6 months",     sub: "Imminent — execution already underway or nearly so",   score: 2, state: "working to an imminent Day 0 (under 6 months)",       gap: "Sub-6-month timeline creates extreme delivery pressure — immediate triage of what is achievable by Day 0 vs. what moves to TSA is essential",  action: "Triage deliverables immediately — confirm what is in scope for Day 0 and what moves to Transitional Service Agreement" },
-      { label: "6–12 months",        sub: "Near-term — planning in progress",                     score: 1, state: "targeting Day 0 in 6–12 months",                       gap: "6–12 months is tight if IT is entangled — parallel workstreams and fast decision-making will be essential from day one",                       action: "Start programme planning now — with this timeline, there is no room for sequential thinking" },
-      { label: "12–18 months",       sub: "Enough runway to plan properly",                        score: 0, state: "working to a 12–18 month Day 0 horizon",               gap: null,  action: null },
-      { label: "Not defined yet",    sub: "No firm timeline agreed",                               score: 2, state: "without a confirmed Day 0 date",                       gap: "No Day 0 timeline agreed — without a fixed date, programme sequencing, resourcing, and vendor planning cannot begin",                          action: "Agree a realistic Day 0 date with legal, commercial, and IT aligned — then build the programme plan backwards from it" },
-    ],
-  },
-  {
-    text: "Who owns your IT separation programme right now?",
-    options: [
-      { label: "Dedicated programme team",            sub: "Named programme manager, executive sponsor, steering in place",    score: 0, state: "with a dedicated programme team and executive sponsor in place",   gap: null,  action: null },
-      { label: "IT managing it alongside BAU",        sub: "No dedicated resource — IT running it as a project",               score: 1, state: "with IT managing the separation alongside business-as-usual",       gap: "IT managing alongside BAU creates capacity and prioritisation risk — separation programmes consistently fail without dedicated governance", action: "Ring-fence dedicated IT programme capacity — BAU conflicts will delay every workstream" },
-      { label: "Just started scoping it",             sub: "Early conversations, no programme structure yet",                   score: 2, state: "in early scoping — no programme structure yet established",         gap: "No programme structure in place — IT separations without dedicated governance routinely fail or overrun",                                  action: "Appoint a dedicated programme director with an executive sponsor before any other workstream begins" },
-      { label: "No programme in place",               sub: "Not yet started",                                                    score: 2, state: "without any programme structure in place",                        gap: "No programme in place — IT separation without dedicated governance routinely fails",                                                       action: "Appoint a dedicated programme director with an executive sponsor before any other workstream begins" },
-    ],
-  },
-  {
-    text: "Does your team have prior IT separation experience?",
-    options: [
-      { label: "Yes — multiple times",              sub: "Team has run separations more than once",               score: 0, state: "with an experienced team that has done this multiple times",   gap: null,  action: null },
-      { label: "Yes — once, recently",              sub: "Done it before, within the last 3 years",               score: 0, state: "with a team that has prior separation experience",              gap: null,  action: null },
-      { label: "No — but external support lined up", sub: "Bringing in a partner or advisor with experience",    score: 1, state: "with external separation expertise lined up to supplement the team", gap: null, action: "Define clear knowledge transfer milestones with your external partner — don't let the expertise leave when the contract ends" },
-      { label: "No prior experience",               sub: "First time for most or all of the team",                score: 2, state: "without prior IT separation experience on the core team",        gap: "No prior separation experience — the first time is always the hardest; external expertise significantly reduces the risk of costly mistakes",  action: "Bring in an experienced IT separation partner early — the cost of learning on the job inside an M&A transaction is high" },
-    ],
-  },
-];
+const DIAGNOSTICS = {
 
+  day0: {
+    color: 'green',
+    badgeHTML: '<span class="qbadge-dot qbadge-dot-green"></span>Day 0 Readiness',
+    badgeClass: 'quiz-diag-badge qbadge-green',
+    introClass: 'what-is wi-green',
+    introHTML: '<p><strong>What this is:</strong> The questions I ask in week one of any IT separation programme. The brief I\'d write before the first steering committee. Based on running Day 0 operations across a major M&amp;A transaction — 14 production systems, 100+ concurrent incidents, zero outages.</p>',
+    ragLabels: {
+      green: { label: 'Well positioned', headline: 'You have the foundations in place.', sub: "Your answers suggest a programme that's reasonably set up for success. The priorities below are refinements — things to strengthen, not structural problems to fix." },
+      amber: { label: 'Gaps to address', headline: 'Solid in places — but there are gaps that will slow you down.', sub: "Your programme has some strong foundations, but the issues below need attention before they become blockers. None are insurmountable if you address them now." },
+      red:   { label: 'High risk — act now', headline: 'Significant gaps that need immediate action.', sub: "Based on your answers, there are structural gaps that routinely cause Day 0 failures. These aren't things to monitor — they need intervention now, before they compound." },
+    },
+    pitchClass: 'pitch pitch-green',
+    pitchHTML: `
+      <div class="pitch-eyebrow">IT Separation · Built by</div>
+      <h3>Vikram Mekala — Transformation &amp; IT Separation</h3>
+      <p>I ran Day 0 operations for the Magnum Ice Cream separation from Unilever — 14 production systems cutting over simultaneously, 100+ concurrent incidents managed in real time, zero outages. This brief is built from that experience, not a framework.</p>
+      <p>If you want an honest read on your programme — or someone to stress-test the plan you already have — let's talk.</p>
+      <div class="pitch-links">
+        <a class="pitch-link primary-green" href="mailto:mekala@gmail.com?subject=Day%200%20readiness%20—%20let%27s%20talk">Start a conversation →</a>
+        <a class="pitch-link secondary" href="https://mekalav.com/day-0.html">What Day 0 actually feels like</a>
+      </div>`,
+    questions: [
+      {
+        text: "What type of separation are you preparing for?",
+        options: [
+          { label: "Carve-out or divestiture",   sub: "Separating a division or entity to sell",          score: 0, state: "preparing for a carve-out or divestiture",                   gap: null,  action: null },
+          { label: "Merger or acquisition",       sub: "Integrating or absorbing another business",        score: 0, state: "preparing for a merger or acquisition",                       gap: null,  action: null },
+          { label: "IPO or spin-off",             sub: "Creating a standalone entity from within",         score: 1, state: "planning an IPO or spin-off",                                 gap: null,  action: "Confirm legal entity design and IT ownership structure early — IPO timelines compress fast once announced and leave no room to revisit fundamental decisions" },
+          { label: "Not decided yet",             sub: "Still in early planning or feasibility",           score: 2, state: "still in early feasibility — transaction type not confirmed", gap: "Transaction structure determines legal entity design, system ownership boundaries, and contractual obligations — without this confirmed, every downstream IT workstream is building on assumptions that will change", action: "Align legal, commercial, and IT on transaction structure before scoping any IT workstream — entity design determines everything else" },
+        ],
+      },
+      {
+        text: "How entangled is your IT with the parent or counterpart?",
+        options: [
+          { label: "Fully shared",           sub: "ERP, email, HR, finance all on shared infrastructure",  score: 2, state: "running on fully shared IT infrastructure",            gap: "Shared ERP, HR, and finance systems mean every cutover is a potential production incident — you need a system-by-system dependency map with ownership, data flows, integration points, and TSA fallback options before this programme can be credibly sequenced", action: "Commission a dependency audit as the first programme deliverable — map system ownership, integration points, data flows, and TSA requirements for every shared platform before planning anything else" },
+          { label: "Partially shared",       sub: "Some standalone systems, some on shared platforms",      score: 1, state: "working with partially shared IT",                        gap: "Partial entanglement routinely hides the most expensive surprises — the integrations that look straightforward are often the ones that fail at cutover",                                                            action: "Run a structured integration audit focused on boundary systems — prioritise anything where ownership is ambiguous or the data flow crosses both entities" },
+          { label: "Mostly independent",     sub: "Only minor integrations or data flows to untangle",      score: 0, state: "operating with mostly independent IT",                    gap: null,  action: null },
+          { label: "No clear picture yet",   sub: "No IT dependency mapping done yet",                      score: 2, state: "without a clear picture of IT dependencies",              gap: "Without a dependency map you cannot scope the programme, price the TSA, or sequence Day 0 activities reliably — every downstream decision is based on guesswork",                                                   action: "Commission a dependency audit before any other workstream starts — this is the critical first deliverable; nothing else is reliable without it" },
+        ],
+      },
+      {
+        text: "What's your target timeline to Day 0?",
+        options: [
+          { label: "Under 6 months",   sub: "Imminent — execution already underway or nearly so",  score: 2, state: "working to an imminent Day 0 (under 6 months)",     gap: "A sub-6-month timeline with any material IT entanglement means you cannot separate everything cleanly — the critical decision now is what goes on Transitional Service Agreement and what must cut over, and both organisations need to agree that split urgently", action: "Hold a joint scoping session within two weeks to agree Day 0 scope vs. TSA scope — that decision unlocks every other workstream and cannot wait" },
+          { label: "6–12 months",      sub: "Near-term — planning in progress",                    score: 1, state: "targeting Day 0 in 6–12 months",                     gap: "6–12 months is tight once you account for dependency mapping, TSA negotiation, vendor lead times, and testing cycles — parallel workstreams and fast decision-making are not optional",                                   action: "Start full programme planning now — map all workstreams in parallel, identify the longest lead-time items, and validate whether the scope is achievable in the time available" },
+          { label: "12–18 months",     sub: "Enough runway to plan properly",                       score: 0, state: "working to a 12–18 month Day 0 horizon",             gap: null,  action: null },
+          { label: "Not defined yet",  sub: "No firm timeline agreed",                              score: 2, state: "without a confirmed Day 0 date",                     gap: "Without a fixed date, vendors will not commit, teams will not prioritise, and the programme will drift — the date is the forcing function that makes everything else move",                                                action: "Get legal, commercial, and IT aligned on a realistic date — then build the programme plan backwards from it; the date creates the urgency everything else depends on" },
+        ],
+      },
+      {
+        text: "Who owns your IT separation programme right now?",
+        options: [
+          { label: "Dedicated programme team",         sub: "Named programme manager, executive sponsor, steering in place",    score: 0, state: "with a dedicated programme team and executive sponsor in place", gap: null,  action: null },
+          { label: "IT managing it alongside BAU",     sub: "No dedicated resource — IT running it as a project",               score: 1, state: "with IT managing the separation alongside business-as-usual",     gap: "IT teams managing separation alongside BAU consistently deprioritise separation when operational incidents hit — and incidents will hit, especially once cutover approaches",                                     action: "Ring-fence dedicated programme capacity now — even one full-time programme manager changes the risk profile significantly and sends the right signal to both organisations" },
+          { label: "Just started scoping it",          sub: "Early conversations, no programme structure yet",                   score: 2, state: "in early scoping — no programme structure yet established",       gap: "IT separations without dedicated governance fail at a significantly higher rate — there is no bureaucratic reason to delay appointing a programme director; every week without one is a week of drift",           action: "Appoint a dedicated programme director with a named executive sponsor before any workstream begins — establish a steering cadence and a shared issues log in the first week" },
+          { label: "No programme in place",            sub: "Not yet started",                                                    score: 2, state: "without any programme structure in place",                      gap: "No programme structure means no sequencing, no escalation path, and no single point of accountability — IT separations require dedicated governance from day one",                                               action: "Appoint a dedicated programme director with a named executive sponsor before any workstream begins — establish a steering cadence and a shared issues log in the first week" },
+        ],
+      },
+      {
+        text: "Does your team have prior IT separation experience?",
+        options: [
+          { label: "Yes — multiple times",               sub: "Team has run separations more than once",               score: 0, state: "with an experienced team that has done this multiple times",      gap: null,  action: null },
+          { label: "Yes — once, recently",               sub: "Done it before, within the last 3 years",               score: 0, state: "with a team that has prior separation experience",                gap: null,  action: null },
+          { label: "No — but external support lined up", sub: "Bringing in a partner or advisor with experience",      score: 1, state: "with external separation expertise lined up to supplement the team", gap: null, action: "Build formal knowledge transfer into the programme plan from day one — define what internal capability needs to exist by Day 0 and plan backwards; the expertise should not leave when the contract ends" },
+          { label: "No prior experience",                sub: "First time for most or all of the team",                score: 2, state: "without prior IT separation experience on the core team",           gap: "First-time separation teams consistently underestimate cutover sequencing complexity, TSA pricing risk, data migration edge cases, and regulatory notification timelines — these are learnable, but not quickly and not inside a live transaction", action: "Engage an experienced IT separation partner before the programme plan is finalised — their input on sequencing and risk structure will change what you plan, not just how you execute it" },
+        ],
+      },
+    ],
+  },
+
+  ai: {
+    color: 'indigo',
+    badgeHTML: '<span class="qbadge-dot qbadge-dot-indigo"></span>AI Programme Readiness',
+    badgeClass: 'quiz-diag-badge qbadge-indigo',
+    introClass: 'what-is wi-indigo',
+    introHTML: '<p><strong>What this is:</strong> The questions that separate AI programmes that ship from ones that stall. Based on advising AI teams inside NHS accelerator programmes and building four live AI products — I\'ve seen both failure modes up close.</p>',
+    ragLabels: {
+      green: { label: 'Ready to build', headline: 'You have the right foundations to start.', sub: "Your answers suggest a programme with the key ingredients in place. The priorities below are refinements to strengthen before you go deep." },
+      amber: { label: 'Gaps to address', headline: 'Good intent — but gaps that will slow you down.', sub: "There are real strengths here, but the issues below are the ones that turn promising AI projects into expensive pilots that never scale. Address them before committing to build." },
+      red:   { label: 'Not ready to build yet', headline: 'Build these foundations before you build anything else.', sub: "Based on your answers, the conditions for a successful AI programme aren't in place yet. Starting to build now will produce a prototype nobody uses. These gaps are solvable — but they need to come first." },
+    },
+    pitchClass: 'pitch pitch-indigo',
+    pitchHTML: `
+      <div class="pitch-eyebrow">AI Transformation · Built by</div>
+      <h3>Vikram Mekala — AI &amp; Transformation</h3>
+      <p>I've advised AI teams inside NHS accelerator programmes and shipped four live AI products. I understand the gap between what AI can actually do inside a large organisation and what people think it can do — that's where most programmes fail.</p>
+      <p>If you want an honest read on your AI programme — or a conversation about where to start — let's talk.</p>
+      <div class="pitch-links">
+        <a class="pitch-link primary-indigo" href="mailto:mekala@gmail.com?subject=AI%20programme%20readiness%20—%20let%27s%20talk">Start a conversation →</a>
+        <a class="pitch-link secondary" href="https://mekalav.com/intel">See AI in action →</a>
+      </div>`,
+    questions: [
+      {
+        text: "What's driving your AI initiative?",
+        options: [
+          { label: "A specific business problem we need to solve",  sub: "Clear problem, measurable outcome, business owner identified",        score: 0, state: "anchored to a specific business problem with a clear outcome",          gap: null,  action: null },
+          { label: "An executive mandate to adopt AI",              sub: "Leadership has committed to AI — the use case is still being defined", score: 1, state: "responding to an executive mandate to adopt AI",                         gap: "Executive mandate without a specific problem produces pilot purgatory — projects that get demoed and never scale. The mandate is the budget; the problem is the direction",  action: "Anchor the mandate to a specific business problem. If the sponsor cannot state the problem in one sentence, that conversation needs to happen before anything else" },
+          { label: "Competitive pressure — peers are doing it",     sub: "Others in the sector are moving on AI",                               score: 1, state: "responding to competitive pressure in the sector",                        gap: "Competitive pressure is a reason to pay attention — not a reason to build. Without a specific problem to solve, you risk shipping something that looks like AI but doesn't change anything",          action: "Run a rapid use case sprint — two weeks, interview 8–10 stakeholders, identify 3 problems worth solving. Pick the one with the clearest outcome and go deep on it" },
+          { label: "Still exploring what's possible",               sub: "Open-ended discovery phase, no specific problem defined",            score: 2, state: "still in open-ended exploration — no specific problem defined yet",      gap: "Open-ended AI exploration rarely produces anything deployable. Without a problem to anchor to, you generate ideas but not momentum",                                                   action: "Run a focused discovery sprint — interview 10 people across the business, map where time is wasted or decisions are slow, and identify 3–5 specific problems before any AI scoping begins" },
+        ],
+      },
+      {
+        text: "Have you identified and validated specific use cases?",
+        options: [
+          { label: "Yes — prioritised, scoped, and tested with users",   sub: "Use cases defined, sized, and validated with the people who'd use them",  score: 0, state: "with validated, prioritised use cases",                                 gap: null,  action: null },
+          { label: "Yes — identified but not validated with users",       sub: "Use cases defined internally, but not tested with real users yet",         score: 1, state: "with use cases identified but not yet validated",                        gap: "Use cases that haven't been validated with users frequently turn out to solve the wrong problem — or solve the right problem in a way nobody will actually use",               action: "Run structured user interviews against your top 3 use cases before committing to a build — you're testing whether the problem is real and whether your proposed approach fits" },
+          { label: "Some ideas but nothing defined",                      sub: "Conversations are happening but no formal use case work done",              score: 1, state: "with early-stage ideas but no defined use cases yet",                    gap: "Ideas without definition cannot be scoped, prioritised, or built — the step between 'this is interesting' and 'this is a use case' requires a structured assessment",           action: "Take your strongest idea and fully define it: problem statement, user group, current process, proposed AI intervention, and success metric — that definition is the work" },
+          { label: "No use cases identified yet",                         sub: "No use case work started",                                                   score: 2, state: "without any defined use cases yet",                                      gap: "Without defined use cases there is nothing to scope, build, or measure — this is the starting point and everything else waits for it",                                         action: "Start with stakeholder interviews, not technology — talk to 8–10 people across the business, map where time is wasted or decisions are poor, and identify where AI could materially help" },
+        ],
+      },
+      {
+        text: "Have you spoken to the people who will actually use it?",
+        options: [
+          { label: "Yes — structured research with real users",          sub: "Multiple sessions, consistent question set, documented insights",       score: 0, state: "with structured user research completed",                                gap: null,  action: null },
+          { label: "Some informal conversations",                         sub: "A few chats, but no structured research process",                        score: 1, state: "with some informal user input but no structured research",               gap: "Informal conversations produce confirmation bias — people tend to agree with your hypothesis rather than challenge it. Structured research surfaces the insights that don't come out in casual conversation",  action: "Run 5–6 structured user interviews with a consistent question set — focus on current process, pain points, and what 'better' looks like, not on what AI they'd want" },
+          { label: "Not yet — but it's on the plan",                     sub: "User research is planned but hasn't happened yet",                       score: 1, state: "with user research planned but not yet done",                            gap: "User research that's 'on the plan' but not done creates a real risk: by the time you talk to users, design decisions will already have been made. Research shapes what you build — it needs to come first",  action: "Do the user research before finalising use case definition — this is an input to that decision, not a separate workstream that can follow it" },
+          { label: "No — we know what users need",                       sub: "Working from internal assumptions about user needs",                      score: 2, state: "without user input — working from internal assumptions",                 gap: "Assuming you know what users need is the most common reason AI projects get built and not used — the people closest to the problem consistently surface needs that internal teams don't anticipate",         action: "Talk to 8 users before any design work starts — not to validate your idea, but to understand their actual problem. The two are often different, and it matters which one you build for" },
+        ],
+      },
+      {
+        text: "What's the state of your data?",
+        options: [
+          { label: "Clean, accessible, and well-governed",    sub: "Data exists, is structured, and access is straightforward",      score: 0, state: "with clean, accessible, and well-governed data",                    gap: null,  action: null },
+          { label: "Exists but needs cleaning and work",      sub: "Data is there but quality, structure, or access needs attention", score: 1, state: "with data that needs preparation work before it can be used",        gap: "Data preparation consistently takes 3–4x longer than estimated — it is not a pre-project task, it is a programme workstream in its own right and needs to be resourced and tracked as one", action: "Run a data readiness assessment now: quality, completeness, governance, and access. Treat data preparation as a parallel workstream and resource it explicitly — don't let it become the unplanned blocker" },
+          { label: "Siloed across systems with access issues", sub: "Data exists but is fragmented and hard to access",               score: 2, state: "with data siloed across systems and access challenges to resolve",    gap: "Siloed data with access issues is the most common reason AI projects stall after an initial prototype — access problems that aren't resolved early rarely get resolved at all, they get designed around, which limits what you can build", action: "Resolve data access and governance before the build begins — identify the data owner for each source, confirm access rights, and agree retention and usage policies; don't build a workaround and call it done" },
+          { label: "Not assessed yet",                        sub: "Data quality and availability haven't been evaluated",           score: 2, state: "without a data assessment done yet",                                 gap: "Data quality and availability are the most common reason AI projects fail to scale beyond a prototype — assessing this early costs very little; discovering it late costs a great deal",          action: "Commission a data assessment as the first programme deliverable — map the data your use case requires, assess quality and accessibility, and identify gaps before any design work begins" },
+        ],
+      },
+      {
+        text: "Who owns the AI programme?",
+        options: [
+          { label: "Dedicated team with executive sponsor",       sub: "Named owner, clear mandate, governance in place",                 score: 0, state: "with dedicated programme ownership and executive sponsorship",      gap: null,  action: null },
+          { label: "Digital or IT team leading alongside BAU",    sub: "No dedicated resource — running it as a project",                score: 1, state: "with digital or IT leading alongside existing commitments",           gap: "AI programmes led by IT alongside BAU get deprioritised when operational pressure hits. More fundamentally, AI transformation needs business ownership — if the business isn't driving it, it will struggle to change the business", action: "Identify a business-side owner accountable for the outcome, not the technology — IT builds it, the business owns the problem and measures the result" },
+          { label: "Just getting started — no owner yet",         sub: "Early conversations, ownership not yet defined",                 score: 2, state: "without clear programme ownership yet established",                  gap: "Undefined ownership means every decision needs a conversation — AI programmes hit ambiguous decisions constantly and the governance needs to be in place before the first one lands",                                           action: "Appoint a programme owner and executive sponsor before any workstream begins — define what decisions each can make independently and what needs escalation; ambiguity here compounds fast" },
+          { label: "No clear owner",                              sub: "Nobody is accountable for delivery",                             score: 2, state: "without an identified programme owner",                              gap: "Without a clear owner, AI programmes drift — ideas get explored, prototypes get built, and nothing ships. Ownership is not bureaucracy; it's what turns a project into a product",                                           action: "Appoint a programme owner before anything else — this person must have the authority to make trade-off decisions and the mandate to deliver something real, not just a demo" },
+        ],
+      },
+    ],
+  },
+
+};
+
+let currentDiag = null;
 let current = 0;
 let answers = [];
 
+function startDiagnostic(type) {
+  currentDiag = type;
+  answers = [];
+  current = 0;
+  const d = DIAGNOSTICS[type];
+
+  // badge
+  const badge = document.getElementById('quiz-badge');
+  badge.className = d.badgeClass;
+  badge.innerHTML = d.badgeHTML;
+
+  // intro
+  const intro = document.getElementById('quiz-intro');
+  intro.className = d.introClass;
+  intro.innerHTML = d.introHTML;
+
+  // progress bar colour
+  document.getElementById('prog-fill').className = 'progress-fill pf-' + d.color;
+
+  document.getElementById('selector').style.display = 'none';
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  document.getElementById('r-gaps-card').style.display = '';
+  renderQuestion(0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function backToSelector() {
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('selector').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function renderQuestion(idx) {
-  const q = QUESTIONS[idx];
+  const d = DIAGNOSTICS[currentDiag];
+  const q = d.questions[idx];
   document.getElementById('q-number').textContent = `Question ${idx + 1}`;
   document.getElementById('q-text').textContent = q.text;
 
-  const pct = Math.round((idx / QUESTIONS.length) * 100);
-  document.getElementById('prog-label').textContent = `Question ${idx + 1} of ${QUESTIONS.length}`;
+  const pct = Math.round((idx / d.questions.length) * 100);
+  document.getElementById('prog-label').textContent = `Question ${idx + 1} of ${d.questions.length}`;
   document.getElementById('prog-pct').textContent = pct + '%';
   document.getElementById('prog-fill').style.width = pct + '%';
 
@@ -263,7 +422,8 @@ function renderQuestion(idx) {
   container.innerHTML = '';
   q.options.forEach((opt, i) => {
     const btn = document.createElement('button');
-    btn.className = 'option-btn' + (answers[idx] === i ? ' selected' : '');
+    const selClass = 'sel-' + d.color;
+    btn.className = 'option-btn' + (answers[idx] === i ? ' ' + selClass : '');
     btn.innerHTML = `<div class="option-label">${opt.label}</div><div class="option-sub">${opt.sub}</div>`;
     btn.onclick = () => selectOption(i);
     container.appendChild(btn);
@@ -271,18 +431,24 @@ function renderQuestion(idx) {
 
   document.getElementById('btn-back').style.display = idx > 0 ? 'inline-block' : 'none';
   document.getElementById('btn-next').disabled = answers[idx] === undefined;
-  document.getElementById('btn-next').textContent = idx === QUESTIONS.length - 1 ? 'Get my brief →' : 'Next →';
+  document.getElementById('btn-next').textContent = idx === d.questions.length - 1 ? 'Get my brief →' : 'Next →';
 }
 
 function selectOption(i) {
+  const d = DIAGNOSTICS[currentDiag];
+  const selClass = 'sel-' + d.color;
   answers[current] = i;
-  document.querySelectorAll('.option-btn').forEach((b, idx) => b.classList.toggle('selected', idx === i));
+  document.querySelectorAll('.option-btn').forEach((b, idx) => {
+    b.classList.remove('sel-green', 'sel-indigo');
+    if (idx === i) b.classList.add(selClass);
+  });
   document.getElementById('btn-next').disabled = false;
 }
 
 function goNext() {
+  const d = DIAGNOSTICS[currentDiag];
   if (answers[current] === undefined) return;
-  if (current < QUESTIONS.length - 1) { current++; renderQuestion(current); }
+  if (current < d.questions.length - 1) { current++; renderQuestion(current); }
   else showResult();
 }
 
@@ -291,53 +457,37 @@ function goBack() {
 }
 
 function showResult() {
+  const d = DIAGNOSTICS[currentDiag];
   document.getElementById('quiz').style.display = 'none';
-  const resultEl = document.getElementById('result');
-  resultEl.style.display = 'block';
+  document.getElementById('result').style.display = 'block';
 
-  const score = answers.reduce((s, ai, qi) => s + (QUESTIONS[qi].options[ai]?.score || 0), 0);
-  const maxScore = QUESTIONS.length * 2;
+  const score = answers.reduce((s, ai, qi) => s + (d.questions[qi].options[ai]?.score || 0), 0);
+  const maxScore = d.questions.length * 2;
   const pct = Math.round((score / maxScore) * 100);
 
-  let rag, ragLabel, headline, sub;
-  if (score <= 3) {
-    rag = 'green';
-    ragLabel = 'Well positioned';
-    headline = 'You have the foundations in place.';
-    sub = "Your answers suggest a programme that's reasonably set up for success. The priorities below are refinements — things to strengthen, not structural problems to fix.";
-  } else if (score <= 6) {
-    rag = 'amber';
-    ragLabel = 'Gaps to address';
-    headline = 'Solid in places — but there are gaps that will slow you down.';
-    sub = "Your programme has some strong foundations, but the issues below need attention before they become blockers. None are insurmountable if you act on them now.";
-  } else {
-    rag = 'red';
-    ragLabel = 'High risk — act now';
-    headline = 'Significant gaps that need immediate action.';
-    sub = "Based on your answers, there are structural gaps that routinely cause Day 0 failures. These aren't things to monitor — they need intervention now, before they compound.";
-  }
+  const rag = score <= 3 ? 'green' : score <= 6 ? 'amber' : 'red';
+  const { label, headline, sub } = d.ragLabels[rag];
 
-  const ragBadge = document.getElementById('rag-badge');
-  ragBadge.className = `rag-badge rag-${rag}`;
+  document.getElementById('rag-badge').className = `rag-badge rag-${rag}`;
   document.getElementById('rag-dot').className = `rag-dot rag-dot-${rag}`;
-  document.getElementById('rag-label').textContent = ragLabel;
+  document.getElementById('rag-label').textContent = label;
   document.getElementById('result-headline').textContent = headline;
   document.getElementById('result-sub').textContent = sub;
 
   const fill = document.getElementById('score-fill');
   fill.style.width = pct + '%';
-  fill.className = `score-bar-fill score-fill-${rag}`;
+  fill.className = `score-bar-fill sfill-${rag}`;
   document.getElementById('score-text').textContent = `${score} / ${maxScore}`;
 
-  // Current state narrative
-  const stateParts = QUESTIONS.map((q, i) => q.options[answers[i]]?.state).filter(Boolean);
+  // State narrative
+  const stateParts = d.questions.map((q, i) => q.options[answers[i]]?.state).filter(Boolean);
   const joined = stateParts.length > 1
     ? stateParts.slice(0, -1).join(', ') + ', and ' + stateParts[stateParts.length - 1]
     : stateParts[0] || '';
   document.getElementById('r-state').textContent = 'You are ' + joined + '.';
 
   // Gaps
-  const gaps = QUESTIONS.map((q, i) => q.options[answers[i]]?.gap).filter(Boolean);
+  const gaps = d.questions.map((q, i) => q.options[answers[i]]?.gap).filter(Boolean);
   const gapsEl = document.getElementById('r-gaps');
   gapsEl.innerHTML = '';
   if (gaps.length === 0) {
@@ -347,31 +497,27 @@ function showResult() {
   }
 
   // Actions
-  const actions = QUESTIONS.map((q, i) => q.options[answers[i]]?.action).filter(Boolean);
+  const actions = d.questions.map((q, i) => q.options[answers[i]]?.action).filter(Boolean);
   const actionsEl = document.getElementById('r-actions');
   actionsEl.innerHTML = '';
   if (actions.length === 0) {
     const li = document.createElement('li');
-    li.textContent = 'Continue building on your existing foundations — stress-test the plan and prepare for the unexpected';
+    li.textContent = 'Continue building on your foundations — stress-test the plan, identify assumptions, and prepare for the unexpected';
     actionsEl.appendChild(li);
   } else {
     actions.forEach(a => { const li = document.createElement('li'); li.textContent = a; actionsEl.appendChild(li); });
   }
 
-  resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Pitch
+  document.getElementById('r-pitch').className = d.pitchClass;
+  document.getElementById('r-pitch').innerHTML = d.pitchHTML;
+
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function restart() {
-  answers = [];
-  current = 0;
-  document.getElementById('result').style.display = 'none';
-  document.getElementById('r-gaps-card').style.display = '';
-  document.getElementById('quiz').style.display = 'block';
-  renderQuestion(0);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  startDiagnostic(currentDiag);
 }
-
-renderQuestion(0);
 </script>
 </body>
 </html>
