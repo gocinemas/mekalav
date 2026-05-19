@@ -207,6 +207,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
         <div class="card-body" id="r-opportunity"></div>
       </div>
     </div>
+    <!-- Email capture -->
+    <div style="margin-bottom:16px;padding:18px 20px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg)">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px">📧 Email this report to yourself</div>
+      <div style="display:flex;gap:8px">
+        <input id="email-input" type="email" placeholder="your@email.com"
+          style="flex:1;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;font-family:inherit;background:var(--surface);color:var(--text);outline:none"
+          onkeydown="if(event.key==='Enter')sendEmail()">
+        <button onclick="sendEmail()"
+          style="padding:10px 18px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Send →</button>
+      </div>
+      <div id="email-status" style="font-size:12px;margin-top:8px;display:none"></div>
+    </div>
+
     <div class="pitch">
       <div class="pitch-eyebrow">Agentic AI · Built by</div>
       <h3>Vikram Mekala — AI &amp; Transformation</h3>
@@ -222,6 +235,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 </div>
 <script>
 const API = 'https://miru.humanagency.co/api/intel/research';
+const EMAIL_API = 'https://miru.humanagency.co/api/intel/email-report';
+let _lastBrief = null;
 
 const _STEP_COUNT = 5;
 const _STEP_INTERVAL = 4200; // ms per step
@@ -331,8 +346,61 @@ function renderResult(company, d) {
     risksList.innerHTML = '<li>No specific risks identified</li>';
   }
 
+  _lastBrief = { company: d.company || company, ...d };
+  // Reset email status for new search
+  const es = document.getElementById('email-status');
+  if (es) { es.style.display = 'none'; es.textContent = ''; }
+  const ei = document.getElementById('email-input');
+  if (ei) ei.value = '';
+
   document.getElementById('result').style.display = 'block';
   document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function sendEmail() {
+  const emailEl = document.getElementById('email-input');
+  const statusEl = document.getElementById('email-status');
+  const email = (emailEl?.value || '').trim();
+
+  if (!email || !email.includes('@')) {
+    statusEl.style.display = 'block';
+    statusEl.style.color = '#dc2626';
+    statusEl.textContent = 'Enter a valid email address.';
+    emailEl?.focus();
+    return;
+  }
+  if (!_lastBrief) {
+    statusEl.style.display = 'block';
+    statusEl.style.color = '#dc2626';
+    statusEl.textContent = 'Run a search first.';
+    return;
+  }
+
+  statusEl.style.display = 'block';
+  statusEl.style.color = '#7a7168';
+  statusEl.textContent = 'Sending…';
+
+  try {
+    const r = await fetch(EMAIL_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, company: _lastBrief.company, brief: _lastBrief }),
+    });
+    const d = await r.json();
+    if (d.ok) {
+      statusEl.style.color = '#16a34a';
+      statusEl.textContent = '✓ Sent! Check your inbox — from reports@mekalav.com.';
+    } else if (r.status === 503) {
+      statusEl.style.color = '#d97706';
+      statusEl.textContent = 'Email service not yet configured. Coming soon!';
+    } else {
+      statusEl.style.color = '#dc2626';
+      statusEl.textContent = d.error || 'Failed to send. Try again in a moment.';
+    }
+  } catch (e) {
+    statusEl.style.color = '#dc2626';
+    statusEl.textContent = 'Network error. Try again.';
+  }
 }
 
 // Auto-run if ?q= in URL
