@@ -518,6 +518,12 @@ function showResult() {
 function restart() {
   startDiagnostic(currentDiag);
 }
+
+// Auto-start if ?tool=day0 or ?tool=ai in URL
+(function(){
+  const tool = new URLSearchParams(location.search).get('tool');
+  if(tool === 'day0' || tool === 'ai') startDiagnostic(tool);
+})();
 </script>
 </body>
 </html>
