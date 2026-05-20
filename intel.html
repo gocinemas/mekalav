@@ -161,7 +161,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 
   <div class="search-wrap">
     <input class="search-input" id="q" type="text" placeholder="e.g. Unilever, Tesco, HSBC, Mars…" autocomplete="off">
-    <button class="search-btn" id="run-btn" onclick="runResearch()">Run agent →</button>
+    <button class="search-btn" id="run-btn" onclick="runResearch()">Research →</button>
   </div>
 
   <div class="chips" id="chips">
@@ -312,7 +312,7 @@ async function runResearch() {
   }
 
   btn.disabled = false;
-  btn.textContent = 'Run agent →';
+  btn.textContent = 'Research →';
   _resetPipeline();
 }
 
