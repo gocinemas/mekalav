@@ -176,7 +176,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
   <div class="loading" id="loading">
     <div class="loading-header">
       <div class="spinner"></div>
-      <div class="loading-label">Agent running on <span id="loading-company" style="color:#818cf8"></span></div>
+      <div class="loading-label">Researching <span id="loading-company" style="color:#818cf8"></span></div>
     </div>
     <div class="loading-steps-list">
       <div class="loading-step-row" id="ls-0"><span class="ls-icon">🌐</span>Scanning recent news<span class="ls-check">✓</span></div>
@@ -271,7 +271,7 @@ async function runResearch() {
 
   const btn = document.getElementById('run-btn');
   btn.disabled = true;
-  btn.textContent = 'Agent running…';
+  btn.textContent = 'Researching…';
   document.getElementById('chips').style.display = 'none';
   document.getElementById('result').style.display = 'none';
   document.getElementById('error').style.display = 'none';
