@@ -185,6 +185,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
       <div class="loading-step-row" id="ls-3"><span class="ls-icon">🎯</span>Analysing strategic moves<span class="ls-check">✓</span></div>
       <div class="loading-step-row" id="ls-4"><span class="ls-icon">📄</span>Compiling brief<span class="ls-check">✓</span></div>
     </div>
+    <div id="snapshot-preview" style="display:none;margin-top:20px;padding:16px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px"></div>
   </div>
 
   <div class="error" id="error"></div>
@@ -237,6 +238,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 const API = 'https://miru.humanagency.co/api/intel/research';
 const EMAIL_API = 'https://miru.humanagency.co/api/intel/email-report';
 let _lastBrief = null;
+let _lastSnapshot = null;
 
 const _STEP_COUNT = 5;
 const _STEP_INTERVAL = 4200; // ms per step
@@ -286,6 +288,15 @@ async function runResearch() {
     si = Math.min(si + 1, _STEP_COUNT - 1);
     _animatePipeline(si);
   }, _STEP_INTERVAL);
+
+  // Fire snapshot in parallel — shows company basics while AI compiles the full brief
+  _lastSnapshot = null;
+  document.getElementById('snapshot-preview').style.display = 'none';
+  fetch(`https://miru.humanagency.co/api/intel/snapshot?company=${encodeURIComponent(q)}`)
+    .then(r => r.json()).then(snap => {
+      _lastSnapshot = snap;
+      _renderSnapshotPreview(snap);
+    }).catch(() => {});
 
   // Update URL so the link is shareable
   const url = new URL(location.href);
@@ -384,7 +395,7 @@ async function sendEmail() {
     const r = await fetch(EMAIL_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, company: _lastBrief.company, brief: _lastBrief }),
+      body: JSON.stringify({ email, company: _lastBrief.company, brief: _lastBrief, snapshot: _lastSnapshot }),
     });
     const d = await r.json();
     if (d.ok) {
@@ -401,6 +412,33 @@ async function sendEmail() {
     statusEl.style.color = '#dc2626';
     statusEl.textContent = 'Network error. Try again.';
   }
+}
+
+function _renderSnapshotPreview(snap) {
+  const el = document.getElementById('snapshot-preview');
+  if (!el || !snap) return;
+  const pills = [snap.founded && `Est. ${snap.founded}`, snap.hq, snap.industry].filter(Boolean);
+  const pillsHtml = pills.map(p => `<span style="display:inline-block;padding:2px 8px;background:rgba(255,255,255,.08);border-radius:6px;font-size:11px;color:rgba(255,255,255,.6);margin-right:4px">${p}</span>`).join('');
+  let stockHtml = '';
+  if (snap.stock && snap.stock.price) {
+    const s = snap.stock;
+    const up = s.change >= 0;
+    const sym = s.currency === 'GBp' ? 'p' : (s.currency === 'GBP' ? '£' : s.currency + ' ');
+    const price = s.currency === 'GBp' ? `${s.price}p` : `${sym}${s.price}`;
+    stockHtml = `<span style="font-size:12px;font-weight:700;color:${up ? '#4ade80' : '#f87171'};margin-left:8px">${s.ticker} ${price} ${up ? '▲' : '▼'} ${Math.abs(s.change_pct).toFixed(1)}%</span>`;
+  }
+  const newsHtml = (snap.news || []).slice(0, 3).map(n =>
+    `<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px;color:rgba(255,255,255,.7);line-height:1.4">
+      <a href="${n.url}" target="_blank" style="color:inherit;text-decoration:none">${n.title}</a>
+      <span style="color:rgba(255,255,255,.3);font-size:11px;margin-left:6px">${n.source || ''}</span>
+    </div>`).join('');
+  el.innerHTML = `
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px">While you wait</div>
+    <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:4px">${snap.name || ''}${stockHtml}</div>
+    ${pillsHtml ? `<div style="margin-bottom:8px">${pillsHtml}</div>` : ''}
+    ${snap.description ? `<div style="font-size:12px;color:rgba(255,255,255,.55);line-height:1.5;margin-bottom:10px">${snap.description}</div>` : ''}
+    ${newsHtml ? `<div style="margin-top:4px">${newsHtml}</div>` : ''}`;
+  el.style.display = 'block';
 }
 
 // Auto-run if ?q= in URL
