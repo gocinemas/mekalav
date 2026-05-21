@@ -217,6 +217,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
       </div>
     </div>
     <div class="pitch" id="r-pitch"></div>
+    <!-- Email capture -->
+    <div style="margin:20px 0;padding:18px 20px;border:1px solid var(--border);border-radius:16px;background:var(--bg)">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px">📧 Email this report to yourself</div>
+      <div style="display:flex;gap:8px">
+        <input id="email-input" type="email" placeholder="your@email.com"
+          style="flex:1;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;font-family:inherit;background:var(--surface);color:var(--text);outline:none"
+          onkeydown="if(event.key==='Enter')sendReadinessEmail()">
+        <button onclick="sendReadinessEmail()"
+          style="padding:10px 18px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Send →</button>
+      </div>
+      <div id="email-status" style="font-size:12px;margin-top:8px;display:none"></div>
+    </div>
     <div class="bottom-actions">
       <button class="restart-btn" onclick="restart()">↩ Redo this check</button>
       <button class="restart-btn" onclick="backToSelector()">Try another check →</button>
@@ -512,11 +524,57 @@ function showResult() {
   document.getElementById('r-pitch').className = d.pitchClass;
   document.getElementById('r-pitch').innerHTML = d.pitchHTML;
 
+  _lastReadiness = {
+    type: currentDiag === 'day0' ? 'Day 0 Readiness' : 'AI Programme Readiness',
+    rag, label, headline, sub,
+    state: document.getElementById('r-state').textContent,
+    gaps, actions,
+  };
+  document.getElementById('email-status').style.display = 'none';
+  document.getElementById('email-input').value = '';
+
   document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+let _lastReadiness = null;
+
 function restart() {
   startDiagnostic(currentDiag);
+  document.getElementById('email-status').style.display = 'none';
+  document.getElementById('email-input').value = '';
+}
+
+async function sendReadinessEmail() {
+  const emailEl  = document.getElementById('email-input');
+  const statusEl = document.getElementById('email-status');
+  const email    = (emailEl?.value || '').trim();
+  if (!email || !email.includes('@')) {
+    statusEl.style.display = 'block'; statusEl.style.color = '#dc2626';
+    statusEl.textContent = 'Enter a valid email address.'; emailEl?.focus(); return;
+  }
+  if (!_lastReadiness) {
+    statusEl.style.display = 'block'; statusEl.style.color = '#dc2626';
+    statusEl.textContent = 'Complete the check first.'; return;
+  }
+  statusEl.style.display = 'block'; statusEl.style.color = '#7a7168';
+  statusEl.textContent = 'Sending…';
+  try {
+    const r = await fetch('https://miru.humanagency.co/api/readiness/email-report', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, report: _lastReadiness }),
+    });
+    const d = await r.json();
+    if (d.ok) {
+      statusEl.style.color = '#16a34a';
+      statusEl.textContent = '✓ Sent! Check your inbox — from reports@mekalav.com.';
+    } else {
+      statusEl.style.color = '#dc2626';
+      statusEl.textContent = d.error || 'Failed to send. Try again.';
+    }
+  } catch(e) {
+    statusEl.style.color = '#dc2626';
+    statusEl.textContent = 'Network error. Try again.';
+  }
 }
 
 // Auto-start if ?tool=day0 or ?tool=ai in URL
