@@ -192,7 +192,22 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 
   <div class="result" id="result">
     <div class="company-name" id="r-company"></div>
-    <div class="confidence-badge" id="r-conf"></div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+      <div class="confidence-badge" id="r-conf" onclick="_toggleConfExplain()" style="cursor:pointer"></div>
+    </div>
+    <div id="r-conf-explain" style="display:none;font-size:12px;line-height:1.6;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:12px">
+      <b style="color:var(--text)">High</b> — multiple strong public sources confirm the picture (filings, press, LinkedIn signals).<br>
+      <b style="color:var(--text)">Medium</b> — good signal but some gaps; treat as directional, not definitive.<br>
+      <b style="color:var(--text)">Low</b> — limited public data; AI has filled gaps with inference. Verify before acting.
+    </div>
+    <!-- Company at a Glance (snapshot) -->
+    <div id="r-snapshot-wrap" style="display:none;margin-bottom:16px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+      <button onclick="_toggleSnapshot()" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--surface);border:none;cursor:pointer;font-family:inherit">
+        <span style="font-size:12px;font-weight:700;color:var(--text)">Company at a Glance</span>
+        <span id="r-snapshot-chevron" style="font-size:11px;color:var(--muted)">▾ expand</span>
+      </button>
+      <div id="r-snapshot-body" style="display:none;padding:0 16px 14px;background:var(--bg)"></div>
+    </div>
     <div class="headline" id="r-headline"></div>
     <div class="cards">
       <div class="card"><div class="card-label">Strategy</div><div class="card-body" id="r-strategy"></div></div>
@@ -334,8 +349,40 @@ function renderResult(company, d) {
 
   const conf = (d.confidence || 'medium').toLowerCase();
   const confEl = document.getElementById('r-conf');
-  confEl.textContent = conf + ' confidence';
+  confEl.textContent = conf + ' confidence  ?';
   confEl.className = 'confidence-badge conf-' + (conf === 'high' ? 'high' : conf === 'low' ? 'low' : 'medium');
+  document.getElementById('r-conf-explain').style.display = 'none';
+
+  // Snapshot card
+  const snapWrap = document.getElementById('r-snapshot-wrap');
+  const snapBody = document.getElementById('r-snapshot-body');
+  if (snapWrap && snapBody && _lastSnapshot && (_lastSnapshot.description || (_lastSnapshot.news||[]).length)) {
+    const s = _lastSnapshot;
+    const pills = [s.founded && `Est. ${s.founded}`, s.hq, s.industry].filter(Boolean);
+    const pillsHtml = pills.map(p => `<span style="display:inline-block;padding:2px 8px;background:var(--surface);border:1px solid var(--border);border-radius:6px;font-size:11px;color:var(--muted);margin-right:4px;margin-bottom:4px">${p}</span>`).join('');
+    let stockHtml = '';
+    if (s.stock && s.stock.price) {
+      const up = s.stock.change >= 0;
+      const sym = s.stock.currency === 'GBp' ? '' : (s.stock.currency === 'GBP' ? '£' : s.stock.currency + ' ');
+      const price = s.stock.currency === 'GBp' ? `${s.stock.price}p` : `${sym}${s.stock.price}`;
+      stockHtml = `<div style="font-size:13px;font-weight:700;color:${up?'#16a34a':'#dc2626'};margin-bottom:8px">${s.stock.ticker} ${price} ${up?'▲':'▼'} ${Math.abs(s.stock.change_pct).toFixed(1)}%</div>`;
+    }
+    const newsHtml = (s.news||[]).slice(0,3).map(n =>
+      `<div style="padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--text);line-height:1.4">
+        <a href="${n.url}" target="_blank" style="color:var(--text);text-decoration:none">${n.title}</a>
+        <span style="color:var(--muted);font-size:11px;margin-left:4px">${n.source||''}</span>
+      </div>`).join('');
+    snapBody.innerHTML =
+      (pillsHtml ? `<div style="margin-bottom:8px;padding-top:2px">${pillsHtml}</div>` : '') +
+      stockHtml +
+      (s.description ? `<div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:${newsHtml?'10px':'0'}">${s.description}</div>` : '') +
+      (newsHtml ? `<div style="font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Recent news</div>${newsHtml}` : '');
+    snapWrap.style.display = 'block';
+    document.getElementById('r-snapshot-chevron').textContent = '▾ expand';
+    document.getElementById('r-snapshot-body').style.display = 'none';
+  } else if (snapWrap) {
+    snapWrap.style.display = 'none';
+  }
 
   document.getElementById('r-headline').textContent    = d.headline    || '';
   document.getElementById('r-strategy').textContent    = d.strategy    || 'Not available';
@@ -412,6 +459,20 @@ async function sendEmail() {
     statusEl.style.color = '#dc2626';
     statusEl.textContent = 'Network error. Try again.';
   }
+}
+
+function _toggleConfExplain() {
+  const el = document.getElementById('r-conf-explain');
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function _toggleSnapshot() {
+  const body = document.getElementById('r-snapshot-body');
+  const chev = document.getElementById('r-snapshot-chevron');
+  if (!body) return;
+  const open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  chev.textContent = open ? '▾ expand' : '▴ collapse';
 }
 
 function _renderSnapshotPreview(snap) {
