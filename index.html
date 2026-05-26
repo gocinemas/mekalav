@@ -823,8 +823,9 @@ footer {
 
 <!-- Quote -->
 <div class="quote-strip">
-  <div class="quote-inner">
+  <div class="quote-inner" id="daily-quote-wrap" style="transition:opacity .5s ease">
     <span class="quote-mark">"</span><span id="daily-quote"></span><span class="quote-mark">"</span>
+    <span id="daily-quote-author" style="display:none;font-size:12px;color:var(--muted);font-style:normal;margin-left:8px">—</span>
   </div>
 </div>
 
@@ -1689,20 +1690,48 @@ footer {
 </div>
 
 <script>
-// ── Daily quote ────────────────────────────────────────────────────────────────
+// ── Daily quote — fetched from quotes.json, cycles every 12s ──────────────────
 (function() {
-  const quotes = [
-    "AI can give you the answers, but it can't give you the understanding.",
-    "Complexity is easy. Clarity is the hard part.",
-    "The best technology disappears. It just works.",
-    "Transformation is not a project. It's a decision.",
-    "Technology is only as good as the decision it enables.",
-    "You learn more from shipping something broken than planning something perfect.",
-    "Most digital transformations fail not because of technology. But because of people.",
-    "The gap between knowing and doing is where most organisations live."
-  ];
-  const day = Math.floor(Date.now() / 86400000);
-  document.getElementById("daily-quote").textContent = quotes[day % quotes.length];
+  var _quotes = [];
+  var _qi = 0;
+  var _quoteEl  = document.getElementById("daily-quote");
+  var _authorEl = document.getElementById("daily-quote-author");
+  var _wrapEl   = document.getElementById("daily-quote-wrap");
+
+  function _showQuote(q) {
+    if (!_quoteEl) return;
+    if (_wrapEl) _wrapEl.style.opacity = "0";
+    setTimeout(function() {
+      _quoteEl.textContent = q.text || "";
+      if (_authorEl) {
+        if (q.author) {
+          _authorEl.textContent = "— " + q.author;
+          _authorEl.style.display = "inline";
+        } else {
+          _authorEl.style.display = "none";
+        }
+      }
+      if (_wrapEl) _wrapEl.style.opacity = "1";
+    }, 500);
+  }
+
+  function _nextQuote() {
+    if (!_quotes.length) return;
+    _qi = (_qi + 1) % _quotes.length;
+    _showQuote(_quotes[_qi]);
+  }
+
+  fetch('/quotes.json').then(function(r){ return r.json(); }).then(function(data) {
+    _quotes = data.filter(function(q){ return q.text; });
+    if (!_quotes.length) return;
+    // Start at a day-based index so returning visitors see variety
+    _qi = Math.floor(Date.now() / 86400000) % _quotes.length;
+    _showQuote(_quotes[_qi]);
+    setInterval(_nextQuote, 12000);
+  }).catch(function() {
+    // Fallback if fetch fails
+    if (_quoteEl) _quoteEl.textContent = "The gap between knowing and doing is where most organisations live.";
+  });
 })();
 
 // ── Career timeline toggle ─────────────────────────────────────────────────────
