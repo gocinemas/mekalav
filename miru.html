@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miru — AI daily brief for UK life · Vikram Mekala</title>
+<meta name="description" content="How I built a production AI assistant from scratch as a programme manager — WhatsApp, real data, real users, real decisions.">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #faf9f7; --surface: #ffffff; --surface2: #f3f1ee;
+  --border: #e8e4df; --text: #1a1714; --muted: #7a7168;
+  --accent: #d97706; --accent2: #2563eb;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #181614; --surface: #211f1c; --surface2: #2a2724; --border: #332f2b; --text: #f0ece6; --muted: #8a8078; --accent: #f59e0b; --accent2: #60a5fa; }
+}
+body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
+
+.page { max-width: 680px; margin: 0 auto; padding: 32px 20px 100px; }
+
+.back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; margin-bottom: 28px; transition: color .15s; }
+.back:hover { color: var(--accent); }
+
+.badge { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg,#0f172a,#1e3a5f); color: #7dd3fc; font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 12px; border-radius: 99px; margin-bottom: 14px; }
+.badge-dot { width: 6px; height: 6px; background: #38bdf8; border-radius: 50%; animation: pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+h1 { font-size: 30px; font-weight: 900; letter-spacing: -1px; margin-bottom: 8px; line-height: 1.15; }
+.subtitle { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
+
+.live-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent); color: #fff;
+  padding: 10px 18px; border-radius: 10px; text-decoration: none;
+  font-size: 14px; font-weight: 700; margin-bottom: 36px;
+  transition: opacity .15s;
+}
+.live-link:hover { opacity: .88; }
+
+/* Section */
+.section { margin-bottom: 40px; }
+.section-label {
+  font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px;
+}
+h2 { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 10px; }
+p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--text); font-weight: 700; }
+
+/* Decision cards */
+.decisions { display: flex; flex-direction: column; gap: 12px; }
+.decision {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 16px;
+}
+.decision-q { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+.decision-a { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.decision-a strong { color: var(--accent); }
+
+/* Stack chips */
+.stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.chip {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 99px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--muted);
+}
+
+/* Metrics row */
+.metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 12px; }
+.metric { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; text-align: center; }
+.metric-num { font-size: 22px; font-weight: 900; letter-spacing: -1px; color: var(--text); }
+.metric-label { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+/* Timeline */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.tl-item { display: flex; gap: 14px; padding-bottom: 20px; position: relative; }
+.tl-item:not(:last-child)::before {
+  content: ""; position: absolute; left: 11px; top: 22px;
+  width: 1px; bottom: 0; background: var(--border);
+}
+.tl-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--surface2); border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; margin-top: 2px; }
+.tl-dot.done { background: #dcfce7; border-color: #86efac; }
+.tl-body { flex: 1; }
+.tl-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.tl-desc { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+
+/* Quote block */
+.quote {
+  border-left: 3px solid var(--accent); padding: 12px 16px;
+  background: var(--surface); border-radius: 0 12px 12px 0;
+  font-size: 14px; color: var(--muted); font-style: italic; line-height: 1.65;
+  margin: 16px 0;
+}
+
+/* Footer */
+.footer-links { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+.footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; font-weight: 600; }
+.footer-links a:hover { color: var(--accent); }
+
+@media(max-width:480px) {
+  h1 { font-size: 24px; }
+  .metrics { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a href="/" class="back">← Vikram Mekala</a>
+
+  <div class="badge"><span class="badge-dot"></span> Live in production · 2025–2026</div>
+
+  <h1>Miru — AI daily brief for UK life</h1>
+  <p class="subtitle">How I designed and shipped a production AI assistant as a programme manager with no engineering background — using AI tooling to bridge the gap between product thinking and working software.</p>
+
+  <a href="https://miru.humanagency.co" target="_blank" rel="noopener" class="live-link">
+    → See the live product
+  </a>
+
+  <!-- Problem -->
+  <div class="section">
+    <div class="section-label">The problem</div>
+    <h2>UK daily life is fragmented across too many apps</h2>
+    <p>Train times from one app. Fuel prices from another. School letters buried in email. Spending scattered across banking apps. No single surface synthesises what actually matters for your morning.</p>
+    <p>The gap isn't data — it's intelligence. The apps exist. What doesn't exist is something that <strong>knows your context</strong> and tells you the three things that matter today, unprompted.</p>
+  </div>
+
+  <!-- Users -->
+  <div class="section">
+    <div class="section-label">Users</div>
+    <h2>One household, multiple jobs to be done</h2>
+    <p>I built Miru for my own family first — which meant the jobs-to-be-done were concrete, not hypothetical.</p>
+    <div class="decisions" style="margin-top:12px">
+      <div class="decision">
+        <div class="decision-q">🚆 The commuter</div>
+        <div class="decision-a">Needs to know if the 8:04 is running before getting in the car. Not after opening three apps.</div>
+      </div>
+      <div class="decision">
+        <div class="decision-q">⛽ The driver</div>
+        <div class="decision-a">Wants cheapest petrol near home postcode. Doesn't want to check a website — wants the number in the morning brief.</div>
+      </div>
+      <div class="decision">
+        <div class="decision-q">🏫 The parent</div>
+        <div class="decision-a">Two kids at different schools. Letters arriving by email. School run timing varies. Zero visibility without actively checking.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key decisions -->
+  <div class="section">
+    <div class="section-label">Product decisions</div>
+    <h2>The decisions that shaped what Miru became</h2>
+    <div class="decisions">
+      <div class="decision">
+        <div class="decision-q">WhatsApp vs a native app</div>
+        <div class="decision-a">Apps require installs, onboarding, and habit formation. WhatsApp is already open. <strong>Zero friction for the user</strong> — Miru sends, they read. The delivery channel IS the product.</div>
+      </div>
+      <div class="decision">
+        <div class="decision-q">Brief-first vs tool-first</div>
+        <div class="decision-a">Early version showed tools (trains, fuel, school) as a grid. Users had to ask. The insight: the AI should <strong>lead with what matters today</strong>, not wait to be asked. Brief-first is the V2 architecture.</div>
+      </div>
+      <div class="decision">
+        <div class="decision-q">Groq (llama-3.1-8b) vs GPT-4</div>
+        <div class="decision-a">Speed and cost at this scale. The brief is generated from parallel data fetches and needs to arrive in under 3 seconds. <strong>Groq's inference speed</strong> is the reason that's possible.</div>
+      </div>
+      <div class="decision">
+        <div class="decision-q">What to cut</div>
+        <div class="decision-a">An early version rendered full context cards (train boards, fuel tables, school lists) below the brief. <strong>It was repeating information</strong> already in the narrative. Removed entirely in the redesign.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Architecture -->
+  <div class="section">
+    <div class="section-label">How it works</div>
+    <h2>Context engine → narrative → delivery</h2>
+    <p>The brief is not a chatbot response. It's a synthesis of live data from multiple sources, assembled in parallel, then shaped into a 2–3 sentence narrative by an LLM that knows your prefs.</p>
+    <div class="timeline" style="margin-top:16px">
+      <div class="tl-item">
+        <div class="tl-dot done">1</div>
+        <div class="tl-body">
+          <div class="tl-title">Parallel data fetch</div>
+          <div class="tl-desc">Train departures, fuel prices, school events, spend data — fetched simultaneously on brief request</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done">2</div>
+        <div class="tl-body">
+          <div class="tl-title">Context engine</div>
+          <div class="tl-desc">Time of day, location (GPS cache), WFH/office mode, school holidays — determines what's relevant</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done">3</div>
+        <div class="tl-body">
+          <div class="tl-title">Groq synthesis</div>
+          <div class="tl-desc">LLM writes 2–3 sentences. Told what data exists, what time it is, what matters today</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done">4</div>
+        <div class="tl-body">
+          <div class="tl-title">Delivery</div>
+          <div class="tl-desc">WhatsApp (Twilio) at 7:30am for opted-in users, or on-demand via the web app</div>
+        </div>
+      </div>
+    </div>
+    <div class="stack">
+      <span class="chip">Flask</span>
+      <span class="chip">Supabase</span>
+      <span class="chip">Groq / llama-3.1</span>
+      <span class="chip">Twilio WhatsApp</span>
+      <span class="chip">Railway</span>
+      <span class="chip">Gmail OAuth</span>
+    </div>
+  </div>
+
+  <!-- What shipped -->
+  <div class="section">
+    <div class="section-label">What shipped</div>
+    <h2>Features across six months</h2>
+    <div class="decisions">
+      <div class="decision">
+        <div class="decision-q">🗞️ Daily brief</div>
+        <div class="decision-a">AI-synthesised morning narrative. Trains, fuel, weather, school events, bin day — only what's relevant today.</div>
+      </div>
+      <div class="decision">
+        <div class="decision-q">🏫 School comms</div>
+        <div class="decision-a">Gmail OAuth scan for school emails. AI extracts events and stores them. Parents get a structured view — no more missed letters.</div>
+      </div>
+      <div class="decision">
+        <div class="decision-q">⛽ Fuel tracker</div>
+        <div class="decision-a">Cheapest petrol near any UK postcode. Live prices, nearest stations, historical trend.</div>
+      </div>
+      <div class="decision">
+        <div class="decision-q">🔎 Company Intel</div>
+        <div class="decision-a">Agentic research tool — enter a company name, get a structured brief: news, leadership, strategy signals, hiring.</div>
+      </div>
+      <div class="decision">
+        <div class="decision-q">📌 Clippings + saves</div>
+        <div class="decision-a">Save anything via WhatsApp photo or URL. AI categorises and summarises. Surfaced back in the evening brief.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI fluency -->
+  <div class="section">
+    <div class="section-label">How AI changed the build</div>
+    <h2>Product decisions were mine. Execution was accelerated.</h2>
+    <p>I used Claude Code throughout — but as a force multiplier, not a replacement for thinking. Every architecture decision, every feature trade-off, every design choice was mine. Claude handled the implementation that would have taken me weeks to learn from scratch.</p>
+    <div class="quote">
+      "The skill I developed wasn't prompting. It was knowing exactly what I wanted — and being able to describe it precisely enough that the AI could build it correctly."
+    </div>
+    <p>The result: a production app with a Flask backend, Supabase DB, Twilio WhatsApp integration, Gmail OAuth, and a full single-page web interface — shipped iteratively over six months, maintained and improved weekly.</p>
+    <p>This is what AI-augmented product delivery looks like at the individual level. <strong>Transformation programmes should be run the same way.</strong></p>
+  </div>
+
+  <!-- Outcomes -->
+  <div class="section">
+    <div class="section-label">Outcomes</div>
+    <h2>In production, in daily use</h2>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-num">6+</div>
+        <div class="metric-label">months live</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">Daily</div>
+        <div class="metric-label">active use</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">10+</div>
+        <div class="metric-label">features shipped</div>
+      </div>
+    </div>
+    <p style="margin-top:14px">Not a prototype. Not a demo. A live product I use every morning — and maintain every week.</p>
+  </div>
+
+  <div class="footer-links">
+    <a href="https://miru.humanagency.co" target="_blank" rel="noopener">→ Live product</a>
+    <a href="/">← Back to mekalav.com</a>
+    <a href="mailto:mekala@gmail.com">Get in touch</a>
+  </div>
+
+</div>
+</body>
+</html>
