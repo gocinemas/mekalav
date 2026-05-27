@@ -602,20 +602,6 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 }
 .now-page-link:hover { text-decoration: underline; }
 
-/* Visitor personalisation banner */
-.visitor-banner {
-  background: linear-gradient(135deg, rgba(217,119,6,.06) 0%, rgba(37,99,235,.04) 100%);
-  border: 1.5px solid rgba(217,119,6,.22);
-  border-radius: 16px; padding: 14px 18px; margin-bottom: 28px;
-  animation: bannerIn .4s cubic-bezier(.34,1.56,.64,1);
-}
-@keyframes bannerIn {
-  from { opacity:0; transform:translateY(-8px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-.visitor-banner-name { font-size:16px; font-weight:800; color:var(--text); margin-bottom:4px; }
-.visitor-banner-note { font-size:13px; color:var(--muted); line-height:1.55; }
-.visitor-banner-note strong { color:var(--text); }
 
 /* Available badge */
 .avail-pill {
@@ -810,7 +796,6 @@ footer {
 
 <div class="hero">
   <!-- Personalised visitor banner — shown when ?from= or ?for= params present -->
-  <div id="visitor-banner" class="visitor-banner" style="display:none"></div>
 
   <h1>Engineer.<br>Builder.<br><span>25 years in.</span></h1>
   <p class="hero-sub">
@@ -2262,53 +2247,8 @@ fetch('https://miru.humanagency.co/api/me/location').then(r=>r.json()).then(func
 </script>
 
 <script>
-// ── Personalisation: URL params + smart time greeting ─────────────────────
+// ── Smart time greeting — always shown ───────────────────────────────────
 (function() {
-  // ── Company context map ──────────────────────────────────────────────────
-  var CO = {
-    wpp:        { label:'WPP',           note:'Media transformation, brand intelligence and large programme delivery.' },
-    trainline:  { label:'Trainline',     note:'AI transformation, product-led delivery and platform modernisation.' },
-    mars:       { label:'Mars',          note:'FMCG global programmes, commercial analytics and supply chain technology.' },
-    mondelez:   { label:'Mondelēz',      note:'FMCG separation, M&A technology workstreams and programme delivery.' },
-    collinson:  { label:'Collinson',     note:'AI Director scope — innovation strategy and AI product leadership.' },
-    unilever:   { label:'Unilever',      note:'£5M AI & data transformation across 100+ markets, plus IT separation.' },
-    fmcg:       { label:'FMCG',          note:'Global programmes at Unilever and Mars — pricing, analytics, supply chain.' },
-    ai:         { label:'AI',            note:'AI strategy, production AI products (Miru & Intel) and AI enablement for non-technical teams.' },
-    harnham:    { label:'Harnham',       note:'Technical Programme Management and data & AI transformation delivery.' },
-    lorien:     { label:'Lorien',        note:'Programme delivery, AI transformation and enterprise technology leadership.' },
-    venturi:    { label:'Venturi',       note:'Senior Programme Management across digital and data transformation.' },
-    bp:         { label:'BP',            note:'Energy sector transformation, operations technology and SAP programmes.' },
-    malt:       { label:'Malt',          note:'Independent consulting — AI strategy, product and transformation programmes.' },
-  };
-
-  var qs   = new URLSearchParams(window.location.search);
-  var from = (qs.get('from') || '').trim();
-  var forKey = (qs.get('for') || qs.get('role') || '').trim().toLowerCase().replace(/[^a-z]/g,'');
-  var co   = CO[forKey] || (forKey ? { label: forKey.charAt(0).toUpperCase() + forKey.slice(1), note: '' } : null);
-
-  // ── Personalised banner ──────────────────────────────────────────────────
-  if (from || co) {
-    var banner = document.getElementById('visitor-banner');
-    if (banner) {
-      var firstName = from ? from.split(/[\s+]/)[0] : '';
-      var lines = [];
-      if (firstName) lines.push('<div class="visitor-banner-name">Hi ' + firstName + ' — good to connect.</div>');
-      if (co && co.note) lines.push('<div class="visitor-banner-note">' + co.note + '</div>');
-
-      if (lines.length) {
-        banner.innerHTML = lines.join('');
-        banner.style.display = 'block';
-      }
-
-      // Pre-fill Calendly with first name
-      var calLink = document.getElementById('hero-cal-link');
-      if (calLink && firstName) {
-        calLink.href = 'https://calendly.com/mekala/15min?name=' + encodeURIComponent(firstName);
-      }
-    }
-  }
-
-  // ── Smart time greeting (Option 3) — always shown ────────────────────────
   var timeLine = document.getElementById('visitor-time-line');
   var ctxLine  = document.getElementById('visitor-ctx-line');
   var infoWrap = document.getElementById('visitor-info');
