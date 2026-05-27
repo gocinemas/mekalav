@@ -827,6 +827,21 @@ footer {
     <div style="font-size:12px;color:var(--muted)" id="visitor-time-line"></div>
     <div style="font-size:11px;color:var(--subtle)" id="visitor-ctx-line"></div>
   </div>
+
+  <!-- What could Vikram do for us? -->
+  <div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--border)">
+    <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px">What could Vikram do for us?</div>
+    <div style="display:flex;gap:8px">
+      <input id="pitch-input" type="text"
+        placeholder="Your company or challenge — e.g. Mindshare, or 'media agency moving into AI'"
+        style="flex:1;min-width:0;border:1.5px solid var(--border);border-radius:12px;padding:10px 13px;font-size:13px;background:var(--surface);color:var(--text);outline:none;font-family:inherit;transition:border-color .2s"
+        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+        onkeydown="if(event.key==='Enter')_pitchAsk()">
+      <button onclick="_pitchAsk()" id="pitch-btn"
+        style="background:var(--accent);color:#fff;border:none;border-radius:12px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:opacity .2s">Ask →</button>
+    </div>
+    <div id="pitch-result" style="display:none;margin-top:12px;font-size:13px;color:var(--text);line-height:1.75;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px"></div>
+  </div>
 </div>
 
 <!-- Quote -->
@@ -2244,6 +2259,40 @@ fetch('https://miru.humanagency.co/api/me/location').then(r=>r.json()).then(func
   txt.textContent = (ago ? 'Last seen ' + ago + ' · ' : 'Last seen at ') + place;
   el.style.display = 'flex';
 }).catch(function(){});
+</script>
+
+<script>
+// ── Pitch generator ───────────────────────────────────────────────────────
+function _pitchAsk() {
+  var ctx = (document.getElementById('pitch-input').value || '').trim();
+  if (!ctx) return;
+  var btn    = document.getElementById('pitch-btn');
+  var result = document.getElementById('pitch-result');
+  btn.textContent = '…';
+  btn.disabled = true;
+  btn.style.opacity = '.6';
+  result.style.display = 'none';
+  fetch('https://miru.humanagency.co/api/mekalav/pitch', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ context: ctx })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    btn.textContent = 'Ask →';
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    if (d.pitch) {
+      result.innerHTML = d.pitch.replace(/\n/g, '<br>');
+      result.style.display = 'block';
+    }
+  })
+  .catch(function() {
+    btn.textContent = 'Ask →';
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  });
+}
 </script>
 
 <script>
