@@ -2321,13 +2321,18 @@ fetch('https://miru.humanagency.co/api/me/location').then(r=>r.json()).then(func
   var ctxLine  = document.getElementById('visitor-ctx-line');
   var infoWrap = document.getElementById('visitor-info');
   if (timeLine && infoWrap) {
-    var now     = new Date();
-    var london  = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
-    var h       = london.getHours();
-    var m       = london.getMinutes();
-    var hhmm    = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
-    var days    = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var dow     = days[london.getDay()];
+    var now  = new Date();
+    var fmt  = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit',
+      hour12: false, weekday: 'long'
+    });
+    var pts  = fmt.formatToParts(now);
+    var pmap = {};
+    pts.forEach(function(p) { pmap[p.type] = p.value; });
+    var h    = parseInt(pmap.hour, 10);
+    var m    = parseInt(pmap.minute, 10);
+    var dow  = pmap.weekday || '';
+    var hhmm = (pmap.hour || '00') + ':' + (pmap.minute || '00');
 
     // Visitor timezone region
     var tz      = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').split('/')[0];
