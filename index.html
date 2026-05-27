@@ -602,6 +602,21 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 }
 .now-page-link:hover { text-decoration: underline; }
 
+/* Visitor personalisation banner */
+.visitor-banner {
+  background: linear-gradient(135deg, rgba(217,119,6,.06) 0%, rgba(37,99,235,.04) 100%);
+  border: 1.5px solid rgba(217,119,6,.22);
+  border-radius: 16px; padding: 14px 18px; margin-bottom: 28px;
+  animation: bannerIn .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes bannerIn {
+  from { opacity:0; transform:translateY(-8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.visitor-banner-name { font-size:16px; font-weight:800; color:var(--text); margin-bottom:4px; }
+.visitor-banner-note { font-size:13px; color:var(--muted); line-height:1.55; }
+.visitor-banner-note strong { color:var(--text); }
+
 /* Available badge */
 .avail-pill {
   display: inline-flex; align-items: center; gap: 8px;
@@ -794,6 +809,9 @@ footer {
 </nav>
 
 <div class="hero">
+  <!-- Personalised visitor banner — shown when ?from= or ?for= params present -->
+  <div id="visitor-banner" class="visitor-banner" style="display:none"></div>
+
   <h1>Engineer.<br>Builder.<br><span>25 years in.</span></h1>
   <p class="hero-sub">
     Started writing code in India. Moved to Italy, then London.
@@ -809,15 +827,20 @@ footer {
   </div>
   <div class="hero-ctas">
     <button class="btn-primary" onclick="openResume()" style="cursor:pointer;font-family:inherit;border:none">📄 Full CV</button>
-    <a href="https://calendly.com/mekala/15min" target="_blank" rel="noopener" class="btn-ghost">📅 Book 15 min</a>
+    <a id="hero-cal-link" href="https://calendly.com/mekala/15min" target="_blank" rel="noopener" class="btn-ghost">📅 Book 15 min</a>
   </div>
   <div class="avail-pill">
     <span class="avail-dot"></span>
-    <span>Open to Programme &amp; Senior Roles · AI &amp; Digital Transformation</span>
+    <span id="avail-text">Available now · AI Transformation &amp; Programme Delivery</span>
   </div>
   <div class="last-seen" id="last-seen">
     <span class="last-seen-dot"></span>
     <span id="last-seen-text"></span>
+  </div>
+  <!-- Smart time/location greeting — always shown -->
+  <div id="visitor-info" style="display:none;flex-direction:column;gap:2px;margin-top:10px">
+    <div style="font-size:12px;color:var(--muted)" id="visitor-time-line"></div>
+    <div style="font-size:11px;color:var(--subtle)" id="visitor-ctx-line"></div>
   </div>
 </div>
 
@@ -2236,6 +2259,97 @@ fetch('https://miru.humanagency.co/api/me/location').then(r=>r.json()).then(func
   txt.textContent = (ago ? 'Last seen ' + ago + ' · ' : 'Last seen at ') + place;
   el.style.display = 'flex';
 }).catch(function(){});
+</script>
+
+<script>
+// ── Personalisation: URL params + smart time greeting ─────────────────────
+(function() {
+  // ── Company context map ──────────────────────────────────────────────────
+  var CO = {
+    wpp:        { label:'WPP',           note:'Media transformation, brand intelligence and large programme delivery.' },
+    trainline:  { label:'Trainline',     note:'AI transformation, product-led delivery and platform modernisation.' },
+    mars:       { label:'Mars',          note:'FMCG global programmes, commercial analytics and supply chain technology.' },
+    mondelez:   { label:'Mondelēz',      note:'FMCG separation, M&A technology workstreams and programme delivery.' },
+    collinson:  { label:'Collinson',     note:'AI Director scope — innovation strategy and AI product leadership.' },
+    unilever:   { label:'Unilever',      note:'£5M AI & data transformation across 100+ markets, plus IT separation.' },
+    fmcg:       { label:'FMCG',          note:'Global programmes at Unilever and Mars — pricing, analytics, supply chain.' },
+    ai:         { label:'AI',            note:'AI strategy, production AI products (Miru & Intel) and AI enablement for non-technical teams.' },
+    harnham:    { label:'Harnham',       note:'Technical Programme Management and data & AI transformation delivery.' },
+    lorien:     { label:'Lorien',        note:'Programme delivery, AI transformation and enterprise technology leadership.' },
+    venturi:    { label:'Venturi',       note:'Senior Programme Management across digital and data transformation.' },
+    bp:         { label:'BP',            note:'Energy sector transformation, operations technology and SAP programmes.' },
+    malt:       { label:'Malt',          note:'Independent consulting — AI strategy, product and transformation programmes.' },
+  };
+
+  var qs   = new URLSearchParams(window.location.search);
+  var from = (qs.get('from') || '').trim();
+  var forKey = (qs.get('for') || qs.get('role') || '').trim().toLowerCase().replace(/[^a-z]/g,'');
+  var co   = CO[forKey] || (forKey ? { label: forKey.charAt(0).toUpperCase() + forKey.slice(1), note: '' } : null);
+
+  // ── Personalised banner ──────────────────────────────────────────────────
+  if (from || co) {
+    var banner = document.getElementById('visitor-banner');
+    if (banner) {
+      var firstName  = from ? from.split(/[\s+]/)[0] : '';
+      var greeting   = firstName ? 'Hi ' + firstName + ' 👋' : 'Hi there 👋';
+      var note       = '';
+      if (from && co)   note = 'This page is set up for <strong>' + co.label + '</strong>. ' + co.note;
+      else if (co)      note = 'Most relevant for <strong>' + co.label + '</strong>: ' + co.note;
+      else              note = 'Thanks for taking a look — happy to walk you through anything.';
+
+      banner.innerHTML =
+        '<div class="visitor-banner-name">' + greeting + '</div>' +
+        '<div class="visitor-banner-note">' + note + '</div>';
+      banner.style.display = 'block';
+
+      // Pre-fill Calendly with first name
+      var calLink = document.getElementById('hero-cal-link');
+      if (calLink && firstName) {
+        calLink.href = 'https://calendly.com/mekala/15min?name=' + encodeURIComponent(firstName);
+      }
+
+      // Update availability text
+      var availEl = document.getElementById('avail-text');
+      if (availEl && co) {
+        availEl.textContent = 'Available now \xB7 ' + co.label + ' context above';
+      }
+    }
+  }
+
+  // ── Smart time greeting (Option 3) — always shown ────────────────────────
+  var timeLine = document.getElementById('visitor-time-line');
+  var ctxLine  = document.getElementById('visitor-ctx-line');
+  var infoWrap = document.getElementById('visitor-info');
+  if (timeLine && infoWrap) {
+    var now     = new Date();
+    var london  = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
+    var h       = london.getHours();
+    var m       = london.getMinutes();
+    var hhmm    = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
+    var days    = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var dow     = days[london.getDay()];
+
+    // Visitor timezone region
+    var tz      = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').split('/')[0];
+    var regions = { America:'the Americas', Asia:'Asia', Australia:'Australia', Africa:'Africa', Pacific:'Pacific' };
+    var region  = regions[tz] || '';
+
+    // Time context
+    var ctx = h < 6  ? 'Late night in London 🌙'
+            : h < 9  ? 'Early morning in London ☕'
+            : h < 12 ? 'Morning in London — good time to reach out'
+            : h < 14 ? 'Midday in London'
+            : h < 18 ? 'Afternoon in London'
+            : h < 21 ? 'Evening in London'
+            :          'Late evening in London';
+
+    var parts = ['⏰ ' + hhmm + ' in London \xB7 ' + dow];
+    if (region) parts.push('Visiting from ' + region);
+    timeLine.textContent = parts.join(' \xB7 ');
+    if (ctxLine) ctxLine.textContent = ctx;
+    infoWrap.style.display = 'flex';
+  }
+})();
 </script>
 
 </body>
