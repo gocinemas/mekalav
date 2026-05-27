@@ -822,26 +822,8 @@ footer {
     <span class="last-seen-dot"></span>
     <span id="last-seen-text"></span>
   </div>
-  <!-- Smart time/location greeting — always shown -->
-  <div id="visitor-info" style="display:none;flex-direction:column;gap:2px;margin-top:10px">
-    <div style="font-size:12px;color:var(--muted)" id="visitor-time-line"></div>
-    <div style="font-size:11px;color:var(--subtle)" id="visitor-ctx-line"></div>
-  </div>
-
-  <!-- What could Vikram do for us? -->
-  <div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--border)">
-    <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px">What could Vikram do for us?</div>
-    <div style="display:flex;gap:8px">
-      <input id="pitch-input" type="text"
-        placeholder="Your company or challenge — e.g. Mindshare, or 'media agency moving into AI'"
-        style="flex:1;min-width:0;border:1.5px solid var(--border);border-radius:12px;padding:10px 13px;font-size:13px;background:var(--surface);color:var(--text);outline:none;font-family:inherit;transition:border-color .2s"
-        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
-        onkeydown="if(event.key==='Enter')_pitchAsk()">
-      <button onclick="_pitchAsk()" id="pitch-btn"
-        style="background:var(--accent);color:#fff;border:none;border-radius:12px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:opacity .2s">Ask →</button>
-    </div>
-    <div id="pitch-result" style="display:none;margin-top:12px;font-size:13px;color:var(--text);line-height:1.75;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px"></div>
-  </div>
+  <!-- London time — single line -->
+  <div id="visitor-time-line" style="display:none;font-size:12px;color:var(--muted);margin-top:10px"></div>
 </div>
 
 <!-- Quote -->
@@ -2262,79 +2244,20 @@ fetch('https://miru.humanagency.co/api/me/location').then(r=>r.json()).then(func
 </script>
 
 <script>
-// ── Pitch generator ───────────────────────────────────────────────────────
-function _pitchAsk() {
-  var ctx = (document.getElementById('pitch-input').value || '').trim();
-  if (!ctx) return;
-  var btn    = document.getElementById('pitch-btn');
-  var result = document.getElementById('pitch-result');
-  btn.textContent = '…';
-  btn.disabled = true;
-  btn.style.opacity = '.6';
-  result.style.display = 'none';
-  fetch('https://miru.humanagency.co/api/mekalav/pitch', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ context: ctx })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(d) {
-    btn.textContent = 'Ask →';
-    btn.disabled = false;
-    btn.style.opacity = '1';
-    if (d.pitch) {
-      result.innerHTML = d.pitch.replace(/\n/g, '<br>');
-      result.style.display = 'block';
-    }
-  })
-  .catch(function() {
-    btn.textContent = 'Ask →';
-    btn.disabled = false;
-    btn.style.opacity = '1';
-  });
-}
-</script>
-
-<script>
-// ── Smart time greeting — always shown ───────────────────────────────────
+// ── London time — single line ─────────────────────────────────────────────
 (function() {
-  var timeLine = document.getElementById('visitor-time-line');
-  var ctxLine  = document.getElementById('visitor-ctx-line');
-  var infoWrap = document.getElementById('visitor-info');
-  if (timeLine && infoWrap) {
-    var now  = new Date();
-    var fmt  = new Intl.DateTimeFormat('en-GB', {
-      timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit',
-      hour12: false, weekday: 'long'
-    });
-    var pts  = fmt.formatToParts(now);
-    var pmap = {};
-    pts.forEach(function(p) { pmap[p.type] = p.value; });
-    var h    = parseInt(pmap.hour, 10);
-    var m    = parseInt(pmap.minute, 10);
-    var dow  = pmap.weekday || '';
-    var hhmm = (pmap.hour || '00') + ':' + (pmap.minute || '00');
-
-    // Visitor timezone region
-    var tz      = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').split('/')[0];
-    var regions = { America:'the Americas', Asia:'Asia', Australia:'Australia', Africa:'Africa', Pacific:'Pacific' };
-    var region  = regions[tz] || '';
-
-    // Time context
-    var ctx = h < 6  ? 'Late night in London 🌙'
-            : h < 9  ? 'Early morning in London ☕'
-            : h < 12 ? 'Morning in London — good time to reach out'
-            : h < 14 ? 'Midday in London'
-            : h < 18 ? 'Afternoon in London'
-            : h < 21 ? 'Evening in London'
-            :          'Late evening in London';
-
-    var parts = ['⏰ ' + hhmm + ' in London \xB7 ' + dow];
-    if (region) parts.push('Visiting from ' + region);
-    timeLine.textContent = parts.join(' \xB7 ');
-    if (ctxLine) ctxLine.textContent = ctx;
-    infoWrap.style.display = 'flex';
-  }
+  var el = document.getElementById('visitor-time-line');
+  if (!el) return;
+  var fmt = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit',
+    hour12: false, weekday: 'long'
+  });
+  var pts = fmt.formatToParts(new Date()), pmap = {};
+  pts.forEach(function(p) { pmap[p.type] = p.value; });
+  var h = parseInt(pmap.hour, 10);
+  var period = h < 9 ? 'morning' : h < 12 ? 'morning' : h < 14 ? 'midday' : h < 18 ? 'afternoon' : 'evening';
+  el.textContent = '📍 ' + pmap.hour + ':' + pmap.minute + ' ' + period + ' in London · ' + pmap.weekday;
+  el.style.display = 'block';
 })();
 </script>
 
