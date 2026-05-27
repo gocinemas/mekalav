@@ -2254,9 +2254,7 @@ fetch('https://miru.humanagency.co/api/me/location').then(r=>r.json()).then(func
   });
   var pts = fmt.formatToParts(new Date()), pmap = {};
   pts.forEach(function(p) { pmap[p.type] = p.value; });
-  var h = parseInt(pmap.hour, 10);
-  var period = h < 9 ? 'morning' : h < 12 ? 'morning' : h < 14 ? 'midday' : h < 18 ? 'afternoon' : 'evening';
-  el.textContent = '📍 ' + pmap.hour + ':' + pmap.minute + ' ' + period + ' in London · ' + pmap.weekday;
+  el.textContent = '📍 ' + pmap.hour + ':' + pmap.minute + ' in London · ' + pmap.weekday;
   el.style.display = 'block';
 })();
 </script>
