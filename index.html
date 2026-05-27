@@ -2290,28 +2290,20 @@ fetch('https://miru.humanagency.co/api/me/location').then(r=>r.json()).then(func
   if (from || co) {
     var banner = document.getElementById('visitor-banner');
     if (banner) {
-      var firstName  = from ? from.split(/[\s+]/)[0] : '';
-      var greeting   = firstName ? 'Hi ' + firstName + ' 👋' : 'Hi there 👋';
-      var note       = '';
-      if (from && co)   note = 'This page is set up for <strong>' + co.label + '</strong>. ' + co.note;
-      else if (co)      note = 'Most relevant for <strong>' + co.label + '</strong>: ' + co.note;
-      else              note = 'Thanks for taking a look — happy to walk you through anything.';
+      var firstName = from ? from.split(/[\s+]/)[0] : '';
+      var lines = [];
+      if (firstName) lines.push('<div class="visitor-banner-name">Hi ' + firstName + ' — good to connect.</div>');
+      if (co && co.note) lines.push('<div class="visitor-banner-note">' + co.note + '</div>');
 
-      banner.innerHTML =
-        '<div class="visitor-banner-name">' + greeting + '</div>' +
-        '<div class="visitor-banner-note">' + note + '</div>';
-      banner.style.display = 'block';
+      if (lines.length) {
+        banner.innerHTML = lines.join('');
+        banner.style.display = 'block';
+      }
 
       // Pre-fill Calendly with first name
       var calLink = document.getElementById('hero-cal-link');
       if (calLink && firstName) {
         calLink.href = 'https://calendly.com/mekala/15min?name=' + encodeURIComponent(firstName);
-      }
-
-      // Update availability text
-      var availEl = document.getElementById('avail-text');
-      if (availEl && co) {
-        availEl.textContent = 'Available now \xB7 ' + co.label + ' context above';
       }
     }
   }
