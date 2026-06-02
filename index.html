@@ -184,6 +184,32 @@ nav {
 .sr-item-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
 .sr-empty { padding: 16px; font-size: 14px; color: var(--muted); text-align: center; }
 
+/* ── Command+K palette ── */
+.cmdK-nav-btn { display:flex; align-items:center; gap:5px; border:1px solid var(--border); background:var(--surface2); border-radius:8px; padding:5px 10px; cursor:pointer; color:var(--muted); font-size:12px; font-weight:600; font-family:inherit; transition:all .15s; flex-shrink:0; }
+.cmdK-nav-btn:hover { color:var(--text); border-color:var(--muted); }
+.cmdK-nav-btn svg { flex-shrink:0; }
+@media (max-width:480px) { .cmdK-nav-btn { display:none; } }
+#cmdK-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:9999; align-items:flex-start; justify-content:center; padding:80px 24px 24px; }
+#cmdK-overlay.open { display:flex; }
+#cmdK-palette { background:var(--surface); border:1px solid var(--border); border-radius:16px; width:100%; max-width:560px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.25); }
+#cmdK-input-wrap { display:flex; align-items:center; gap:12px; padding:16px 20px; border-bottom:1px solid var(--border); }
+#cmdK-input { flex:1; border:none; outline:none; background:transparent; font-size:16px; color:var(--text); font-family:inherit; }
+#cmdK-input::placeholder { color:var(--muted); opacity:.6; }
+.cmdK-esc { font-size:11px; color:var(--subtle); background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:2px 6px; cursor:pointer; font-family:inherit; flex-shrink:0; }
+#cmdK-results { max-height:360px; overflow-y:auto; }
+.ck-section-label { font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px; padding:12px 20px 4px; }
+.ck-item { display:flex; align-items:center; gap:12px; padding:11px 20px; cursor:pointer; text-decoration:none; color:var(--text); transition:background .1s; }
+.ck-item:hover, .ck-item.ck-active { background:var(--surface2); }
+.ck-item-label { font-size:10px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.5px; width:68px; flex-shrink:0; }
+.ck-item-body { flex:1; min-width:0; }
+.ck-item-title { font-size:14px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ck-item-sub { font-size:12px; color:var(--muted); margin-top:1px; }
+.ck-item-arrow { font-size:14px; color:var(--muted); flex-shrink:0; }
+.ck-empty { padding:24px; font-size:14px; color:var(--muted); text-align:center; }
+#cmdK-footer { padding:10px 20px; border-top:1px solid var(--border); display:flex; gap:16px; align-items:center; }
+.ck-hint { font-size:11px; color:var(--subtle); display:flex; align-items:center; gap:4px; }
+.ck-hint kbd { font-size:10px; padding:2px 5px; background:var(--surface2); border:1px solid var(--border); border-radius:3px; font-family:inherit; }
+
 /* Hero */
 .hero {
   max-width: 720px; margin: 0 auto;
@@ -787,6 +813,10 @@ footer {
     <a href="/now">Now</a>
     <a href="#contact">Contact</a>
   </div>
+  <button onclick="openCmdK()" class="cmdK-nav-btn" title="Search (⌘K)">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <span style="font-size:10px;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:1px 4px">⌘K</span>
+  </button>
   <a href="#contact" class="nav-mobile-cta">Contact</a>
   <span id="visitor-time-line" style="display:none;font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0"></span>
   <div class="theme-toggle">
@@ -839,6 +869,9 @@ footer {
   <div class="search-input-row">
     <span class="search-icon">🔍</span>
     <input class="search-input" id="search-input" type="text" placeholder="Search career, articles, projects…" autocomplete="off" oninput="doSearch(this.value)" onfocus="doSearch(this.value)">
+    <button id="cmdK-hint" onclick="openCmdK()" title="Search all (⌘K)" style="border:none;background:none;cursor:pointer;padding:0;display:flex;align-items:center;flex-shrink:0">
+      <span style="font-size:10px;font-weight:700;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-family:inherit;letter-spacing:.3px">⌘K</span>
+    </button>
     <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
   </div>
   <div class="search-results" id="search-results"></div>
@@ -1806,7 +1839,7 @@ function downloadCV() {
   window.print();
   setTimeout(() => document.title = orig, 1000);
 }
-document.addEventListener("keydown", e => { if (e.key === "Escape") { closeResume(); closeChat(); } });
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeResume(); closeChat(); closeCmdK(); } });
 
 // ── Chat widget ────────────────────────────────────────────────────────────────
 const _chatHistory = [];
@@ -1917,6 +1950,8 @@ function doSearch(q) {
   const clear = document.getElementById("search-clear");
   q = q.trim().toLowerCase();
   clear.style.display = q ? "block" : "none";
+  const hint = document.getElementById("cmdK-hint");
+  if (hint) hint.style.display = q ? "none" : "flex";
   if (!q || q.length < 2) { res.classList.remove("open"); return; }
   const hits = getSearchIndex().filter(item =>
     (item.title + " " + item.sub + " " + item.label).toLowerCase().includes(q)
@@ -1939,12 +1974,93 @@ function clearSearch() {
   document.getElementById("search-input").value = "";
   document.getElementById("search-results").classList.remove("open");
   document.getElementById("search-clear").style.display = "none";
+  const hint = document.getElementById("cmdK-hint");
+  if (hint) hint.style.display = "flex";
 }
 
 document.addEventListener("click", e => {
-  if (!e.target.closest(".search-wrap")) clearSearch();
+  if (!e.target.closest(".search-wrap") && !e.target.closest("#cmdK-overlay")) clearSearch();
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape") clearSearch(); });
+
+// ── Command+K palette ──────────────────────────────────────────────────────────
+let _ckActive = -1, _ckCurrentHits = [];
+
+function openCmdK() {
+  document.getElementById('cmdK-overlay').classList.add('open');
+  const input = document.getElementById('cmdK-input');
+  input.value = '';
+  _ckActive = -1;
+  _ckSearch('');
+  setTimeout(() => input.focus(), 50);
+}
+function closeCmdK() {
+  const ov = document.getElementById('cmdK-overlay');
+  if (ov) ov.classList.remove('open');
+}
+function _ckSearch(q) {
+  _ckActive = -1;
+  const results = document.getElementById('cmdK-results');
+  q = q.trim().toLowerCase();
+  if (!q) {
+    const recent = JSON.parse(localStorage.getItem('mekalav_cmdK_recent') || '[]');
+    _ckCurrentHits = recent;
+    if (!recent.length) { results.innerHTML = '<div class="ck-empty">Start typing to search…</div>'; return; }
+    results.innerHTML = '<div class="ck-section-label">Recently viewed</div>' + recent.map((h, i) => _ckItemHtml(h, i)).join('');
+    return;
+  }
+  _ckCurrentHits = getSearchIndex().filter(item =>
+    (item.title + ' ' + (item.sub || '') + ' ' + item.label).toLowerCase().includes(q)
+  ).slice(0, 8);
+  if (!_ckCurrentHits.length) { results.innerHTML = `<div class="ck-empty">No results for "${q}"</div>`; return; }
+  results.innerHTML = _ckCurrentHits.map((h, i) => _ckItemHtml(h, i)).join('');
+}
+function _ckItemHtml(item, idx) {
+  const href = item.url || item.anchor || '#';
+  const ext = item.url && item.url !== item.anchor;
+  return `<a class="ck-item" href="${href}" ${ext ? 'target="_blank" rel="noopener"' : ''} onclick="_ckSave(${idx})">
+    <span class="ck-item-label">${item.label}</span>
+    <div class="ck-item-body">
+      <div class="ck-item-title">${item.title}</div>
+      ${item.sub ? `<div class="ck-item-sub">${item.sub}</div>` : ''}
+    </div>
+    <span class="ck-item-arrow">${ext ? '↗' : '→'}</span>
+  </a>`;
+}
+function _ckSave(idx) {
+  const item = _ckCurrentHits[idx];
+  if (!item) { closeCmdK(); return; }
+  let recent = JSON.parse(localStorage.getItem('mekalav_cmdK_recent') || '[]');
+  recent = [item, ...recent.filter(r => r.title !== item.title)].slice(0, 6);
+  localStorage.setItem('mekalav_cmdK_recent', JSON.stringify(recent));
+  closeCmdK();
+}
+function _ckHighlight(items) {
+  items.forEach((el, i) => el.classList.toggle('ck-active', i === _ckActive));
+  if (_ckActive >= 0 && items[_ckActive]) items[_ckActive].scrollIntoView({ block: 'nearest' });
+}
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    openCmdK();
+    return;
+  }
+  const overlay = document.getElementById('cmdK-overlay');
+  if (!overlay || !overlay.classList.contains('open')) return;
+  const items = document.querySelectorAll('#cmdK-results .ck-item');
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    _ckActive = Math.min(_ckActive + 1, items.length - 1);
+    _ckHighlight(items);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    _ckActive = Math.max(_ckActive - 1, 0);
+    _ckHighlight(items);
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    if (_ckActive >= 0 && items[_ckActive]) items[_ckActive].click();
+  }
+});
 
 // ── Charts data ──────────────────────────────────────────────────────────────
 // type: 'iframe' = live embed (desktop only, link on mobile)
@@ -2213,6 +2329,23 @@ renderArticles();
   <a class="fn-btn" href="https://twitter.com/mekalav" target="_blank" rel="noopener" title="X / Twitter">
     <svg viewBox="0 0 24 24"><path d="M4 4l16 16M20 4L4 20" stroke-width="2"/></svg>
   </a>
+</div>
+
+<!-- Command+K Palette -->
+<div id="cmdK-overlay" onclick="if(event.target===this)closeCmdK()">
+  <div id="cmdK-palette">
+    <div id="cmdK-input-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted);flex-shrink:0"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input id="cmdK-input" type="text" placeholder="Search career, projects, articles…" oninput="_ckSearch(this.value)" autocomplete="off">
+      <button class="cmdK-esc" onclick="closeCmdK()">Esc</button>
+    </div>
+    <div id="cmdK-results"></div>
+    <div id="cmdK-footer">
+      <span class="ck-hint"><kbd>↑↓</kbd> navigate</span>
+      <span class="ck-hint"><kbd>↵</kbd> open</span>
+      <span class="ck-hint"><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
 </div>
 
 <script>
