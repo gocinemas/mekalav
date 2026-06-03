@@ -806,6 +806,7 @@ footer {
   </a>
   <div class="nav-links">
     <a href="#tools">Tools</a>
+    <a href="#labs">Labs</a>
     <a href="#story">Story</a>
     <a href="#career">Career</a>
     <a href="#building">Builder's Lab</a>
@@ -930,6 +931,88 @@ footer {
     <div id="pf-ask-answer" style="display:none;font-size:14px;line-height:1.75;color:var(--text);border-top:1px solid var(--border);padding-top:12px"></div>
   </div>
 </div>
+
+<!-- ── Labs ──────────────────────────────────────────────────── -->
+<section id="labs">
+  <div class="section-label">Labs</div>
+  <h2>Experiments</h2>
+  <p style="font-size:15px;color:var(--muted);margin-bottom:32px;line-height:1.7">Three things worth trying. Each one is live.</p>
+
+  <!-- Lab 1: Tailored pitch -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <span style="font-size:20px">✍️</span>
+      <div>
+        <div style="font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.2px">Tailored pitch</div>
+        <div style="font-size:12px;color:var(--muted)">Enter a company and role — get my opening rewritten for you specifically</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 10px">
+      <input id="lab-pitch-company" type="text" placeholder="Company (e.g. HSBC)" maxlength="80"
+        style="padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none"
+        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+      <input id="lab-pitch-role" type="text" placeholder="Role (e.g. AI Director)" maxlength="80"
+        style="padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none"
+        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+        onkeydown="if(event.key==='Enter')labPitch()">
+    </div>
+    <button onclick="labPitch()" id="lab-pitch-btn"
+      style="padding:9px 20px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Generate →</button>
+    <div id="lab-pitch-result" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:14px;line-height:1.8;color:var(--text)"></div>
+  </div>
+
+  <!-- Lab 2: Miru chat -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <span style="font-size:20px">💬</span>
+      <div>
+        <div style="font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.2px">Miru — live demo</div>
+        <div style="font-size:12px;color:var(--muted)">The actual product, inline. Ask it anything.</div>
+      </div>
+    </div>
+    <!-- Chat bubbles -->
+    <div id="miru-chat-messages" style="display:flex;flex-direction:column;gap:10px;min-height:60px;max-height:320px;overflow-y:auto;margin-bottom:12px">
+      <div style="align-self:flex-start;background:#f1f5f9;border-radius:14px 14px 14px 4px;padding:10px 14px;font-size:13px;color:#1e293b;max-width:85%;line-height:1.55">
+        Hi — I'm Miru. Ask me about fuel prices, trains, a company, or anything about UK life. What do you want to know?
+      </div>
+    </div>
+    <!-- Chips -->
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+      <button onclick="miruChip(this)" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">Fuel near KT16?</button>
+      <button onclick="miruChip(this)" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">Research Unilever</button>
+      <button onclick="miruChip(this)" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">Next train from Virginia Water</button>
+      <button onclick="miruChip(this)" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">What's Miru?</button>
+    </div>
+    <div style="display:flex;gap:8px">
+      <input id="miru-chat-input" type="text" placeholder="Ask Miru anything…" maxlength="300" autocomplete="off"
+        style="flex:1;padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none"
+        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+        onkeydown="if(event.key==='Enter')miruSend()">
+      <button onclick="miruSend()" id="miru-send-btn"
+        style="width:38px;height:38px;background:#25d366;border:none;border-radius:9px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">↑</button>
+    </div>
+  </div>
+
+  <!-- Lab 3: Day 0 brief -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <span style="font-size:20px">🏁</span>
+      <div>
+        <div style="font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.2px">Day 0 brief</div>
+        <div style="font-size:12px;color:var(--muted)">Enter any company — get what I'd focus on in the first 30 days</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin:14px 0 0">
+      <input id="lab-day0-input" type="text" placeholder="e.g. Barclays, NHS, Tesco…" maxlength="80"
+        style="flex:1;padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none"
+        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+        onkeydown="if(event.key==='Enter')labDay0()">
+      <button onclick="labDay0()" id="lab-day0-btn"
+        style="padding:9px 20px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Run brief →</button>
+    </div>
+    <div id="lab-day0-result" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:14px;line-height:1.8;color:var(--text)"></div>
+  </div>
+</section>
 
 <section id="story">
   <div class="section-label">Background</div>
@@ -2447,6 +2530,98 @@ fetch('https://miru.humanagency.co/api/me/location').then(r=>r.json()).then(func
 </script>
 
 <script>
+// ── Labs shared stream helper ─────────────────────────────────────────────
+async function _labStream(url, body, resultEl, btn, btnLabel) {
+  btn.disabled = true; btn.textContent = "…";
+  resultEl.style.display = "block"; resultEl.innerHTML = "";
+  try {
+    var resp = await fetch(url, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)});
+    var reader = resp.body.getReader(), dec = new TextDecoder(), buf = "";
+    while (true) {
+      var _r = await reader.read();
+      if (_r.done) break;
+      buf += dec.decode(_r.value, {stream:true});
+      var lines = buf.split("\n"); buf = lines.pop();
+      for (var i=0;i<lines.length;i++){
+        var line=lines[i].trim();
+        if(!line.startsWith("data: ")) continue;
+        var pl=line.slice(6); if(pl==="[DONE]") break;
+        try{var tok=JSON.parse(pl); if(tok.t) resultEl.innerHTML+=tok.t.replace(/\n/g,"<br>").replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");}catch(e){}
+      }
+    }
+    if(!resultEl.textContent.trim()) resultEl.innerHTML="Something went wrong — try again.";
+  } catch(e) { resultEl.innerHTML="Something went wrong — try again."; }
+  btn.disabled=false; btn.textContent=btnLabel;
+}
+
+// ── Lab 1: Tailored pitch ─────────────────────────────────────────────────
+async function labPitch() {
+  var company = (document.getElementById("lab-pitch-company").value||"").trim();
+  var role    = (document.getElementById("lab-pitch-role").value||"").trim();
+  if (!company && !role) { document.getElementById("lab-pitch-company").focus(); return; }
+  await _labStream("https://miru.humanagency.co/api/portfolio/pitch",
+    {company, role},
+    document.getElementById("lab-pitch-result"),
+    document.getElementById("lab-pitch-btn"), "Generate →");
+}
+
+// ── Lab 2: Miru chat ──────────────────────────────────────────────────────
+function miruChip(btn) {
+  document.getElementById("miru-chat-input").value = btn.textContent;
+  miruSend();
+}
+async function miruSend() {
+  var input = document.getElementById("miru-chat-input");
+  var msg = (input.value||"").trim();
+  if (!msg) return;
+  var messages = document.getElementById("miru-chat-messages");
+  var sendBtn  = document.getElementById("miru-send-btn");
+  input.value = "";
+  // User bubble
+  var uBubble = document.createElement("div");
+  uBubble.style.cssText = "align-self:flex-end;background:var(--accent);color:#fff;border-radius:14px 14px 4px 14px;padding:10px 14px;font-size:13px;max-width:80%;line-height:1.55";
+  uBubble.textContent = msg;
+  messages.appendChild(uBubble);
+  // Miru bubble
+  var mBubble = document.createElement("div");
+  mBubble.style.cssText = "align-self:flex-start;background:#f1f5f9;border-radius:14px 14px 14px 4px;padding:10px 14px;font-size:13px;color:#1e293b;max-width:85%;line-height:1.55";
+  mBubble.textContent = "…";
+  messages.appendChild(mBubble);
+  messages.scrollTop = messages.scrollHeight;
+  sendBtn.disabled = true;
+  try {
+    var resp = await fetch("https://miru.humanagency.co/api/portfolio/miru-chat",
+      {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({message:msg})});
+    var reader = resp.body.getReader(), dec = new TextDecoder(), buf = "", text = "";
+    mBubble.textContent = "";
+    while (true) {
+      var _r = await reader.read();
+      if (_r.done) break;
+      buf += dec.decode(_r.value,{stream:true});
+      var lines = buf.split("\n"); buf = lines.pop();
+      for (var i=0;i<lines.length;i++){
+        var line=lines[i].trim();
+        if(!line.startsWith("data: ")) continue;
+        var pl=line.slice(6); if(pl==="[DONE]") break;
+        try{var tok=JSON.parse(pl); if(tok.t){text+=tok.t; mBubble.textContent=text;}}catch(e){}
+      }
+    }
+    if(!text.trim()) mBubble.textContent="Sorry, something went wrong.";
+  } catch(e) { mBubble.textContent="Something went wrong — try again."; }
+  sendBtn.disabled = false;
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// ── Lab 3: Day 0 brief ────────────────────────────────────────────────────
+async function labDay0() {
+  var company = (document.getElementById("lab-day0-input").value||"").trim();
+  if (!company) { document.getElementById("lab-day0-input").focus(); return; }
+  await _labStream("https://miru.humanagency.co/api/portfolio/day0",
+    {company},
+    document.getElementById("lab-day0-result"),
+    document.getElementById("lab-day0-btn"), "Run brief →");
+}
+
 // ── Ask about my work ─────────────────────────────────────────────────────
 function pfChip(btn) {
   document.getElementById("pf-ask-input").value = btn.textContent.replace(/&amp;/g,"&");
