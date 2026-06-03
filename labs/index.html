@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Labs — Vikram Mekala</title>
+<meta name="description" content="Three live experiments: Day 0 brief, Miru demo, personalised pitch. Try them.">
+<link rel="canonical" href="https://mekalav.com/labs">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#faf9f7; --surface:#ffffff; --surface2:#f3f1ee; --border:#e8e4df;
+  --text:#1a1714; --muted:#7a7168; --accent:#d97706; --accent2:#2563eb;
+  --nav-bg:rgba(250,249,247,0.92);
+}
+@media(prefers-color-scheme:dark){html[data-theme="system"]{--bg:#181614;--surface:#211f1c;--surface2:#2a2724;--border:#332f2b;--text:#f0ece6;--muted:#8a8078;--accent:#f59e0b;--accent2:#60a5fa;--nav-bg:rgba(24,22,20,0.92);}}
+html[data-theme="dark"]{--bg:#181614;--surface:#211f1c;--surface2:#2a2724;--border:#332f2b;--text:#f0ece6;--muted:#8a8078;--accent:#f59e0b;--accent2:#60a5fa;--nav-bg:rgba(24,22,20,0.92);}
+html[data-theme="light"]{--bg:#faf9f7;--surface:#ffffff;--surface2:#f3f1ee;--border:#e8e4df;--text:#1a1714;--muted:#7a7168;--accent:#d97706;--accent2:#2563eb;--nav-bg:rgba(250,249,247,0.92);}
+html { scroll-behavior: smooth; }
+body { font-family:'Inter',ui-sans-serif,system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; }
+a { color:inherit; text-decoration:none; }
+
+nav {
+  position:sticky; top:0; z-index:100;
+  background:var(--nav-bg); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:12px 24px;
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px;
+}
+.nav-brand { display:flex; align-items:center; gap:9px; cursor:pointer; user-select:none; }
+.nav-brand-photo { width:30px; height:30px; border-radius:50%; object-fit:cover; border:1.5px solid var(--border); flex-shrink:0; }
+.nav-name { font-size:16px; font-weight:800; letter-spacing:-0.3px; }
+.nav-name span { color:var(--accent); }
+.nav-links { display:flex; gap:20px; align-items:center; justify-content:center; }
+.nav-links a { font-size:13px; font-weight:600; color:var(--muted); transition:color .15s; }
+.nav-links a:hover, .nav-links a.active { color:var(--text); }
+.nav-right { display:flex; align-items:center; gap:10px; justify-content:flex-end; }
+.theme-toggle { display:flex; align-items:center; gap:2px; background:var(--surface2); border:1px solid var(--border); border-radius:99px; padding:3px; flex-shrink:0; }
+.theme-btn { border:none; background:none; cursor:pointer; font-size:13px; padding:4px 8px; border-radius:99px; color:var(--muted); transition:all .15s; line-height:1; }
+.theme-btn.active { background:var(--surface); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,.1); }
+
+.page { max-width:860px; margin:0 auto; padding:64px 48px 80px; }
+.page-label { font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--accent); margin-bottom:20px; }
+h1 { font-size:36px; font-weight:900; letter-spacing:-1px; margin-bottom:10px; }
+.page-sub { font-size:16px; color:var(--muted); margin-bottom:48px; line-height:1.6; }
+
+.lab-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:28px; margin-bottom:20px; }
+.lab-card-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:16px; gap:12px; flex-wrap:wrap; }
+.lab-card-title { display:flex; align-items:center; gap:10px; }
+.lab-card-icon { font-size:22px; flex-shrink:0; }
+.lab-card-name { font-size:16px; font-weight:800; color:var(--text); letter-spacing:-.2px; margin-bottom:4px; }
+.lab-card-desc { font-size:13px; color:var(--muted); line-height:1.5; }
+.lab-examples { display:flex; gap:6px; flex-wrap:wrap; }
+.lab-example-btn { font-size:11px; font-weight:600; padding:4px 10px; border-radius:99px; border:1px solid var(--border); background:none; color:var(--muted); cursor:pointer; font-family:inherit; transition:all .15s; }
+.lab-example-btn:hover { border-color:var(--accent); color:var(--accent); }
+
+input[type=text], input[type=tel] {
+  padding:10px 14px; border:1.5px solid var(--border); border-radius:10px;
+  font-size:14px; font-family:inherit; background:var(--bg); color:var(--text); outline:none;
+  transition:border-color .15s;
+}
+input[type=text]:focus { border-color:var(--accent); }
+.lab-btn {
+  padding:10px 20px; background:var(--accent); color:#fff; border:none; border-radius:10px;
+  font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; white-space:nowrap;
+  transition:opacity .15s;
+}
+.lab-btn:hover { opacity:.85; }
+.lab-btn:disabled { opacity:.5; cursor:default; }
+.lab-result {
+  display:none; margin-top:16px; padding-top:16px;
+  border-top:1px solid var(--border); font-size:14px; line-height:1.85; color:var(--text);
+}
+.lab-copy-btn {
+  display:none; margin-top:10px; font-size:12px; font-weight:600; color:var(--muted);
+  background:none; border:1px solid var(--border); border-radius:7px;
+  padding:4px 12px; cursor:pointer; font-family:inherit;
+}
+
+/* Chat */
+#miru-chat-messages {
+  display:flex; flex-direction:column; gap:10px;
+  min-height:80px; max-height:360px; overflow-y:auto;
+  margin-bottom:12px;
+}
+.chat-bubble-miru { align-self:flex-start; background:var(--surface2); border-radius:14px 14px 14px 4px; padding:10px 14px; font-size:13px; color:var(--text); max-width:85%; line-height:1.55; }
+.chat-bubble-user { align-self:flex-end; background:var(--accent); color:#fff; border-radius:14px 14px 4px 14px; padding:10px 14px; font-size:13px; max-width:80%; line-height:1.55; }
+
+.back-link { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--muted); margin-bottom:32px; transition:color .15s; }
+.back-link:hover { color:var(--text); }
+
+@media(max-width:640px){
+  .page { padding:36px 20px 60px; }
+  h1 { font-size:26px; }
+  .lab-card { padding:20px; }
+  .lab-card-header { flex-direction:column; }
+  nav { padding:10px 16px; }
+  .nav-links { gap:12px; }
+  .nav-links a[href="/"] { display:none; }
+}
+@media(max-width:480px){
+  .page { padding:24px 16px 60px; }
+  .lab-inputs-grid { grid-template-columns:1fr !important; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand" style="text-decoration:none">
+    <img src="/vikram.jpg" alt="Vikram" class="nav-brand-photo">
+    <div class="nav-name">Vikram<span>.</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/labs" class="active">Labs</a>
+    <a href="#building">Builder's Lab</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <div class="theme-toggle">
+      <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
+      <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
+      <button class="theme-btn" data-t="dark" onclick="setTheme('dark')" title="Dark">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+  <a href="/" class="back-link">← Back to portfolio</a>
+
+  <div class="page-label">Labs</div>
+  <h1>Experiments</h1>
+  <p class="page-sub">Three live tools. Each one runs on real AI. Try them.</p>
+
+  <!-- Day 0 -->
+  <div class="lab-card">
+    <div class="lab-card-header">
+      <div class="lab-card-title">
+        <span class="lab-card-icon">🏁</span>
+        <div>
+          <div class="lab-card-name">Day 0 brief</div>
+          <div class="lab-card-desc">Day 0 is the first day you own a programme — handover done, clock started. Enter any company to see how I'd run the first 30 days.</div>
+        </div>
+      </div>
+      <div class="lab-examples">
+        <button class="lab-example-btn" onclick="labDay0Example('Barclays')">Try: Barclays</button>
+        <button class="lab-example-btn" onclick="labDay0Example('NHS')">Try: NHS</button>
+        <button class="lab-example-btn" onclick="labDay0Example('Unilever')">Try: Unilever</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <input type="text" id="lab-day0-input" placeholder="e.g. Barclays, NHS, Tesco…" maxlength="80" style="flex:1"
+        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+        onkeydown="if(event.key==='Enter')labDay0()">
+      <button class="lab-btn" id="lab-day0-btn" onclick="labDay0()">Run brief →</button>
+    </div>
+    <div class="lab-result" id="lab-day0-result"></div>
+    <button class="lab-copy-btn" id="lab-day0-copy" onclick="labCopy('lab-day0-result','lab-day0-copy')">📋 Copy</button>
+  </div>
+
+  <!-- Miru chat -->
+  <div class="lab-card">
+    <div class="lab-card-header">
+      <div class="lab-card-title">
+        <span class="lab-card-icon">💬</span>
+        <div>
+          <div class="lab-card-name">Miru — live demo</div>
+          <div class="lab-card-desc">WhatsApp-first AI for everyday UK life. Ask it about Miru, a company, or anything practical.</div>
+        </div>
+      </div>
+    </div>
+    <div id="miru-chat-messages">
+      <div class="chat-bubble-miru">Hi — I'm Miru. I help with everyday UK life: school comms, local intel, company research, and more. What do you want to know?</div>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+      <button class="lab-example-btn" onclick="miruChip(this)">What is Miru?</button>
+      <button class="lab-example-btn" onclick="miruChip(this)">Research Tesco</button>
+      <button class="lab-example-btn" onclick="miruChip(this)">How does school comms work?</button>
+      <button class="lab-example-btn" onclick="miruChip(this)">What can you help with?</button>
+    </div>
+    <div style="display:flex;gap:8px">
+      <input type="text" id="miru-chat-input" placeholder="Ask Miru anything…" maxlength="300" autocomplete="off" style="flex:1"
+        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+        onkeydown="if(event.key==='Enter')miruSend()">
+      <button onclick="miruSend()" id="miru-send-btn"
+        style="width:40px;height:40px;background:#25d366;border:none;border-radius:10px;cursor:pointer;font-size:16px;flex-shrink:0">↑</button>
+    </div>
+  </div>
+
+  <!-- Pitch -->
+  <div class="lab-card">
+    <div class="lab-card-header">
+      <div class="lab-card-title">
+        <span class="lab-card-icon">✍️</span>
+        <div>
+          <div class="lab-card-name">Personalised outreach</div>
+          <div class="lab-card-desc">How I pitch — specific to a company and role, not a template.</div>
+        </div>
+      </div>
+      <div class="lab-examples">
+        <button class="lab-example-btn" onclick="labPitchExample('HSBC','Head of AI Transformation')">Try: HSBC</button>
+        <button class="lab-example-btn" onclick="labPitchExample('Tesco','Digital Programme Director')">Try: Tesco</button>
+      </div>
+    </div>
+    <div class="lab-inputs-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+      <input type="text" id="lab-pitch-company" placeholder="Company (e.g. HSBC)" maxlength="80"
+        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+      <input type="text" id="lab-pitch-role" placeholder="Role (e.g. AI Director)" maxlength="80"
+        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+        onkeydown="if(event.key==='Enter')labPitch()">
+    </div>
+    <button class="lab-btn" id="lab-pitch-btn" onclick="labPitch()">Generate →</button>
+    <div class="lab-result" id="lab-pitch-result"></div>
+    <button class="lab-copy-btn" id="lab-pitch-copy" onclick="labCopy('lab-pitch-result','lab-pitch-copy')">📋 Copy</button>
+  </div>
+</div>
+
+<script>
+// Theme
+function setTheme(t) {
+  document.documentElement.setAttribute("data-theme", t);
+  localStorage.setItem("theme", t);
+  document.querySelectorAll(".theme-btn").forEach(function(b){ b.classList.toggle("active", b.dataset.t === t); });
+}
+(function(){ var t = localStorage.getItem("theme") || "system"; setTheme(t); })();
+
+// Markdown helper
+function _mdToHtml(t) {
+  return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
+    .replace(/\n/g,"<br>");
+}
+
+// Stream helper
+async function _labStream(url, body, resultEl, btn, btnLabel, copyBtnId) {
+  btn.disabled = true; btn.textContent = "…";
+  resultEl.style.display = "block"; resultEl.textContent = "";
+  var accumulated = "";
+  try {
+    var resp = await fetch(url, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)});
+    var reader = resp.body.getReader(), dec = new TextDecoder(), buf = "";
+    while (true) {
+      var _r = await reader.read();
+      if (_r.done) break;
+      buf += dec.decode(_r.value, {stream:true});
+      var lines = buf.split("\n"); buf = lines.pop();
+      for (var i=0;i<lines.length;i++){
+        var line=lines[i].trim();
+        if(!line.startsWith("data: ")) continue;
+        var pl=line.slice(6); if(pl==="[DONE]") break;
+        try{var tok=JSON.parse(pl); if(tok.t){ accumulated+=tok.t; resultEl.textContent=accumulated; }}catch(e){}
+      }
+    }
+    if(!accumulated.trim()){ resultEl.innerHTML="Something went wrong — try again."; return; }
+    resultEl.innerHTML = _mdToHtml(accumulated);
+    if(copyBtnId) document.getElementById(copyBtnId).style.display = "inline-block";
+  } catch(e) { resultEl.innerHTML="Something went wrong — try again."; }
+  btn.disabled=false; btn.textContent=btnLabel;
+}
+
+function labCopy(resultId, btnId) {
+  var text = (document.getElementById(resultId).innerText||"").trim();
+  if(!text) return;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn = document.getElementById(btnId);
+    btn.textContent = "✓ Copied";
+    setTimeout(function(){ btn.textContent = "📋 Copy"; }, 2000);
+  });
+}
+
+// Day 0
+function labDay0Example(c){ document.getElementById("lab-day0-input").value=c; labDay0(); }
+async function labDay0(){
+  var company=(document.getElementById("lab-day0-input").value||"").trim();
+  if(!company){document.getElementById("lab-day0-input").focus();return;}
+  document.getElementById("lab-day0-copy").style.display="none";
+  await _labStream("https://miru.humanagency.co/api/portfolio/day0",{company},
+    document.getElementById("lab-day0-result"),
+    document.getElementById("lab-day0-btn"),"Run brief →","lab-day0-copy");
+}
+
+// Miru chat
+function miruChip(btn){ document.getElementById("miru-chat-input").value=btn.textContent; miruSend(); }
+async function miruSend(){
+  var input=document.getElementById("miru-chat-input");
+  var msg=(input.value||"").trim(); if(!msg) return;
+  var messages=document.getElementById("miru-chat-messages");
+  var sendBtn=document.getElementById("miru-send-btn");
+  input.value="";
+  var uBubble=document.createElement("div"); uBubble.className="chat-bubble-user"; uBubble.textContent=msg; messages.appendChild(uBubble);
+  var mBubble=document.createElement("div"); mBubble.className="chat-bubble-miru"; mBubble.textContent="…"; messages.appendChild(mBubble);
+  messages.scrollTop=messages.scrollHeight;
+  sendBtn.disabled=true;
+  try {
+    var resp=await fetch("https://miru.humanagency.co/api/portfolio/miru-chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:msg})});
+    var reader=resp.body.getReader(),dec=new TextDecoder(),buf="",text="";
+    mBubble.textContent="";
+    while(true){
+      var _r=await reader.read(); if(_r.done) break;
+      buf+=dec.decode(_r.value,{stream:true});
+      var lines=buf.split("\n"); buf=lines.pop();
+      for(var i=0;i<lines.length;i++){
+        var line=lines[i].trim(); if(!line.startsWith("data: ")) continue;
+        var pl=line.slice(6); if(pl==="[DONE]") break;
+        try{var tok=JSON.parse(pl); if(tok.t){text+=tok.t; mBubble.textContent=text;}}catch(e){}
+      }
+    }
+    if(!text.trim()) mBubble.textContent="Sorry, something went wrong.";
+  } catch(e){ mBubble.textContent="Something went wrong — try again."; }
+  sendBtn.disabled=false; messages.scrollTop=messages.scrollHeight;
+}
+
+// Pitch
+function labPitchExample(c,r){ document.getElementById("lab-pitch-company").value=c; document.getElementById("lab-pitch-role").value=r; labPitch(); }
+async function labPitch(){
+  var company=(document.getElementById("lab-pitch-company").value||"").trim();
+  var role=(document.getElementById("lab-pitch-role").value||"").trim();
+  if(!company&&!role){document.getElementById("lab-pitch-company").focus();return;}
+  document.getElementById("lab-pitch-copy").style.display="none";
+  await _labStream("https://miru.humanagency.co/api/portfolio/pitch",{company,role},
+    document.getElementById("lab-pitch-result"),
+    document.getElementById("lab-pitch-btn"),"Generate →","lab-pitch-copy");
+}
+</script>
+</body>
+</html>

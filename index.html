@@ -812,7 +812,7 @@ footer {
   </a>
   <div class="nav-links">
     <a href="#tools">Tools</a>
-    <a href="#labs">Labs</a>
+    <a href="/labs">Labs</a>
     <a href="#story">Story</a>
     <a href="#career">Career</a>
     <a href="#building">Builder's Lab</a>
@@ -2550,9 +2550,15 @@ fetch('https://miru.humanagency.co/api/me/location').then(r=>r.json()).then(func
 
 <script>
 // ── Labs shared stream helper ─────────────────────────────────────────────
+function _mdToHtml(t) {
+  return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
+    .replace(/\n/g,"<br>");
+}
 async function _labStream(url, body, resultEl, btn, btnLabel) {
   btn.disabled = true; btn.textContent = "…";
-  resultEl.style.display = "block"; resultEl.innerHTML = "";
+  resultEl.style.display = "block"; resultEl.textContent = "";
+  var accumulated = "";
   try {
     var resp = await fetch(url, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)});
     var reader = resp.body.getReader(), dec = new TextDecoder(), buf = "";
@@ -2565,10 +2571,12 @@ async function _labStream(url, body, resultEl, btn, btnLabel) {
         var line=lines[i].trim();
         if(!line.startsWith("data: ")) continue;
         var pl=line.slice(6); if(pl==="[DONE]") break;
-        try{var tok=JSON.parse(pl); if(tok.t) resultEl.innerHTML+=tok.t.replace(/\n/g,"<br>").replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");}catch(e){}
+        try{var tok=JSON.parse(pl); if(tok.t){ accumulated+=tok.t; resultEl.textContent=accumulated; }}catch(e){}
       }
     }
-    if(!resultEl.textContent.trim()) resultEl.innerHTML="Something went wrong — try again.";
+    if(!accumulated.trim()){ resultEl.innerHTML="Something went wrong — try again."; return; }
+    // Apply markdown once stream is complete
+    resultEl.innerHTML = _mdToHtml(accumulated);
   } catch(e) { resultEl.innerHTML="Something went wrong — try again."; }
   btn.disabled=false; btn.textContent=btnLabel;
 }
