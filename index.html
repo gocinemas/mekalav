@@ -79,8 +79,9 @@ nav {
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   padding: 12px 24px;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px;
 }
+.nav-right { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
 .nav-brand { display: flex; align-items: center; gap: 9px; cursor: pointer; user-select: none; flex-shrink: 0; }
 .nav-brand-photo { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border); flex-shrink: 0; }
 .nav-name { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
@@ -813,16 +814,17 @@ footer {
     <a href="/now">Now</a>
     <a href="#contact">Contact</a>
   </div>
-  <button onclick="openCmdK()" class="cmdK-nav-btn" title="Search (⌘K)">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <span style="font-size:10px;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:1px 4px">⌘K</span>
-  </button>
-  <a href="#contact" class="nav-mobile-cta">Contact</a>
-  <span id="visitor-time-line" style="display:none;font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0"></span>
-  <div class="theme-toggle">
-    <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
-    <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
-    <button class="theme-btn" data-t="dark" onclick="setTheme('dark')" title="Dark">🌙</button>
+  <div class="nav-right">
+    <button onclick="openCmdK()" class="cmdK-nav-btn" title="Search (⌘K)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <span style="font-size:10px;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:1px 4px">⌘K</span>
+    </button>
+    <a href="#contact" class="nav-mobile-cta">Contact</a>
+    <div class="theme-toggle">
+      <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
+      <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
+      <button class="theme-btn" data-t="dark" onclick="setTheme('dark')" title="Dark">🌙</button>
+    </div>
   </div>
 </nav>
 
