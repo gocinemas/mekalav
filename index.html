@@ -97,7 +97,7 @@ nav {
   background: #16a34a; flex-shrink: 0;
 }
 .nav-links { display: flex; gap: 20px; align-items: center; }
-.nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
+.nav-links a { font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; transition: color .15s; }
 .nav-links a:hover { color: var(--text); }
 .theme-toggle {
   display: flex; align-items: center; gap: 2px;
@@ -213,9 +213,8 @@ nav {
 
 /* Hero */
 .hero {
-  max-width: 760px;
-  margin-left: max(24px, 7%); margin-right: auto;
-  padding: 64px 24px 48px;
+  max-width: 860px; margin: 0 auto;
+  padding: 64px 48px 48px;
 }
 .hero-tag {
   display: inline-block;
@@ -263,7 +262,7 @@ nav {
 .btn-ghost:hover { border-color: var(--muted); }
 
 /* Sections */
-section { max-width: 760px; margin-left: max(24px, 7%); margin-right: auto; padding: 64px 24px; border-top: 1px solid var(--border); }
+section { max-width: 860px; margin: 0 auto; padding: 64px 48px; border-top: 1px solid var(--border); }
 .section-label {
   font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
   text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
@@ -749,14 +748,14 @@ footer {
 }
 @media (max-width: 640px) {
   /* Hero */
-  .hero { padding: 36px 20px 28px; margin-left: 0; margin-right: 0; max-width: 100%; }
+  .hero { padding: 36px 20px 28px; }
   .hero h1 { font-size: clamp(30px, 9vw, 44px); letter-spacing: -1px; margin-bottom: 16px; }
   .hero-sub { font-size: 15px; line-height: 1.65; margin-bottom: 24px; }
   .avail-pill { font-size: 12px; padding: 6px 14px; }
 
   /* Layout */
-  section { padding: 40px 20px; margin-left: 0; margin-right: 0; max-width: 100%; }
-  #tools, #tools ~ div { margin-left: 0 !important; margin-right: 0 !important; max-width: 100% !important; padding-left: 20px !important; padding-right: 20px !important; }
+  section { padding: 40px 20px; }
+  #tools, #tools ~ div { padding-left: 20px !important; padding-right: 20px !important; }
   .search-wrap { padding: 0 20px; }
   .quote-strip { padding: 0 20px 28px; }
   .quote-inner { font-size: 14px; }
@@ -781,7 +780,7 @@ footer {
 
 @media (max-width: 480px) {
   /* Hero */
-  .hero { padding: 28px 16px 24px; margin-left: 0; }
+  .hero { padding: 28px 16px 24px; }
   .hero h1 { font-size: clamp(26px, 8.5vw, 34px); }
   .hero-sub { font-size: 14px; }
   /* Stack CTA buttons full-width on phones */
@@ -789,7 +788,7 @@ footer {
   .btn-primary, .btn-ghost { width: 100%; justify-content: center; padding: 12px 20px; }
 
   /* Layout */
-  section { padding: 32px 16px; margin-left: 0; }
+  section { padding: 32px 16px; }
   .search-wrap { padding: 0 16px; }
   .quote-strip { padding: 0 16px 20px; }
   .newsletter-box { padding: 24px 16px; }
@@ -889,7 +888,7 @@ footer {
 </div>
 
 <!-- Live tools strip -->
-<div id="tools" style="max-width:760px;margin-left:max(24px,7%);margin-right:auto;padding:0 24px 48px">
+<div id="tools" style="max-width:860px;margin:0 auto;padding:0 48px 48px">
   <div style="font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Try these · live tools</div>
   <div class="tools-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
 
@@ -918,7 +917,7 @@ footer {
 </div>
 
 <!-- ── Ask about my work ─────────────────────────────────────── -->
-<div style="max-width:760px;margin-left:max(24px,7%);margin-right:auto;padding:0 24px 48px">
+<div style="max-width:860px;margin:0 auto;padding:0 48px 48px">
   <div style="font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Ask me anything</div>
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px">
     <div style="display:flex;gap:8px;margin-bottom:12px">
