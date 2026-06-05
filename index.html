@@ -220,6 +220,7 @@ nav {
 .hero {
   max-width: 860px; margin: 0 auto;
   padding: 64px 48px 48px;
+  border-bottom: 1px solid var(--border);
 }
 .hero-tag {
   display: inline-block;
@@ -282,8 +283,9 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 .tl-item {
   display: grid; grid-template-columns: 110px 1fr;
   gap: 0 24px; padding: 20px 0; border-bottom: 1px solid var(--border);
-  cursor: pointer;
+  cursor: pointer; border-radius: 8px; transition: background .15s;
 }
+.tl-item:hover { background: rgba(217,119,6,.04); }
 .tl-item:last-child { border-bottom: none; }
 .tl-year { font-size: 12px; color: var(--muted); font-weight: 600; padding-top: 3px; }
 .tl-content h3 { font-size: 15px; font-weight: 700; margin-bottom: 2px; display: flex; align-items: center; gap: 6px; }
@@ -345,8 +347,9 @@ h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1
 .proj-try { display: inline-block; font-size: 12px; font-weight: 700; color: var(--accent); border: 1.5px solid var(--accent); border-radius: 99px; padding: 4px 14px; text-decoration: none; transition: background .15s, color .15s; }
 .proj-try:hover { background: var(--accent); color: #fff; }
 .proj-list { display: flex; flex-direction: column; }
-.proj-item { border-bottom: 1px solid var(--border); cursor: pointer; }
+.proj-item { border-bottom: 1px solid var(--border); cursor: pointer; border-radius: 8px; transition: background .15s; }
 .proj-item:last-child { border-bottom: none; }
+.proj-item:hover { background: var(--surface2); }
 .proj-header {
   display: flex; align-items: center; gap: 20px; padding: 18px 4px;
 }
