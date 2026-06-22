@@ -118,6 +118,25 @@ input[type=text]:focus { border-color:var(--accent); }
   .lab-inputs-grid { grid-template-columns:1fr !important; }
 }
 </style>
+<script>
+(function() {
+  var theme = localStorage.getItem('vm-theme') || 'system';
+  document.documentElement.setAttribute('data-theme', theme);
+  window._setTheme = function(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('vm-theme', t);
+  };
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'd' || e.key === 'D') {
+      e.preventDefault();
+      window._setTheme('light');
+    } else if (e.key === 'n' || e.key === 'N') {
+      e.preventDefault();
+      window._setTheme('dark');
+    }
+  });
+})();
+</script>
 </head>
 <body>
 

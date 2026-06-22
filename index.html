@@ -809,6 +809,25 @@ footer {
   .hero-sub { font-size: 13px; }
 }
 </style>
+<script>
+(function() {
+  var theme = localStorage.getItem('vm-theme') || 'system';
+  document.documentElement.setAttribute('data-theme', theme);
+  window._setTheme = function(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('vm-theme', t);
+  };
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'd' || e.key === 'D') {
+      e.preventDefault();
+      window._setTheme('light');
+    } else if (e.key === 'n' || e.key === 'N') {
+      e.preventDefault();
+      window._setTheme('dark');
+    }
+  });
+})();
+</script>
 </head>
 <body>
 
