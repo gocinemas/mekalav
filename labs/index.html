@@ -29,14 +29,19 @@ nav {
   padding:12px 24px;
   display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px;
 }
-.nav-brand { display:flex; align-items:center; gap:9px; cursor:pointer; user-select:none; }
+.nav-brand { display:flex; align-items:center; gap:9px; cursor:pointer; user-select:none; flex-shrink:0; }
 .nav-brand-photo { width:30px; height:30px; border-radius:50%; object-fit:cover; border:1.5px solid var(--border); flex-shrink:0; }
 .nav-name { font-size:16px; font-weight:800; letter-spacing:-0.3px; }
 .nav-name span { color:var(--accent); }
-.nav-links { display:flex; gap:20px; align-items:center; justify-content:center; }
+.nav-avail { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600; color:#16a34a; background:rgba(22,163,74,.1); border:1px solid rgba(22,163,74,.25); border-radius:99px; padding:3px 9px; letter-spacing:0.1px; }
+.nav-avail-dot { width:6px; height:6px; border-radius:50%; background:#16a34a; flex-shrink:0; }
+.nav-links { display:flex; gap:20px; align-items:center; }
 .nav-links a { font-size:13px; font-weight:600; color:var(--muted); transition:color .15s; }
 .nav-links a:hover, .nav-links a.active { color:var(--text); }
 .nav-right { display:flex; align-items:center; gap:10px; justify-content:flex-end; }
+.cmdK-nav-btn { display:flex; align-items:center; gap:5px; border:1px solid var(--border); background:var(--surface2); border-radius:8px; padding:5px 10px; cursor:pointer; color:var(--muted); font-size:12px; font-weight:600; font-family:inherit; transition:all .15s; flex-shrink:0; }
+.cmdK-nav-btn:hover { color:var(--text); border-color:var(--muted); }
+.cmdK-nav-btn svg { flex-shrink:0; }
 .theme-toggle { display:flex; align-items:center; gap:2px; background:var(--surface2); border:1px solid var(--border); border-radius:99px; padding:3px; flex-shrink:0; }
 .theme-btn { border:none; background:none; cursor:pointer; font-size:13px; padding:4px 8px; border-radius:99px; color:var(--muted); transition:all .15s; line-height:1; }
 .theme-btn.active { background:var(--surface); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,.1); }
@@ -96,9 +101,17 @@ input[type=text]:focus { border-color:var(--accent); }
   h1 { font-size:26px; }
   .lab-card { padding:20px; }
   .lab-card-header { flex-direction:column; }
-  nav { padding:10px 16px; }
+  nav { padding:10px 16px; gap:0; }
   .nav-links { gap:12px; }
-  .nav-links a[href="/"] { display:none; }
+  .nav-links a[href="#career"],
+  .nav-links a[href="#articles"] { display:none; }
+}
+@media(max-width:480px){
+  nav { padding:10px 16px; gap:0; }
+  .nav-avail { display:none; }
+  .nav-links { display:none; }
+  .theme-toggle { display:none; }
+  .cmdK-nav-btn { display:none; }
 }
 @media(max-width:480px){
   .page { padding:24px 16px 60px; }
@@ -112,14 +125,24 @@ input[type=text]:focus { border-color:var(--accent); }
   <a href="/" class="nav-brand" style="text-decoration:none">
     <img src="/vikram.jpg" alt="Vikram" class="nav-brand-photo">
     <div class="nav-name">Vikram<span>.</span></div>
+    <span class="nav-avail"><span class="nav-avail-dot"></span>Available</span>
   </a>
   <div class="nav-links">
-    <a href="/">Home</a>
+    <a href="/#tools">Tools</a>
     <a href="/labs" class="active">Labs</a>
-    <a href="#building">Builder's Lab</a>
-    <a href="#contact">Contact</a>
+    <a href="/#story">Story</a>
+    <a href="/#career">Career</a>
+    <a href="/#building">Builder's Lab</a>
+    <a href="/#ai-patterns">AI Patterns</a>
+    <a href="/#articles">Notes</a>
+    <a href="/now">Now</a>
+    <a href="/#contact">Contact</a>
   </div>
   <div class="nav-right">
+    <button onclick="openCmdK()" class="cmdK-nav-btn" title="Search (⌘K)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <span style="font-size:10px;background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:1px 4px">⌘K</span>
+    </button>
     <div class="theme-toggle">
       <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
       <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
@@ -226,6 +249,11 @@ function setTheme(t) {
   document.querySelectorAll(".theme-btn").forEach(function(b){ b.classList.toggle("active", b.dataset.t === t); });
 }
 (function(){ var t = localStorage.getItem("theme") || "system"; setTheme(t); })();
+
+// Cmd+K search (stub for consistency with main site)
+function openCmdK() {
+  window.location.href = "/?q=labs";
+}
 
 // Markdown helper
 function _mdToHtml(t) {
