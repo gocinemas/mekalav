@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vikram Mekala - AI & Enterprise Transformation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #2c2c2a; background: #ffffff; line-height: 1.6; }
+    
+    .showcase { padding: 2rem 1.5rem; max-width: 700px; margin: 0 auto; }
+    
+    .header { text-align: center; margin-bottom: 3rem; }
+    .header h1 { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
+    .header p { font-size: 15px; color: #5f5e5a; line-height: 1.6; max-width: 500px; margin: 0 auto; }
+    
+    .tag { display: inline-block; background: #f1efe8; padding: 0.5rem 1rem; border-radius: 8px; font-size: 13px; color: #5f5e5a; margin-top: 1rem; }
+    
+    .demo-section { background: #ffffff; border: 0.5px solid #d3d1c7; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    
+    .demo-section h2 { font-size: 18px; font-weight: 500; margin-bottom: 1rem; }
+    
+    .demo-description { font-size: 14px; color: #5f5e5a; line-height: 1.6; margin-bottom: 1.5rem; }
+    
+    .input-group { margin-bottom: 1.5rem; }
+    .input-group label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 0.5rem; color: #2c2c2a; }
+    .input-group input { width: 100%; padding: 0.75rem; border: 0.5px solid #d3d1c7; border-radius: 8px; font-size: 14px; background: #ffffff; }
+    .input-group input:focus { outline: none; border-color: #185fa5; }
+    
+    .demo-output { background: #f1efe8; border-radius: 8px; padding: 1.25rem; margin-top: 1rem; min-height: 120px; display: flex; align-items: center; justify-content: center; text-align: center; }
+    
+    .output-item { text-align: left; width: 100%; }
+    .output-label { font-size: 12px; color: #5f5e5a; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .output-value { font-size: 15px; font-weight: 500; color: #2c2c2a; margin-bottom: 1rem; }
+    .output-detail { font-size: 13px; color: #5f5e5a; line-height: 1.6; }
+    
+    button { padding: 0.75rem 1.25rem; border: 0.5px solid #b4b2a9; border-radius: 8px; background: transparent; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; color: #2c2c2a; }
+    button:hover { background: #f1efe8; }
+    button:active { transform: scale(0.98); }
+    
+    .products-preview { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    .product-card { background: #f1efe8; border-radius: 8px; padding: 1rem; text-align: center; }
+    .product-card .title { font-size: 14px; font-weight: 500; margin-bottom: 0.5rem; }
+    .product-card .url { font-size: 12px; color: #185fa5; }
+    
+    a { color: #185fa5; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    
+    @media (prefers-color-scheme: dark) {
+      body { background: #1a1a1a; color: #f0f0f0; }
+      .demo-section { border-color: #333; }
+      .input-group input { background: #2a2a2a; border-color: #444; color: #f0f0f0; }
+      .demo-output { background: #2a2a2a; }
+      .header p, .demo-description, .output-label, .output-detail { color: #b0b0b0; }
+      .tag { background: #2a2a2a; color: #b0b0b0; }
+      button { border-color: #444; }
+      button:hover { background: #2a2a2a; }
+      .product-card { background: #2a2a2a; }
+    }
+  </style>
+</head>
+<body>
+  <div class="showcase">
+    <div class="header">
+      <h1>Vikram Mekala</h1>
+      <p>AI-driven Enterprise Transformation Specialist</p>
+      <p style="font-size: 14px; margin-top: 1rem;">25 years scaling AI and enterprise systems. Built and shipped multiple AI products whilst executing £5M+ transformations at 100+ market scale.</p>
+      <span class="tag">AI Product + Enterprise Transformation</span>
+    </div>
+    
+    <div class="demo-section">
+      <h2>Miru</h2>
+      <p class="demo-description">UK lifestyle intelligence. Enter a postcode and phone number to see what's possible.</p>
+      
+      <div class="input-group">
+        <label>Postcode</label>
+        <input type="text" id="postcode" placeholder="e.g. SW1A 1AA" maxlength="8">
+      </div>
+      
+      <div class="input-group">
+        <label>Phone number</label>
+        <input type="text" id="phone" placeholder="e.g. 020 7946 0958" maxlength="20">
+      </div>
+      
+      <button onclick="generateMiruDemo()">Generate sample data</button>
+      
+      <div id="miru-output" style="display: none;">
+        <div class="demo-output">
+          <div class="output-item">
+            <div class="output-label">Location insights</div>
+            <div class="output-value" id="miru-location">London, Westminster</div>
+            <div class="output-detail">Demographics, local services, lifestyle markers</div>
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 0.5px solid #d3d1c7;">
+              <div class="output-label">Next step</div>
+              <div class="output-detail">View full intelligence at <a href="https://miru.humanagency.co">miru.humanagency.co</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h2>Intel</h2>
+      <p class="demo-description">Brand and company intelligence. Search for any company to see competitive positioning, capability mapping, and strategic insights.</p>
+      
+      <div class="input-group">
+        <label>Company name</label>
+        <input type="text" id="company" placeholder="e.g. Unilever" onkeypress="if(event.key==='Enter') generateIntelDemo()">
+      </div>
+      
+      <button onclick="generateIntelDemo()">Generate sample insights</button>
+      
+      <div id="intel-output" style="display: none;">
+        <div class="demo-output">
+          <div class="output-item">
+            <div class="output-label">Company profile</div>
+            <div class="output-value" id="intel-company">Unilever plc</div>
+            <div class="output-detail">FMCG leader. Competitive positioning across 40+ brands. Transformation capability: Enterprise-scale digital, M&A execution, cost optimisation.</div>
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 0.5px solid #d3d1c7;">
+              <div class="output-label">Key insights</div>
+              <div class="output-detail">Market position • Capability gaps • Strategic opportunities • Vendor landscape • Transformation readiness</div>
+            </div>
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 0.5px solid #d3d1c7;">
+              <div class="output-label">Next step</div>
+              <div class="output-detail">Explore at <a href="https://intel.humanagency.co">intel.humanagency.co</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 2rem;">
+      <p style="font-size: 14px; color: #5f5e5a; margin-bottom: 1rem;">Both products are live and in use. Explore the full experiences below.</p>
+      <div class="products-preview">
+        <div class="product-card">
+          <div class="title">Miru</div>
+          <div class="url">miru.humanagency.co</div>
+        </div>
+        <div class="product-card">
+          <div class="title">Intel</div>
+          <div class="url">intel.humanagency.co</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function generateMiruDemo() {
+      const postcode = document.getElementById('postcode').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      
+      if (!postcode && !phone) {
+        alert('Enter a postcode or phone to generate sample data');
+        return;
+      }
+      
+      const postcodes = {
+        'SW1A': 'Westminster, London',
+        'EC1A': 'Clerkenwell, London',
+        'W1A': 'Mayfair, London',
+        'M1': 'Manchester City Centre',
+        'B1': 'Birmingham City Centre',
+        'EH1': 'Edinburgh Old Town',
+        'G2': 'Glasgow City Centre',
+        'B3': 'Birmingham Jewellery Quarter',
+        'S1': 'Sheffield City Centre',
+        'L1': 'Liverpool City Centre'
+      };
+      
+      let location = postcodes[postcode.substring(0, 3).toUpperCase()] || 'Residential area, ' + postcode.substring(0, 2).toUpperCase();
+      
+      document.getElementById('miru-location').textContent = location;
+      document.getElementById('miru-output').style.display = 'block';
+    }
+
+    function generateIntelDemo() {
+      const company = document.getElementById('company').value.trim() || 'Unilever';
+      document.getElementById('intel-company').textContent = company + ' plc';
+      document.getElementById('intel-output').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
