@@ -4,143 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Om Malik 1966-2026 | A Tribute</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
+    <div class="main-container">
+        <!-- Sidebar with Vertical Tabs -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="om-avatar">
+                    <img src="https://om.co/wp-content/uploads/2022/03/om-malik-150x150.jpg" alt="Om Malik" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 150 150%22%3E%3Crect fill=%22%23d97706%22 width=%22150%22 height=%22150%22/%3E%3Ctext x=%2275%22 y=%2280%22 font-size=%2248%22 font-weight=%22700%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EOM%3C/text%3E%3C/svg%3E'">
+                </div>
                 <h1>Om Malik</h1>
-                <p class="dates">September 29, 1966 — June 24, 2026</p>
-                <p class="tagline">Founder of GigaOm • Technology Journalist • Photographer • Mentor • Believer in Humanity</p>
-                <p class="quote">"He forged the trail we all followed." — Kara Swisher</p>
+                <p class="dates">1966–2026</p>
             </div>
-        </section>
 
-        <!-- Official Tribute -->
-        <section class="section official">
-            <h2>Family Statement</h2>
-            <div class="card">
-                <p>"Om Malik passed away on June 24, 2026, at Stanford Hospital after a long health journey with his heart. He was surrounded by family and friends."</p>
-                <p class="source">— Family of Om Malik</p>
-                <a href="https://om.co/2026/06/24/1966-2026/" class="read-more">Read Full Tribute →</a>
+            <nav class="tabs">
+                <button class="tab-btn active" data-tab="statement">Family Statement</button>
+                <button class="tab-btn" data-tab="tributes">Tributes</button>
+                <button class="tab-btn" data-tab="articles">Articles</button>
+                <button class="tab-btn" data-tab="photos">Photos</button>
+                <button class="tab-btn" data-tab="legacy">Legacy</button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p class="tagline">Founder of GigaOm • Journalist • Photographer • Mentor</p>
+                <p class="quote">"He forged the trail we all followed."</p>
+                <p class="quote-author">— Kara Swisher</p>
             </div>
-        </section>
+        </aside>
 
-        <!-- Photos Gallery -->
-        <section class="section photos">
-            <h2>Photos</h2>
-            <div class="photos-grid" id="photos-grid">
-                <div class="photo-card">
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Family Statement Tab -->
+            <section class="tab-content active" id="statement">
+                <h2>Family Statement</h2>
+                <div class="card featured">
+                    <p>"Om Malik passed away on June 24, 2026, at Stanford Hospital after a long health journey with his heart. He was surrounded by family and friends."</p>
+                    <p class="source">— Family of Om Malik</p>
+                    <a href="https://om.co/2026/06/24/1966-2026/" class="button">Read Full Tribute</a>
+                </div>
+            </section>
+
+            <!-- Tributes Tab -->
+            <section class="tab-content" id="tributes">
+                <h2>Notable Tributes</h2>
+
+                <div class="tribute-card">
+                    <div class="tribute-header">
+                        <h3>Matt Mullenweg</h3>
+                        <p class="author">Best Friend & Co-founder of Automattic</p>
+                    </div>
+                    <blockquote>
+                        "They say that blood is thicker than water, and what we had was way thicker than blood."
+                    </blockquote>
+                    <p class="note">Planning OmFest on September 29, 2026 (Om's 60th) in San Francisco.</p>
+                    <a href="https://ma.tt/2026/06/om-forever/" class="read-link">Read Full Tribute →</a>
+                </div>
+
+                <div class="tribute-card">
+                    <div class="tribute-header">
+                        <h3>Kara Swisher</h3>
+                        <p class="author">Tech Journalist & Media Entrepreneur</p>
+                    </div>
+                    <blockquote>
+                        "From the start of the Internet age, Om was always my inspiration... Unfailingly generous, perfectly spiky, deeply wise and just a true believer in humanity, he lived a life that was full and impactful."
+                    </blockquote>
+                    <a href="https://www.axios.com/2026/06/26/om-malik-remembered" class="read-link">Read on Axios →</a>
+                </div>
+
+                <div class="tribute-card">
+                    <div class="tribute-header">
+                        <h3>Katie Fehrenbacher</h3>
+                        <p class="author">First GigaOm Employee & Axios Reporter</p>
+                    </div>
+                    <blockquote>
+                        "Om had a unique way of looking at technology, using his knowledge of the underlying infrastructure to predict how people would use it. He also used design as a throughline in his career."
+                    </blockquote>
+                    <a href="https://www.axios.com/2026/06/26/om-malik-remembered" class="read-link">Read on Axios →</a>
+                </div>
+
+                <div class="tribute-card">
+                    <div class="tribute-header">
+                        <h3>Howard Lindzon</h3>
+                        <p class="author">Investor & Blogger</p>
+                    </div>
+                    <a href="https://www.howardlindzon.com/p/om-malik-1966-to-2026" class="read-link">Read Howard's Tribute →</a>
+                </div>
+
+                <div class="tweets-section">
+                    <h3>What People Are Saying</h3>
+                    <div id="tweets-grid" class="tweets-grid">
+                        <div class="tweet-placeholder">Loading tributes...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Articles Tab -->
+            <section class="tab-content" id="articles">
+                <h2>Tributes & Write-ups</h2>
+                <div id="articles-grid" class="articles-list">
+                    <div class="article-placeholder">Loading articles...</div>
+                </div>
+            </section>
+
+            <!-- Photos Tab -->
+            <section class="tab-content" id="photos">
+                <h2>Photos & Gallery</h2>
+                <div class="photo-card featured">
                     <a href="https://www.christophermichel.com/People/Om-the-Great/n-WkMDW" target="_blank">
                         <div class="placeholder-photo">📷</div>
                         <h3>Christopher Michel's Gallery</h3>
                         <p>"Om the Great" — A photographer's tribute through images</p>
+                        <span class="visit-link">Visit Gallery →</span>
                     </a>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Tweets & Social -->
-        <section class="section tweets">
-            <h2>What People Are Saying</h2>
-            <div class="content-grid" id="tweets-grid">
-                <div class="tweet-placeholder">Loading tributes...</div>
-            </div>
-        </section>
-
-        <!-- Articles & Write-ups -->
-        <section class="section articles">
-            <h2>Tributes & Write-ups</h2>
-            <div class="articles-list" id="articles-grid">
-                <div class="article-placeholder">Loading articles...</div>
-            </div>
-        </section>
-
-        <!-- Key Tributes -->
-        <section class="section key-tributes">
-            <h2>Notable Tributes</h2>
-
-            <div class="tribute-card">
-                <h3>Matt Mullenweg</h3>
-                <p class="author">Best Friend & Co-founder of Automattic/WordPress</p>
-                <blockquote>
-                    "They say that blood is thicker than water, and what we had was way thicker than blood."
-                </blockquote>
-                <p><strong>Note:</strong> Planning OmFest on September 29, 2026 (Om's 60th birthday) in San Francisco to celebrate his life.</p>
-                <a href="https://ma.tt/2026/06/om-forever/" class="read-more">Read Full Tribute →</a>
-            </div>
-
-            <div class="tribute-card">
-                <h3>Kara Swisher</h3>
-                <p class="author">Tech Journalist & Media Entrepreneur</p>
-                <blockquote>
-                    "From the start of the Internet age, Om was always my inspiration... Unfailingly generous, perfectly spiky, deeply wise and just a true believer in humanity, he lived a life that was full and impactful."
-                </blockquote>
-                <a href="https://www.axios.com/2026/06/26/om-malik-remembered" class="read-more">Read on Axios →</a>
-            </div>
-
-            <div class="tribute-card">
-                <h3>Katie Fehrenbacher</h3>
-                <p class="author">First GigaOm Employee & Axios Reporter</p>
-                <blockquote>
-                    "Om had a unique way of looking at technology, using his knowledge of the underlying infrastructure to predict how people would use it. He also used design as a throughline in his career."
-                </blockquote>
-                <a href="https://www.axios.com/2026/06/26/om-malik-remembered" class="read-more">Read on Axios →</a>
-            </div>
-
-            <div class="tribute-card">
-                <h3>Howard Lindzon</h3>
-                <p class="author">Investor & Blogger</p>
-                <a href="https://www.howardlindzon.com/p/om-malik-1966-to-2026" class="read-more">Read Howard's Tribute →</a>
-            </div>
-        </section>
-
-        <!-- All Links -->
-        <section class="section all-links">
-            <h2>All Tributes & Resources</h2>
-            <div class="links-list" id="all-links">
-                <!-- Will be populated by JavaScript -->
-            </div>
-        </section>
-
-        <!-- Legacy -->
-        <section class="section legacy">
-            <h2>Om's Legacy</h2>
-            <div class="legacy-grid">
-                <div class="legacy-item">
-                    <h3>📰 GigaOm</h3>
-                    <p>Founded in 2001, turned a personal tech blog into one of the most influential technology publications</p>
+            <!-- Legacy Tab -->
+            <section class="tab-content" id="legacy">
+                <h2>Om's Legacy</h2>
+                <div class="legacy-grid">
+                    <div class="legacy-item">
+                        <h3>📰 GigaOm</h3>
+                        <p>Founded in 2001, turned a personal tech blog into one of the most influential technology publications</p>
+                    </div>
+                    <div class="legacy-item">
+                        <h3>🚀 True Ventures</h3>
+                        <p>Venture partner who advised and invested in early-stage startups, mentoring entrepreneurs</p>
+                    </div>
+                    <div class="legacy-item">
+                        <h3>✍️ Writing</h3>
+                        <p>Tech journalism pioneer who shaped how the industry reports on technology as a human endeavor</p>
+                    </div>
+                    <div class="legacy-item">
+                        <h3>📸 Photography</h3>
+                        <p>Celebrated landscape photographer with 100k+ followers sharing his artistic vision</p>
+                    </div>
+                    <div class="legacy-item">
+                        <h3>🤝 Mentorship</h3>
+                        <p>Unfailingly generous mentor who shaped careers and invested in the next generation</p>
+                    </div>
+                    <div class="legacy-item">
+                        <h3>💭 Philosophy</h3>
+                        <p>"A true believer in humanity" — left a mark on everyone he met</p>
+                    </div>
                 </div>
-                <div class="legacy-item">
-                    <h3>🚀 True Ventures</h3>
-                    <p>Venture partner who advised and invested in early-stage startups, mentoring entrepreneurs</p>
-                </div>
-                <div class="legacy-item">
-                    <h3>✍️ Writing</h3>
-                    <p>Tech journalism pioneer who shaped how the industry reports on technology as a human endeavor</p>
-                </div>
-                <div class="legacy-item">
-                    <h3>📸 Photography</h3>
-                    <p>Celebrated landscape photographer with 100k+ followers sharing his artistic vision</p>
-                </div>
-                <div class="legacy-item">
-                    <h3>🤝 Mentorship</h3>
-                    <p>Unfailingly generous mentor who shaped careers and invested in the next generation</p>
-                </div>
-                <div class="legacy-item">
-                    <h3>💭 Philosophy</h3>
-                    <p>"A true believer in humanity" — left a mark on everyone he met</p>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <footer>
-            <p>This tribute page aggregates remembrances from Om's community.</p>
-            <p>Last updated: <span id="last-updated">Loading...</span></p>
-            <p><small>To add your tribute, share on <a href="https://twitter.com/om" target="_blank">@om</a> on X/Twitter, Instagram, or via email</small></p>
-        </footer>
+            <footer>
+                <p>This tribute page aggregates remembrances from Om's community.</p>
+                <p>Last updated: <span id="last-updated">Loading...</span></p>
+                <p><small><a href="https://om.co" target="_blank">om.co</a> • To add your tribute, share on <a href="https://twitter.com/om" target="_blank">@om</a></small></p>
+            </footer>
+        </main>
     </div>
 
     <script src="script.js"></script>

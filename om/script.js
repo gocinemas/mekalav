@@ -1,3 +1,26 @@
+// Tab Switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tabName = this.getAttribute('data-tab');
+
+    // Hide all tabs
+    document.querySelectorAll('.tab-content').forEach(tab => {
+      tab.classList.remove('active');
+    });
+
+    // Remove active class from all buttons
+    document.querySelectorAll('.tab-btn').forEach(button => {
+      button.classList.remove('active');
+    });
+
+    // Show selected tab
+    document.getElementById(tabName).classList.add('active');
+
+    // Add active class to clicked button
+    this.classList.add('active');
+  });
+});
+
 // Load and display tribute data
 async function loadTributes() {
   try {
@@ -21,8 +44,6 @@ async function loadTributes() {
     // Display tweets
     displayTweets(data.tweets);
 
-    // Display all links
-    displayAllLinks(data.articles);
   } catch (error) {
     console.error('Error loading tributes:', error);
   }
@@ -34,12 +55,13 @@ function displayArticles(articles) {
 
   articles.forEach(article => {
     const articleEl = document.createElement('div');
-    articleEl.className = 'article-card';
+    articleEl.className = 'article-item';
     articleEl.innerHTML = `
-      <div class="link-item">
-        <a href="${article.url}" target="_blank">${article.title}</a>
-        <div class="source-type">by ${article.author} • ${article.source}</div>
-        ${article.excerpt ? `<p style="margin-top: 0.5rem; color: var(--secondary); font-size: 0.9rem;">${article.excerpt}</p>` : ''}
+      <div class="tribute-card">
+        <h3>${article.title}</h3>
+        <p class="author">by ${article.author} • ${article.source}</p>
+        ${article.excerpt ? `<p style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">${article.excerpt}</p>` : ''}
+        <a href="${article.url}" target="_blank" class="read-link">Read Article →</a>
       </div>
     `;
     grid.appendChild(articleEl);
@@ -57,63 +79,21 @@ function displayTweets(tweets) {
 
   tweets.forEach(tweet => {
     const tweetEl = document.createElement('div');
-    tweetEl.className = 'tweet-card';
+    tweetEl.className = 'tweet-item';
     tweetEl.innerHTML = `
-      <div class="link-item">
+      <div class="tribute-card">
         <strong>${tweet.author}</strong>
         ${tweet.handle ? `<span class="handle"> ${tweet.handle}</span>` : ''}
-        <p style="margin-top: 0.5rem;">${tweet.text}</p>
-        <div class="source-type">${tweet.platform || 'Social Media'} • ${tweet.date}</div>
+        <p style="margin-top: 0.75rem; font-style: italic;">"${tweet.text}"</p>
+        <p class="author" style="margin-top: 0.5rem;">${tweet.platform || 'Social Media'} • ${tweet.date}</p>
       </div>
     `;
     grid.appendChild(tweetEl);
   });
 }
 
-function displayAllLinks(articles) {
-  const linksList = document.getElementById('all-links');
-  linksList.innerHTML = '';
-
-  const categories = {
-    'Personal Blogs': [],
-    'Publications': [],
-    'Newsletters': [],
-    'Company Tributes': []
-  };
-
-  articles.forEach(article => {
-    const categoryMap = {
-      'personal-blog': 'Personal Blogs',
-      'publication': 'Publications',
-      'newsletter': 'Newsletters',
-      'company': 'Company Tributes'
-    };
-    const category = categoryMap[article.type] || 'Publications';
-    categories[category].push(article);
-  });
-
-  Object.entries(categories).forEach(([category, items]) => {
-    if (items.length === 0) return;
-
-    const categoryTitle = document.createElement('h3');
-    categoryTitle.style.marginTop = '2rem';
-    categoryTitle.textContent = category;
-    linksList.appendChild(categoryTitle);
-
-    items.forEach(article => {
-      const linkEl = document.createElement('div');
-      linkEl.className = 'link-item';
-      linkEl.innerHTML = `
-        <a href="${article.url}" target="_blank">${article.title}</a>
-        <div class="source-type">by ${article.author} • ${article.source} • ${article.date}</div>
-      `;
-      linksList.appendChild(linkEl);
-    });
-  });
-}
-
 // Load tributes on page load
 document.addEventListener('DOMContentLoaded', loadTributes);
 
-// Auto-refresh every 30 minutes (can be adjusted)
+// Auto-refresh every 30 minutes
 setInterval(loadTributes, 30 * 60 * 1000);
