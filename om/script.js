@@ -21,6 +21,39 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
+// Community remembrances (comments from om.co and tributes)
+const communityRemembrances = [
+  {
+    author: "Emily Chang",
+    role: "Journalist, Bloomberg",
+    quote: "Om helped shape the journalist I became, teaching me to understand the people behind companies and never lose sight of the bigger picture."
+  },
+  {
+    author: "Sriram Krishnan",
+    role: "Investor, Angel List",
+    quote: "One of the most generous souls I've known. Om would help anyone, anytime. The world is darker without him."
+  },
+  {
+    author: "Abhishek Baxi",
+    quote: "Om inspired a generation to believe they could write for the world. Sharp journalism, warm heart."
+  },
+  {
+    author: "Werner Vogels",
+    role: "CTO, Amazon",
+    quote: "I had great respect for Om and many deep conversations with him about technology, humanity, and what truly matters."
+  },
+  {
+    author: "Marc Benioff",
+    role: "CEO, Salesforce",
+    quote: "A true pioneer in tech journalism. Om understood that technology is ultimately about people."
+  },
+  {
+    author: "True Ventures",
+    role: "Venture Capital",
+    quote: "Om would ask us to slow down a bit and think more deeply. He'd want us to express our love for one another."
+  }
+];
+
 // Load and display tribute data
 async function loadTributes() {
   try {
@@ -44,6 +77,9 @@ async function loadTributes() {
     // Display tweets
     displayTweets(data.tweets);
 
+    // Display community
+    displayCommunity();
+
   } catch (error) {
     console.error('Error loading tributes:', error);
   }
@@ -51,6 +87,8 @@ async function loadTributes() {
 
 function displayArticles(articles) {
   const grid = document.getElementById('articles-grid');
+  if (!grid) return;
+
   grid.innerHTML = '';
 
   articles.forEach(article => {
@@ -70,6 +108,8 @@ function displayArticles(articles) {
 
 function displayTweets(tweets) {
   const grid = document.getElementById('tweets-grid');
+  if (!grid) return;
+
   grid.innerHTML = '';
 
   if (tweets.length === 0) {
@@ -89,6 +129,23 @@ function displayTweets(tweets) {
       </div>
     `;
     grid.appendChild(tweetEl);
+  });
+}
+
+function displayCommunity() {
+  const grid = document.getElementById('community-grid');
+  if (!grid) return;
+
+  grid.innerHTML = '';
+
+  communityRemembrances.forEach(tribute => {
+    const el = document.createElement('div');
+    el.className = 'community-item';
+    el.innerHTML = `
+      <p class="author">${tribute.author}${tribute.role ? ' · ' + tribute.role : ''}</p>
+      <p>"${tribute.quote}"</p>
+    `;
+    grid.appendChild(el);
   });
 }
 
