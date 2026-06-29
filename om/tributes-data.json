@@ -1,15 +1,6 @@
 {
-  "lastUpdated": "2026-06-29T00:02:16.005146Z",
+  "lastUpdated": "2026-06-29T06:02:29.933902Z",
   "articles": [
-    {
-      "title": "Remembering Om Malik",
-      "author": "Kara Swisher & Katie Fehrenbacher",
-      "source": "Axios",
-      "url": "https://www.axios.com/2026/06/26/om-malik-remembered",
-      "type": "publication",
-      "excerpt": "Tributes from two of his closest colleagues in tech journalism",
-      "date": "2026-06-26"
-    },
     {
       "title": "All Roads Lead to Om",
       "author": "Matt Mullenweg",
@@ -18,6 +9,15 @@
       "type": "personal-blog",
       "excerpt": "Best friend and brother from another mother. Planning OmFest on September 29, 2026.",
       "date": "2026-06-25"
+    },
+    {
+      "title": "Remembering Om Malik",
+      "author": "Kara Swisher & Katie Fehrenbacher",
+      "source": "Axios",
+      "url": "https://www.axios.com/2026/06/26/om-malik-remembered",
+      "type": "publication",
+      "excerpt": "Tributes from two of his closest colleagues in tech journalism",
+      "date": "2026-06-26"
     },
     {
       "title": "Om Malik, 1966 to 2026",
