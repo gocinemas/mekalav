@@ -964,7 +964,7 @@ footer {
   <p class="hero-sub">
     Started writing code in India. Moved to Italy, then London.
     Spent two decades inside <strong>Unilever, Mars, Shell, BP and LeasePlan</strong> making large technology programmes actually land.
-    Now building: <strong>Miru</strong> (WhatsApp-first AI assistant for everyday UK life), <strong>Intel</strong> (brand &amp; company intelligence), and <strong>AI</strong> (plain-language AI literacy for everyone outside tech). Plus a space intelligence side project because the subject deserved it.
+    Now building: <strong>Miru</strong> (WhatsApp-first AI assistant for everyday UK life), <strong>Intel</strong> (brand &amp; company intelligence), and <strong>AI literacy products</strong>.
   </p>
   <div class="journey">
     <div class="journey-stop">🇮🇳 India</div>
@@ -974,8 +974,7 @@ footer {
     <div class="journey-stop">🇬🇧 London 2005</div>
   </div>
   <div class="hero-ctas">
-    <button class="btn-primary" onclick="openResume()" style="cursor:pointer;font-family:inherit;border:none">📄 Full CV</button>
-    <a id="hero-cal-link" href="https://calendly.com/mekala/15min" target="_blank" rel="noopener" class="btn-ghost">📅 Book 15 min</a>
+    <a id="hero-cal-link" href="https://calendly.com/mekala/15min" target="_blank" rel="noopener" class="btn-primary">📅 Book 15 min call</a>
   </div>
   <div class="avail-pill">
     <span class="avail-dot"></span>
@@ -1038,63 +1037,13 @@ footer {
   </div>
 </div>
 
-<!-- ── Ask about my work ─────────────────────────────────────── -->
-<div style="max-width:860px;margin:0 auto;padding:0 48px 48px">
-  <div style="font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Ask me anything</div>
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px">
-    <div style="display:flex;gap:8px;margin-bottom:12px">
-      <input id="pf-ask-input" type="text" placeholder="e.g. What's Vikram's M&A experience? What is Miru?" autocomplete="off" maxlength="300"
-        style="flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s"
-        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
-        onkeydown="if(event.key==='Enter')pfAsk()">
-      <button onclick="pfAsk()" id="pf-ask-btn"
-        style="padding:10px 18px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:opacity .15s">Ask →</button>
-    </div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
-      <button onclick="pfChip(this)" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">What has he shipped?</button>
-      <button onclick="pfChip(this)" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">M&amp;A experience?</button>
-      <button onclick="pfChip(this)" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">What is Miru?</button>
-      <button onclick="pfChip(this)" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">Available for work?</button>
-    </div>
-    <div id="pf-ask-answer" style="display:none;font-size:14px;line-height:1.75;color:var(--text);border-top:1px solid var(--border);padding-top:12px"></div>
-  </div>
-</div>
-
 <!-- ── Labs ──────────────────────────────────────────────────── -->
 <section id="labs">
-  <div class="section-label">Labs</div>
-  <h2>Experiments</h2>
-  <p style="font-size:15px;color:var(--muted);margin-bottom:32px;line-height:1.7">Three things worth trying. Each one is live.</p>
+  <div class="section-label">Try</div>
+  <h2>Miru</h2>
+  <p style="font-size:15px;color:var(--muted);margin-bottom:32px;line-height:1.7">Live WhatsApp AI assistant for everyday UK life. Ask it anything.</p>
 
-  <!-- Lab 1: Day 0 brief (strongest — first) -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px">
-      <div style="display:flex;align-items:center;gap:10px">
-        <span style="font-size:20px">🏁</span>
-        <div>
-          <div style="font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.2px">Day 0 brief</div>
-          <div style="font-size:12px;color:var(--muted)">Day 0 is when ownership of a transformation programme transfers. Handover done, clock started. Enter a company — see how the first 30 days get structured.</div>
-        </div>
-      </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button onclick="labDay0Example('Barclays')" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">Try: Barclays</button>
-        <button onclick="labDay0Example('NHS')" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">Try: NHS</button>
-        <button onclick="labDay0Example('Unilever')" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">Try: Unilever</button>
-      </div>
-    </div>
-    <div style="display:flex;gap:8px;margin:14px 0 0">
-      <input id="lab-day0-input" type="text" placeholder="e.g. Barclays, NHS, Tesco…" maxlength="80"
-        style="flex:1;padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none"
-        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
-        onkeydown="if(event.key==='Enter')labDay0()">
-      <button onclick="labDay0()" id="lab-day0-btn"
-        style="padding:9px 20px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Run brief →</button>
-    </div>
-    <div id="lab-day0-result" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:14px;line-height:1.8;color:var(--text)"></div>
-    <button id="lab-day0-copy" onclick="labCopy('lab-day0-result','lab-day0-copy')" style="display:none;margin-top:10px;font-size:12px;font-weight:600;color:var(--muted);background:none;border:1px solid var(--border);border-radius:7px;padding:4px 12px;cursor:pointer;font-family:inherit">📋 Copy</button>
-  </div>
-
-  <!-- Lab 2: Miru chat -->
+<!-- Lab 2: Miru chat -->
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
       <span style="font-size:20px">💬</span>
@@ -1124,35 +1073,6 @@ footer {
     </div>
   </div>
 
-  <!-- Lab 3: Tailored pitch (reframed) -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px">
-      <div style="display:flex;align-items:center;gap:10px">
-        <span style="font-size:20px">✍️</span>
-        <div>
-          <div style="font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.2px">Tailored pitch</div>
-          <div style="font-size:12px;color:var(--muted)">Enter a company and role — see a pitch built specifically for that opportunity. Not a template.</div>
-        </div>
-      </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button onclick="labPitchExample('HSBC','Head of AI Transformation')" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">Try: HSBC</button>
-        <button onclick="labPitchExample('Tesco','Digital Programme Director')" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:inherit">Try: Tesco</button>
-      </div>
-    </div>
-    <div class="lab-pitch-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 10px">
-      <input id="lab-pitch-company" type="text" placeholder="Company (e.g. HSBC)" maxlength="80"
-        style="padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none"
-        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
-      <input id="lab-pitch-role" type="text" placeholder="Role (e.g. AI Director)" maxlength="80"
-        style="padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none"
-        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
-        onkeydown="if(event.key==='Enter')labPitch()">
-    </div>
-    <button onclick="labPitch()" id="lab-pitch-btn"
-      style="padding:9px 20px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Generate →</button>
-    <div id="lab-pitch-result" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:14px;line-height:1.8;color:var(--text)"></div>
-    <button id="lab-pitch-copy" onclick="labCopy('lab-pitch-result','lab-pitch-copy')" style="display:none;margin-top:10px;font-size:12px;font-weight:600;color:var(--muted);background:none;border:1px solid var(--border);border-radius:7px;padding:4px 12px;cursor:pointer;font-family:inherit">📋 Copy</button>
-  </div>
 </section>
 
 <section id="story">
