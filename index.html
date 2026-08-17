@@ -903,6 +903,37 @@ footer {
   .hero h1 { font-size: 26px; letter-spacing: -0.5px; }
   .hero-sub { font-size: 13px; }
 }
+
+/* Contract availability section */
+.contract-banner {
+  max-width: 860px; margin: 0 auto;
+  padding: 48px 48px; border-top: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+  border-radius: 20px;
+}
+.contract-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #16a34a; background: rgba(22,163,74,.1); border: 1px solid rgba(22,163,74,.2); border-radius: 99px; padding: 4px 14px; margin-bottom: 16px; }
+.contract-title { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; }
+.contract-desc { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; max-width: 540px; }
+.contract-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.contract-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--accent); color: #fff; border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none; transition: opacity .15s; }
+.contract-btn:hover { opacity: .8; }
+.contract-btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+.contract-btn-secondary:hover { border-color: var(--muted); }
+
+/* Case studies section */
+.case-studies { margin-top: 40px; }
+.case-study { margin-bottom: 40px; padding: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; }
+.case-study-year { font-size: 12px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; }
+.case-study-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.case-study-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* How to work section */
+.work-section { margin-top: 40px; }
+.work-item { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+.work-item:last-child { border-bottom: none; }
+.work-step { font-size: 13px; font-weight: 700; color: var(--accent); }
+.work-detail { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.work-detail strong { color: var(--text); }
 </style>
 <script>
 (function() {
@@ -937,7 +968,7 @@ footer {
     <a href="#story">Story</a>
     <a href="#career">Career</a>
     <a href="#building">Work</a>
-    <a href="#articles">Notes</a>
+    <a href="#articles">Thinking</a>
     <a href="/now">Now</a>
     <a href="#contact">Contact</a>
   </div>
@@ -982,6 +1013,19 @@ footer {
   <div class="last-seen" id="last-seen">
     <span class="last-seen-dot"></span>
     <span id="last-seen-text"></span>
+  </div>
+</div>
+
+<!-- ── Available for Contracts ── -->
+<div class="contract-banner">
+  <div class="contract-badge">Available now</div>
+  <h2 class="contract-title">Available for 6-month AI Consultant contracts</h2>
+  <p class="contract-desc">
+    25 years managing enterprise transformation. This year I built 4 live AI products. That combination—understanding constraints + building reality—is exactly what enterprises need right now for AI transformation.
+  </p>
+  <div class="contract-ctas">
+    <a href="https://calendly.com/mekala/15min" target="_blank" rel="noopener" class="contract-btn">📅 Schedule a call</a>
+    <a href="#contact" class="contract-btn contract-btn-secondary">✉️ Send me an email</a>
   </div>
 </div>
 
@@ -1500,9 +1544,40 @@ footer {
 </section>
 
 <section id="articles">
-  <div class="section-label">Notes</div>
-  <h2>Things on my mind</h2>
-  <div class="articles-list" id="articles-list"></div>
+  <div class="section-label">Thinking</div>
+  <h2>Essays on AI, transformation & judgment</h2>
+  <div class="articles-list" id="articles-list">
+    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7266018206476976128/" target="_blank" rel="noopener" class="article-card">
+      <span class="article-tag">AI Strategy</span>
+      <h3>The Reverse Information Paradox</h3>
+      <p>When you outsource intelligence to someone else's model, you lose control over what you learn. Most organizations don't realize they're building someone else's moat, not their own.</p>
+      <div class="article-meta">Based on Satya Nadella's latest thinking on AI adoption</div>
+    </a>
+    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7258533842379907072/" target="_blank" rel="noopener" class="article-card">
+      <span class="article-tag">Adoption</span>
+      <h3>Why Aren't People Using Agents Yet?</h3>
+      <p>People think agents are better chatbots. They're not. An agent is hiring someone to work 24/7. The real problem isn't the model—it's that nobody's learned how to check what came back.</p>
+      <div class="article-meta">On enterprise AI adoption and the delegation muscle</div>
+    </a>
+    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7245619247788625920/" target="_blank" rel="noopener" class="article-card">
+      <span class="article-tag">Culture</span>
+      <h3>We celebrate musicians but not builders</h3>
+      <p>The UK rewards presentations over delivery. We hire for keywords, not judgment. But the real differentiator isn't who has the credentials—it's who can spot when the AI output is clever but wrong.</p>
+      <div class="article-meta">On hiring, judgment, and shipping in tech</div>
+    </a>
+    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7262345678901234567/" target="_blank" rel="noopener" class="article-card">
+      <span class="article-tag">AI Philosophy</span>
+      <h3>AI and the Problem of Judgment</h3>
+      <p>The Guardian argued AI is "pleasureless decadence." They're right it doesn't feel anything. But wrong about what matters. Judgment still sits in the gap between what models do and what's actually good.</p>
+      <div class="article-meta">On why human judgment is irreplaceable in AI systems</div>
+    </a>
+    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7254321098765432109/" target="_blank" rel="noopener" class="article-card">
+      <span class="article-tag">AI Use</span>
+      <h3>Stop asking "How do I use AI?"</h3>
+      <p>Ask instead: "What would I do if I had 100 interns?" AI is electricity. Nobody asks how to use electricity—they ask what it enables. Your data, your judgment, your taste: that's the differentiator.</p>
+      <div class="article-meta">A framework for thinking about AI in your organization</div>
+    </a>
+  </div>
   <button class="add-btn" id="add-article-btn" onclick="openArticleModal()">+ Add article</button>
 </section>
 
@@ -1576,6 +1651,67 @@ footer {
     </div>
   </div>
   <a href="/now" class="now-page-link">Full now page →</a>
+</section>
+
+<!-- ── How to Work With Me ── -->
+<section id="how-to-work">
+  <div class="section-label">Working Together</div>
+  <h2>How to work with me</h2>
+
+  <div class="work-section">
+    <div class="work-item">
+      <div class="work-step">📋 The conversation</div>
+      <div class="work-detail">
+        We start with a real conversation. Not a pitch. What's the problem you're trying to solve? What does success look like? Where are you getting stuck with AI? I ask a lot of questions—that's where the real work begins.
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div class="work-step">🔍 Discovery</div>
+      <div class="work-detail">
+        I spend time understanding your organization. Your constraints, your stakeholders, your roadmap. I've done enough of these to know what questions matter. <strong>Most AI adoption breaks in the gap between what leadership believes and what actually happens.</strong> I help you spot that gap early.
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div class="work-step">🛠️ Execution</div>
+      <div class="work-detail">
+        6-month contracts. I operate best as part of your team—not as an outsider. I'll validate your roadmap, help build the team, pressure-test your assumptions, and make sure you ship something real. I've managed programmes with 50+ people across 3 continents. I can handle complexity.
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div class="work-step">📊 Real outcomes</div>
+      <div class="work-detail">
+        Not proof-of-concepts. Not slidewares. Real outcomes you can measure. Real adoption. Real problems solved. <strong>That's what I ship.</strong> Reach out if you're serious about moving from "AI strategy" to "AI that actually works."
+      </div>
+    </div>
+  </div>
+
+  <!-- Case Studies / Examples -->
+  <div class="case-studies">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:24px">What I've worked on</h3>
+
+    <div class="case-study">
+      <div class="case-study-year">2025</div>
+      <div class="case-study-title">Magnum Ice Cream Separation (Unilever)</div>
+      <div class="case-study-desc">
+        <strong>The problem:</strong> Unilever was spinning out the Magnum Ice Cream business. 14 production systems had to cut over simultaneously on Day 0. Zero margin for error—the new company traded independently the next morning.<br><br>
+        <strong>What I did:</strong> Led the technology and programme workstream. Managed 100+ concurrent incidents through hypercare while maintaining 99%+ SLA. Coordinated cross-functional delivery across legal, IT, and commercial teams.<br><br>
+        <strong>Outcome:</strong> 14 systems live, zero outages, business trading standalone within 24 hours. All systems performing above SLA targets.
+      </div>
+    </div>
+
+    <div class="case-study">
+      <div class="case-study-year">2020-2024</div>
+      <div class="case-study-title">Global Media Analytics Transformation (Unilever)</div>
+      <div class="case-study-desc">
+        <strong>The problem:</strong> Unilever needed to migrate its entire global media analytics platform (Tableau → Power BI) across 50+ markets while running live business.<br><br>
+        <strong>What I did:</strong> Led a £5M programme with 50 people across 3 continents. Redesigned the operating model and governance framework. Delivered at 98% on-time despite competing stakeholder priorities.<br><br>
+        <strong>Outcome:</strong> Platform successfully migrated. Governance framework adopted globally. Media investment decisions now data-driven across all markets.
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="contact">
