@@ -18,7 +18,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://townsquare.cauenapier.com/widget.css" />
 <style>
 /* Light (default) */
 :root {
@@ -76,66 +75,6 @@ html[data-theme="light"] {
 }
 
 /* TownSquare Theme */
-#townsquare-root#townsquare-root {
-  --scene: #e4e2dd;
-  --page: #efede9;
-  --surface: #fdf8f4;
-  --ink: #2a2926;
-  --you: #c8641f;
-  --tree-trunk: color-mix(in oklab, var(--text) 58%, var(--muted) 42%);
-  --tree-canopy: color-mix(in oklab, var(--text) 58%, var(--muted) 42%);
-  --other: #26241f;
-  --ground: rgba(42, 41, 38, 0.16);
-  --scene-edge: color-mix(in oklab, var(--scene) 88%, var(--page) 12%);
-  --you-deep: var(--you);
-  --text: var(--ink);
-  --muted: var(--ink);
-}
-#townsquare-root#townsquare-root[data-townsquare-theme="dark"] {
-  --scene: #242521;
-  --page: #181917;
-  --surface: #24231f;
-  --ink: #f2eee6;
-  --you: #df8a43;
-  --tree-trunk: color-mix(in oklab, var(--text) 58%, var(--muted) 42%);
-  --tree-canopy: color-mix(in oklab, var(--text) 58%, var(--muted) 42%);
-  --other: #ddd7cc;
-  --ground: rgba(242, 238, 230, 0.18);
-  --scene-edge: color-mix(in oklab, var(--scene) 88%, var(--page) 12%);
-  --you-deep: var(--you);
-  --text: var(--ink);
-  --muted: var(--ink);
-}
-@media (prefers-color-scheme: dark) {
-  #townsquare-root#townsquare-root[data-townsquare-theme="auto"] {
-    --scene: #242521;
-    --page: #181917;
-    --surface: #24231f;
-    --ink: #f2eee6;
-    --you: #df8a43;
-    --tree-trunk: color-mix(in oklab, var(--text) 58%, var(--muted) 42%);
-    --tree-canopy: color-mix(in oklab, var(--text) 58%, var(--muted) 42%);
-    --other: #ddd7cc;
-    --ground: rgba(242, 238, 230, 0.18);
-    --scene-edge: color-mix(in oklab, var(--scene) 88%, var(--page) 12%);
-    --you-deep: var(--you);
-    --text: var(--ink);
-    --muted: var(--ink);
-  }
-}
-#townsquare-root#townsquare-root .townsquare__stage {
-  background: linear-gradient(
-    180deg,
-    var(--scene) 0%,
-    var(--scene) 72%,
-    var(--scene-edge) 72%,
-    var(--page) 72.4%,
-    var(--page) 100%
-  );
-}
-#townsquare-root#townsquare-root .townsquare__ground {
-  background: var(--ground);
-}
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -969,7 +908,6 @@ footer {
     <a href="#career">Career</a>
     <a href="#building">Work</a>
     <a href="#articles">Thinking</a>
-    <a href="/now">Now</a>
     <a href="#contact">Contact</a>
   </div>
   <div class="nav-right">
@@ -1747,86 +1685,7 @@ footer {
   </div>
 </section>
 
-<section id="now">
-  <div class="section-label">Now</div>
-  <h2>What's on</h2>
-  <div class="now-grid">
-    <div class="now-card">
-      <div class="now-card-label">This week</div>
-      <div class="now-card-text">New Miru design, tube stations in train times, and local council features — report a pothole, find your bin day.</div>
-    </div>
-    <div class="now-card">
-      <div class="now-card-label">Reading</div>
-      <div class="now-card-text"><em>The Human Experience</em> — John Sills</div>
-    </div>
-    <div class="now-card">
-      <div class="now-card-label">Note</div>
-      <div class="now-card-text">We are born on this planet to tell stories to each other. That's it. Everything else is commentary.</div>
-    </div>
-  </div>
-  <a href="/now" class="now-page-link">Full now page →</a>
-</section>
 
-<!-- ── How to Work With Me ── -->
-<section id="how-to-work">
-  <div class="section-label">Working Together</div>
-  <h2>How to work with me</h2>
-
-  <div class="work-section">
-    <div class="work-item">
-      <div class="work-step">📋 The conversation</div>
-      <div class="work-detail">
-        We start with a real conversation. Not a pitch. What's the problem you're trying to solve? What does success look like? Where are you getting stuck with AI? I ask a lot of questions—that's where the real work begins.
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-step">🔍 Discovery</div>
-      <div class="work-detail">
-        I spend time understanding your organization. Your constraints, your stakeholders, your roadmap. I've done enough of these to know what questions matter. <strong>Most AI adoption breaks in the gap between what leadership believes and what actually happens.</strong> I help you spot that gap early.
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-step">🛠️ Execution</div>
-      <div class="work-detail">
-        6-month contracts. I operate best as part of your team—not as an outsider. I'll validate your roadmap, help build the team, pressure-test your assumptions, and make sure you ship something real. I've managed programmes with 50+ people across 3 continents. I can handle complexity.
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-step">📊 Real outcomes</div>
-      <div class="work-detail">
-        Not proof-of-concepts. Not slidewares. Real outcomes you can measure. Real adoption. Real problems solved. <strong>That's what I ship.</strong> Reach out if you're serious about moving from "AI strategy" to "AI that actually works."
-      </div>
-    </div>
-  </div>
-
-  <!-- Case Studies / Examples -->
-  <div class="case-studies">
-    <h3 style="font-size:16px;font-weight:700;margin-bottom:24px">What I've worked on</h3>
-
-    <div class="case-study">
-      <div class="case-study-year">2025</div>
-      <div class="case-study-title">Magnum Ice Cream Separation (Unilever)</div>
-      <div class="case-study-desc">
-        <strong>The problem:</strong> Unilever was spinning out the Magnum Ice Cream business. 14 production systems had to cut over simultaneously on Day 0. Zero margin for error—the new company traded independently the next morning.<br><br>
-        <strong>What I did:</strong> Led the technology and programme workstream. Managed 100+ concurrent incidents through hypercare while maintaining 99%+ SLA. Coordinated cross-functional delivery across legal, IT, and commercial teams.<br><br>
-        <strong>Outcome:</strong> 14 systems live, zero outages, business trading standalone within 24 hours. All systems performing above SLA targets.
-      </div>
-    </div>
-
-    <div class="case-study">
-      <div class="case-study-year">2020-2024</div>
-      <div class="case-study-title">Global Media Analytics Transformation (Unilever)</div>
-      <div class="case-study-desc">
-        <strong>The problem:</strong> Unilever needed to migrate its entire global media analytics platform (Tableau → Power BI) across 50+ markets while running live business.<br><br>
-        <strong>What I did:</strong> Led a £5M programme with 50 people across 3 continents. Redesigned the operating model and governance framework. Delivered at 98% on-time despite competing stakeholder priorities.<br><br>
-        <strong>Outcome:</strong> Platform successfully migrated. Governance framework adopted globally. Media investment decisions now data-driven across all markets.
-      </div>
-    </div>
-  </div>
-</section>
 
 <section id="contact">
   <div class="section-label">Contact</div>
@@ -2841,18 +2700,6 @@ async function cmpDemoRun() {
 }
 </script>
 
-<div id="townsquare-root"></div>
-
-<script type="module">
-  import { mountTownSquare } from "https://townsquare.cauenapier.com/townsquare.mjs";
-
-  mountTownSquare(document.getElementById("townsquare-root"), {
-    serverOrigin: "https://townsquare.cauenapier.com",
-    siteKey: "site_4G4aaYP65Z0qZ6Yg",
-    scene: {"benches":6,"benchXs":[0.2,0.72,0.46,0.08,0.58,0.86],"trees":1,"treeXs":[0.8],"lamps":1,"lampXs":[0.12],"birds":3},
-    theme: "host"
-  });
-</script>
 
 </body>
 </html>
