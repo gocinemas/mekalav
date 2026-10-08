@@ -1,1 +1,131 @@
-ewogICJsYXN0VXBkYXRlZCI6ICIyMDI2LTEwLTA4VDA2OjQ5OjA0LjE2NTMzNloiLAogICJhcnRpY2xlcyI6IFsKICAgIHsKICAgICAgInRpdGxlIjogIlJlbWVtYmVyaW5nIE9tIE1hbGlrIiwKICAgICAgImF1dGhvciI6ICJLYXJhIFN3aXNoZXIgJiBLYXRpZSBGZWhyZW5iYWNoZXIiLAogICAgICAic291cmNlIjogIkF4aW9zIiwKICAgICAgInVybCI6ICJodHRwczovL3d3dy5heGlvcy5jb20vMjAyNi8wNi8yNi9vbS1tYWxpay1yZW1lbWJlcmVkIiwKICAgICAgInR5cGUiOiAicHVibGljYXRpb24iLAogICAgICAiZXhjZXJwdCI6ICJUcmlidXRlcyBmcm9tIHR3byBvZiBoaXMgY2xvc2VzdCBjb2xsZWFndWVzIGluIHRlY2ggam91cm5hbGlzbSIsCiAgICAgICJkYXRlIjogIjIwMjYtMDYtMjYiCiAgICB9LAogICAgewogICAgICAidGl0bGUiOiAiQWxsIFJvYWRzIExlYWQgdG8gT20iLAogICAgICAiYXV0aG9yIjogIk1hdHQgTXVsbGVud2VnIiwKICAgICAgInNvdXJjZSI6ICJtYS50dCIsCiAgICAgICJ1cmwiOiAiaHR0cHM6Ly9tYS50dC8yMDI2LzA2L29tLWZvcmV2ZXIvIiwKICAgICAgInR5cGUiOiAicGVyc29uYWwtYmxvZyIsCiAgICAgICJleGNlcnB0IjogIkJlc3QgZnJpZW5kIGFuZCBicm90aGVyIGZyb20gYW5vdGhlciBtb3RoZXIuIFBsYW5uaW5nIE9tRmVzdCBvbiBTZXB0ZW1iZXIgMjksIDIwMjYuIiwKICAgICAgImRhdGUiOiAiMjAyNi0wNi0yNSIKICAgIH0sCiAgICB7CiAgICAgICJ0aXRsZSI6ICJPbSBNYWxpaywgMTk2NiB0byAyMDI2IiwKICAgICAgImF1dGhvciI6ICJIb3dhcmQgTGluZHpvbiIsCiAgICAgICJzb3VyY2UiOiAiaG93YXJkbGluZHpvbi5jb20iLAogICAgICAidXJsIjogImh0dHBzOi8vd3d3Lmhvd2FyZGxpbmR6b24uY29tL3Avb20tbWFsaWstMTk2Ni10by0yMDI2IiwKICAgICAgInR5cGUiOiAicGVyc29uYWwtYmxvZyIsCiAgICAgICJleGNlcnB0IjogIlBlcnNvbmFsIHJlbWVtYnJhbmNlIGZyb20gZmVsbG93IGludmVzdG9yIGFuZCB3cml0ZXIiLAogICAgICAiZGF0ZSI6ICIyMDI2LTA2LTI1IgogICAgfSwKICAgIHsKICAgICAgInRpdGxlIjogIk9tIE1hbGlrLCB0ZWNobm9sb2d5IGFuYWx5c3QgYW5kIGpvdXJuYWxpc3QsIGRpZXMgYXQgNjAiLAogICAgICAiYXV0aG9yIjogIlRoZSBEZXNrIiwKICAgICAgInNvdXJjZSI6ICJ0aGVkZXNrLm5ldCIsCiAgICAgICJ1cmwiOiAiaHR0cHM6Ly90aGVkZXNrLm5ldC8yMDI2LzA2L29tLW1hbGlrLW9iaXR1YXJ5LyIsCiAgICAgICJ0eXBlIjogInB1YmxpY2F0aW9uIiwKICAgICAgImV4Y2VycHQiOiAiUHJvZmVzc2lvbmFsIG9iaXR1YXJ5IGFuZCB0cmlidXRlIiwKICAgICAgImRhdGUiOiAiMjAyNi0wNi0yNSIKICAgIH0sCiAgICB7CiAgICAgICJ0aXRsZSI6ICJSZW1lbWJlcmluZyBPbSBNYWxpayIsCiAgICAgICJhdXRob3IiOiAiR2lnYW9tIFRlYW0iLAogICAgICAic291cmNlIjogImdpZ2FvbS5jb20iLAogICAgICAidXJsIjogImh0dHBzOi8vZ2lnYW9tLmNvbS9yZW1lbWJlcmluZy1vbS1tYWxpay8iLAogICAgICAidHlwZSI6ICJjb21wYW55IiwKICAgICAgImV4Y2VycHQiOiAiT2ZmaWNpYWwgY29tcGFueSB0cmlidXRlIGZyb20gR2lnYW9tIiwKICAgICAgImRhdGUiOiAiMjAyNi0wNi0yNSIKICAgIH0sCiAgICB7CiAgICAgICJ0aXRsZSI6ICJPbSBNYWxpayBkaWVzIGF0IDYwIGFmdGVyIGxvbmcgaGVhcnQgaWxsbmVzczsgdHJpYnV0ZXMgcG91ciBpbiIsCiAgICAgICJhdXRob3IiOiAiVGVjaFN0YXJ0dXBzIiwKICAgICAgInNvdXJjZSI6ICJ0ZWNoc3RhcnR1cHMuY29tIiwKICAgICAgInVybCI6ICJodHRwczovL3RlY2hzdGFydHVwcy5jb20vMjAyNi8wNi8yNS9vbS1tYWxpay1kaWVzLWF0LTYwLWFmdGVyLWxvbmctaGVhcnQtaWxsbmVzcy10cmlidXRlcy1wb3VyLWluLWZvci1naWdhb20tZm91bmRlci1hbmQtdGVjaC1qb3VybmFsaXNtLXBpb25lZXIvIiwKICAgICAgInR5cGUiOiAicHVibGljYXRpb24iLAogICAgICAiZXhjZXJwdCI6ICJDb21waWxhdGlvbiBvZiB0cmlidXRlcyBmcm9tIHRlY2ggY29tbXVuaXR5IiwKICAgICAgImRhdGUiOiAiMjAyNi0wNi0yNSIKICAgIH0sCiAgICB7CiAgICAgICJ0aXRsZSI6ICJPbSBNYWxpaywgMTk2Ni0yMDI2IiwKICAgICAgImF1dGhvciI6ICJCb2luZyBCb2luZyIsCiAgICAgICJzb3VyY2UiOiAiYm9pbmdib2luZy5uZXQiLAogICAgICAidXJsIjogImh0dHBzOi8vYm9pbmdib2luZy5uZXQvMjAyNi8wNi8yNS9vbS1tYWxpay0xOTY2LTIwMjYuaHRtbCIsCiAgICAgICJ0eXBlIjogInB1YmxpY2F0aW9uIiwKICAgICAgImV4Y2VycHQiOiAiQ29tbXVuaXR5IHRyaWJ1dGUgYW5kIHJlbWVtYnJhbmNlIiwKICAgICAgImRhdGUiOiAiMjAyNi0wNi0yNSIKICAgIH0sCiAgICB7CiAgICAgICJ0aXRsZSI6ICJPbSBNYWxpaywgMTk2Ni0yMDI2IiwKICAgICAgImF1dGhvciI6ICJEYXJpbmcgRmlyZWJhbGwiLAogICAgICAic291cmNlIjogImRhcmluZ2ZpcmViYWxsLm5ldCIsCiAgICAgICJ1cmwiOiAiaHR0cHM6Ly9kYXJpbmdmaXJlYmFsbC5uZXQvbGlua2VkLzIwMjYvMDYvMjUvb20tbWFsaWstcmlwIiwKICAgICAgInR5cGUiOiAicHVibGljYXRpb24iLAogICAgICAiZXhjZXJwdCI6ICJKb2huIEdydWJlcidzIGxpbmtlZCB0cmlidXRlIiwKICAgICAgImRhdGUiOiAiMjAyNi0wNi0yNSIKICAgIH0sCiAgICB7CiAgICAgICJ0aXRsZSI6ICJDcmF6eSBTdHVwaWQgVGVjaCIsCiAgICAgICJhdXRob3IiOiAiT20gTWFsaWsgJiBGcmVkIFZvZ2Vsc3RlaW4iLAogICAgICAic291cmNlIjogImNyYXp5c3R1cGlkdGVjaC5jb20iLAogICAgICAidXJsIjogImh0dHBzOi8vY3JhenlzdHVwaWR0ZWNoLmNvbS8yMDI2LzA2LzI1L29tLW1hbGlrLTE5NjYtMjAyNi8iLAogICAgICAidHlwZSI6ICJuZXdzbGV0dGVyIiwKICAgICAgImV4Y2VycHQiOiAiT20ncyBuZXdzbGV0dGVyIHByb2plY3QgY29udGludWVzIHRvIGhvbm9yIGhpcyBtZW1vcnkiLAogICAgICAiZGF0ZSI6ICIyMDI2LTA2LTI1IgogICAgfSwKICAgIHsKICAgICAgInRpdGxlIjogIlNhZCBuZXdzOiBsb25nLXRpbWUgdGVjaCBqb3VybmFsaXN0LCBibG9nZ2VyLCBhbmQgZW50cmVwcmVuZXVyIE9tIE1hbGlrIHBhc3NlZCBhd2F5IiwKICAgICAgImF1dGhvciI6ICJKYXNvbiBLb3R0a2UiLAogICAgICAic291cmNlIjogImtvdHRrZS5vcmciLAogICAgICAidXJsIjogImh0dHBzOi8va290dGtlLm9yZy8yNi8wNi8wMDQ5MjE3LW9tLW1hbGlrLXBhc3NlZC1hd2F5LXllc3QiLAogICAgICAidHlwZSI6ICJwdWJsaWNhdGlvbiIsCiAgICAgICJleGNlcnB0IjogIkFubm91bmNlbWVudCBhbmQgY29tbXVuaXR5IHJlbWVtYnJhbmNlIiwKICAgICAgImRhdGUiOiAiMjAyNi0wNi0yNSIKICAgIH0KICBdLAogICJ0d2VldHMiOiBbCiAgICB7CiAgICAgICJhdXRob3IiOiAiRW1pbHkgQ2hhbmciLAogICAgICAiaGFuZGxlIjogIkBlbWlseWNoYW5ndHYiLAogICAgICAicGxhdGZvcm0iOiAiWC9Ud2l0dGVyIiwKICAgICAgInRleHQiOiAiT20gTWFsaWsgaGVscGVkIHNoYXBlIHRoZSBqb3VybmFsaXN0IEkgYmVjYW1lLCB0ZWFjaGluZyBtZSB0byB1bmRlcnN0YW5kIHRoZSBwZW9wbGUgYmVoaW5kIGNvbXBhbmllcywgcXVlc3Rpb24gdGhlIGh5cGUsIGFuZCBuZXZlciBsb3NlIHNpZ2h0IG9mIHRoZSBiaWdnZXIgcGljdHVyZS4iLAogICAgICAiZGF0ZSI6ICIyMDI2LTA2LTI0IiwKICAgICAgInZlcmlmaWVkIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgImF1dGhvciI6ICJBYmhpc2hlayBCYXhpIiwKICAgICAgInRleHQiOiAiT20gTWFsaWsgaW5zcGlyZWQgYSBnZW5lcmF0aW9uIHRvIGJlbGlldmUgdGhleSBjb3VsZCB3cml0ZSBmb3IgdGhlIHdvcmxkLiBIZSB3aWxsIGJlIHJlbWVtYmVyZWQgZm9yIGhpcyBzaGFycCBqb3VybmFsaXNtIGFuZCB0aGUgd2FybXRoIGhlIGV4dWRlZC4iLAogICAgICAiZGF0ZSI6ICIyMDI2LTA2LTI0IgogICAgfSwKICAgIHsKICAgICAgImF1dGhvciI6ICJXZXJuZXIgVm9nZWxzIiwKICAgICAgImhhbmRsZSI6ICJAd2VybmVydm9nZWxzIiwKICAgICAgInBsYXRmb3JtIjogIlgvVHdpdHRlciIsCiAgICAgICJ0ZXh0IjogIkkgaGFkIGdyZWF0IHJlc3BlY3QgZm9yIE9tIE1hbGlrIGFuZCBoYWQgbWFueSBkZWVwIGNvbnZlcnNhdGlvbnMgd2l0aCBoaW0gaW4gdGhlIGVhcmx5IGRheXMgb2YgQ2xvdWQgQ29tcHV0aW5nLiIsCiAgICAgICJkYXRlIjogIjIwMjYtMDYtMjQiLAogICAgICAidmVyaWZpZWQiOiB0cnVlCiAgICB9LAogICAgewogICAgICAiYXV0aG9yIjogIlRydWUgVmVudHVyZXMiLAogICAgICAidGV4dCI6ICJSZW1lbWJlciB0aGlzIGJlYXV0aWZ1bCBzb3VsIGFuZCBncmVhdCB0aGlua2VyLiBPbSB3b3VsZCBhc2sgdXMgdG8gc2xvdyBkb3duIGEgYml0IGFuZCB0aGluayBtb3JlIGRlZXBseSBhbmQgZXhwcmVzcyBvdXIgbG92ZSBmb3Igb25lIGFub3RoZXIuIiwKICAgICAgImRhdGUiOiAiMjAyNi0wNi0yNCIKICAgIH0KICBdLAogICJwaG90b3MiOiBbCiAgICB7CiAgICAgICJ0aXRsZSI6ICJPbSB0aGUgR3JlYXQiLAogICAgICAicGhvdG9ncmFwaGVyIjogIkNocmlzdG9waGVyIE1pY2hlbCIsCiAgICAgICJ1cmwiOiAiaHR0cHM6Ly93d3cuY2hyaXN0b3BoZXJtaWNoZWwuY29tL1Blb3BsZS9PbS10aGUtR3JlYXQvbi1Xa01EVyIsCiAgICAgICJkZXNjcmlwdGlvbiI6ICJBIHBob3RvZ3JhcGhlcidzIHZpc3VhbCB0cmlidXRlIGNlbGVicmF0aW5nIE9tJ3MgbGlmZSB0aHJvdWdoIGltYWdlcyIKICAgIH0KICBdCn0=
+{
+  "lastUpdated": "2026-10-08T06:49:04.165336Z",
+  "articles": [
+    {
+      "title": "Remembering Om Malik",
+      "author": "Kara Swisher & Katie Fehrenbacher",
+      "source": "Axios",
+      "url": "https://www.axios.com/2026/06/26/om-malik-remembered",
+      "type": "publication",
+      "excerpt": "Tributes from two of his closest colleagues in tech journalism",
+      "date": "2026-06-26"
+    },
+    {
+      "title": "All Roads Lead to Om",
+      "author": "Matt Mullenweg",
+      "source": "ma.tt",
+      "url": "https://ma.tt/2026/06/om-forever/",
+      "type": "personal-blog",
+      "excerpt": "Best friend and brother from another mother. Planning OmFest on September 29, 2026.",
+      "date": "2026-06-25"
+    },
+    {
+      "title": "Om Malik, 1966 to 2026",
+      "author": "Howard Lindzon",
+      "source": "howardlindzon.com",
+      "url": "https://www.howardlindzon.com/p/om-malik-1966-to-2026",
+      "type": "personal-blog",
+      "excerpt": "Personal remembrance from fellow investor and writer",
+      "date": "2026-06-25"
+    },
+    {
+      "title": "Om Malik, technology analyst and journalist, dies at 60",
+      "author": "The Desk",
+      "source": "thedesk.net",
+      "url": "https://thedesk.net/2026/06/om-malik-obituary/",
+      "type": "publication",
+      "excerpt": "Professional obituary and tribute",
+      "date": "2026-06-25"
+    },
+    {
+      "title": "Remembering Om Malik",
+      "author": "Gigaom Team",
+      "source": "gigaom.com",
+      "url": "https://gigaom.com/remembering-om-malik/",
+      "type": "company",
+      "excerpt": "Official company tribute from Gigaom",
+      "date": "2026-06-25"
+    },
+    {
+      "title": "Om Malik dies at 60 after long heart illness; tributes pour in",
+      "author": "TechStartups",
+      "source": "techstartups.com",
+      "url": "https://techstartups.com/2026/06/25/om-malik-dies-at-60-after-long-heart-illness-tributes-pour-in-for-gigaom-founder-and-tech-journalism-pioneer/",
+      "type": "publication",
+      "excerpt": "Compilation of tributes from tech community",
+      "date": "2026-06-25"
+    },
+    {
+      "title": "Om Malik, 1966-2026",
+      "author": "Boing Boing",
+      "source": "boingboing.net",
+      "url": "https://boingboing.net/2026/06/25/om-malik-1966-2026.html",
+      "type": "publication",
+      "excerpt": "Community tribute and remembrance",
+      "date": "2026-06-25"
+    },
+    {
+      "title": "Om Malik, 1966-2026",
+      "author": "Daring Fireball",
+      "source": "daringfireball.net",
+      "url": "https://daringfireball.net/linked/2026/06/25/om-malik-rip",
+      "type": "publication",
+      "excerpt": "John Gruber's linked tribute",
+      "date": "2026-06-25"
+    },
+    {
+      "title": "Crazy Stupid Tech",
+      "author": "Om Malik & Fred Vogelstein",
+      "source": "crazystupidtech.com",
+      "url": "https://crazystupidtech.com/2026/06/25/om-malik-1966-2026/",
+      "type": "newsletter",
+      "excerpt": "Om's newsletter project continues to honor his memory",
+      "date": "2026-06-25"
+    },
+    {
+      "title": "Sad news: long-time tech journalist, blogger, and entrepreneur Om Malik passed away",
+      "author": "Jason Kottke",
+      "source": "kottke.org",
+      "url": "https://kottke.org/26/06/0049217-om-malik-passed-away-yest",
+      "type": "publication",
+      "excerpt": "Announcement and community remembrance",
+      "date": "2026-06-25"
+    }
+  ],
+  "tweets": [
+    {
+      "author": "Emily Chang",
+      "handle": "@emilychangtv",
+      "platform": "X/Twitter",
+      "text": "Om Malik helped shape the journalist I became, teaching me to understand the people behind companies, question the hype, and never lose sight of the bigger picture.",
+      "date": "2026-06-24",
+      "verified": true
+    },
+    {
+      "author": "Abhishek Baxi",
+      "text": "Om Malik inspired a generation to believe they could write for the world. He will be remembered for his sharp journalism and the warmth he exuded.",
+      "date": "2026-06-24"
+    },
+    {
+      "author": "Werner Vogels",
+      "handle": "@wernervogels",
+      "platform": "X/Twitter",
+      "text": "I had great respect for Om Malik and had many deep conversations with him in the early days of Cloud Computing.",
+      "date": "2026-06-24",
+      "verified": true
+    },
+    {
+      "author": "True Ventures",
+      "text": "Remember this beautiful soul and great thinker. Om would ask us to slow down a bit and think more deeply and express our love for one another.",
+      "date": "2026-06-24"
+    }
+  ],
+  "photos": [
+    {
+      "title": "Om the Great",
+      "photographer": "Christopher Michel",
+      "url": "https://www.christophermichel.com/People/Om-the-Great/n-WkMDW",
+      "description": "A photographer's visual tribute celebrating Om's life through images"
+    }
+  ]
+}
