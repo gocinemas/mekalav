@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miru Studio — Autonomous Agents for UK Life</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #faf8f5;
+            --surface: #ffffff;
+            --text: #1a1714;
+            --muted: #7a7168;
+            --accent: #d97706;
+            --accent-light: #f59e0b;
+            --border: #e8e4df;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f0e0c;
+                --surface: #1a1815;
+                --text: #f0ece6;
+                --muted: #8a8078;
+                --accent: #f59e0b;
+                --accent-light: #fbbf24;
+                --border: #2a2724;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Nav */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 248, 245, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            nav {
+                background: rgba(15, 14, 12, 0.92);
+            }
+        }
+
+        .nav-brand {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-brand span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .nav-cta:hover {
+            opacity: 0.9;
+        }
+
+        /* Hero */
+        .hero {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--muted);
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(217, 119, 6, 0.2);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            padding: 12px 28px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text);
+            background: var(--surface);
+        }
+
+        /* Agents Grid */
+        .agents-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--muted);
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .agent-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px 24px;
+            transition: all 0.3s;
+        }
+
+        .agent-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+        }
+
+        .agent-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .agent-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .agent-desc {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .agent-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .agent-features li {
+            font-size: 13px;
+            color: var(--muted);
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .agent-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .agent-cta {
+            background: var(--accent);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: opacity 0.2s;
+        }
+
+        .agent-cta:hover {
+            opacity: 0.9;
+        }
+
+        /* API Docs Section */
+        .api-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .api-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .api-content h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .api-content p {
+            font-size: 15px;
+            color: var(--muted);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .code-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--text);
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        /* Pricing */
+        .pricing-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .pricing-card {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 32px 24px;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            background: var(--surface);
+            position: relative;
+            top: -8px;
+        }
+
+        .pricing-badge {
+            background: var(--accent);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .pricing-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pricing-price {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .pricing-period {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .pricing-features li {
+            font-size: 13px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 24px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .api-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Nav -->
+    <nav>
+        <div class="nav-brand">Miru <span>Studio</span></div>
+        <div class="nav-links">
+            <a href="#agents">Agents</a>
+            <a href="#api">API</a>
+            <a href="#pricing">Pricing</a>
+            <a href="https://miru.humanagency.co" class="nav-cta">Open Miru</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Autonomous Agents for UK Life</h1>
+        <p>Individual agents that handle commutes, money, admin, and life. Use via WhatsApp or integrate via API.</p>
+        <div class="hero-cta">
+            <a href="https://wa.me/message/YOUR_WHATSAPP_NUMBER" class="btn-primary">Try on WhatsApp</a>
+            <a href="#api" class="btn-secondary">View API Docs</a>
+        </div>
+    </section>
+
+    <!-- Agents -->
+    <section class="agents-section" id="agents">
+        <h2 class="section-title">Meet the Agents</h2>
+        <p class="section-subtitle">Each agent is autonomous, specialized, and available standalone or integrated.</p>
+
+        <div class="agents-grid">
+            <!-- Train Agent -->
+            <div class="agent-card">
+                <div class="agent-icon">🚆</div>
+                <div class="agent-name">Train Agent</div>
+                <p class="agent-desc">Real-time train times, delays, journey planning. Always knows your commute.</p>
+                <ul class="agent-features">
+                    <li>Live departure times</li>
+                    <li>Delay alerts</li>
+                    <li>Journey planner</li>
+                    <li>Saved routes</li>
+                </ul>
+                <a href="#" class="agent-cta">Try Now →</a>
+            </div>
+
+            <!-- Fuel Agent -->
+            <div class="agent-card">
+                <div class="agent-icon">⛽</div>
+                <div class="agent-name">Fuel Agent</div>
+                <p class="agent-desc">Cheapest fuel near you. Tracks prices, finds deals, calculates savings.</p>
+                <ul class="agent-features">
+                    <li>Nearby prices</li>
+                    <li>Price history</li>
+                    <li>Savings tracker</li>
+                    <li>Comparison</li>
+                </ul>
+                <a href="#" class="agent-cta">Try Now →</a>
+            </div>
+
+            <!-- Elections Agent -->
+            <div class="agent-card">
+                <div class="agent-icon">🗳️</div>
+                <div class="agent-name">Elections Agent</div>
+                <p class="agent-desc">Council elections, candidates, voting info. Your local political data.</p>
+                <ul class="agent-features">
+                    <li>Local candidates</li>
+                    <li>Voting dates</li>
+                    <li>Council info</li>
+                    <li>MP details</li>
+                </ul>
+                <a href="#" class="agent-cta">Try Now →</a>
+            </div>
+
+            <!-- Expense Agent -->
+            <div class="agent-card">
+                <div class="agent-icon">💰</div>
+                <div class="agent-name">Expense Agent</div>
+                <p class="agent-desc">Receipt capture & auto-categorization. Tracks spending automatically.</p>
+                <ul class="agent-features">
+                    <li>Receipt OCR</li>
+                    <li>Auto-category</li>
+                    <li>Budget tracking</li>
+                    <li>Reports</li>
+                </ul>
+                <a href="#" class="agent-cta">Try Now →</a>
+            </div>
+
+            <!-- School Agent -->
+            <div class="agent-card">
+                <div class="agent-icon">📚</div>
+                <div class="agent-name">School Agent</div>
+                <p class="agent-desc">School comms, events, alerts. Stays on top of school life for you.</p>
+                <ul class="agent-features">
+                    <li>Gmail polling</li>
+                    <li>Event alerts</li>
+                    <li>Holiday dates</li>
+                    <li>Smart summaries</li>
+                </ul>
+                <a href="#" class="agent-cta">Try Now →</a>
+            </div>
+
+            <!-- Council Agent -->
+            <div class="agent-card">
+                <div class="agent-icon">🏛️</div>
+                <div class="agent-name">Council Agent</div>
+                <p class="agent-desc">Council services, waste collection, planning apps. Local admin simplified.</p>
+                <ul class="agent-features">
+                    <li>Waste dates</li>
+                    <li>Planning info</li>
+                    <li>Local services</li>
+                    <li>Reps contact</li>
+                </ul>
+                <a href="#" class="agent-cta">Try Now →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Section -->
+    <section class="api-section" id="api">
+        <h2 class="section-title">Developer API</h2>
+        <div class="api-grid">
+            <div class="api-content">
+                <h3>Integrate Any Agent</h3>
+                <p>Each agent is available as a REST API. Use them standalone or build on top.</p>
+                <p>Examples:</p>
+                <ul class="agent-features">
+                    <li>Train times in your app</li>
+                    <li>Fuel prices in your dashboard</li>
+                    <li>Election data in your platform</li>
+                    <li>Custom integrations</li>
+                </ul>
+                <a href="https://docs.miru.studio" class="btn-primary" style="margin-top: 20px;">View Full Docs</a>
+            </div>
+            <div>
+                <div class="code-block">GET /api/train/times
+?postcode=SW1A1AA
+&destination=London+King
+
+{
+  "trains": [
+    {
+      "time": "14:32",
+      "destination": "London King's Cross",
+      "platform": "7",
+      "delay": null
+    }
+  ]
+}</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section" id="pricing">
+        <h2 class="section-title">Pricing</h2>
+        <p class="section-subtitle">Choose what works for you</p>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-name">Free</div>
+                <div class="pricing-price">£0</div>
+                <div class="pricing-period">Forever</div>
+                <ul class="pricing-features">
+                    <li>✓ 3 agents (Train, Fuel, School)</li>
+                    <li>✓ Basic features</li>
+                    <li>✓ WhatsApp access</li>
+                    <li>✗ API access</li>
+                </ul>
+                <a href="#" class="btn-secondary" style="width: 100%;">Get Started</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Popular</div>
+                <div class="pricing-name">Pro</div>
+                <div class="pricing-price">£9.99</div>
+                <div class="pricing-period">/month</div>
+                <ul class="pricing-features">
+                    <li>✓ All 6 agents</li>
+                    <li>✓ Advanced features</li>
+                    <li>✓ API access (100 req/day)</li>
+                    <li>✓ Priority support</li>
+                </ul>
+                <a href="#" class="btn-primary" style="width: 100%;">Subscribe Now</a>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-name">API Only</div>
+                <div class="pricing-price">£49</div>
+                <div class="pricing-period">/month</div>
+                <ul class="pricing-features">
+                    <li>✓ All agents via API</li>
+                    <li>✓ 10,000 requests/month</li>
+                    <li>✓ Webhooks</li>
+                    <li>✓ Dev support</li>
+                </ul>
+                <a href="#" class="btn-secondary" style="width: 100%;">Start Free Trial</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Miru Studio. Built by <a href="https://mekalav.com" style="color: var(--text); text-decoration: underline;">humanagency.co</a></p>
+    </footer>
+</body>
+</html>
