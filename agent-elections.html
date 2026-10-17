@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elections Agent — Local Democracy Made Simple</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #faf8f5;
+            --surface: #ffffff;
+            --text: #1a1714;
+            --muted: #7a7168;
+            --accent: #8b5cf6;
+            --accent-light: #a78bfa;
+            --border: #e8e4df;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f0e0c;
+                --surface: #1a1815;
+                --text: #f0ece6;
+                --muted: #8a8078;
+                --accent: #a78bfa;
+                --border: #2a2724;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 248, 245, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-brand span {
+            color: var(--accent);
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .hero {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: var(--muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(167, 139, 250, 0.2);
+        }
+
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+            margin-bottom: 80px;
+        }
+
+        .use-case {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 24px;
+        }
+
+        .use-case-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .use-case-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .use-case-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .demo-section {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .demo-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        .candidate {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .candidate-info h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .candidate-party {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .candidate-stance {
+            font-size: 12px;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .candidate-votes {
+            text-align: right;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .features-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+            border-top: 1px solid var(--border);
+            padding-top: 80px;
+        }
+
+        .features-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 24px;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .feature-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .use-cases {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-brand">Elections <span>Agent</span></div>
+        <a href="mekalav.com/studio" class="nav-cta">← Back to Studio</a>
+    </nav>
+
+    <section class="hero">
+        <h1>Local Democracy Made Simple</h1>
+        <p class="tagline">Know your candidates, track voting dates, and understand local politics. Elections Agent brings clarity to UK local government.</p>
+        <a href="#" class="btn-primary">Try on WhatsApp →</a>
+
+        <div class="use-cases">
+            <div class="use-case">
+                <div class="use-case-icon">🗳️</div>
+                <div class="use-case-title">Find Your Candidates</div>
+                <div class="use-case-desc">See who's running in your ward with their platforms and records.</div>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon">📅</div>
+                <div class="use-case-title">Never Miss a Vote</div>
+                <div class="use-case-desc">Get reminders for elections and know exactly where/when to vote.</div>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon">👤</div>
+                <div class="use-case-title">Know Your MP</div>
+                <div class="use-case-desc">See your MP's voting record, contact info, and upcoming surgeries.</div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <div class="demo-title">Live Example — Local Council Election</div>
+            <div class="candidate">
+                <div class="candidate-info">
+                    <h3>Sarah Johnson</h3>
+                    <div class="candidate-party">Labour Party</div>
+                    <div class="candidate-stance">Focus: local schools, green spaces, affordable housing</div>
+                </div>
+                <div class="candidate-votes">1,245 votes</div>
+            </div>
+            <div class="candidate">
+                <div class="candidate-info">
+                    <h3>Michael Chen</h3>
+                    <div class="candidate-party">Conservative Party</div>
+                    <div class="candidate-stance">Focus: business growth, council efficiency, transport</div>
+                </div>
+                <div class="candidate-votes">980 votes</div>
+            </div>
+            <div class="candidate">
+                <div class="candidate-info">
+                    <h3>Emma Thompson</h3>
+                    <div class="candidate-party">Liberal Democrats</div>
+                    <div class="candidate-stance">Focus: climate action, local business support, community</div>
+                </div>
+                <div class="candidate-votes">756 votes</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <h2 class="features-title">Powered By</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-name">Real Democracy Club Data</div>
+                <div class="feature-desc">Official UK local election data with candidate info and voting records.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <div class="feature-name">Live Updates</div>
+                <div class="feature-desc">Results update in real-time as votes are counted.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🗺️</div>
+                <div class="feature-name">Location-Based</div>
+                <div class="feature-desc">Automatically shows candidates and info for YOUR ward.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <div class="feature-name">Smart Alerts</div>
+                <div class="feature-desc">Get notified about elections, candidates, and voting dates in advance.</div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
