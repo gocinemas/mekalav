@@ -1839,6 +1839,34 @@ footer {
   </div>
 </div>
 
+<!-- ── Chat widget ── -->
+<button class="chat-fab" id="chat-fab" onclick="toggleChat()">💬 Ask me anything</button>
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-avatar">🤖</div>
+      <div>
+        <div class="chat-header-name">Vikram's AI</div>
+        <div class="chat-header-sub">Ask me anything about his work</div>
+      </div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-msg ai">Hi, I'm an extension of Vikram and can answer questions about his career, projects or availability or anything you have in mind. I've also got interesting content on this site which is useful to you and covers a lot of useful ground. What can I answer?</div>
+  </div>
+  <div class="chat-starters" id="chat-starters">
+    <button class="chat-starter" onclick="chatSend('What has Vikram worked on at Unilever?')">What has he done at Unilever?</button>
+    <button class="chat-starter" onclick="chatSend('Is Vikram available for consulting?')">Is he available for consulting?</button>
+    <button class="chat-starter" onclick="chatSend('What is Miru?')">What is Miru?</button>
+    <button class="chat-starter" onclick="chatSend('What is Intel and how can I try it?')">What is Intel?</button>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chat-input" type="text" placeholder="Ask something…" onkeydown="if(event.key==='Enter')chatSend()">
+    <button class="chat-send" onclick="chatSend()">→</button>
+  </div>
+</div>
+
 <div class="modal-overlay" id="article-modal">
   <div class="modal">
     <h3 id="modal-title">Add article</h3>
