@@ -4,7 +4,7 @@ date: 2026-10-26
 author: Vikram Mekala
 description: "Notes from The Do Lectures' Fifth Day AI workshop in London, 23 October 2026: leaks, the 5%, and how the room was run."
 slug: the-fifth-day
-tags: [Field notes]
+tags: [Events, Do Lectures, Field notes]
 ---
 
 I went to The Fifth Day, a workshop by [The Do Lectures](https://thedolectures.com/workshops/the-fifth-day-london/), on Friday 23 October. It was my first Do Lectures event. I've followed them for years, so I was really looking forward to it.

@@ -14,6 +14,8 @@ Most companies don't fail their customers on purpose. They fail them because rig
 - **Author:** John Sills
 - **Publisher:** Bloomsbury Business, April 2023
 - **Recognition:** Leadership Book of the Year 2023, Institute of Leadership
+- **ISBN:** 9781399401739
+- **Get it:** [Find it on Bookshop.org](https://bookshop.org/p/books/the-human-experience-how-to-make-life-better-for-your-customers-and-create-a-more-successful-organization-john-sills/bcdfbed412108f62?ean=9781399401739)
 - **Read:** October 2026
 - **My verdict:** One of the best books I've read on customer experience. I keep going back to it.
 
