@@ -26,6 +26,7 @@ SITE_NAME = "Vikram Mekala"
 
 NAV_LINKS = [("/labs", "Products"), ("/writing/", "Writing"), ("/#contact", "Contact")]
 NUMBERED = re.compile(r"^\d+\. ")
+HEADING_CLASS = re.compile(r"^(.*?)(?:\s*\{\.([\w-]+)\})?$")
 
 
 def esc(text):
@@ -60,7 +61,11 @@ def render_body(markdown):
         if lines == ["---"]:
             out.append("<hr>")
         elif lines[0].startswith("## "):
-            out.append(f"<h2>{inline(lines[0][3:])}</h2>")
+            text, css_class = HEADING_CLASS.match(lines[0][3:]).groups()
+            attr = f' class="{css_class}"' if css_class else ""
+            out.append(f"<h2{attr}>{inline(text)}</h2>")
+        elif all(line.startswith("> ") for line in lines):
+            out.append("<blockquote><p>" + inline(" ".join(line[2:] for line in lines)) + "</p></blockquote>")
         elif all(NUMBERED.match(line) for line in lines):
             items = "".join("<li>" + inline(NUMBERED.sub("", line)) + "</li>" for line in lines)
             out.append("<ol>" + items + "</ol>")
@@ -139,6 +144,7 @@ def list_page(posts):
       <time datetime="{post["date"].isoformat()}">{fmt_date(post["date"])}</time>
       <h2><a href="/writing/{post["slug"]}/">{esc(post["title"])}</a></h2>
       <p>{esc(post["description"])}</p>
+      <ul class="tags">{"".join("<li>" + esc(tag) + "</li>" for tag in post["tags"])}</ul>
     </li>"""
     main = f"""<main class="wrap">
   <p class="eyebrow">Writing</p>

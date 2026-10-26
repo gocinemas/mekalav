@@ -13,7 +13,9 @@ It was at Cecil Sharp House in Camden Town, such a lovely part of London. It rai
 
 The morning of the event, David and Gemma sent a prompt pack and a short list of what to bring: our own AI tool, mobile data in case the wifi was slow, and ideally our email connected so the AI could look through invoices and receipts. If you didn't want to do that, you could use a bank statement with the personal details taken out, or some dummy data they'd prepared. I liked that they thought about privacy and about people who weren't set up.
 
-The day was about using AI to find where a small business quietly loses time and money. The prompts had names like Subscription Audit, Profit Detective, The Invisible Leak and The 5% Detective. Each one sends the AI off to look for something specific, and then you look at what it found. The question we kept coming back to was: what is my 5%?
+The day was about using AI to find where a small business quietly loses time and money. The prompts had names like Subscription Audit, Profit Detective, The Invisible Leak and The 5% Detective. Each one sends the AI off to look for something specific, and then you look at what it found. The question we kept coming back to was:
+
+> What is my 5%?
 
 It was an interactive workshop, so you could ask a question while David was speaking, not just at the end. It felt like a conversation, not a lecture. And there was always something to eat or drink: breakfast, cookies, coffee, lunch. Nobody had to wonder what was next.
 
@@ -41,7 +43,7 @@ It was great to finally meet [David Hieatt](https://thedolectures.com/speakers/d
 
 A day well spent. I'm building my own company now, and I'd like to take from it how they make people feel looked after. Thank you, David, Gemma, Clare and the team.
 
-## When, where, what
+## When, where, what {.facts}
 
 - **When:** Friday 23 October 2026
 - **Where:** Cecil Sharp House, 2 Regent's Park Road, London NW1 7AY ([open in Google Maps](https://www.google.com/maps/search/?api=1&query=Cecil+Sharp+House+2+Regent%27s+Park+Road+London+NW1+7AY))
