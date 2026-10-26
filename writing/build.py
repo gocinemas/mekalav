@@ -24,7 +24,15 @@ SITE_URL = "https://mekalav.com"
 SHARE_IMAGE = f"{SITE_URL}/vikram.jpg"
 SITE_NAME = "Vikram Mekala"
 
-NAV_LINKS = [("/labs", "Products"), ("/writing/", "Writing"), ("/#contact", "Contact")]
+NAV_LINKS = [
+    ("/labs", "Products"),
+    ("/#story", "Story"),
+    ("/#career", "Career"),
+    ("/#building", "Work"),
+    ("/#articles", "Thinking"),
+    ("/writing/", "Writing"),
+    ("/#contact", "Contact"),
+]
 NUMBERED = re.compile(r"^\d+\. ")
 HEADING_CLASS = re.compile(r"^(.*?)(?:\s*\{\.([\w-]+)\})?$")
 
@@ -99,15 +107,19 @@ def nav(current):
         links += f'\n    <a href="{href}"{attr}>{label}</a>'
     return f"""<nav>
   <a href="/" class="nav-brand">
-    <img src="/vikram.jpg" alt="" class="nav-brand-photo">
-    <span class="nav-name">Vikram<span>.</span></span>
+    <img src="/vikram.jpg" alt="Vikram" class="nav-brand-photo">
+    <div class="nav-name">Vikram<span>.</span></div>
+    <span class="nav-avail"><span class="nav-avail-dot"></span>Available</span>
   </a>
   <div class="nav-links">{links}
   </div>
-  <div class="theme-toggle">
-    <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
-    <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
-    <button class="theme-btn" data-t="dark" onclick="setTheme('dark')" title="Dark">🌙</button>
+  <div class="nav-right">
+    <a href="/#contact" class="nav-mobile-cta">Contact</a>
+    <div class="theme-toggle">
+      <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
+      <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
+      <button class="theme-btn" data-t="dark" onclick="setTheme('dark')" title="Dark">🌙</button>
+    </div>
   </div>
 </nav>"""
 

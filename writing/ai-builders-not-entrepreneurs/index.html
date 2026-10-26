@@ -30,18 +30,26 @@
 <body>
 <nav>
   <a href="/" class="nav-brand">
-    <img src="/vikram.jpg" alt="" class="nav-brand-photo">
-    <span class="nav-name">Vikram<span>.</span></span>
+    <img src="/vikram.jpg" alt="Vikram" class="nav-brand-photo">
+    <div class="nav-name">Vikram<span>.</span></div>
+    <span class="nav-avail"><span class="nav-avail-dot"></span>Available</span>
   </a>
   <div class="nav-links">
     <a href="/labs">Products</a>
+    <a href="/#story">Story</a>
+    <a href="/#career">Career</a>
+    <a href="/#building">Work</a>
+    <a href="/#articles">Thinking</a>
     <a href="/writing/" aria-current="page">Writing</a>
     <a href="/#contact">Contact</a>
   </div>
-  <div class="theme-toggle">
-    <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
-    <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
-    <button class="theme-btn" data-t="dark" onclick="setTheme('dark')" title="Dark">🌙</button>
+  <div class="nav-right">
+    <a href="/#contact" class="nav-mobile-cta">Contact</a>
+    <div class="theme-toggle">
+      <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
+      <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
+      <button class="theme-btn" data-t="dark" onclick="setTheme('dark')" title="Dark">🌙</button>
+    </div>
   </div>
 </nav>
 <main class="wrap post">
