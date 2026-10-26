@@ -13,9 +13,7 @@ Everyone keeps saying AI will turn us all into entrepreneurs. I don't buy it. I 
 
 A few years ago a small business needed a developer, a designer, someone on support and someone doing ads. Now one person with a laptop and a few AI tools can do most of that over a weekend.
 
-I've done it myself. [ADD 2-3 LINES: what you built, how long it took, and what was hard about getting people to use it. Keep it honest and specific.]
-
-And I'm clearly not the only one. Over a third of new US startups now have a single founder, up from under a quarter in 2019, according to [Carta's Solo Founders Report](https://carta.com/data/solo-founders-report).
+I'm clearly not the only one. Over a third of new US startups now have a single founder, up from under a quarter in 2019, according to [Carta's Solo Founders Report](https://carta.com/data/solo-founders-report).
 
 ## Finding customers hasn't
 
