@@ -108,6 +108,20 @@ h1 {
 
 /* Single post */
 .meta { font-size: 14px; color: var(--muted); margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+.post-body p, .post-body li { font-size: 18px; line-height: 1.7; }
+.post-body p { margin-bottom: 22px; }
+.post-body h2 { font-size: 24px; letter-spacing: -0.3px; margin: 48px 0 16px; }
+.post-body ol, .post-body ul { padding-left: 1.4em; margin-bottom: 22px; }
+.post-body li { margin-bottom: 8px; }
+.post-body a { color: var(--accent); text-underline-offset: 3px; }
+.post-body hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+.tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 48px; }
+.tags li {
+  font-family: 'Bricolage Grotesque', sans-serif; font-size: 12px; color: var(--muted);
+  border: 1px solid var(--border); border-radius: 99px; padding: 3px 10px;
+}
+.back { display: inline-block; margin-top: 40px; font-size: 14px; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--text); }
 
 @media (max-width: 640px) {
   nav { padding: 10px 16px; }
