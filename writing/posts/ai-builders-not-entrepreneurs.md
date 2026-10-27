@@ -42,6 +42,8 @@ If you're thinking of going it alone, I'd worry less about whether you can build
 1. Who already trusts you enough to buy from you?
 2. What do you know about the problem that a stranger with the same tools doesn't?
 
+These aren't only questions for founders. Most of us in jobs have never had to find our own customer, because the company does that for us. They're worth asking even if you never leave.
+
 If you've got good answers to those, there's never been a better time. If you haven't, a steady job is still a perfectly sensible choice. Just don't assume it's guaranteed.
 
 ---
