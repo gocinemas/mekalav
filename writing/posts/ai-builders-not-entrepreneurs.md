@@ -4,7 +4,7 @@ date: 2026-10-27
 author: Vikram Mekala
 description: "Building has got cheap. Finding customers hasn't. A few numbers on solo founders, the App Store flood and AI job cuts, and two questions to ask before you go it alone."
 slug: ai-builders-not-entrepreneurs
-tags: [AI, entrepreneurship, careers, building]
+tags: [AI]
 ---
 
 Everyone keeps saying AI will turn us all into entrepreneurs. I don't buy it. I think it'll turn a lot of us into builders, which isn't the same thing.

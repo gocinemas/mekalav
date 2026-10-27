@@ -4,7 +4,7 @@ date: 2026-10-27
 author: Vikram Mekala
 description: "Someone on Threads asked what genuinely helped people find their spark again. The answers were smaller than I expected, and one of them stuck."
 slug: spark-back
-tags: [Motivation, Wellbeing, Life]
+tags: [Motivation]
 ---
 
 I saw a post on Threads the other day. Someone asked, "People who finally found their spark back, what genuinely helped?"

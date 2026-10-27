@@ -4,7 +4,7 @@ date: 2026-10-26
 author: Vikram Mekala
 description: "My notes on John Sills' The Human Experience: why rigid process stops good people acting like humans, and what it means for delivery work."
 slug: the-human-experience
-tags: [Books, Customer experience, Leadership]
+tags: [Books]
 ---
 
 Most companies don't fail their customers on purpose. They fail them because rigid process and automation stop good people from acting like humans.
