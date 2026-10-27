@@ -17,6 +17,7 @@ import datetime
 import html
 import pathlib
 import re
+import urllib.parse
 
 WRITING_DIR = pathlib.Path(__file__).resolve().parent
 POSTS_DIR = WRITING_DIR / "posts"
@@ -96,6 +97,19 @@ def load_post(path):
     return post
 
 
+def tag_links(tags):
+    return "".join(
+        f'<li><a href="/writing/?tag={urllib.parse.quote(tag)}">{esc(tag)}</a></li>' for tag in tags
+    )
+
+
+def search_text(post):
+    body = re.sub(r"<[^>]+>", " ", post["html"])
+    body = html.unescape(body)
+    words = " ".join([post["title"], post["description"], " ".join(post["tags"]), body])
+    return re.sub(r"\s+", " ", words).strip().lower()
+
+
 def fmt_date(date):
     return f"{date.day} {date:%B %Y}"
 
@@ -150,19 +164,35 @@ def page(title, description, canonical, current, main, head_extra=""):
 
 def list_page(posts):
     items = ""
+    counts = {}
     for post in posts:
+        for tag in post["tags"]:
+            counts[tag] = counts.get(tag, 0) + 1
         items += f"""
-    <li class="post-item">
+    <li class="post-item" data-tags="{esc("|".join(t.lower() for t in post["tags"]))}" data-search="{esc(search_text(post))}">
       <time datetime="{post["date"].isoformat()}">{fmt_date(post["date"])}</time>
       <h2><a href="/writing/{post["slug"]}/">{esc(post["title"])}</a></h2>
       <p>{esc(post["description"])}</p>
-      <ul class="tags">{"".join("<li>" + esc(tag) + "</li>" for tag in post["tags"])}</ul>
+      <ul class="tags">{tag_links(post["tags"])}</ul>
     </li>"""
+    tag_buttons = '<button type="button" class="tag-filter active" data-tag="">All</button>'
+    for tag in sorted(counts, key=lambda t: (-counts[t], t.lower())):
+        tag_buttons += (
+            f'<button type="button" class="tag-filter" data-tag="{esc(tag.lower())}">'
+            f'{esc(tag)} <span>{counts[tag]}</span></button>'
+        )
     main = f"""<main class="wrap">
   <p class="eyebrow">Writing</p>
   <h1>Writing</h1>
+  <div class="writing-search" role="search">
+    <label for="writing-q" class="sr-only">Search writing</label>
+    <input id="writing-q" type="search" placeholder="Search posts, topics, words..." autocomplete="off">
+    <div class="tag-filters" aria-label="Filter by topic">{tag_buttons}</div>
+    <p class="search-status" aria-live="polite"></p>
+  </div>
   <ul class="post-list">{items}
   </ul>
+  <p class="no-results" hidden>Nothing matches that yet. Try another word or clear the filter.</p>
 </main>"""
     return page(
         title=f"Writing — {SITE_NAME}",
@@ -176,7 +206,7 @@ def list_page(posts):
 def post_page(post):
     url = f"{SITE_URL}/writing/{post['slug']}/"
     title, description = post["title"], post["description"]
-    tags = "".join("<li>" + esc(tag) + "</li>" for tag in post["tags"])
+    tags = tag_links(post["tags"])
     article_tags = "".join(
         '<meta property="article:tag" content="' + esc(tag) + '">\n' for tag in post["tags"]
     )
