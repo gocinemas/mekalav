@@ -280,6 +280,10 @@ nav {
   color: var(--text); border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none;
 }
 .writing-strip { margin-bottom: 40px; }
+.ask-lead { font-size: 19px; color: var(--muted); line-height: 1.65; max-width: 600px; margin-bottom: 32px; }
+.ask-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.quiet-link { margin-top: 18px; font-size: 13px; }
+.quiet-link a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
 .writing-strip-item {
   display: grid; grid-template-columns: 110px 1fr; gap: 20px; align-items: baseline;
   padding: 16px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text);
@@ -960,7 +964,7 @@ footer {
     <div class="journey-stop">🇬🇧 London 2005</div>
   </div>
   <div class="hero-ctas">
-    <a id="hero-cal-link" href="https://cal.com/mekalav/qc" target="_blank" rel="noopener" class="btn-primary">📞 Let's have a chat</a>
+    <a href="#ask" class="btn-primary">Got an AI question?</a>
     <a href="#labs" class="btn-secondary">See the work</a>
   </div>
   <div id="visitor-time-line" style="display:none;font-size:12px;color:var(--muted);margin-top:8px"></div>
@@ -978,8 +982,11 @@ footer {
     25 years managing enterprise transformation + this year building 4 live AI products. I combine deep constraints experience with hands-on execution. Whatever the engagement—contract, advisory, fractional CTO, programme lead—I work best as part of your team, shipping real things.
   </p>
   <div class="contract-ctas">
-    <a href="https://calendly.com/mekala/15min" target="_blank" rel="noopener" class="contract-btn">📅 Schedule a call</a>
-    <a href="#contact" class="contract-btn contract-btn-secondary">✉️ Send me an email</a>
+    <a href="#ask" class="contract-btn">✉️ Send me the problem</a>
+    <a href="#contact" class="contract-btn contract-btn-secondary">Contact</a>
+  </div>
+  <div class="quiet-link">
+    <a href="https://calendly.com/mekala/15min" target="_blank" rel="noopener">Prefer a call? Book 15 minutes →</a>
   </div>
 </div>
 
@@ -1709,6 +1716,16 @@ footer {
 
 
 
+<section id="ask">
+  <div class="section-label">Ask</div>
+  <h2>Got an AI question? Stuck on a problem?</h2>
+  <p class="ask-lead">Enterprise AI, a process that needs fixing, or something you're not sure is possible. Send it over. I'll give you a straight answer, and I enjoy this kind of problem.</p>
+  <div class="ask-ctas">
+    <a id="ask-email-link" href="#contact" class="btn-primary">Send me your question</a>
+    <a href="#" onclick="toggleChat(); return false;" class="btn-secondary">Ask in chat</a>
+  </div>
+</section>
+
 <section id="contact">
   <div class="section-label">Contact</div>
   <h2>Get in touch</h2>
@@ -1734,10 +1751,10 @@ footer {
         <div class="contact-value" id="contact-wa-val"></div>
       </div>
     </a>
-    <a href="https://calendly.com/mekala/15min" target="_blank" rel="noopener" class="contact-item" style="border-color:var(--accent)">
+    <a href="https://calendly.com/mekala/15min" target="_blank" rel="noopener" class="contact-item">
       <span class="contact-icon">📅</span>
       <div>
-        <div class="contact-label" style="color:var(--accent)">Book a call</div>
+        <div class="contact-label">Book a call</div>
         <div class="contact-value">15 min intro · calendly.com/mekala</div>
       </div>
     </a>
@@ -1959,6 +1976,7 @@ async function careerAiSummary(e) {
   const p = ["+44","759","507","5735"].join(" ");
   const praw = "447595075735";
   document.getElementById("contact-email-link").href = "mailto:" + e;
+  document.getElementById("ask-email-link").href = "mailto:" + e + "?subject=" + encodeURIComponent("AI question");
   document.getElementById("contact-email-val").textContent = e;
   document.getElementById("contact-phone-link").href = "tel:+" + praw;
   document.getElementById("contact-phone-val").textContent = p;
