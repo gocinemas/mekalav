@@ -280,6 +280,24 @@ nav {
   color: var(--text); border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none;
 }
 .writing-strip { margin-bottom: 40px; }
+.product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 64px; }
+.p-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+  padding: 28px 24px; min-height: 260px; display: flex; flex-direction: column;
+  justify-content: space-between; text-decoration: none; color: var(--text);
+  transition: border-color .15s;
+}
+.p-card:hover { border-color: var(--muted); }
+.p-card h3 { font-size: 26px; margin: 36px 0 10px; }
+.p-card p { font-size: 15px; color: var(--muted); line-height: 1.5; }
+.p-tag { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.p-go { margin-top: 22px; font-size: 14px; font-weight: 700; color: var(--accent); }
+.p-card-feature { background: var(--text); color: var(--bg); border-color: var(--text); }
+.p-card-feature p, .p-card-feature .p-tag { color: #b9b0a6; }
+.p-card-feature .p-go { color: var(--accent); }
+.sub-h { font-size: 26px; letter-spacing: -.5px; margin-bottom: 8px; }
+.sub-lead { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 32px; }
+@media (max-width: 640px) { .product-grid { grid-template-columns: 1fr; } }
 .ask-lead { font-size: 19px; color: var(--muted); line-height: 1.65; max-width: 600px; margin-bottom: 32px; }
 .ask-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
 .quiet-link { margin-top: 18px; font-size: 13px; }
@@ -1005,9 +1023,24 @@ footer {
 
 <!-- ── Labs ──────────────────────────────────────────────────── -->
 <section id="labs">
-  <div class="section-label">Try</div>
-  <h2>Miru — WhatsApp Agent for Everyday Life</h2>
-  <p style="font-size:15px;color:var(--muted);margin-bottom:32px;line-height:1.7">Autonomous agent that knows what matters right now. Context brief at 7:30am, then help when you need it. No app, no login.</p>
+  <div class="section-label">01 — Products</div>
+  <h2>Live, shipping, real.</h2>
+  <div class="product-grid">
+    <a class="p-card p-card-feature" href="https://miru.humanagency.co" target="_blank" rel="noopener">
+      <div class="p-tag">Consumer · live</div>
+      <div><h3>Miru</h3><p>WhatsApp assistant for everyday UK life. Context at 7:30am, help when you need it.</p><div class="p-go">Try it →</div></div>
+    </a>
+    <a class="p-card" href="https://intel.humanagency.co" target="_blank" rel="noopener">
+      <div class="p-tag">Research · live</div>
+      <div><h3>Intel</h3><p>Brand and company intelligence, built from real market data.</p><div class="p-go">Explore →</div></div>
+    </a>
+    <a class="p-card" href="#building">
+      <div class="p-tag">Open source</div>
+      <div><h3>Agent Factory</h3><p>Build and orchestrate AI agents without starting from scratch.</p><div class="p-go">Read more →</div></div>
+    </a>
+  </div>
+  <h3 class="sub-h">Try Miru now</h3>
+  <p class="sub-lead">Autonomous agent that knows what matters right now. Context brief at 7:30am, then help when you need it. No app, no login.</p>
 
 <!-- Lab 2: Miru chat -->
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px">
@@ -2348,8 +2381,6 @@ const DEFAULT_ARTICLES = [
   { id: "a5", title: "From corporate to builder: what I didn't expect", tag: "Career · Building", desc: "25 years in enterprise. One failed startup. Then everything changed. The gap between having an idea and building it has collapsed.", url: "/corporate-to-builder.html", date: "May 2026" },
   { id: "a3", title: "The WhatsApp test: if a 60-year-old can use it, it is ready", tag: "AI · Product", desc: "Why I build AI tools that start with WhatsApp, and what that constraint teaches you about real usability.", url: "/whatsapp-test.html", date: "May 2026" },
   { id: "a6", title: "A title does not make you a leader", tag: "Leadership · Transformation", desc: "The system keeps selecting for the wrong thing. After 25 years in enterprise transformation, the pattern is always the same.", url: "/leadership-title.html", date: "May 2026" },
-  { id: "a1", title: "Why most enterprise AI projects fail before they start", tag: "AI · Transformation", desc: "After 25 years inside Fortune 500 companies, the pattern is always the same. It is not the technology.", url: "#", date: "Coming soon" },
-  { id: "a2", title: "What moving from India to London taught me about building products", tag: "Career · Building", desc: "Moving countries three times rewires how you think about who a product is really for.", url: "#", date: "Coming soon" },
 ];
 
 function loadData() {
