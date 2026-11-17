@@ -83,6 +83,27 @@ for name, anchor in (("DEFAULT_ARTICLES", "articles"),):
             x = dd.group(2) + (f" Source: {src.group(2)}." if src else "")
             docs.append({"t": f"{label}: {tt.group(2)}", "u": url, "x": x})
 
+# Reading list on the AI Learning Hub (ai.humanagency.co/reading.html): videos, use cases, articles.
+# Reads the sibling ai-humanagency checkout if it's there.
+HUB = ROOT.parent / "ai-humanagency" / "reading.html"
+if HUB.exists():
+    r = HUB.read_text()
+    page = "https://ai.humanagency.co/reading.html"
+    for m in re.finditer(r'<div class="yt-item">([\s\S]*?)</div>\s*</div>', r):
+        it = m.group(1)
+        title = html.unescape(re.search(r'data-title="([^"]*)"', it).group(1))
+        vid = re.search(r'data-id="([^"]*)"', it).group(1)
+        ch = re.search(r'class="yt-channel">([^<]*)', it)
+        ch = html.unescape(ch.group(1)).strip() if ch else ""
+        docs.append({"t": f"Video: {title}", "u": page,
+                     "x": f"A talk on Vikram's AI reading list{', from ' + ch if ch else ''}. Watch on YouTube: https://youtu.be/{vid} or play it on the reading list page."})
+    for sec in re.finditer(r'<h2>([^<]+)</h2>([\s\S]*?)</section>', r):
+        if "Talks" in sec.group(1):
+            continue
+        for a in re.finditer(r'<div class="item"><a href="([^"]+)"[^>]*>([\s\S]*?)</a>\s*<span class="src-tag">\(([^)]*)\)', sec.group(2)):
+            docs.append({"t": f"Reading: {html.unescape(a.group(2))}", "u": a.group(1),
+                         "x": f"On Vikram's AI reading list under {sec.group(1).strip()}. Source: {html.unescape(a.group(3))}. Listed at {page}"})
+
 facts = (ROOT / "tools" / "chat-facts.md").read_text()
 facts = facts[facts.find("## Rules"):]
 out = {"facts": facts, "docs": docs}

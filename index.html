@@ -2177,7 +2177,7 @@ function _topPassages(q, docs, k) {
 }
 async function _withContext(q) {
   const idx = await _loadChatIndex();
-  const hits = _topPassages(q, idx.docs, 4);
+  const hits = _topPassages(q, idx.docs, /video|watch|talk|podcast|interview|listen/i.test(q) ? 8 : 4);
   let ctx = "Facts about Vikram (these override anything else you know):\n" + idx.facts;
   if (hits.length) ctx += "\n\nRelevant content from mekalav.com:\n" + hits.map((h, i) => `[${i + 1}] ${h.t} (${h.u})\n${h.x}`).join("\n\n");
   return `${ctx}\n\nVisitor's question: ${q}\n\nAnswer briefly and in plain English, using the facts and content above. If you use something from the site, include its link.`;
