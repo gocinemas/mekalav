@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Miru: AI daily brief for UK life · Vikram Mekala</title>
-<meta name="description" content="How I built a production AI assistant from scratch as a programme manager: WhatsApp, real data, real users, real decisions.">
+<meta name="description" content="How I built a production AI assistant from scratch as a programme manager and former software engineer: WhatsApp, real data, real users, real decisions.">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -112,7 +112,7 @@ strong { color: var(--text); font-weight: 700; }
   <div class="badge"><span class="badge-dot"></span> Live in production · 2025–2026</div>
 
   <h1>Miru: AI daily brief for UK life</h1>
-  <p class="subtitle">How I designed and shipped a production AI assistant as a programme manager with no engineering background, using AI tooling to bridge the gap between product thinking and working software.</p>
+  <p class="subtitle">How I designed and shipped a production AI assistant as a programme manager who started out as a software engineer, using AI tooling to bridge the gap between product thinking and working software.</p>
 
   <a href="https://miru.humanagency.co" target="_blank" rel="noopener" class="live-link">
     → See the live product
@@ -161,8 +161,8 @@ strong { color: var(--text); font-weight: 700; }
         <div class="decision-a">Early version showed tools (trains, fuel, school) as a grid. Users had to ask. The insight: the AI should <strong>lead with what matters today</strong>, not wait to be asked. Brief-first is the V2 architecture.</div>
       </div>
       <div class="decision">
-        <div class="decision-q">Groq (llama-3.1-8b) vs GPT-4</div>
-        <div class="decision-a">Speed and cost at this scale. The brief is generated from parallel data fetches and needs to arrive in under 3 seconds. <strong>Groq's inference speed</strong> is the reason that's possible.</div>
+        <div class="decision-q">A fast model over the biggest model</div>
+        <div class="decision-a">Speed and cost at this scale. The brief is generated from parallel data fetches and needs to arrive in under 3 seconds. A <strong>fast, low-cost model</strong> is the reason that's possible.</div>
       </div>
       <div class="decision">
         <div class="decision-q">What to cut</div>
@@ -194,7 +194,7 @@ strong { color: var(--text); font-weight: 700; }
       <div class="tl-item">
         <div class="tl-dot done">3</div>
         <div class="tl-body">
-          <div class="tl-title">Groq synthesis</div>
+          <div class="tl-title">AI synthesis</div>
           <div class="tl-desc">LLM writes 2–3 sentences. Told what data exists, what time it is, what matters today</div>
         </div>
       </div>
@@ -209,7 +209,7 @@ strong { color: var(--text); font-weight: 700; }
     <div class="stack">
       <span class="chip">Flask</span>
       <span class="chip">Supabase</span>
-      <span class="chip">Groq / llama-3.1</span>
+      <span class="chip">LLM</span>
       <span class="chip">Twilio WhatsApp</span>
       <span class="chip">Railway</span>
       <span class="chip">Gmail OAuth</span>
@@ -219,7 +219,7 @@ strong { color: var(--text); font-weight: 700; }
   <!-- What shipped -->
   <div class="section">
     <div class="section-label">What shipped</div>
-    <h2>Features across six months</h2>
+    <h2>What it does</h2>
     <div class="decisions">
       <div class="decision">
         <div class="decision-q">🗞️ Daily brief</div>
@@ -231,15 +231,15 @@ strong { color: var(--text); font-weight: 700; }
       </div>
       <div class="decision">
         <div class="decision-q">⛽ Fuel tracker</div>
-        <div class="decision-a">Cheapest petrol near any UK postcode. Live prices, nearest stations, historical trend.</div>
+        <div class="decision-a">Cheapest petrol near any UK postcode. Live prices and the nearest stations.</div>
       </div>
       <div class="decision">
         <div class="decision-q">🔎 Company Intel</div>
         <div class="decision-a">Agentic research tool: enter a company name, get a structured brief: news, leadership, strategy signals, hiring.</div>
       </div>
       <div class="decision">
-        <div class="decision-q">📌 Clippings + saves</div>
-        <div class="decision-a">Save anything via WhatsApp photo or URL. AI categorises and summarises. Surfaced back in the evening brief.</div>
+        <div class="decision-q">🧾 Bill scanner</div>
+        <div class="decision-a">Send a photo of a bill or receipt on WhatsApp. AI reads it and logs the spend for you.</div>
       </div>
     </div>
   </div>
@@ -252,7 +252,7 @@ strong { color: var(--text); font-weight: 700; }
     <div class="quote">
       "The skill I developed wasn't prompting. It was knowing exactly what I wanted, and being able to describe it precisely enough that the AI could build it correctly."
     </div>
-    <p>The result: a production app with a Flask backend, Supabase DB, Twilio WhatsApp integration, Gmail OAuth, and a full single-page web interface, shipped iteratively over six months, maintained and improved weekly.</p>
+    <p>The result: a production app with a Flask backend, Supabase DB, Twilio WhatsApp integration, Gmail OAuth, and a full single-page web interface, shipped iteratively, maintained and improved weekly.</p>
     <p>This is what AI-augmented product delivery looks like at the individual level. <strong>Transformation programmes should be run the same way.</strong></p>
   </div>
 
@@ -262,8 +262,8 @@ strong { color: var(--text); font-weight: 700; }
     <h2>In production, in daily use</h2>
     <div class="metrics">
       <div class="metric">
-        <div class="metric-num">6+</div>
-        <div class="metric-label">months live</div>
+        <div class="metric-num">7:30am</div>
+        <div class="metric-label">brief, every day</div>
       </div>
       <div class="metric">
         <div class="metric-num">Daily</div>

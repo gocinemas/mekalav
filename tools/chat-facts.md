@@ -20,7 +20,7 @@ Paste this over the old Vikram bio or knowledge text in Miru's /api/mekalav/chat
 Contact: vikram@humanagency.co, or book 15 minutes at calendly.com/mekala/15min.
 
 ## Career
-- 2025: Unilever, Magnum Ice Cream separation. Senior Project Manager, IT Separation, and Day 0 Hypercare Lead. Designed a SAP data segregation and access control framework across four SAP ECC landscapes. Zero outages through the cutover.
+- 2025: Unilever, Magnum Ice Cream separation. Senior Project Manager, IT Separation, and Day 0 Hypercare Lead. Designed a SAP data segregation and access control framework across four SAP ECC landscapes. Multiple production systems, including Workday and SAP, cut over at once; around 750 to 800 incidents through hypercare, at least half IT-related. Zero outages through the cutover.
 - 2020 to 2024: Unilever, Transformation Programme Lead, Global Media Analytics. A multi-million pound programme moving the analytics estate from Tableau to Power BI on Azure, across three continents. Led a team of project managers. Delivered on time; the operating model was adopted globally.
 - 2018 to 2020: Unilever, Global Product Transformation Manager, Net Revenue Management (NRM, also called eNRM or RGM: Price, Pack, Mix, Promo), including early eCommerce and Amazon data.
 - 2013 to 2018: Shell (Lead Business Analyst, innovation platform; Senior BA on Adobe Experience Manager), Unilever (Digital Consultant and Product Manager, brand platform for 90+ brands across many markets), LeasePlan (Senior BA, regulated financial services).
