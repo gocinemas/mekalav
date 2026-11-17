@@ -242,6 +242,25 @@ def post_page(post):
     )
 
 
+def update_home_strip(posts):
+    """Keep the three newest posts in the home page's Thinking section."""
+    home = WRITING_DIR.parent / "index.html"
+    text = home.read_text(encoding="utf-8")
+    start = text.find('<div class="writing-strip">')
+    end = text.find('<a class="writing-strip-all"', start)
+    if start < 0 or end < 0:
+        return
+    items = "".join(
+        f'\n    <a class="writing-strip-item" href="/writing/{p["slug"]}/"><time>{p["date"].day} {p["date"]:%b %Y}</time>'
+        f'<span>{esc(p["title"])}</span></a>'
+        for p in posts[:3]
+    )
+    new = text[:start] + '<div class="writing-strip">' + items + "\n    " + text[end:]
+    if new != text:
+        home.write_text(new, encoding="utf-8")
+        print("updated home page writing strip")
+
+
 def main():
     posts = []
     for path in sorted(POSTS_DIR.glob("*.md")):
@@ -257,6 +276,7 @@ def main():
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content, encoding="utf-8")
         print(f"wrote {target.relative_to(WRITING_DIR.parent)}")
+    update_home_strip(posts)
 
 
 if __name__ == "__main__":
