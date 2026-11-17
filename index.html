@@ -584,7 +584,7 @@ h2 { font-size: 40px; font-weight: 800; letter-spacing: -1.2px; line-height: 1.0
 }
 .chat-msg { max-width: 85%; padding: 9px 13px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
 .chat-msg.user { background: var(--text); color: var(--bg); align-self: flex-end; border-bottom-right-radius: 4px; }
-.chat-msg.ai { background: var(--surface2); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+.chat-msg.ai { white-space: pre-line; background: var(--surface2); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
 .chat-msg.typing { color: var(--muted); font-style: italic; }
 .chat-starters { display: flex; flex-direction: column; gap: 6px; padding: 0 14px 8px; }
 .chat-starter { background: none; border: 1px solid var(--border); border-radius: 99px; padding: 6px 12px; font-size: 12px; color: var(--muted); cursor: pointer; text-align: left; font-family: inherit; transition: border-color .1s; }
@@ -2232,6 +2232,21 @@ async function _withContext(q) {
   return `${ctx}\n\nVisitor's question: ${q}\n\nAnswer briefly and in plain English, using the facts and content above. If you use something from the site, include its link.`;
 }
 
+// If the AI can't be reached, still answer with the best matches from the site
+async function _offlineReply(q) {
+  const idx = await _loadChatIndex();
+  const hits = _topPassages(q, idx.docs, /video|watch|talk|podcast|interview|listen/i.test(q) ? 6 : 3);
+  if (!hits.length) return "The AI is busy right now. Please try again in a moment, or email vikram@humanagency.co.";
+  const seen = new Set(), lines = [];
+  hits.forEach(h => {
+    const yt = h.x.match(/https:\/\/youtu\.be\/[\w-]+/);
+    const url = yt ? yt[0] : h.u;
+    if (seen.has(url)) return; seen.add(url);
+    lines.push(`• ${h.t.replace(/^(Home|Writing|Essay|Video|Reading): /, "")}: ${url}`);
+  });
+  return "The AI is busy right now, but here's what I found on the site:\n" + lines.join("\n");
+}
+
 async function chatSend(preset) {
   const input = document.getElementById("chat-input");
   const msg = (preset || input.value).trim();
@@ -2251,10 +2266,12 @@ async function chatSend(preset) {
   try {
     const body = JSON.stringify({ message: await _withContext(msg), history: _chatHistory.slice(-7, -1) });
     const post = () => fetch("https://miru.humanagency.co/api/mekalav/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body });
-    let r = await post();
-    if (!r.ok) { await new Promise(res => setTimeout(res, 2500)); r = await post(); }
-    const d = await r.json();
-    const reply = d.reply || "Sorry, I couldn't get a response. Try emailing me directly.";
+    let d = {};
+    for (const wait of [0, 2000, 5000]) {
+      if (wait) await new Promise(res => setTimeout(res, wait));
+      try { const r = await post(); if (r.ok) { d = await r.json(); if (d.reply) break; } } catch (_) {}
+    }
+    const reply = d.reply || await _offlineReply(msg);
     _chatHistory.push({ role: "assistant", content: reply });
     typing.className = "chat-msg ai";
     typing.innerHTML = _linkify(reply);
