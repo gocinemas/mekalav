@@ -2247,11 +2247,10 @@ async function chatSend(preset) {
 
   _chatHistory.push({ role: "user", content: msg });
   try {
-    const r = await fetch("https://miru.humanagency.co/api/mekalav/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: await _withContext(msg), history: _chatHistory.slice(-7, -1) })
-    });
+    const body = JSON.stringify({ message: await _withContext(msg), history: _chatHistory.slice(-7, -1) });
+    const post = () => fetch("https://miru.humanagency.co/api/mekalav/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body });
+    let r = await post();
+    if (!r.ok) { await new Promise(res => setTimeout(res, 2500)); r = await post(); }
     const d = await r.json();
     const reply = d.reply || "Sorry, I couldn't get a response. Try emailing me directly.";
     _chatHistory.push({ role: "assistant", content: reply });
