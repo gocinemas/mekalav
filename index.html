@@ -2167,8 +2167,10 @@ async function _loadChatIndex() {
 }
 const _STOP = new Set("a an and are as at be but by can do does for from has have he his how i in is it its me my of on or so tell than that the their them there they this to was what when where which who why will with you your vikram".split(" "));
 function _terms(t) { return (t.toLowerCase().match(/[a-z0-9&+]+/g) || []).filter(w => w.length > 1 && !_STOP.has(w)); }
+const _ALIAS = { nrm: "enrm net revenue management pricing promo", rgm: "enrm net revenue management", gma: "global media analytics", "m&a": "separation demerger", demerger: "separation magnum", tmic: "magnum ice cream", ai: "artificial intelligence" };
+function _expand(q) { return q + " " + _terms(q).map(w => _ALIAS[w] || "").join(" "); }
 function _topPassages(q, docs, k) {
-  const qt = [...new Set(_terms(q))];
+  const qt = [...new Set(_terms(_expand(q)))];
   if (!qt.length) return [];
   const df = {}; docs.forEach(d => { const ws = new Set(_terms(d.t + " " + d.x)); qt.forEach(w => { if (ws.has(w)) df[w] = (df[w] || 0) + 1; }); });
   return docs.map(d => {
