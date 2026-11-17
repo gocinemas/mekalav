@@ -326,6 +326,41 @@ nav {
 }
 .journey-arrow { color: var(--muted); font-size: 14px; }
 .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-ask { max-width: 660px; margin-bottom: 18px; }
+.hero-ask-box {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1.5px solid var(--text); border-radius: 14px;
+  padding: 6px 6px 6px 18px; transition: box-shadow .15s;
+}
+.hero-ask-box:focus-within { box-shadow: 0 0 0 4px rgba(217,119,6,.25); border-color: var(--accent); }
+.hero-ask-box input {
+  flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+  font: inherit; font-size: 17px; color: var(--text); padding: 10px 0;
+}
+.hero-ask-box input::placeholder { color: var(--muted); }
+.hero-ask-box button {
+  flex-shrink: 0; border: none; cursor: pointer; font: inherit; font-weight: 700; font-size: 15px;
+  background: var(--text); color: var(--bg); border-radius: 10px; padding: 11px 22px;
+}
+.hero-ask-box button:hover { opacity: .85; }
+.hero-ask-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.hero-ask-chips button {
+  border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer;
+  font: inherit; font-size: 13px; border-radius: 99px; padding: 6px 13px; transition: color .15s, border-color .15s;
+}
+.hero-ask-chips button:hover, .hero-ask-chips button:focus-visible { color: var(--text); border-color: var(--text); }
+.hero-ask-box button:focus-visible, .hero-work-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.hero-work-link {
+  display: inline-block; font-size: 14px; font-weight: 700; color: var(--text);
+  text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--border);
+}
+.hero-work-link:hover { text-decoration-color: var(--accent); }
+@media (max-width: 480px) {
+  .hero-ask-box { padding-left: 14px; }
+  .hero-ask-box input { font-size: 16px; }
+  .hero-ask-box button { padding: 10px 16px; }
+}
+
 .btn-primary {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 12px 24px; background: var(--text); color: var(--bg);
@@ -559,6 +594,7 @@ h2 { font-size: 40px; font-weight: 800; letter-spacing: -1.2px; line-height: 1.0
   display: flex; align-items: center; gap: 8px;
   transition: transform .15s, opacity .15s; font-family: inherit;
 }
+.chat-fab.hero-visible { opacity: 0; pointer-events: none; transform: translateY(8px); }
 .chat-fab:hover { transform: translateY(-2px); opacity: .9; }
 .chat-panel {
   position: fixed; bottom: 84px; right: 24px; z-index: 900;
@@ -983,10 +1019,19 @@ footer {
     <div class="journey-arrow">→</div>
     <div class="journey-stop">🇬🇧 London 2005</div>
   </div>
-  <div class="hero-ctas">
-    <a href="#ask" class="btn-primary">Got an AI question?</a>
-    <a href="#labs" class="btn-secondary">See the work</a>
-  </div>
+  <form class="hero-ask" onsubmit="heroAsk(event)">
+    <div class="hero-ask-box">
+      <input id="hero-ask-input" type="text" placeholder="Ask me anything…" maxlength="300" autocomplete="off" aria-label="Ask me anything">
+      <button type="submit">Ask</button>
+    </div>
+    <div class="hero-ask-chips">
+      <button type="button" onclick="heroAsk(null, this.textContent)">What did he do on Magnum?</button>
+      <button type="button" onclick="heroAsk(null, this.textContent)">Show me AI talks</button>
+      <button type="button" onclick="heroAsk(null, this.textContent)">Explain AI agents simply</button>
+      <button type="button" onclick="heroAsk(null, this.textContent)">Will it rain today?</button>
+    </div>
+  </form>
+  <a href="#labs" class="hero-work-link">See the work</a>
   <div id="visitor-time-line" style="display:none;font-size:12px;color:var(--muted);margin-top:8px"></div>
   <div class="last-seen" id="last-seen">
     <span class="last-seen-dot"></span>
@@ -2144,6 +2189,22 @@ function toggleChat() {
   document.getElementById("chat-panel").classList.toggle("open", _chatOpen);
   if (_chatOpen) document.getElementById("chat-input").focus();
 }
+// Hide the floating chat button while the hero's ask box is on screen
+(function () {
+  const box = document.querySelector(".hero-ask"), fab = document.getElementById("chat-fab");
+  if (!box || !fab || !("IntersectionObserver" in window)) return;
+  fab.style.transition = (fab.style.transition ? fab.style.transition + ", " : "") + "opacity .2s, transform .2s";
+  new IntersectionObserver(([e]) => fab.classList.toggle("hero-visible", e.isIntersecting && !_chatOpen)).observe(box);
+})();
+function heroAsk(e, text) {
+  if (e) e.preventDefault();
+  const box = document.getElementById("hero-ask-input");
+  const q = (text || box.value).trim();
+  if (!q) { box.focus(); return; }
+  box.value = "";
+  if (!_chatOpen) toggleChat();
+  chatSend(q);
+}
 function closeChat() {
   _chatOpen = false;
   document.getElementById("chat-panel").classList.remove("open");
@@ -2230,7 +2291,7 @@ async function _withContext(q) {
   let ctx = "Live information (accurate right now, use it and never say you lack real-time data for these):\n" + live + "\n\nFacts about Vikram (these override anything else you know):\n" + idx.facts;
   if (hits.length) ctx += "\n\nRelevant content from mekalav.com:\n" + hits.map((h, i) => `[${i + 1}] ${h.t} (${h.u})\n${h.x}`).join("\n\n");
   const vid = /video|watch|talk|podcast|interview|listen/i.test(q) ? " If they want videos or talks, list 4 to 6 as short lines, each starting with •, with the title and its YouTube link, then one line pointing to https://ai.humanagency.co/reading.html for the full list." : "";
-  return `${ctx}\n\nVisitor's question: ${q}\n\nAnswer briefly and in plain English, using the facts and content above. If you use something from the site, include its link.${vid}`;
+  return `${ctx}\n\nVisitor's question: ${q}\n\nAnswer briefly and in plain English. Visitors can ask anything, not only about Vikram: for general questions (AI, tech, work, everyday things) give a genuinely helpful answer from your own knowledge, and bring in the site content above only where it adds something. For questions about Vikram, stick to the facts and content above. If you use something from the site, include its link.${vid}`;
 }
 
 // If the AI can't be reached, still answer with the best matches from the site
