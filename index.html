@@ -2177,10 +2177,55 @@ function _topPassages(q, docs, k) {
     return { d, sc };
   }).filter(o => o.sc > 0).sort((a, b) => b.sc - a.sc).slice(0, k).map(o => o.d);
 }
+// ── Live bits the chat can answer: time, date, weather ──
+const _WX = {0:"clear sky",1:"mostly clear",2:"partly cloudy",3:"overcast",45:"fog",48:"freezing fog",51:"light drizzle",53:"drizzle",55:"heavy drizzle",56:"freezing drizzle",57:"freezing drizzle",61:"light rain",63:"rain",65:"heavy rain",66:"freezing rain",67:"freezing rain",71:"light snow",73:"snow",75:"heavy snow",77:"snow grains",80:"light showers",81:"showers",82:"heavy showers",85:"snow showers",86:"heavy snow showers",95:"thunderstorms",96:"thunderstorms with hail",99:"thunderstorms with hail"};
+function _nowLines() {
+  const d = new Date(), fmt = tz => d.toLocaleString("en-GB", { timeZone: tz, weekday: "long", day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  const here = Intl.DateTimeFormat().resolvedOptions().timeZone || "Europe/London";
+  let t = `Right now in the UK (Vikram's time) it is ${fmt("Europe/London")}.`;
+  if (here !== "Europe/London") t += ` For the visitor (${here.replace(/_/g, " ")}) it is ${fmt(here)}.`;
+  return t;
+}
+function _wxPlace(q) {
+  const m = q.match(/\b(?:in|at|for|near|around)\s+([A-Za-z][A-Za-z .'-]{1,40}?)(?:\s+(?:today|tomorrow|tonight|now|this|right|at|on|please)\b|[?.!,]|$)/i);
+  return m ? m[1].trim() : null;
+}
+async function _here() {
+  return new Promise(res => {
+    if (!navigator.geolocation) return res(null);
+    navigator.geolocation.getCurrentPosition(p => res({ lat: p.coords.latitude, lon: p.coords.longitude, name: "the visitor's current location" }), () => res(null), { timeout: 6000, maximumAge: 600000 });
+  });
+}
+async function _weather(q) {
+  try {
+    let loc = null; const place = _wxPlace(q);
+    if (place && !/^(my area|here|my location)$/i.test(place)) {
+      const g = await (await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(place)}&count=1&language=en`)).json();
+      const r = g.results && g.results[0];
+      if (r) loc = { lat: r.latitude, lon: r.longitude, name: [r.name, r.admin1, r.country].filter(Boolean).join(", ") };
+    }
+    if (!loc) loc = await _here();
+    if (!loc) loc = { lat: 51.5072, lon: -0.1276, name: "London (the visitor didn't share a location, so say it's for London and they can ask for any town)" };
+    const w = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=3&wind_speed_unit=mph`)).json();
+    const c = w.current, d = w.daily, days = ["Today", "Tomorrow", "The day after"];
+    let t = `Live weather for ${loc.name} (Open-Meteo): now ${Math.round(c.temperature_2m)}°C, feels like ${Math.round(c.apparent_temperature)}°C, ${_WX[c.weather_code] || "mixed"}, wind ${Math.round(c.wind_speed_10m)} mph.`;
+    d.time.forEach((_, i) => { t += ` ${days[i]}: ${_WX[d.weather_code[i]] || "mixed"}, ${Math.round(d.temperature_2m_min[i])} to ${Math.round(d.temperature_2m_max[i])}°C, ${d.precipitation_probability_max[i]}% chance of rain.`; });
+    return t;
+  } catch (_) { return "Live weather couldn't be fetched just now. Say so briefly and suggest trying again in a moment."; }
+}
+async function _liveContext(q) {
+  let t = _nowLines();
+  if (/\b(weather|rain|raining|sunny|snow|temperature|forecast|umbrella|cold|hot|warm|wind|windy)\b/i.test(q)) t += "\n" + await _weather(q);
+  if (/\b(trains?|rail|station|departures?|platform|fuel|petrol|diesel|pump prices?)\b/i.test(q))
+    t += "\nLive train times and fuel prices aren't available in this chat. Say that plainly in one line, then: Vikram's assistant Miru does trains and fuel for UK users in its 7:30am WhatsApp brief (https://mekalav.com/miru.html), and for live departures right now, National Rail's live trains page is https://www.nationalrail.co.uk/. Don't invent times or prices.";
+  return t;
+}
+
 async function _withContext(q) {
   const idx = await _loadChatIndex();
   const hits = _topPassages(q, idx.docs, /video|watch|talk|podcast|interview|listen/i.test(q) ? 8 : 4);
-  let ctx = "Facts about Vikram (these override anything else you know):\n" + idx.facts;
+  const live = await _liveContext(q);
+  let ctx = "Live information (accurate right now, use it and never say you lack real-time data for these):\n" + live + "\n\nFacts about Vikram (these override anything else you know):\n" + idx.facts;
   if (hits.length) ctx += "\n\nRelevant content from mekalav.com:\n" + hits.map((h, i) => `[${i + 1}] ${h.t} (${h.u})\n${h.x}`).join("\n\n");
   return `${ctx}\n\nVisitor's question: ${q}\n\nAnswer briefly and in plain English, using the facts and content above. If you use something from the site, include its link.`;
 }
