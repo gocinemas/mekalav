@@ -2,7 +2,7 @@
 title: "Your next customer might be an AI"
 date: 2026-11-17
 author: Vikram Mekala
-description: "Agentic commerce in plain English: what it is, the numbers that matter, what's already gone wrong, and what to do about it."
+description: "Agentic commerce in plain English: what it is, the numbers that matter, what it means for brands, what's already gone wrong, and what to do about it."
 slug: agentic-commerce
 tags: [AI]
 ---
@@ -33,6 +33,20 @@ Why? Merchants didn't sign up. Forrester reckons only about 30 Shopify merchants
 
 So the agent is great at finding and comparing. The buying, the returns and the customer relationship still sit with the shop. For now.
 
+## What it means for brands
+
+This is the part that matters most to me, coming from consumer goods. BCG looked at it last month, and a few numbers stood out.
+
+**People use AI to choose, not yet to buy.** Of the people who shop with AI, 96% use it to discover products and 80% to weigh them up. Only 24% use it to actually buy. And just 4% would let an agent complete a purchase on its own.
+
+**Most brands aren't ready.** 59% of consumer goods companies have no meaningful agentic AI capability yet.
+
+**The risk is real.** For one global consumer goods company, BCG reckoned 20% to 30% of online revenue could be at risk as discovery moves to AI search.
+
+**The early movers are seeing results.** Brands working on showing up in AI answers are seeing 1% to 5% extra revenue. Those building their own agents and plugging into retailers' agents see 3% to 10%. One personal care brand found shoppers who chat with its AI advisor buy about 25% more often.
+
+BCG's point is that showing up in AI answers isn't enough on its own. If that's all you do, you end up as one more option the agent compares on price.
+
 ## Where the money is going
 
 The payment companies are getting ready anyway.
@@ -50,6 +64,13 @@ That's the real signal. Banks don't build plumbing for fads.
 - **Track AI traffic on its own.** Split it out in your analytics. It behaves differently, and it's growing faster than anything else.
 - **Start with one category.** Pick the products people research hardest and fix those listings first.
 
+**If you're a brand:**
+
+- **Find out what people ask AI about your category.** Then check whether you show up in the answers, and track it like you'd track search.
+- **Give agents something to recommend together.** A routine, a bundle, a refill. An agent that suggests a basket is worth more than one that picks a single item.
+- **Think about your own agent.** An advisor that answers real questions about your products, and teaches you what customers actually want.
+- **Start with one or two pilots** with a retailer or platform, learn, then scale.
+
 **If you're the shopper:**
 
 - Let AI do the research and comparing. That's what it's good at today.
@@ -64,4 +85,4 @@ The shop window is moving into the chat. The till isn't. Not yet.
 
 ---
 
-Sources: [McKinsey, The agentic commerce opportunity](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants) · [Adobe, AI traffic and revenue per visit (Oct 2026)](https://business.adobe.com/blog/ai-traffic-higher-revenue-per-visit-retail-holiday) · [Adobe, 2025 holiday season](https://news.adobe.com/news/2026/01/adobe-holiday-shopping-season) · [EMARKETER, Agentic commerce FAQ](https://www.emarketer.com/content/faq-on-agentic-commerce-how-brands-should-act-now-compete-ai-driven-landscape) · [Checkout.com on OpenAI's shift](https://checkout.com/blog/openai-agentic-commerce-shift) · [Retail Gazette on Visa Agentic Ready](https://www.retailgazette.co.uk/blog/2026/03/visa-launches-agentic-ready-programme-to-support-ai-driven-payments)
+Sources: [BCG, Are CPG companies ready for agentic commerce?](https://www.bcg.com/publications/2026/how-cpg-companies-win-agentic-commerce) · [McKinsey, The agentic commerce opportunity](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants) · [Adobe, AI traffic and revenue per visit (Oct 2026)](https://business.adobe.com/blog/ai-traffic-higher-revenue-per-visit-retail-holiday) · [Adobe, 2025 holiday season](https://news.adobe.com/news/2026/01/adobe-holiday-shopping-season) · [EMARKETER, Agentic commerce FAQ](https://www.emarketer.com/content/faq-on-agentic-commerce-how-brands-should-act-now-compete-ai-driven-landscape) · [Checkout.com on OpenAI's shift](https://checkout.com/blog/openai-agentic-commerce-shift) · [Retail Gazette on Visa Agentic Ready](https://www.retailgazette.co.uk/blog/2026/03/visa-launches-agentic-ready-programme-to-support-ai-driven-payments)
