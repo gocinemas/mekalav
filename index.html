@@ -2229,7 +2229,8 @@ async function _withContext(q) {
   const live = await _liveContext(q);
   let ctx = "Live information (accurate right now, use it and never say you lack real-time data for these):\n" + live + "\n\nFacts about Vikram (these override anything else you know):\n" + idx.facts;
   if (hits.length) ctx += "\n\nRelevant content from mekalav.com:\n" + hits.map((h, i) => `[${i + 1}] ${h.t} (${h.u})\n${h.x}`).join("\n\n");
-  return `${ctx}\n\nVisitor's question: ${q}\n\nAnswer briefly and in plain English, using the facts and content above. If you use something from the site, include its link.`;
+  const vid = /video|watch|talk|podcast|interview|listen/i.test(q) ? " If they want videos or talks, list 4 to 6 as short lines, each starting with •, with the title and its YouTube link, then one line pointing to https://ai.humanagency.co/reading.html for the full list." : "";
+  return `${ctx}\n\nVisitor's question: ${q}\n\nAnswer briefly and in plain English, using the facts and content above. If you use something from the site, include its link.${vid}`;
 }
 
 // If the AI can't be reached, still answer with the best matches from the site
