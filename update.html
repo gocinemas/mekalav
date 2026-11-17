@@ -19,6 +19,12 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 .msg.ok { color: #16a34a; }
 .msg.err { color: #dc2626; }
 </style>
+<style id="mobile-fixes">
+/* Phones: let form controls shrink inside rows, stop media spilling over, and avoid iOS zoom on focus */
+input, textarea, select, button { min-width: 0; max-width: 100%; }
+img, video, iframe { max-width: 100%; }
+@media (max-width: 640px) { input, textarea, select { font-size: 16px !important; } }
+</style>
 </head>
 <body>
 <div class="card">

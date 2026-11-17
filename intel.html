@@ -129,6 +129,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 
 .error { display: none; background: #fef2f2; border: 1px solid #fca5a5; border-radius: var(--radius); padding: 18px 20px; font-size: 14px; color: #dc2626; }
 </style>
+<style id="mobile-fixes">
+/* Phones: let form controls shrink inside rows, stop media spilling over, and avoid iOS zoom on focus */
+input, textarea, select, button { min-width: 0; max-width: 100%; }
+img, video, iframe { max-width: 100%; }
+@media (max-width: 640px) { input, textarea, select { font-size: 16px !important; } }
+</style>
 </head>
 <body>
 <div class="page">

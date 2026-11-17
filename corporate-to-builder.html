@@ -60,6 +60,12 @@ h1 { font-size: clamp(26px, 5vw, 36px); font-weight: 900; letter-spacing: -0.8px
 .article-footer-bio { font-size: 13px; color: #7a7168; line-height: 1.5; }
 .article-footer-bio a { color: #d97706; text-decoration: none; font-weight: 600; }
 </style>
+<style id="mobile-fixes">
+/* Phones: let form controls shrink inside rows, stop media spilling over, and avoid iOS zoom on focus */
+input, textarea, select, button { min-width: 0; max-width: 100%; }
+img, video, iframe { max-width: 100%; }
+@media (max-width: 640px) { input, textarea, select { font-size: 16px !important; } }
+</style>
 </head>
 <body>
 

@@ -152,6 +152,12 @@ def page(title, description, canonical, current, main, head_extra=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/writing/writing.css">
+<style id="mobile-fixes">
+/* Phones: let form controls shrink inside rows, stop media spilling over, and avoid iOS zoom on focus */
+input, textarea, select, button {{ min-width: 0; max-width: 100%; }}
+img, video, iframe {{ max-width: 100%; }}
+@media (max-width: 640px) {{ input, textarea, select {{ font-size: 16px !important; }} }}
+</style>
 </head>
 <body>
 {nav(current)}

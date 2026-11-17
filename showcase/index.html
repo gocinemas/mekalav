@@ -38,10 +38,10 @@
     button:hover { background: #f1efe8; }
     button:active { transform: scale(0.98); }
     
-    .products-preview { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    .products-preview { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1rem; margin-top: 1.5rem; }
     .product-card { background: #f1efe8; border-radius: 8px; padding: 1rem; text-align: center; }
     .product-card .title { font-size: 14px; font-weight: 500; margin-bottom: 0.5rem; }
-    .product-card .url { font-size: 12px; color: #185fa5; }
+    .product-card .url { font-size: 12px; color: #185fa5; overflow-wrap: anywhere; }
     
     a { color: #185fa5; text-decoration: none; }
     a:hover { text-decoration: underline; }
@@ -58,6 +58,12 @@
       .product-card { background: #2a2a2a; }
     }
   </style>
+<style id="mobile-fixes">
+/* Phones: let form controls shrink inside rows, stop media spilling over, and avoid iOS zoom on focus */
+input, textarea, select, button { min-width: 0; max-width: 100%; }
+img, video, iframe { max-width: 100%; }
+@media (max-width: 640px) { input, textarea, select { font-size: 16px !important; } }
+</style>
 </head>
 <body>
   <div class="showcase">
