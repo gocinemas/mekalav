@@ -141,6 +141,8 @@ input[type=text]:focus { border-color:var(--accent); }
     localStorage.setItem('vm-theme', t);
   };
   document.addEventListener('keydown', function(e) {
+    var el = e.target;
+    if (e.metaKey || e.ctrlKey || e.altKey || (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)))) return;
     if (e.key === 'd' || e.key === 'D') {
       e.preventDefault();
       window._setTheme('light');

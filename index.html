@@ -374,7 +374,7 @@ h2 { font-size: 40px; font-weight: 800; letter-spacing: -1.2px; line-height: 1.0
 .tl-item.open .tl-detail { display: block; }
 .tl-detail ul { list-style: none; padding: 0; margin-bottom: 10px; }
 .tl-detail li { font-size: 12px; color: var(--muted); line-height: 1.65; padding: 3px 0 3px 16px; position: relative; }
-.tl-detail li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+.tl-detail li::before { content: "•"; position: absolute; left: 0; color: var(--accent); }
 .tl-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
 .tl-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 99px; background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
 /* AI summary */
@@ -584,7 +584,7 @@ h2 { font-size: 40px; font-weight: 800; letter-spacing: -1.2px; line-height: 1.0
 }
 .chat-msg { max-width: 85%; padding: 9px 13px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
 .chat-msg.user { background: var(--text); color: var(--bg); align-self: flex-end; border-bottom-right-radius: 4px; }
-.chat-msg.ai { background: var(--surface2); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+.chat-msg.ai { white-space: pre-line; background: var(--surface2); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
 .chat-msg.typing { color: var(--muted); font-style: italic; }
 .chat-starters { display: flex; flex-direction: column; gap: 6px; padding: 0 14px 8px; }
 .chat-starter { background: none; border: 1px solid var(--border); border-radius: 99px; padding: 6px 12px; font-size: 12px; color: var(--muted); cursor: pointer; text-align: left; font-family: inherit; transition: border-color .1s; }
@@ -923,6 +923,8 @@ footer {
     localStorage.setItem('vm-theme', t);
   };
   document.addEventListener('keydown', function(e) {
+    var el = e.target;
+    if (e.metaKey || e.ctrlKey || e.altKey || (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)))) return;
     if (e.key === 'd' || e.key === 'D') {
       e.preventDefault();
       window._setTheme('light');
@@ -969,7 +971,7 @@ footer {
   <!-- Personalised visitor banner — shown when ?from= or ?for= params present -->
 
   <p class="hero-eyebrow">AI transformation · programme delivery</p>
-  <h1>Engineer.<br>Builder.<br><span>25 years in.</span></h1>
+  <h1>Engineer.<br>Builder.<br><span>26 years in.</span></h1>
   <p class="hero-sub">
     Two decades making large technology programmes land at <strong>Unilever, Mars, Shell, BP and LeasePlan</strong>.
     Now building agentic AI products: <strong>Miru</strong>, <strong>Intel</strong> and <strong>Agent Factory</strong>.
@@ -995,9 +997,9 @@ footer {
 <!-- ── Available for Contracts ── -->
 <div class="contract-banner">
   <div class="contract-badge">Available now</div>
-  <h2 class="contract-title">Available for consulting opportunities</h2>
+  <h2 class="contract-title">Available for contract, interim and fractional work</h2>
   <p class="contract-desc">
-    25 years managing enterprise transformation + this year building 4 live AI products. I combine deep constraints experience with hands-on execution. Whatever the engagement—contract, advisory, fractional CTO, programme lead—I work best as part of your team, shipping real things.
+    26 years leading enterprise programmes, and now building AI products hands on. Two ways to work with me: as a contract, interim or fractional programme or project lead, or through <a href="https://humanagency.co">Human Agency</a>, our small AI practice for consulting and product builds. Either way, I work best as part of your team, shipping real things.
   </p>
   <div class="contract-ctas">
     <a href="#ask" class="contract-btn">✉️ Send me the problem</a>
@@ -1023,7 +1025,7 @@ footer {
 
 <!-- ── Labs ──────────────────────────────────────────────────── -->
 <section id="labs">
-  <div class="section-label">01 — Products</div>
+  <div class="section-label">01, Products</div>
   <h2>Live, shipping, real.</h2>
   <div class="product-grid">
     <a class="p-card p-card-feature" href="https://miru.humanagency.co" target="_blank" rel="noopener">
@@ -1034,9 +1036,9 @@ footer {
       <div class="p-tag">Research · live</div>
       <div><h3>Intel</h3><p>Brand and company intelligence, built from real market data.</p><div class="p-go">Explore →</div></div>
     </a>
-    <a class="p-card" href="#building">
-      <div class="p-tag">Open source</div>
-      <div><h3>Agent Factory</h3><p>Build and orchestrate AI agents without starting from scratch.</p><div class="p-go">Read more →</div></div>
+    <a class="p-card" href="https://humanagency.co" target="_blank" rel="noopener">
+      <div class="p-tag">In progress</div>
+      <div><h3>Agent Factory</h3><p>Miru is becoming Agent Factory: ready-made AI agents you can use and shape for your own work.</p><div class="p-go">See Human Agency →</div></div>
     </a>
   </div>
   <h3 class="sub-h">Try Miru now</h3>
@@ -1047,13 +1049,13 @@ footer {
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
       <span style="font-size:20px">💬</span>
       <div>
-        <div style="font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.2px">Miru — live demo</div>
-        <div style="font-size:12px;color:var(--muted)">A WhatsApp AI assistant built from scratch for everyday UK life. Ask it anything — school comms, local area intel, company research.</div>
+        <div style="font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.2px">Miru, live demo</div>
+        <div style="font-size:12px;color:var(--muted)">A WhatsApp AI assistant built from scratch for everyday UK life. Ask it anything: school comms, local area intel, company research.</div>
       </div>
     </div>
     <div id="miru-chat-messages" style="display:flex;flex-direction:column;gap:10px;min-height:60px;max-height:320px;overflow-y:auto;margin-bottom:12px">
       <div style="align-self:flex-start;background:var(--surface2);border-radius:14px 14px 14px 4px;padding:10px 14px;font-size:13px;color:var(--text);max-width:85%;line-height:1.55">
-        Hi — I'm Miru. I help with everyday UK life: school comms, local intel, company research, and more. What do you want to know?
+        Hi, I'm Miru. I help with everyday UK life: school comms, local intel, company research, and more. What do you want to know?
       </div>
     </div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
@@ -1094,15 +1096,15 @@ footer {
     <div class="tl-item" onclick="tlToggle(this)">
       <div class="tl-year">2025</div>
       <div class="tl-content">
-        <div class="tl-co">Unilever · Transformation Consultant</div>
+        <div class="tl-co">Unilever · Senior Project Manager, IT Separation</div>
         <h3>Magnum Ice Cream separation (M&amp;A) <span class="tl-chevron">▶</span></h3>
-        <p>Brought in to support the Magnum Ice Cream business separation from Unilever. Technology and programme workstream within a complex M&amp;A transaction.</p>
+        <p>Senior Project Manager and Day 0 Hypercare Lead on the IT separation of The Magnum Ice Cream Company from Unilever.</p>
         <div class="tl-detail">
           <ul>
-            <li>Led cross-functional delivery across legal, IT and commercial teams during business carve-out</li>
+            <li>Led the IT side of Day 0 and hypercare, when production systems went live under new ownership at the same time, with zero outages</li>
             <li>Managed programme governance, milestone tracking and risk escalation across workstreams</li>
             <li>Navigated complex stakeholder landscape spanning Unilever HQ and incoming Magnum leadership</li>
-            <li>Technology integration planning: data separation, system handoffs and continuity protocols</li>
+            <li>Designed and rolled out a SAP data segregation and access control framework across four SAP ECC landscapes, from a blank page</li>
           </ul>
           <div class="tl-tags">
             <span class="tl-tag">M&amp;A</span>
@@ -1115,20 +1117,19 @@ footer {
     </div>
 
     <div class="tl-item" onclick="tlToggle(this)">
-      <div class="tl-year">2024 to now</div>
+      <div class="tl-year">2025 to now</div>
       <div class="tl-content">
         <div class="tl-co">Human Agency · Founder</div>
         <h3>Building agentic AI products that actually work <span class="tl-chevron">▶</span></h3>
-        <p>4 live products + 1 open-source framework. Thesis: AI should DO things, not just chat. Every product is an autonomous agent executing real work across WhatsApp, web and API.</p>
+        <p>A small AI practice: AI consulting, AI product creation, and helping businesses move from the old world to the new. Live products built hands on, with people at the core and AI as the assist.</p>
         <div class="tl-detail">
           <ul>
-            <li><strong>Miru</strong> — WhatsApp AI agent: school comms, fuel prices, trains, local area, savings tracking, bills. Phase 1+2 live: daily brief + motivation features (price alerts, carbon tracking, badges, goals). On Railway at miru.humanagency.co</li>
-            <li><strong>Intel</strong> — autonomous research agent: unified company intelligence at /company. Real data from LinkedIn/Companies House/SEC/NewsAPI. Background enrichment populates any searched company. Merged search + detail views for seamless UX</li>
-            <li><strong>Product Validator</strong> — AI chatbot that detects app type (SaaS/marketplace/educational), identifies adoption gaps, generates 90-day roadmaps. Pattern-based, works for ANY app. Live at /idea</li>
-            <li><strong>Agent Factory</strong> — open-source WhatsApp agent framework. Build autonomous WhatsApp agents with Python in 4 days. £500M-1B TAM. GitHub ready</li>
-            <li><strong>Field Worker Expense</strong> — WhatsApp receipt scanning + auto-categorization + compliance reporting for trades. £1-2B TAM, Phase 1 MVP deployed</li>
-            <li><strong>AI Literacy</strong> — free plain-language resources explaining AI for non-technical audiences (ai.humanagency.co)</li>
-            <li>All built hands-on with Claude Code — product briefs, AI pair programming, direct code contribution</li>
+            <li><strong>Miru</strong>: WhatsApp AI agent: school comms, fuel prices, trains, local area, savings tracking, bills. Daily brief at 7:30am, price alerts and savings goals, bill tracking from Gmail. Now becoming Agent Factory. Live at miru.humanagency.co</li>
+            <li><strong>Intel</strong>: autonomous research agent: unified company intelligence at /company. Real data from LinkedIn/Companies House/SEC/NewsAPI. Background enrichment populates any searched company. Merged search + detail views for seamless UX</li>
+            <li><strong>Idea Validator</strong>: test a business idea before you spend on it, with competition, defensibility and a 90-day plan. Live at miru.humanagency.co/idea</li>
+            <li><strong>Agent Factory</strong>: in progress. Turning Miru's modules into ready-made agents people can use and shape for their own work</li>
+            <li><strong>AI Literacy</strong>: free plain-language resources explaining AI for non-technical audiences (ai.humanagency.co)</li>
+            <li>All built hands-on with Claude Code: product briefs, AI pair programming, direct code contribution</li>
           </ul>
           <div class="tl-tags">
             <span class="tl-tag">Agentic AI</span>
@@ -1147,20 +1148,20 @@ footer {
       <div class="tl-content">
         <div class="tl-co">Unilever · Transformation Programme Lead</div>
         <h3>Global Media Analytics Platform <span class="tl-chevron">▶</span></h3>
-        <p>Enterprise-wide data transformation. Tableau to Power BI migration, £5M budget, 50 person team across 3 continents. 98% on-time delivery.</p>
+        <p>Enterprise-wide data transformation: a multi-million pound programme moving the analytics estate from Tableau to Power BI on Azure, across three continents.</p>
         <div class="tl-detail">
           <ul>
-            <li>Led migration of Tableau estate to Power BI across 50 markets globally</li>
-            <li>£5M programme budget; 50-person team spanning Europe, Asia and Americas</li>
-            <li>98% on-time delivery — one of Unilever's largest analytics transformations</li>
+            <li>Led the migration of the Tableau estate to Power BI across markets worldwide</li>
+            <li>Directly led a team of project managers, with teams spanning Europe, Asia and the Americas</li>
+            <li>Delivered on time and under the vendor-recommended cost</li>
             <li>Redesigned the analytics operating model and governance framework, adopted globally post-programme</li>
             <li>Embedded self-serve capability across marketing and commercial functions</li>
           </ul>
           <div class="tl-tags">
             <span class="tl-tag">Power BI</span>
             <span class="tl-tag">Data transformation</span>
-            <span class="tl-tag">£5M budget</span>
-            <span class="tl-tag">50 markets</span>
+            <span class="tl-tag">Multi-million pound</span>
+            <span class="tl-tag">Global</span>
             <span class="tl-tag">Operating model design</span>
           </div>
         </div>
@@ -1194,13 +1195,13 @@ footer {
       <div class="tl-year">2013 to 2018</div>
       <div class="tl-content">
         <div class="tl-co">Shell · Unilever · LeasePlan</div>
-        <h3>Digital platforms and BA leadership <span class="tl-chevron">▶</span></h3>
-        <p>B2B eCommerce at Shell. Brand platform across 160 markets at Unilever. Digital transformation at LeasePlan.</p>
+        <h3>Digital platforms, product and BA leadership <span class="tl-chevron">▶</span></h3>
+        <p>Digital platforms at Shell. A brand platform for 90+ brands across many markets at Unilever. Digital programmes in regulated financial services at LeasePlan.</p>
         <div class="tl-detail">
           <ul>
-            <li>Shell: led B2B eCommerce platform build, integrating fuel card, invoicing and fleet management journeys</li>
-            <li>Unilever: brand and content platform rollout across 160 markets — one of the largest digital deployments in FMCG</li>
-            <li>LeasePlan: digital transformation programme covering fleet management, customer portal and back-office modernisation</li>
+            <li>Shell: Lead Business Analyst on the innovation platform, and Senior Business Analyst on Adobe Experience Manager</li>
+            <li>Unilever: Digital Consultant and Product Manager, rolling out a brand and content platform for 90+ brands across many markets</li>
+            <li>LeasePlan: Senior Business Analyst on digital programmes in regulated financial services</li>
             <li>Consistent senior BA and programme delivery across energy, FMCG and financial services</li>
           </ul>
           <div class="tl-tags">
@@ -1218,13 +1219,13 @@ footer {
       <div class="tl-content">
         <div class="tl-co">Unilever · Mars · BP</div>
         <h3>Engineer to Analyst to Programme Manager <span class="tl-chevron">▶</span></h3>
-        <p>The foundations. R&D systems at Mars, global brand platforms at Unilever, the full stack from writing code to running programmes.</p>
+        <p>The foundations. From writing code at Satyam in Hyderabad, to Milan and London on the Unilever account, to business analysis at Mars.</p>
         <div class="tl-detail">
           <ul>
-            <li>Mars: R&D software engineer — built laboratory data systems and process automation tools</li>
-            <li>Unilever: moved into analytics and data — supporting global brand and consumer insight platforms</li>
-            <li>BP: programme management for digital infrastructure and process transformation initiatives</li>
-            <li>13-year arc from writing code to leading cross-functional programmes across 3 global companies</li>
+            <li>Unilever (via Satyam, 2000 to 2009): software engineer, then functional analyst and project manager, in Hyderabad, Milan and London</li>
+            <li>Mars: Technical Business Analyst</li>
+            <li>BP (via Satyam): a six-month transition handing people, processes and systems to an incoming vendor</li>
+            <li>Started out writing COBOL and Lotus Notes, trained in Java</li>
           </ul>
           <div class="tl-tags">
             <span class="tl-tag">Software engineering</span>
@@ -1253,7 +1254,7 @@ footer {
       <a class="proj-try" href="/miru" style="background:var(--surface);color:var(--accent);border:1px solid var(--border)">Case study →</a>
     </div>
     <div class="project-platform">
-      WhatsApp-first AI assistant for everyday life — no app, no login. Built on Python / Flask, Groq, Twilio and Supabase, deployed on Railway.
+      WhatsApp-first AI assistant for everyday life. No app, no login. Built on Python / Flask, Groq, Twilio and Supabase, deployed on Railway.
     </div>
     <div class="proj-list">
 
@@ -1264,7 +1265,7 @@ footer {
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">V2 architecture: parallel fetches trains, fuel, school events, spend, weather, calendar. Groq writes a 2-3 line narrative of what matters today. Morning WhatsApp push at 7:30am coming Phase 2. Every fact is deep-linkable.</div>
+        <div class="proj-detail">V2 architecture: parallel fetches trains, fuel, school events, spend, weather, calendar. Groq writes a 2-3 line narrative of what matters today. A morning WhatsApp brief at 7:30am. Every fact is deep-linkable.</div>
       </div>
 
       <div class="proj-item" onclick="projToggle(this)">
@@ -1274,7 +1275,7 @@ footer {
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Price drop alerts (fuel/groceries), weekly savings summary, sustainability impact tracking (CO₂ saved), family spending goals, social proof (your area vs national). Turns data into behavior change — critical for PMF.</div>
+        <div class="proj-detail">Price drop alerts for fuel and groceries, a weekly savings summary and family spending goals. Turns data into small changes in behaviour.</div>
       </div>
 
       <div class="proj-item" onclick="projToggle(this)">
@@ -1284,13 +1285,13 @@ footer {
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Connects to school email updates and newsletters. Parents ask questions in plain English — <em>"what time does school finish on Friday?"</em> — and get answers pulled directly from the school's own comms.</div>
+        <div class="proj-detail">Connects to school email updates and newsletters. Parents ask questions in plain English: <em>"what time does school finish on Friday?"</em>, and get answers pulled directly from the school's own comms.</div>
       </div>
 
       <div class="proj-item" onclick="projToggle(this)">
         <div class="proj-header">
           <span class="proj-year">2026</span>
-          <span class="proj-name">My Details — Bill &amp; Renewal Tracker</span>
+          <span class="proj-name">My Details: Bill &amp; Renewal Tracker</span>
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
@@ -1320,7 +1321,7 @@ footer {
       <div class="proj-item" onclick="projToggle(this)">
         <div class="proj-header">
           <span class="proj-year">2026</span>
-          <span class="proj-name">My Area — Local Services</span>
+          <span class="proj-name">My Area: Local Services</span>
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
@@ -1344,7 +1345,7 @@ footer {
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Live UK train departures in plain English. <em>"Next train from Woking to Waterloo"</em> returns the next few services with platform, departure time and any delays — no app, no timetable.</div>
+        <div class="proj-detail">Live UK train departures in plain English. <em>"Next train from Woking to Waterloo"</em> returns the next few services with platform, departure time and any delays. No app, no timetable.</div>
       </div>
 
       <div class="proj-item" onclick="projToggle(this)">
@@ -1360,7 +1361,7 @@ footer {
       <div class="proj-item" onclick="projToggle(this)">
         <div class="proj-header">
           <span class="proj-year">2026</span>
-          <span class="proj-name">Ideas — Business Idea Platform</span>
+          <span class="proj-name">Ideas: Business Idea Platform</span>
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
@@ -1374,12 +1375,12 @@ footer {
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Ask <em>"best Indian near me"</em>, <em>"cocktail bar"</em> or <em>"good burger KT15"</em> and get one or two recommendations — not a list. Designed to remove decision fatigue entirely. Covers Indian, Chinese, Italian, Mexican, steak, burger, kebab, wine bars, cocktail bars, pubs and more.</div>
+        <div class="proj-detail">Ask <em>"best Indian near me"</em>, <em>"cocktail bar"</em> or <em>"good burger KT15"</em> and get one or two recommendations, not a list. Designed to remove decision fatigue entirely. Covers Indian, Chinese, Italian, Mexican, steak, burger, kebab, wine bars, cocktail bars, pubs and more.</div>
       </div>
 
       <div class="proj-item" onclick="projToggle(this)">
         <div class="proj-header">
-          <span class="proj-year">—</span>
+          <span class="proj-year">, </span>
           <span class="proj-name">More in pipeline</span>
           <span class="project-badge badge-pipeline">● Pipeline</span>
           <span class="proj-chev">∨</span>
@@ -1398,7 +1399,7 @@ footer {
       <a class="proj-try" href="https://intel.humanagency.co" target="_blank" rel="noopener">Try it →</a>
     </div>
     <div class="project-platform">
-      Autonomous research agent — type any company, watch it decide what to research, fetch from LinkedIn (hiring), Companies House (UK financials), SEC Edgar (US financials), NewsAPI (2026 news), synthesise across sources and return a structured brief with strategy, leadership, hiring signals and risks. No templates, no manual curation.
+      Autonomous research agent: type any company, watch it decide what to research, fetch from LinkedIn (hiring), Companies House (UK financials), SEC Edgar (US financials), NewsAPI (2026 news), synthesise across sources and return a structured brief with strategy, leadership, hiring signals and risks. No templates, no manual curation.
     </div>
     <div class="proj-list">
 
@@ -1409,7 +1410,7 @@ footer {
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Type a company. The agent decides what to research, runs multiple searches in parallel, synthesises across sources and returns a structured brief — strategy, leadership, hiring signals, AI focus, risks and opportunity angle. <a href="https://intel.humanagency.co" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:none" onclick="event.stopPropagation()">Try it →</a></div>
+        <div class="proj-detail">Type a company. The agent decides what to research, runs multiple searches in parallel, synthesises across sources and returns a structured brief: strategy, leadership, hiring signals, AI focus, risks and opportunity angle. <a href="https://intel.humanagency.co" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:none" onclick="event.stopPropagation()">Try it →</a></div>
       </div>
 
       <div class="proj-item" onclick="projToggle(this)">
@@ -1419,14 +1420,14 @@ footer {
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Compare any two companies across five dimensions the AI selects based on what actually matters for those specific businesses — not a generic template. Includes a verdict and an edge for each side.</div>
+        <div class="proj-detail">Compare any two companies across five dimensions the AI selects based on what actually matters for those specific businesses, not a generic template. Includes a verdict and an edge for each side.</div>
       </div>
 
     </div>
 
     <!-- Live Intel demo -->
     <div style="margin-top:16px;background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:16px">
-      <div style="font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Try it live — Company lookup</div>
+      <div style="font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Try it live, Company lookup</div>
       <div style="display:flex;gap:8px;margin-bottom:10px">
         <input id="intel-demo-input" type="text" placeholder="e.g. Unilever, HSBC, Tesco…" maxlength="80" autocomplete="off"
           style="flex:1;padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none"
@@ -1439,7 +1440,7 @@ footer {
 
     <!-- Live Compare demo -->
     <div style="margin-top:12px;background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:16px">
-      <div style="font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Try it live — Head-to-head compare</div>
+      <div style="font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Try it live, Head-to-head compare</div>
       <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:10px">
         <input id="cmp-a-input" type="text" placeholder="Company A" maxlength="60" autocomplete="off"
           style="padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none">
@@ -1457,12 +1458,12 @@ footer {
   <!-- ── Intel within Miru ──────────────────────────────────────── -->
   <div class="proj-area">
     <div class="proj-area-header">
-      <span class="proj-area-name">Intel <span style="font-weight:500;color:var(--muted);font-size:13px">— inside Miru</span></span>
+      <span class="proj-area-name">Intel <span style="font-weight:500;color:var(--muted);font-size:13px">, inside Miru</span></span>
       <span class="proj-area-url"><a href="https://miru.humanagency.co/intel" target="_blank" rel="noopener">miru.humanagency.co/intel</a></span>
       <a class="proj-try" href="https://miru.humanagency.co/intel" target="_blank" rel="noopener">Try it →</a>
     </div>
     <div class="project-platform">
-      Brand and company intelligence integrated inside Miru — deep-linked from the brief, so every mention of a company is one tap to structured research.
+      Brand and company intelligence integrated inside Miru, deep-linked from the brief, so every mention of a company is one tap to structured research.
     </div>
     <div class="proj-list">
 
@@ -1473,7 +1474,7 @@ footer {
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Search any company or brand and get a structured brief: financials, strategy, recent news, leadership and market position. Pulls from Wikipedia, Companies House, Google News and web search — synthesised by AI into one readable card.</div>
+        <div class="proj-detail">Search any company or brand and get a structured brief: financials, strategy, recent news, leadership and market position. Pulls from Wikipedia, Companies House, Google News and web search, synthesised by AI into one readable card.</div>
       </div>
 
       <div class="proj-item" onclick="projToggle(this)">
@@ -1483,12 +1484,12 @@ footer {
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Multi-source research run — web search, news aggregation, document synthesis — returns a structured briefing document closer to analyst output than a search result.</div>
+        <div class="proj-detail">Multi-source research run: web search, news aggregation, document synthesis, returns a structured briefing document closer to analyst output than a search result.</div>
       </div>
 
       <div class="proj-item" onclick="projToggle(this)">
         <div class="proj-header">
-          <span class="proj-year">—</span>
+          <span class="proj-year">, </span>
           <span class="proj-name">More in pipeline</span>
           <span class="project-badge badge-pipeline">● Pipeline</span>
           <span class="proj-chev">∨</span>
@@ -1503,11 +1504,11 @@ footer {
   <div class="proj-area">
     <div class="proj-area-header">
       <span class="proj-area-name">Agent Factory</span>
-      <span class="proj-area-url"><a href="https://github.com/humanagency/agent-factory" target="_blank" rel="noopener">GitHub</a></span>
-      <a class="proj-try" href="https://github.com/humanagency/agent-factory" target="_blank" rel="noopener">View →</a>
+      <span class="proj-area-url"><a href="https://humanagency.co" target="_blank" rel="noopener">humanagency.co</a></span>
+      <a class="proj-try" href="https://humanagency.co" target="_blank" rel="noopener">See more →</a>
     </div>
     <div class="project-platform">
-      Open-source framework for building WhatsApp autonomous agents in Python. Build and ship an agent in 4 days. £500M-1B TAM in emerging markets. Launching ProductHunt Q3 2026.
+      In progress. Miru is becoming Agent Factory: its modules, like the Idea Validator, turned into ready-made agents people can use and shape for their own work.
     </div>
     <div class="proj-list">
 
@@ -1515,10 +1516,10 @@ footer {
         <div class="proj-header">
           <span class="proj-year">2026</span>
           <span class="proj-name">WhatsApp Agent Framework</span>
-          <span class="project-badge badge-shipped">● Shipped</span>
+          <span class="project-badge badge-pipeline">● Pipeline</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Python framework for building autonomous WhatsApp agents. Intent routing, API orchestration, error handling, context management built-in. Miru and Field Worker Expense built on this. Open-source; enterprise support available.</div>
+        <div class="proj-detail">Python framework for building autonomous WhatsApp agents. Intent routing, API orchestration, error handling and context management, extracted from what already runs Miru.</div>
       </div>
 
       <div class="proj-item" onclick="projToggle(this)">
@@ -1528,52 +1529,7 @@ footer {
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Complete setup guide, 5 production examples (Miru, Field Worker, expense agent, bot builder, content curator), test suite, deployment runbook for Railway/Heroku.</div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ── Field Worker Expense ──────────────────────────────── -->
-  <div class="proj-area">
-    <div class="proj-area-header">
-      <span class="proj-area-name">Field Worker Expense</span>
-      <span class="proj-area-url"><a href="https://miru.humanagency.co/fwe" target="_blank" rel="noopener">miru.humanagency.co/fwe</a></span>
-      <a class="proj-try" href="https://miru.humanagency.co/fwe" target="_blank" rel="noopener">Try it →</a>
-    </div>
-    <div class="project-platform">
-      WhatsApp receipt scanner for trades (plumbers, electricians, painters). Snap receipt → auto-categorize + OCR → compliance reporting + VAT/tax export. £1-2B TAM. Phase 1 live and validated with pilot trades.
-    </div>
-    <div class="proj-list">
-
-      <div class="proj-item" onclick="projToggle(this)">
-        <div class="proj-header">
-          <span class="proj-year">2026</span>
-          <span class="proj-name">Receipt Scanning &amp; Auto-Categorization</span>
-          <span class="project-badge badge-live">● Live</span>
-          <span class="proj-chev">∨</span>
-        </div>
-        <div class="proj-detail">Snap receipt on WhatsApp → Claude vision extracts merchant, date, amount → AI categorizes (materials, tools, vehicle, fuel, labour). Handles blurry photos, multiple items per receipt.</div>
-      </div>
-
-      <div class="proj-item" onclick="projToggle(this)">
-        <div class="proj-header">
-          <span class="proj-year">2026</span>
-          <span class="proj-name">Tax &amp; Compliance Reporting</span>
-          <span class="project-badge badge-live">● Live</span>
-          <span class="proj-chev">∨</span>
-        </div>
-        <div class="proj-detail">Auto-calculates VAT, generates expense summaries by category and month, exports to spreadsheet for accountant or tax software. Compliance-first: audit trail on every receipt.</div>
-      </div>
-
-      <div class="proj-item" onclick="projToggle(this)">
-        <div class="proj-header">
-          <span class="proj-year">2026</span>
-          <span class="proj-name">Pilot Validation</span>
-          <span class="project-badge badge-live">● Live</span>
-          <span class="proj-chev">∨</span>
-        </div>
-        <div class="proj-detail">Recruiting 5-10 trades for Phase 1 validation. Testing on real expense workflows, gathering feedback before scaling Phase 2 (invoice scanning, payment integration, accountant admin portal).</div>
+        <div class="proj-detail">Complete setup guide, Setup guide, examples drawn from Miru, test suite and deployment runbook.</div>
       </div>
 
     </div>
@@ -1587,24 +1543,24 @@ footer {
       <a class="proj-try" href="https://ai.humanagency.co" target="_blank" rel="noopener">Try it →</a>
     </div>
     <div class="project-platform">
-      Making AI genuinely accessible — plain language resources and hands-on advisory for people and organisations outside the tech bubble.
+      Making AI genuinely accessible, plain language resources and hands-on advisory for people and organisations outside the tech bubble.
     </div>
     <div class="proj-list">
 
       <div class="proj-item" onclick="projToggle(this)">
         <div class="proj-header">
           <span class="proj-year">2025</span>
-          <span class="proj-name">Human Agency — AI Literacy</span>
+          <span class="proj-name">Human Agency: AI Literacy</span>
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Free plain-language site explaining AI from scratch — basics, jargon decoder, key researchers, curated articles and videos. Built for everyone who isn't in tech. <a href="https://ai.humanagency.co" target="_blank" rel="noopener">ai.humanagency.co →</a></div>
+        <div class="proj-detail">Free plain-language site explaining AI from scratch: basics, jargon decoder, key researchers, curated articles and videos. Built for everyone who isn't in tech. <a href="https://ai.humanagency.co" target="_blank" rel="noopener">ai.humanagency.co →</a></div>
       </div>
 
       <div class="proj-item" onclick="projToggle(this)">
         <div class="proj-header">
           <span class="proj-year">2025</span>
-          <span class="proj-name">Advisory — HealthTech Startup</span>
+          <span class="proj-name">Advisory: HealthTech Startup</span>
           <span class="project-badge badge-advisory">● Advisory</span>
           <span class="proj-chev">∨</span>
         </div>
@@ -1613,12 +1569,12 @@ footer {
 
       <div class="proj-item" onclick="projToggle(this)">
         <div class="proj-header">
-          <span class="proj-year">—</span>
+          <span class="proj-year">, </span>
           <span class="proj-name">More in pipeline</span>
           <span class="project-badge badge-pipeline">● Pipeline</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">AI education and advisory work continuing to grow — new formats in development.</div>
+        <div class="proj-detail">AI education and advisory work continuing to grow, new formats in development.</div>
       </div>
 
     </div>
@@ -1632,7 +1588,7 @@ footer {
       <a class="proj-try" href="https://miru.humanagency.co/space" target="_blank" rel="noopener">Try it →</a>
     </div>
     <div class="project-platform">
-      A passion project — UK space intelligence, built because I wanted it to exist. ISS tracking, launches, missions, agencies and tonight's sky.
+      A passion project: UK space intelligence, built because I wanted it to exist. ISS tracking, launches, missions, agencies and tonight's sky.
     </div>
     <div class="proj-list">
 
@@ -1643,7 +1599,7 @@ footer {
           <span class="project-badge badge-live">● Live</span>
           <span class="proj-chev">∨</span>
         </div>
-        <div class="proj-detail">Live ISS position, upcoming launches, NASA picture of the day, UK space companies, careers in the sector and tonight's sky — all in one place. No app, no sign-up. <a href="https://miru.humanagency.co/space" target="_blank" rel="noopener">miru.humanagency.co/space →</a></div>
+        <div class="proj-detail">Live ISS position, upcoming launches, NASA picture of the day, UK space companies, careers in the sector and tonight's sky, all in one place. No app, no sign-up. <a href="https://miru.humanagency.co/space" target="_blank" rel="noopener">miru.humanagency.co/space →</a></div>
       </div>
 
     </div>
@@ -1670,13 +1626,13 @@ footer {
     <a href="https://www.linkedin.com/feed/update/urn:li:activity:7258533842379907072/" target="_blank" rel="noopener" class="article-card">
       <span class="article-tag">Adoption</span>
       <h3>Why Aren't People Using Agents Yet?</h3>
-      <p>People think agents are better chatbots. They're not. An agent is hiring someone to work 24/7. The real problem isn't the model—it's that nobody's learned how to check what came back.</p>
+      <p>People think agents are better chatbots. They're not. An agent is hiring someone to work 24/7. The real problem isn't the model. It's that nobody's learned how to check what came back.</p>
       <div class="article-meta">On enterprise AI adoption and the delegation muscle</div>
     </a>
     <a href="https://www.linkedin.com/feed/update/urn:li:activity:7245619247788625920/" target="_blank" rel="noopener" class="article-card">
       <span class="article-tag">Culture</span>
       <h3>We celebrate musicians but not builders</h3>
-      <p>The UK rewards presentations over delivery. We hire for keywords, not judgment. But the real differentiator isn't who has the credentials—it's who can spot when the AI output is clever but wrong.</p>
+      <p>The UK rewards presentations over delivery. We hire for keywords, not judgment. But the real differentiator isn't who has the credentials. It's who can spot when the AI output is clever but wrong.</p>
       <div class="article-meta">On hiring, judgment, and shipping in tech</div>
     </a>
     <a href="https://www.linkedin.com/feed/update/urn:li:activity:7262345678901234567/" target="_blank" rel="noopener" class="article-card">
@@ -1688,7 +1644,7 @@ footer {
     <a href="https://www.linkedin.com/feed/update/urn:li:activity:7254321098765432109/" target="_blank" rel="noopener" class="article-card">
       <span class="article-tag">AI Use</span>
       <h3>Stop asking "How do I use AI?"</h3>
-      <p>Ask instead: "What would I do if I had 100 interns?" AI is electricity. Nobody asks how to use electricity—they ask what it enables. Your data, your judgment, your taste: that's the differentiator.</p>
+      <p>Ask instead: "What would I do if I had 100 interns?" AI is electricity. Nobody asks how to use electricity. They ask what it enables. Your data, your judgment, your taste: that's the differentiator.</p>
       <div class="article-meta">A framework for thinking about AI in your organization</div>
     </a>
   </div>
@@ -1751,18 +1707,82 @@ footer {
 
 <section id="trivia">
   <div class="section-label">Trivia</div>
-  <h2>Top-read on Wikipedia, by day</h2>
-  <div class="web-links-grid">
-    <a class="web-link-card" href="https://wikipop.sowin.io/feed.xml" target="_blank" rel="noopener">
-      <span class="web-link-tag">Source</span>
-      <div class="web-link-name">WikiPop feed</div>
-      <div class="web-link-desc">The most popular Wikipedia article, every day. RSS.</div>
-    </a>
+  <h2>Small rabbit holes worth falling into</h2>
+
+  <div class="trivia-tabs" role="tablist" aria-label="Trivia">
+    <button class="trivia-tab" role="tab" id="tt-wikipop" aria-controls="tp-wikipop" aria-selected="true">Wikipedia, by day</button>
+    <button class="trivia-tab" role="tab" id="tt-localpedia" aria-controls="tp-localpedia" aria-selected="false" tabindex="-1">Localpedia</button>
+    <button class="trivia-tab" role="tab" id="tt-tinyoffice" aria-controls="tp-tinyoffice" aria-selected="false" tabindex="-1">Tiny Little Office</button>
   </div>
-  <div id="trivia-list" class="trivia-list" aria-live="polite">
-    <p class="trivia-status">Loading the latest days…</p>
+
+  <!-- To add a tab: copy a button above and a panel below, give both a new matching id. -->
+
+  <div class="trivia-panel" role="tabpanel" id="tp-wikipop" aria-labelledby="tt-wikipop">
+    <p class="trivia-intro">The most-read Wikipedia article each day.</p>
+    <div class="web-links-grid">
+      <a class="web-link-card" href="https://wikipop.sowin.io/feed.xml" target="_blank" rel="noopener">
+        <span class="web-link-tag">Source</span>
+        <div class="web-link-name">WikiPop feed</div>
+        <div class="web-link-desc">The most popular Wikipedia article, every day. RSS.</div>
+      </a>
+    </div>
+    <div id="trivia-list" class="trivia-list" aria-live="polite">
+      <p class="trivia-status">Loading the latest days…</p>
+    </div>
+  </div>
+
+  <div class="trivia-panel" role="tabpanel" id="tp-localpedia" aria-labelledby="tt-localpedia" hidden>
+    <p class="trivia-intro">What's interesting within a 30-minute walk of wherever you are, pulled from geotagged Wikipedia pages.</p>
+    <div class="web-links-grid">
+      <a class="web-link-card" href="https://edjefferson.com/localpedia/" target="_blank" rel="noopener">
+        <span class="web-link-tag">Explore</span>
+        <div class="web-link-name">Localpedia</div>
+        <div class="web-link-desc">A local encyclopedia for local people. Allow location and see what's around you.</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="trivia-panel" role="tabpanel" id="tp-tinyoffice" aria-labelledby="tt-tinyoffice" hidden>
+    <p class="trivia-intro">Ten small tools in your browser: word processor, outliner, presentation builder, spreadsheet, calculator, drawing tool, diagram maker, animator, calendar and trip planner. Whatever you make lives in the link itself, so there's no account and no server holding your stuff. Share the link and you've shared the document.</p>
+    <div class="web-links-grid">
+      <a class="web-link-card" href="https://tinylittleoffice.com/" target="_blank" rel="noopener">
+        <span class="web-link-tag">Tool</span>
+        <div class="web-link-name">Tiny Little Office</div>
+        <div class="web-link-desc">Write, plan, sketch or crunch numbers, then send the link. Nothing is saved unless you keep it on your device.</div>
+      </a>
+    </div>
   </div>
 </section>
+
+<style>
+  .trivia-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 20px; border-bottom: 1px solid var(--border); }
+  .trivia-tab { appearance: none; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 10px 14px; font: inherit; font-size: 14px; color: var(--muted); cursor: pointer; }
+  .trivia-tab:hover { color: var(--text); }
+  .trivia-tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+  .trivia-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  .trivia-intro { font-size: 15px; color: var(--muted); margin: 0 0 14px; }
+</style>
+<script>
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll("#trivia .trivia-tab"));
+  function select(tab, focus) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    });
+    if (focus) tab.focus();
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener("click", function () { select(t); });
+    t.addEventListener("keydown", function (e) {
+      var n = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (n) { e.preventDefault(); select(tabs[(i + n + tabs.length) % tabs.length], true); }
+    });
+  });
+})();
+</script>
 
 <style>
   .trivia-list { margin-top: 18px; display: grid; gap: 10px; }
@@ -1911,43 +1931,43 @@ footer {
     <div class="cv-section">
       <div class="cv-section-title">Summary</div>
       <p style="font-size:14px;color:var(--muted);line-height:1.7">
-        25 years delivering technology transformation at global scale — from writing code in India to running £5M+ programmes at Unilever, Mars, Shell and BP across three continents.
+        26 years delivering technology transformation at global scale, from writing code in India to running multi-million pound programmes at Unilever, Mars, Shell and BP across three continents.
         Now building AI products for people who don't consider themselves technical, with a focus on real usability over technical novelty.
-        Available for AI strategy, digital transformation leadership, and M&amp;A technology workstreams.
+        Available for contract, interim or fractional programme and project leadership, and for AI work through Human Agency.
       </p>
     </div>
 
     <div class="cv-section">
       <div class="cv-section-title">Experience</div>
       <div class="cv-role">
-        <div class="cv-role-header"><span class="cv-role-title">Transformation Consultant</span><span class="cv-role-period">2025</span></div>
+        <div class="cv-role-header"><span class="cv-role-title">Senior Project Manager, IT Separation</span><span class="cv-role-period">2025</span></div>
         <div class="cv-role-co">Unilever</div>
-        <div class="cv-role-desc">Brought in to support the Magnum Ice Cream business separation from Unilever. Led the technology and programme workstream within a complex M&amp;A transaction, managing cross-functional delivery across legal, IT and commercial teams.</div>
+        <div class="cv-role-desc">Magnum Ice Cream separation from Unilever. Day 0 Hypercare Lead for the IT cutover, with zero outages. Designed a SAP data segregation and access control framework across four SAP ECC landscapes.</div>
       </div>
       <div class="cv-role">
-        <div class="cv-role-header"><span class="cv-role-title">Founder</span><span class="cv-role-period">2024 – present</span></div>
+        <div class="cv-role-header"><span class="cv-role-title">Founder</span><span class="cv-role-period">2025 to present</span></div>
         <div class="cv-role-co">Human Agency</div>
-        <div class="cv-role-desc">Building agentic AI products that autonomously execute real work. 4 live products: Miru (daily brief + motivation features), Intel (autonomous research agent), Field Worker Expense (SaaS), Ideas platform (25 curated ideas + GTM playbooks). 1 open-source framework: Agent Factory (build WhatsApp agents in Python). Hands-on with Claude Code — product strategy, AI pair programming, direct code contribution.</div>
+        <div class="cv-role-desc">A small AI practice: consulting, product creation and helping businesses move to AI. Live products: Miru (becoming Agent Factory), Brand &amp; Company Intel, Idea Validator, a free AI Learning Hub and Space. Built hands on with Claude Code.</div>
       </div>
       <div class="cv-role">
-        <div class="cv-role-header"><span class="cv-role-title">Transformation Programme Lead — Global Media Analytics</span><span class="cv-role-period">2020 – 2024</span></div>
+        <div class="cv-role-header"><span class="cv-role-title">Transformation Programme Lead, Global Media Analytics</span><span class="cv-role-period">2020 – 2024</span></div>
         <div class="cv-role-co">Unilever</div>
-        <div class="cv-role-desc">Enterprise-wide data transformation: Tableau to Power BI migration across 50 markets. £5M budget, 50-person team, 3 continents. 98% on-time delivery. Redesigned the analytics operating model and governance framework adopted globally.</div>
+        <div class="cv-role-desc">Enterprise-wide data transformation: a multi-million pound Tableau to Power BI programme on Azure, across three continents. Led a team of project managers. Delivered on time, and the operating model we designed was adopted globally.</div>
       </div>
       <div class="cv-role">
-        <div class="cv-role-header"><span class="cv-role-title">Global Transformation Manager — Net Revenue Management</span><span class="cv-role-period">2018 – 2020</span></div>
+        <div class="cv-role-header"><span class="cv-role-title">Global Transformation Manager, Net Revenue Management</span><span class="cv-role-period">2018 – 2020</span></div>
         <div class="cv-role-co">Unilever</div>
         <div class="cv-role-desc">Analytics suite for pricing, portfolio and promotional strategy. Integrated eCommerce and Amazon data. Built emerging-markets growth tools. Worked across FMCG, finance and data science teams globally.</div>
       </div>
       <div class="cv-role">
-        <div class="cv-role-header"><span class="cv-role-title">Senior Programme Manager / Business Analyst Lead</span><span class="cv-role-period">2013 – 2018</span></div>
+        <div class="cv-role-header"><span class="cv-role-title">Digital Consultant, Product Manager and Senior BA</span><span class="cv-role-period">2013 – 2018</span></div>
         <div class="cv-role-co">Shell · Unilever · LeasePlan</div>
-        <div class="cv-role-desc">B2B eCommerce platform at Shell. Unilever brand platform across 160 markets. Digital transformation programme at LeasePlan. Consistent delivery across FMCG, energy and financial services.</div>
+        <div class="cv-role-desc">Digital platforms at Shell. A brand platform for 90+ brands across many markets at Unilever. Digital programmes in regulated financial services at LeasePlan.</div>
       </div>
       <div class="cv-role">
         <div class="cv-role-header"><span class="cv-role-title">Engineer → Analyst → Programme Manager</span><span class="cv-role-period">2000 – 2013</span></div>
         <div class="cv-role-co">Unilever · Mars · BP</div>
-        <div class="cv-role-desc">Started as a software engineer in India. R&amp;D systems at Mars. Global brand platforms and SAP programmes at Unilever. Operations and procurement technology at BP. Grew through every role from individual contributor to programme leadership.</div>
+        <div class="cv-role-desc">Started as a software engineer at Satyam in India, then functional analyst and project manager on the Unilever account in Milan and London. Technical Business Analyst at Mars. A six-month vendor transition at BP.</div>
       </div>
     </div>
 
@@ -1977,7 +1997,7 @@ footer {
       </div>
       <div class="cv-role">
         <div class="cv-role-header"><span class="cv-role-title">Intel</span></div>
-        <div class="cv-role-desc">Autonomous research agent — type company, AI researches and returns structured brief. <a href="https://intel.humanagency.co" target="_blank" rel="noopener" style="color:var(--accent)">intel.humanagency.co</a></div>
+        <div class="cv-role-desc">Autonomous research agent: type company, AI researches and returns structured brief. <a href="https://intel.humanagency.co" target="_blank" rel="noopener" style="color:var(--accent)">intel.humanagency.co</a></div>
       </div>
       <div class="cv-role">
         <div class="cv-role-header"><span class="cv-role-title">Ideas Platform</span></div>
@@ -1988,7 +2008,7 @@ footer {
         <div class="cv-role-desc">Open-source Python framework for building WhatsApp autonomous agents. <a href="https://github.com/humanagency/agent-factory" target="_blank" rel="noopener" style="color:var(--accent)">GitHub</a></div>
       </div>
       <div class="cv-role">
-        <div class="cv-role-header"><span class="cv-role-title">Human Agency — AI Literacy</span></div>
+        <div class="cv-role-header"><span class="cv-role-title">Human Agency, AI Literacy</span></div>
         <div class="cv-role-desc">Free AI literacy site in plain language for non-technical audiences. <a href="https://ai.humanagency.co" target="_blank" rel="noopener" style="color:var(--accent)">ai.humanagency.co</a></div>
       </div>
     </div>
@@ -2073,10 +2093,10 @@ async function careerAiSummary(e) {
     const r = await fetch("https://miru.humanagency.co/api/mekalav/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: "Give me a sharp 3-sentence career summary for Vikram that captures his arc from engineer to transformation leader to AI founder — suitable for a professional reading his portfolio for the first time." })
+      body: JSON.stringify({ message: await _withContext("Give me a sharp 3-sentence career summary for Vikram that captures his arc from engineer to transformation leader to AI founder, suitable for a professional reading his portfolio for the first time.") })
     });
     const d = await r.json();
-    box.textContent = d.reply || "Couldn't generate summary — read the timeline below.";
+    box.textContent = d.reply || "Couldn't generate summary, read the timeline below.";
     _aiSummaryDone = true;
     btn.textContent = "✦ AI summary";
     btn.disabled = false;
@@ -2109,7 +2129,7 @@ function openResume() { document.getElementById("resume-modal").classList.add("o
 function closeResume() { document.getElementById("resume-modal").classList.remove("open"); }
 function downloadCV() {
   const orig = document.title;
-  document.title = "Vikram Mekala — CV";
+  document.title = "Vikram Mekala, CV";
   window.print();
   setTimeout(() => document.title = orig, 1000);
 }
@@ -2137,6 +2157,97 @@ function _linkify(text) {
   });
 }
 
+// ── Site index for the chat: answers from what is actually on mekalav.com ──
+let _chatIndex = null;
+async function _loadChatIndex() {
+  if (_chatIndex) return _chatIndex;
+  try { _chatIndex = await (await fetch("/chat-index.json")).json(); }
+  catch (_) { _chatIndex = { facts: "", docs: [] }; }
+  return _chatIndex;
+}
+const _STOP = new Set("a an and are as at be but by can do does for from has have he his how i in is it its me my of on or so tell than that the their them there they this to was what when where which who why will with you your vikram".split(" "));
+function _terms(t) { return (t.toLowerCase().match(/[a-z0-9&+]+/g) || []).filter(w => w.length > 1 && !_STOP.has(w)); }
+const _ALIAS = { nrm: "enrm net revenue management pricing promo", rgm: "enrm net revenue management", gma: "global media analytics", "m&a": "separation demerger", demerger: "separation magnum", tmic: "magnum ice cream", ai: "artificial intelligence" };
+function _expand(q) { return q + " " + _terms(q).map(w => _ALIAS[w] || "").join(" "); }
+function _topPassages(q, docs, k) {
+  const qt = [...new Set(_terms(_expand(q)))];
+  if (!qt.length) return [];
+  const df = {}; docs.forEach(d => { const ws = new Set(_terms(d.t + " " + d.x)); qt.forEach(w => { if (ws.has(w)) df[w] = (df[w] || 0) + 1; }); });
+  return docs.map(d => {
+    const words = _terms(d.t + " " + d.t + " " + d.x); let sc = 0;
+    qt.forEach(w => { const tf = words.filter(x => x === w || (w.length > 4 && x.startsWith(w.slice(0, -1)))).length; if (tf) sc += (1 + Math.log(tf)) * Math.log(1 + docs.length / (df[w] || 1)); });
+    return { d, sc };
+  }).filter(o => o.sc > 0).sort((a, b) => b.sc - a.sc).slice(0, k).map(o => o.d);
+}
+// ── Live bits the chat can answer: time, date, weather ──
+const _WX = {0:"clear sky",1:"mostly clear",2:"partly cloudy",3:"overcast",45:"fog",48:"freezing fog",51:"light drizzle",53:"drizzle",55:"heavy drizzle",56:"freezing drizzle",57:"freezing drizzle",61:"light rain",63:"rain",65:"heavy rain",66:"freezing rain",67:"freezing rain",71:"light snow",73:"snow",75:"heavy snow",77:"snow grains",80:"light showers",81:"showers",82:"heavy showers",85:"snow showers",86:"heavy snow showers",95:"thunderstorms",96:"thunderstorms with hail",99:"thunderstorms with hail"};
+function _nowLines() {
+  const d = new Date(), fmt = tz => d.toLocaleString("en-GB", { timeZone: tz, weekday: "long", day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  const here = Intl.DateTimeFormat().resolvedOptions().timeZone || "Europe/London";
+  let t = `Right now in the UK (Vikram's time) it is ${fmt("Europe/London")}.`;
+  if (here !== "Europe/London") t += ` For the visitor (${here.replace(/_/g, " ")}) it is ${fmt(here)}.`;
+  return t;
+}
+function _wxPlace(q) {
+  const m = q.match(/\b(?:in|at|for|near|around)\s+([A-Za-z][A-Za-z .'-]{1,40}?)(?:\s+(?:today|tomorrow|tonight|now|this|right|at|on|please)\b|[?.!,]|$)/i);
+  return m ? m[1].trim() : null;
+}
+async function _here() {
+  return new Promise(res => {
+    if (!navigator.geolocation) return res(null);
+    navigator.geolocation.getCurrentPosition(p => res({ lat: p.coords.latitude, lon: p.coords.longitude, name: "the visitor's current location" }), () => res(null), { timeout: 6000, maximumAge: 600000 });
+  });
+}
+async function _weather(q) {
+  try {
+    let loc = null; const place = _wxPlace(q);
+    if (place && !/^(my area|here|my location)$/i.test(place)) {
+      const g = await (await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(place)}&count=1&language=en`)).json();
+      const r = g.results && g.results[0];
+      if (r) loc = { lat: r.latitude, lon: r.longitude, name: [r.name, r.admin1, r.country].filter(Boolean).join(", ") };
+    }
+    if (!loc) loc = await _here();
+    if (!loc) loc = { lat: 51.5072, lon: -0.1276, name: "London (the visitor didn't share a location, so say it's for London and they can ask for any town)" };
+    const w = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=3&wind_speed_unit=mph`)).json();
+    const c = w.current, d = w.daily, days = ["Today", "Tomorrow", "The day after"];
+    let t = `Live weather for ${loc.name} (Open-Meteo): now ${Math.round(c.temperature_2m)}°C, feels like ${Math.round(c.apparent_temperature)}°C, ${_WX[c.weather_code] || "mixed"}, wind ${Math.round(c.wind_speed_10m)} mph.`;
+    d.time.forEach((_, i) => { t += ` ${days[i]}: ${_WX[d.weather_code[i]] || "mixed"}, ${Math.round(d.temperature_2m_min[i])} to ${Math.round(d.temperature_2m_max[i])}°C, ${d.precipitation_probability_max[i]}% chance of rain.`; });
+    return t;
+  } catch (_) { return "Live weather couldn't be fetched just now. Say so briefly and suggest trying again in a moment."; }
+}
+async function _liveContext(q) {
+  let t = _nowLines();
+  if (/\b(weather|rain|raining|sunny|snow|temperature|forecast|umbrella|cold|hot|warm|wind|windy)\b/i.test(q)) t += "\n" + await _weather(q);
+  if (/\b(trains?|rail|station|departures?|platform|fuel|petrol|diesel|pump prices?)\b/i.test(q))
+    t += "\nLive train times and fuel prices aren't available in this chat. Say that plainly in one line, then: Vikram's assistant Miru does trains and fuel for UK users in its 7:30am WhatsApp brief (https://mekalav.com/miru.html), and for live departures right now, National Rail's live trains page is https://www.nationalrail.co.uk/. Don't invent times or prices.";
+  return t;
+}
+
+async function _withContext(q) {
+  const idx = await _loadChatIndex();
+  const hits = _topPassages(q, idx.docs, /video|watch|talk|podcast|interview|listen/i.test(q) ? 8 : 4);
+  const live = await _liveContext(q);
+  let ctx = "Live information (accurate right now, use it and never say you lack real-time data for these):\n" + live + "\n\nFacts about Vikram (these override anything else you know):\n" + idx.facts;
+  if (hits.length) ctx += "\n\nRelevant content from mekalav.com:\n" + hits.map((h, i) => `[${i + 1}] ${h.t} (${h.u})\n${h.x}`).join("\n\n");
+  const vid = /video|watch|talk|podcast|interview|listen/i.test(q) ? " If they want videos or talks, list 4 to 6 as short lines, each starting with •, with the title and its YouTube link, then one line pointing to https://ai.humanagency.co/reading.html for the full list." : "";
+  return `${ctx}\n\nVisitor's question: ${q}\n\nAnswer briefly and in plain English, using the facts and content above. If you use something from the site, include its link.${vid}`;
+}
+
+// If the AI can't be reached, still answer with the best matches from the site
+async function _offlineReply(q) {
+  const idx = await _loadChatIndex();
+  const hits = _topPassages(q, idx.docs, /video|watch|talk|podcast|interview|listen/i.test(q) ? 6 : 3);
+  if (!hits.length) return "The AI is busy right now. Please try again in a moment, or email vikram@humanagency.co.";
+  const seen = new Set(), lines = [];
+  hits.forEach(h => {
+    const yt = h.x.match(/https:\/\/youtu\.be\/[\w-]+/);
+    const url = yt ? yt[0] : h.u;
+    if (seen.has(url)) return; seen.add(url);
+    lines.push(`• ${h.t.replace(/^(Home|Writing|Essay|Video|Reading): /, "")}: ${url}`);
+  });
+  return "The AI is busy right now, but here's what I found on the site:\n" + lines.join("\n");
+}
+
 async function chatSend(preset) {
   const input = document.getElementById("chat-input");
   const msg = (preset || input.value).trim();
@@ -2154,19 +2265,20 @@ async function chatSend(preset) {
 
   _chatHistory.push({ role: "user", content: msg });
   try {
-    const r = await fetch("https://miru.humanagency.co/api/mekalav/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: msg, history: _chatHistory.slice(-6) })
-    });
-    const d = await r.json();
-    const reply = d.reply || "Sorry, I couldn't get a response. Try emailing me directly.";
+    const body = JSON.stringify({ message: await _withContext(msg), history: _chatHistory.slice(-7, -1) });
+    const post = () => fetch("https://miru.humanagency.co/api/mekalav/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body });
+    let d = {};
+    for (const wait of [0, 2000, 5000]) {
+      if (wait) await new Promise(res => setTimeout(res, wait));
+      try { const r = await post(); if (r.ok) { d = await r.json(); if (d.reply) break; } } catch (_) {}
+    }
+    const reply = d.reply || await _offlineReply(msg);
     _chatHistory.push({ role: "assistant", content: reply });
     typing.className = "chat-msg ai";
     typing.innerHTML = _linkify(reply);
   } catch(_) {
     typing.className = "chat-msg ai";
-    typing.innerHTML = _linkify("Something went wrong — please try again or email me directly.");
+    typing.innerHTML = _linkify("Something went wrong, please try again or email me directly.");
   }
   msgs.scrollTop = msgs.scrollHeight;
 }
@@ -2185,30 +2297,30 @@ function setTheme(t) {
 // ── Search index ───────────────────────────────────────────────────────────────
 const SEARCH_INDEX = [
   { label: "Career", title: "Magnum Ice Cream separation (M&A)", sub: "Unilever · 2025", anchor: "#career" },
-  { label: "Career", title: "Human Agency · Founder", sub: "Building AI products · 2024 to now", anchor: "#career" },
+  { label: "Career", title: "Human Agency · Founder", sub: "AI consulting and products · 2025 to now", anchor: "#career" },
   { label: "Career", title: "Global Media Analytics Platform", sub: "Unilever · 2020 to 2024", anchor: "#career" },
   { label: "Career", title: "Net Revenue Management", sub: "Unilever · 2018 to 2020", anchor: "#career" },
   { label: "Career", title: "Digital platforms and BA leadership", sub: "Shell · Unilever · LeasePlan · 2013 to 2018", anchor: "#career" },
   { label: "Career", title: "Engineer to Analyst to Programme Manager", sub: "Unilever · Mars · BP · 2000 to 2013", anchor: "#career" },
   { label: "Built", title: "Brand & Company Intelligence", sub: "Financials, strategy, news, campaigns · Live", anchor: "#building", url: "https://intel.humanagency.co" },
-  { label: "Built", title: "My Details — Bill Tracker", sub: "Gmail scan for bills, renewals, account numbers · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
+  { label: "Built", title: "My Details: Bill Tracker", sub: "Gmail scan for bills, renewals, account numbers · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
   { label: "Built", title: "Book Scanner & Personal Library", sub: "ISBN scan + personal reading tracker · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
   { label: "Built", title: "WhatsApp Saves", sub: "Save URLs, search in plain English · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
-  { label: "Built", title: "My Area — Local Services", sub: "Pubs, cafes, schools, pharmacies by postcode · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
+  { label: "Built", title: "My Area: Local Services", sub: "Pubs, cafes, schools, pharmacies by postcode · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
   { label: "Built", title: "School Communications", sub: "WhatsApp Q&A from school newsletters · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
   { label: "Built", title: "Find Cheap Fuel", sub: "Live pump prices ranked by postcode · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
   { label: "Built", title: "Next Train", sub: "Live UK departures in plain English · Miru", anchor: "#building", url: "https://miru.humanagency.co" },
-  { label: "Built", title: "Advisory — HealthTech Startup", sub: "AI product strategy advisory · 2025", anchor: "#building" },
-  { label: "Built", title: "Human Agency — AI Literacy", sub: "Free AI literacy platform in plain language · Live", anchor: "#building", url: "https://ai.humanagency.co" },
+  { label: "Built", title: "Advisory: HealthTech Startup", sub: "AI product strategy advisory · 2025", anchor: "#building" },
+  { label: "Built", title: "Human Agency: AI Literacy", sub: "Free AI literacy platform in plain language · Live", anchor: "#building", url: "https://ai.humanagency.co" },
   { label: "Built", title: "Local Election Results", sub: "May 2024 UK local elections by ward · Shipped", anchor: "#building" },
-  { label: "Story", title: "India · Italy · London", sub: "25 years from engineer to founder", anchor: "#story" },
-  { label: "AI Pattern", title: "Retrieval-Augmented Generation (RAG)", sub: "Search first, generate second — Intel & Miru", anchor: "#ai-patterns", url: "https://intel.humanagency.co" },
-  { label: "AI Pattern", title: "Orchestration", sub: "Chain multiple AI steps into one response — Miru", anchor: "#ai-patterns" },
-  { label: "AI Pattern", title: "Structured Extraction", sub: "Pull schema-valid data from messy input — Miru", anchor: "#ai-patterns" },
-  { label: "AI Pattern", title: "Multi-Modal Input", sub: "Images, audio and text as first-class inputs — Miru", anchor: "#ai-patterns" },
-  { label: "AI Pattern", title: "Persistent AI Memory", sub: "Per-user context that survives across sessions — Miru", anchor: "#ai-patterns" },
-  { label: "AI Pattern", title: "Tool Use / Function Calling", sub: "Model decides which API to call — Intel", anchor: "#ai-patterns" },
-  { label: "AI Pattern", title: "Proactive AI Agent", sub: "Push alerts on real-world triggers without user asking — Miru", anchor: "#ai-patterns" },
+  { label: "Story", title: "India · Italy · London", sub: "26 years from engineer to founder", anchor: "#story" },
+  { label: "AI Pattern", title: "Retrieval-Augmented Generation (RAG)", sub: "Search first, generate second · Intel & Miru", anchor: "#ai-patterns", url: "https://intel.humanagency.co" },
+  { label: "AI Pattern", title: "Orchestration", sub: "Chain multiple AI steps into one response · Miru", anchor: "#ai-patterns" },
+  { label: "AI Pattern", title: "Structured Extraction", sub: "Pull schema-valid data from messy input · Miru", anchor: "#ai-patterns" },
+  { label: "AI Pattern", title: "Multi-Modal Input", sub: "Images, audio and text as first-class inputs · Miru", anchor: "#ai-patterns" },
+  { label: "AI Pattern", title: "Persistent AI Memory", sub: "Per-user context that survives across sessions · Miru", anchor: "#ai-patterns" },
+  { label: "AI Pattern", title: "Tool Use / Function Calling", sub: "Model decides which API to call · Intel", anchor: "#ai-patterns" },
+  { label: "AI Pattern", title: "Proactive AI Agent", sub: "Push alerts on real-world triggers without user asking · Miru", anchor: "#ai-patterns" },
 ];
 
 function getSearchIndex() {
@@ -2344,7 +2456,7 @@ const CHARTS = [
   {
     type: 'image',
     title: 'AI is moving from assistants to agents',
-    desc: 'The number of new AI reasoning models released jumped sharply in early 2025 — marking the shift from AI that answers questions to AI that takes actions.',
+    desc: 'The number of new AI reasoning models released jumped sharply in early 2025, marking the shift from AI that answers questions to AI that takes actions.',
     source: 'Coatue C/Takes',
     source_url: 'https://www.coatue.com/c/takes',
     img_src: 'https://images.ctfassets.net/iqem6dz8q0mk/6DwYeFYJ6M5NN1TNWbCc8G/842ed6e64cf149444ff0cbb7e5f7da44/new_AI_models.png?fm=webp&w=1200&q=80'
@@ -2352,14 +2464,14 @@ const CHARTS = [
   {
     type: 'image',
     title: 'AI reprices software around consumption',
-    desc: 'Traditional SaaS charges by seat. AI charges by usage. Only 3.8% of software spend has shifted to consumption-based pricing so far — the transition is still early.',
+    desc: 'Traditional SaaS charges by seat. AI charges by usage. Only 3.8% of software spend has shifted to consumption-based pricing so far, the transition is still early.',
     source: 'Coatue C/Takes',
     source_url: 'https://www.coatue.com/c/takes',
     img_src: 'https://images.ctfassets.net/iqem6dz8q0mk/4OLqQvsrzBVmObZD0YQwyF/28de6ce980a81d7a719bc9926ff8bff8/saas_pricing_spend.png?fm=webp&w=1200&q=80'
   },
   {
     type: 'image',
-    title: 'AI/ML hiring is surging — software engineering is flat',
+    title: 'AI/ML hiring is surging, software engineering is flat',
     desc: 'Job postings for AI and ML roles are climbing steeply while traditional software engineering stays flat. This looks like structural reallocation, not a hiring cycle.',
     source: 'Coatue C/Takes',
     source_url: 'https://www.coatue.com/c/takes',
@@ -2368,7 +2480,7 @@ const CHARTS = [
   {
     type: 'iframe',
     title: 'Global private investment in AI',
-    desc: 'Annual private investment in AI has grown from under $5bn in 2013 to over $90bn — with enterprise AI and generative AI accounting for the bulk of recent growth.',
+    desc: 'Annual private investment in AI has grown from under $5bn in 2013 to over $90bn, with enterprise AI and generative AI accounting for the bulk of recent growth.',
     source: 'Our World in Data',
     source_url: 'https://ourworldindata.org/grapher/private-investment-in-artificial-intelligence',
     iframe_src: 'https://ourworldindata.org/grapher/private-investment-in-artificial-intelligence'
@@ -2376,7 +2488,7 @@ const CHARTS = [
   {
     type: 'stat',
     title: 'Enterprise AI adoption by sector (2024)',
-    desc: 'McKinsey Global Survey on AI adoption. Financial services and tech lead; energy, manufacturing and retail are accelerating fastest — often where operational complexity is highest.',
+    desc: 'McKinsey Global Survey on AI adoption. Financial services and tech lead; energy, manufacturing and retail are accelerating fastest, often where operational complexity is highest.',
     source: 'McKinsey & Company',
     source_url: 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai',
     stats: [
@@ -2626,7 +2738,7 @@ fetch('/quotes.json').then(r=>r.json()).then(quotes=>{
   const day = Math.floor(Date.now() / 86400000); // changes daily
   const q = quotes[day % quotes.length];
   const el = document.getElementById('footer-quote');
-  if (el) el.textContent = '”' + q.text + '”' + (q.author ? ' — ' + q.author : '');
+  if (el) el.textContent = '”' + q.text + '”' + (q.author ? ', ' + q.author : '');
 }).catch(()=>{});
 
 // Last seen
@@ -2649,7 +2761,7 @@ fetch('https://miru.humanagency.co/api/me/location').then(r=>r.json()).then(func
 </script>
 
 <script>
-// ── London time — single line ─────────────────────────────────────────────
+// ── London time, single line ─────────────────────────────────────────────
 (function() {
   var el = document.getElementById('visitor-time-line');
   if (!el) return;
@@ -2690,10 +2802,10 @@ async function _labStream(url, body, resultEl, btn, btnLabel) {
         try{var tok=JSON.parse(pl); if(tok.t){ accumulated+=tok.t; resultEl.textContent=accumulated; }}catch(e){}
       }
     }
-    if(!accumulated.trim()){ resultEl.innerHTML="Something went wrong — try again."; return; }
+    if(!accumulated.trim()){ resultEl.innerHTML="Something went wrong, try again."; return; }
     // Apply markdown once stream is complete
     resultEl.innerHTML = _mdToHtml(accumulated);
-  } catch(e) { resultEl.innerHTML="Something went wrong — try again."; }
+  } catch(e) { resultEl.innerHTML="Something went wrong, try again."; }
   btn.disabled=false; btn.textContent=btnLabel;
 }
 
@@ -2786,7 +2898,7 @@ async function miruSend() {
       }
     }
     if(!text.trim()) mBubble.textContent="Sorry, something went wrong.";
-  } catch(e) { mBubble.textContent="Something went wrong — try again."; }
+  } catch(e) { mBubble.textContent="Something went wrong, try again."; }
   sendBtn.disabled = false;
   messages.scrollTop = messages.scrollHeight;
 }
@@ -2822,8 +2934,8 @@ async function pfAsk() {
         try { var tok=JSON.parse(pl); if(tok.t) ans.textContent+=tok.t; } catch(e){}
       }
     }
-    if (!ans.textContent.trim()) ans.textContent = "Something went wrong — try again.";
-  } catch(e) { ans.textContent = "Something went wrong — try again."; }
+    if (!ans.textContent.trim()) ans.textContent = "Something went wrong, try again.";
+  } catch(e) { ans.textContent = "Something went wrong, try again."; }
   btn.disabled = false; btn.textContent = "Ask →";
 }
 
@@ -2848,7 +2960,7 @@ async function intelDemoSearch() {
     if ((d.competitors||[]).length) parts.push("⚔️ vs " + d.competitors.slice(0,3).map(function(c){return typeof c==="string"?c:c.name||"";}).join(", "));
     res.innerHTML = "<strong>" + (d.name||q) + "</strong><br><br>" + parts.join("<br>");
     res.innerHTML += '<br><br><a href="https://intel.humanagency.co?q=' + encodeURIComponent(q) + '" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:var(--accent)">Full Intel brief →</a>';
-  } catch(e) { res.textContent = "Couldn't load data — try again."; }
+  } catch(e) { res.textContent = "Couldn't load data, try again."; }
   btn.disabled = false; btn.textContent = "Search →";
 }
 
@@ -2864,7 +2976,7 @@ async function cmpDemoRun() {
   try {
     var r = await fetch("https://miru.humanagency.co/api/intel/compare?a=" + encodeURIComponent(a) + "&b=" + encodeURIComponent(b));
     var d = await r.json();
-    if (d.error) { res.textContent = "Comparison failed — try again."; return; }
+    if (d.error) { res.textContent = "Comparison failed, try again."; return; }
     var html = "";
     if (d.verdict) html += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 13px;margin-bottom:12px;font-size:13px;font-weight:600;color:var(--text)">⚖️ ' + d.verdict + '</div>';
     if ((d.dimensions||[]).length) {
@@ -2872,13 +2984,13 @@ async function cmpDemoRun() {
         + '<thead><tr><th style="text-align:left;padding:6px 8px;color:var(--muted);font-weight:700;border-bottom:1px solid var(--border)">Dimension</th><th style="padding:6px 8px;color:var(--muted);font-weight:700;border-bottom:1px solid var(--border);text-align:center">' + a + '</th><th style="padding:6px 8px;color:var(--muted);font-weight:700;border-bottom:1px solid var(--border);text-align:center">' + b + '</th></tr></thead><tbody>';
       d.dimensions.forEach(function(dim) {
         html += '<tr><td style="padding:7px 8px;font-weight:600;color:var(--text);border-bottom:1px solid var(--border)">' + dim.label + '</td>'
-          + '<td style="padding:7px 8px;color:var(--muted);border-bottom:1px solid var(--border);text-align:center">' + (dim.a||"—") + '</td>'
-          + '<td style="padding:7px 8px;color:var(--muted);border-bottom:1px solid var(--border);text-align:center">' + (dim.b||"—") + '</td></tr>';
+          + '<td style="padding:7px 8px;color:var(--muted);border-bottom:1px solid var(--border);text-align:center">' + (dim.a||", ") + '</td>'
+          + '<td style="padding:7px 8px;color:var(--muted);border-bottom:1px solid var(--border);text-align:center">' + (dim.b||", ") + '</td></tr>';
       });
       html += '</tbody></table>';
     }
     res.innerHTML = html || "No comparison data returned.";
-  } catch(e) { res.textContent = "Something went wrong — try again."; }
+  } catch(e) { res.textContent = "Something went wrong, try again."; }
   btn.disabled = false; btn.textContent = "Compare →";
 }
 </script>
