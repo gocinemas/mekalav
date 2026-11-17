@@ -2091,7 +2091,7 @@ async function careerAiSummary(e) {
     const r = await fetch("https://miru.humanagency.co/api/mekalav/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: "Give me a sharp 3-sentence career summary for Vikram that captures his arc from engineer to transformation leader to AI founder, suitable for a professional reading his portfolio for the first time." })
+      body: JSON.stringify({ message: await _withContext("Give me a sharp 3-sentence career summary for Vikram that captures his arc from engineer to transformation leader to AI founder, suitable for a professional reading his portfolio for the first time.") })
     });
     const d = await r.json();
     box.textContent = d.reply || "Couldn't generate summary, read the timeline below.";
@@ -2155,6 +2155,34 @@ function _linkify(text) {
   });
 }
 
+// ── Site index for the chat: answers from what is actually on mekalav.com ──
+let _chatIndex = null;
+async function _loadChatIndex() {
+  if (_chatIndex) return _chatIndex;
+  try { _chatIndex = await (await fetch("/chat-index.json")).json(); }
+  catch (_) { _chatIndex = { facts: "", docs: [] }; }
+  return _chatIndex;
+}
+const _STOP = new Set("a an and are as at be but by can do does for from has have he his how i in is it its me my of on or so tell than that the their them there they this to was what when where which who why will with you your vikram".split(" "));
+function _terms(t) { return (t.toLowerCase().match(/[a-z0-9&+]+/g) || []).filter(w => w.length > 1 && !_STOP.has(w)); }
+function _topPassages(q, docs, k) {
+  const qt = [...new Set(_terms(q))];
+  if (!qt.length) return [];
+  const df = {}; docs.forEach(d => { const ws = new Set(_terms(d.t + " " + d.x)); qt.forEach(w => { if (ws.has(w)) df[w] = (df[w] || 0) + 1; }); });
+  return docs.map(d => {
+    const words = _terms(d.t + " " + d.t + " " + d.x); let sc = 0;
+    qt.forEach(w => { const tf = words.filter(x => x === w || (w.length > 4 && x.startsWith(w.slice(0, -1)))).length; if (tf) sc += (1 + Math.log(tf)) * Math.log(1 + docs.length / (df[w] || 1)); });
+    return { d, sc };
+  }).filter(o => o.sc > 0).sort((a, b) => b.sc - a.sc).slice(0, k).map(o => o.d);
+}
+async function _withContext(q) {
+  const idx = await _loadChatIndex();
+  const hits = _topPassages(q, idx.docs, 4);
+  let ctx = "Facts about Vikram (these override anything else you know):\n" + idx.facts;
+  if (hits.length) ctx += "\n\nRelevant content from mekalav.com:\n" + hits.map((h, i) => `[${i + 1}] ${h.t} (${h.u})\n${h.x}`).join("\n\n");
+  return `${ctx}\n\nVisitor's question: ${q}\n\nAnswer briefly and in plain English, using the facts and content above. If you use something from the site, include its link.`;
+}
+
 async function chatSend(preset) {
   const input = document.getElementById("chat-input");
   const msg = (preset || input.value).trim();
@@ -2175,7 +2203,7 @@ async function chatSend(preset) {
     const r = await fetch("https://miru.humanagency.co/api/mekalav/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: msg, history: _chatHistory.slice(-6) })
+      body: JSON.stringify({ message: await _withContext(msg), history: _chatHistory.slice(-7, -1) })
     });
     const d = await r.json();
     const reply = d.reply || "Sorry, I couldn't get a response. Try emailing me directly.";
