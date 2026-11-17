@@ -10,8 +10,8 @@ import html, json, pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ["now.html", "readiness.html", "labs/index.html", "miru.html", "intel.html", "studio.html",
-         "agent-elections.html", "agent-train.html", "corporate-to-builder.html", "day-0.html",
-         "leadership-title.html", "whatsapp-test.html", "om/index.html"]
+         "agent-elections.html", "agent-train.html",
+         "om/index.html"]
 MAX = 700
 
 def text_of(fragment):
@@ -65,7 +65,7 @@ for md in sorted((ROOT / "writing" / "posts").glob("*.md")):
     docs += chunks(f"Writing: {title}", f"https://mekalav.com/writing/{md.stem}/", raw)
 
 # Charts and article cards that the home page builds with JavaScript
-for name, anchor in (("DEFAULT_ARTICLES", "articles"),):
+for name, anchor in ():
     i = home.find(f"const {name} = [")
     if i < 0:
         continue

@@ -162,7 +162,6 @@ nav {
   .nav-links { gap: 12px; }
   .nav-links a { font-size: 12px; }
   .nav-links a[href="#career"],
-  .nav-links a[href="#articles"] { display: none; }
 }
 @media (max-width: 370px) { .nav-avail { display: none; } }
 @media (max-width: 480px) {
@@ -993,7 +992,6 @@ img, video, iframe { max-width: 100%; }
     <a href="#story">Story</a>
     <a href="#career">Career</a>
     <a href="#building">Work</a>
-    <a href="#articles">Thinking</a>
     <a href="/writing/">Writing</a>
     <a href="#contact">Contact</a>
   </div>
@@ -1659,47 +1657,15 @@ img, video, iframe { max-width: 100%; }
 </section>
 
 <section id="articles">
-  <div class="section-label">Thinking</div>
+  <div class="section-label">Writing</div>
   <h2>Essays on AI, transformation & judgment</h2>
   <div class="writing-strip">
     <a class="writing-strip-item" href="/writing/agentic-commerce/"><time>17 Nov 2026</time><span>Your next customer might be an AI</span></a>
     <a class="writing-strip-item" href="/writing/the-jobs-stayed-the-pay-didnt/"><time>12 Nov 2026</time><span>The jobs stayed. The pay didn&#x27;t.</span></a>
     <a class="writing-strip-item" href="/writing/ai-builders-not-entrepreneurs/"><time>27 Oct 2026</time><span>AI won&#x27;t make you an entrepreneur. It&#x27;ll make you a builder.</span></a>
+    <a class="writing-strip-item" href="/writing/spark-back/"><time>27 Oct 2026</time><span>What actually brings the spark back</span></a>
     <a class="writing-strip-all" href="/writing/">All writing →</a>
   </div>
-  <div class="articles-list" id="articles-list">
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7266018206476976128/" target="_blank" rel="noopener" class="article-card">
-      <span class="article-tag">AI Strategy</span>
-      <h3>The Reverse Information Paradox</h3>
-      <p>When you outsource intelligence to someone else's model, you lose control over what you learn. Most organizations don't realize they're building someone else's moat, not their own.</p>
-      <div class="article-meta">Based on Satya Nadella's latest thinking on AI adoption</div>
-    </a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7258533842379907072/" target="_blank" rel="noopener" class="article-card">
-      <span class="article-tag">Adoption</span>
-      <h3>Why Aren't People Using Agents Yet?</h3>
-      <p>People think agents are better chatbots. They're not. An agent is hiring someone to work 24/7. The real problem isn't the model. It's that nobody's learned how to check what came back.</p>
-      <div class="article-meta">On enterprise AI adoption and the delegation muscle</div>
-    </a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7245619247788625920/" target="_blank" rel="noopener" class="article-card">
-      <span class="article-tag">Culture</span>
-      <h3>We celebrate musicians but not builders</h3>
-      <p>The UK rewards presentations over delivery. We hire for keywords, not judgment. But the real differentiator isn't who has the credentials. It's who can spot when the AI output is clever but wrong.</p>
-      <div class="article-meta">On hiring, judgment, and shipping in tech</div>
-    </a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7262345678901234567/" target="_blank" rel="noopener" class="article-card">
-      <span class="article-tag">AI Philosophy</span>
-      <h3>AI and the Problem of Judgment</h3>
-      <p>The Guardian argued AI is "pleasureless decadence." They're right it doesn't feel anything. But wrong about what matters. Judgment still sits in the gap between what models do and what's actually good.</p>
-      <div class="article-meta">On why human judgment is irreplaceable in AI systems</div>
-    </a>
-    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7254321098765432109/" target="_blank" rel="noopener" class="article-card">
-      <span class="article-tag">AI Use</span>
-      <h3>Stop asking "How do I use AI?"</h3>
-      <p>Ask instead: "What would I do if I had 100 interns?" AI is electricity. Nobody asks how to use electricity. They ask what it enables. Your data, your judgment, your taste: that's the differentiator.</p>
-      <div class="article-meta">A framework for thinking about AI in your organization</div>
-    </a>
-  </div>
-  <button class="add-btn" id="add-article-btn" onclick="openArticleModal()">+ Add article</button>
 </section>
 
 <section id="cool-web">
@@ -2390,11 +2356,12 @@ const SEARCH_INDEX = [
   { label: "AI Pattern", title: "Proactive AI Agent", sub: "Push alerts on real-world triggers without user asking · Miru", anchor: "#ai-patterns" },
 ];
 
+/*WRITING_POSTS*/const WRITING_POSTS = [{"title": "Your next customer might be an AI", "date": "17 November 2026", "url": "/writing/agentic-commerce/"}, {"title": "The jobs stayed. The pay didn't.", "date": "12 November 2026", "url": "/writing/the-jobs-stayed-the-pay-didnt/"}, {"title": "AI won't make you an entrepreneur. It'll make you a builder.", "date": "27 October 2026", "url": "/writing/ai-builders-not-entrepreneurs/"}, {"title": "What actually brings the spark back", "date": "27 October 2026", "url": "/writing/spark-back/"}, {"title": "The Fifth Day", "date": "26 October 2026", "url": "/writing/the-fifth-day/"}, {"title": "The Human Experience", "date": "26 October 2026", "url": "/writing/the-human-experience/"}, {"title": "What Day 0 actually feels like", "date": "May 2026", "url": "/writing/day-0/"}, {"title": "From corporate to builder: what I didn't expect", "date": "May 2026", "url": "/writing/corporate-to-builder/"}, {"title": "The WhatsApp test: if a 60-year-old can use it, it is ready", "date": "May 2026", "url": "/writing/whatsapp-test/"}, {"title": "A title does not make you a leader", "date": "May 2026", "url": "/writing/leadership-title/"}];/*END_WRITING_POSTS*/
 function getSearchIndex() {
   const articles = loadData();
   return [
     ...SEARCH_INDEX,
-    ...articles.map(a => ({ label: "Note", title: a.title, sub: a.tag + (a.date ? " · " + a.date : ""), anchor: "#articles", url: a.url !== "#" ? a.url : null }))
+    ...WRITING_POSTS.map(p => ({ label: "Writing", title: p.title, sub: p.date, url: p.url }))
   ];
 }
 
@@ -2641,9 +2608,9 @@ function _renderCharts() {
 // ── Articles data ──────────────────────────────────────────────────────────────
 const DEFAULT_ARTICLES = [
   { id: "a4", title: "What Day 0 actually feels like", tag: "M&A · Transformation", desc: "Everyone talks about the programme. Nobody talks about the moment it either works or doesn't. This is what a demerger looks like from inside.", url: "/day-0.html", date: "May 2026" },
-  { id: "a5", title: "From corporate to builder: what I didn't expect", tag: "Career · Building", desc: "25 years in enterprise. One failed startup. Then everything changed. The gap between having an idea and building it has collapsed.", url: "/corporate-to-builder.html", date: "May 2026" },
+  { id: "a5", title: "From corporate to builder: what I didn't expect", tag: "Career · Building", desc: "26 years in enterprise. One failed startup. Then everything changed. The gap between having an idea and building it has collapsed.", url: "/corporate-to-builder.html", date: "May 2026" },
   { id: "a3", title: "The WhatsApp test: if a 60-year-old can use it, it is ready", tag: "AI · Product", desc: "Why I build AI tools that start with WhatsApp, and what that constraint teaches you about real usability.", url: "/whatsapp-test.html", date: "May 2026" },
-  { id: "a6", title: "A title does not make you a leader", tag: "Leadership · Transformation", desc: "The system keeps selecting for the wrong thing. After 25 years in enterprise transformation, the pattern is always the same.", url: "/leadership-title.html", date: "May 2026" },
+  { id: "a6", title: "A title does not make you a leader", tag: "Leadership · Transformation", desc: "The system keeps selecting for the wrong thing. After 26 years in enterprise transformation, the pattern is always the same.", url: "/leadership-title.html", date: "May 2026" },
 ];
 
 function loadData() {
@@ -2654,6 +2621,7 @@ function saveData(data) { localStorage.setItem("mekalav_articles", JSON.stringif
 
 function renderArticles() {
   const list = document.getElementById("articles-list");
+  if (!list) return;
   list.innerHTML = loadData().map(a => `
     <a class="article-card" href="${a.url}" ${a.url !== '#' ? 'target="_blank" rel="noopener"' : 'onclick="return false"'}>
       <span class="article-tag">${a.tag}</span>

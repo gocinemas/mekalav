@@ -30,7 +30,6 @@ NAV_LINKS = [
     ("/#story", "Story"),
     ("/#career", "Career"),
     ("/#building", "Work"),
-    ("/#articles", "Thinking"),
     ("/writing/", "Writing"),
     ("/#contact", "Contact"),
 ]
@@ -123,7 +122,7 @@ def nav(current):
   <a href="/" class="nav-brand">
     <img src="/vikram.jpg" alt="Vikram" class="nav-brand-photo">
     <div class="nav-name">Vikram<span>.</span></div>
-    <span class="nav-avail"><span class="nav-avail-dot"></span>Available</span>
+    <span class="nav-avail" title="Available for work, based in London"><span class="nav-avail-dot"></span>Available · London</span>
   </a>
   <div class="nav-links">{links}
   </div>
@@ -176,7 +175,7 @@ def list_page(posts):
             counts[tag] = counts.get(tag, 0) + 1
         items += f"""
     <li class="post-item" data-tags="{esc("|".join(t.lower() for t in post["tags"]))}" data-search="{esc(search_text(post))}">
-      <time datetime="{post["date"].isoformat()}">{fmt_date(post["date"])}</time>
+      <time datetime="{post["date"].isoformat()}">{post.get("display_date") or fmt_date(post["date"])}</time>
       <h2><a href="/writing/{post["slug"]}/">{esc(post["title"])}</a></h2>
       <p>{esc(post["description"])}</p>
       <ul class="tags">{tag_links(post["tags"])}</ul>
@@ -231,7 +230,7 @@ def post_page(post):
     main = f"""<main class="wrap post">
   <p class="eyebrow"><a href="/writing/">Writing</a></p>
   <h1>{esc(title)}</h1>
-  <p class="meta"><time datetime="{post["date"].isoformat()}">{fmt_date(post["date"])}</time> · {SITE_NAME}</p>
+  <p class="meta"><time datetime="{post["date"].isoformat()}">{post.get("display_date") or fmt_date(post["date"])}</time> · {SITE_NAME}</p>
   <div class="post-body">
 {post["html"]}
   </div>
@@ -249,7 +248,7 @@ def post_page(post):
 
 
 def update_home_strip(posts):
-    """Keep the three newest posts in the home page's Thinking section."""
+    """Keep the newest posts in the home page's Writing section, and the search list in sync."""
     home = WRITING_DIR.parent / "index.html"
     text = home.read_text(encoding="utf-8")
     start = text.find('<div class="writing-strip">')
@@ -257,11 +256,17 @@ def update_home_strip(posts):
     if start < 0 or end < 0:
         return
     items = "".join(
-        f'\n    <a class="writing-strip-item" href="/writing/{p["slug"]}/"><time>{p["date"].day} {p["date"]:%b %Y}</time>'
+        f'\n    <a class="writing-strip-item" href="/writing/{p["slug"]}/"><time>{p.get("display_date") or (str(p["date"].day) + " " + format(p["date"], "%b %Y"))}</time>'
         f'<span>{esc(p["title"])}</span></a>'
-        for p in posts[:3]
+        for p in posts[:4]
     )
     new = text[:start] + '<div class="writing-strip">' + items + "\n    " + text[end:]
+    import json as _json
+    plist = [{"title": p["title"], "date": p.get("display_date") or fmt_date(p["date"]), "url": f"/writing/{p['slug']}/"} for p in posts]
+    m1, m2 = "/*WRITING_POSTS*/", "/*END_WRITING_POSTS*/"
+    if m1 in new and m2 in new:
+        a_, b_ = new.index(m1) + len(m1), new.index(m2)
+        new = new[:a_] + "const WRITING_POSTS = " + _json.dumps(plist, ensure_ascii=False) + ";" + new[b_:]
     if new != text:
         home.write_text(new, encoding="utf-8")
         print("updated home page writing strip")

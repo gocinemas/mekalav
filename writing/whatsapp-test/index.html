@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The WhatsApp test: if a 60-year-old can use it, it is ready | Vikram Mekala</title>
+<meta name="description" content="Why I build AI tools that start with WhatsApp, and what that constraint teaches you about real usability.">
+<link rel="canonical" href="https://mekalav.com/writing/whatsapp-test/">
+<meta property="og:site_name" content="Vikram Mekala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The WhatsApp test: if a 60-year-old can use it, it is ready">
+<meta property="og:description" content="Why I build AI tools that start with WhatsApp, and what that constraint teaches you about real usability.">
+<meta property="og:url" content="https://mekalav.com/writing/whatsapp-test/">
+<meta property="og:image" content="https://mekalav.com/vikram.jpg">
+<meta property="article:published_time" content="2026-05-02">
+<meta property="article:author" content="Vikram Mekala">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The WhatsApp test: if a 60-year-old can use it, it is ready">
+<meta name="twitter:description" content="Why I build AI tools that start with WhatsApp, and what that constraint teaches you about real usability.">
+<meta name="twitter:image" content="https://mekalav.com/vikram.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/writing/writing.css">
+<style id="mobile-fixes">
+/* Phones: let form controls shrink inside rows, stop media spilling over, and avoid iOS zoom on focus */
+input, textarea, select, button { min-width: 0; max-width: 100%; }
+img, video, iframe { max-width: 100%; }
+@media (max-width: 640px) { input, textarea, select { font-size: 16px !important; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-brand">
+    <img src="/vikram.jpg" alt="Vikram" class="nav-brand-photo">
+    <div class="nav-name">Vikram<span>.</span></div>
+    <span class="nav-avail" title="Available for work, based in London"><span class="nav-avail-dot"></span>Available · London</span>
+  </a>
+  <div class="nav-links">
+    <a href="/labs">Products</a>
+    <a href="/#story">Story</a>
+    <a href="/#career">Career</a>
+    <a href="/#building">Work</a>
+    <a href="/writing/" aria-current="page">Writing</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <a href="/#contact" class="nav-mobile-cta">Contact</a>
+    <div class="theme-toggle">
+      <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
+      <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
+      <button class="theme-btn" data-t="dark" onclick="setTheme('dark')" title="Dark">🌙</button>
+    </div>
+  </div>
+</nav>
+<main class="wrap post">
+  <p class="eyebrow"><a href="/writing/">Writing</a></p>
+  <h1>The WhatsApp test: if a 60-year-old can use it, it is ready</h1>
+  <p class="meta"><time datetime="2026-05-02">May 2026</time> · Vikram Mekala</p>
+  <div class="post-body">
+<p>When I started building Miru, I set one simple rule: it must work on WhatsApp.</p>
+<p>It's not about the technology being impressive. It isn't. But it's an app people already have on their phones, they know how to use it, and it requires no new accounts or tutorials.</p>
+<p>That is exactly the point.</p>
+<hr>
+<p>I've spent 26 years watching enterprise software fail. The code usually works fine, but the people it was built for don't use it. They avoid it, or they need days of training just to get anything out of it.</p>
+<p>The pattern is always the same. You build something capable. You add more features. You make it more powerful. Then you realise your users are still doing their work in Excel or just calling someone on the phone.</p>
+<p>The technology wasn't wrong. The usability was.</p>
+<hr>
+<p>When I started building AI tools for non-technical people, I thought about my mum. She is in her sixties, lives in India, and uses WhatsApp all day for family and news. She doesn't download new apps, she doesn't create accounts, and she doesn't read through onboarding flows.</p>
+<p>If she couldn't use a tool within thirty seconds of first opening it, I knew I had built the wrong thing.</p>
+<blockquote><p>I stopped asking, "Is this technically capable?" and started asking, "Would a 60-year-old who isn't interested in technology actually use this?"</p></blockquote>
+<p>It sounds obvious, but it isn't. Most AI products are built by technical people for other technical people, followed by a press release about democratising AI.</p>
+<hr>
+<p>Using WhatsApp as a constraint forces you to be useful immediately.</p>
+<p>There is no interface to hide behind. You can't mask bad thinking with a beautiful design. The user types something in plain English and they get something useful back, or they don't. If they don't, they won't come back.</p>
+<p>That constraint is brutal, but it creates real clarity.</p>
+<p>When I built the fuel price feature in Miru, I didn't build a dashboard with filters and charts. I built a way to send a postcode and get the price. When I built the school communication feature, I didn't build a notification centre. I built a tool that reads school emails and messages you only when something needs your attention. When I built the train times feature, you type your station or use your location to get the next departures.</p>
+<p>The tech underneath is the same as what the big AI companies are building. The difference is the surface, the part people touch.</p>
+<hr>
+<p>In design, there is a concept called affordance. It means an object should suggest how it is used. A door handle says pull. A push plate says push. Get that wrong and people feel stupid, blaming themselves instead of the design.</p>
+<p>WhatsApp has perfect affordance for conversation. You know exactly what to do because you just type. No instructions required. No app store. No version updates.</p>
+<p>That is why I build there first. Not as a limitation, but as a design principle. If something works well in a text message, you understand what you are building. You can always expand to a web app or a dashboard later. But if you cannot make it work in plain text first, you probably don't understand the problem well enough yet.</p>
+<hr>
+<p>The "60-year-old test" isn't really about age. It is about honesty.</p>
+<p>It forces you to ask: have I made this genuinely easy, or have I just made it powerful? Are real people going to use this, or am I just building something that other people in the AI industry will find impressive?</p>
+<p>Those are two very different products.</p>
+<p>I know which one I want to build.</p>
+  </div>
+  <ul class="tags"><li><a href="/writing/?tag=AI">AI</a></li></ul>
+  <a class="back" href="/writing/">← All writing</a>
+</main>
+<script src="/writing/writing.js"></script>
+</body>
+</html>
