@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Labs — Vikram Mekala</title>
+<title>Labs | Vikram Mekala</title>
 <meta name="description" content="Three live experiments: Day 0 brief, Miru demo, personalised pitch. Try them.">
 <link rel="canonical" href="https://mekalav.com/labs">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -200,7 +200,7 @@ input[type=text]:focus { border-color:var(--accent); }
         <span class="lab-card-icon">🏁</span>
         <div>
           <div class="lab-card-name">Day 0 brief</div>
-          <div class="lab-card-desc">Day 0 is the first day you own a programme — handover done, clock started. Enter any company to see how I'd run the first 30 days.</div>
+          <div class="lab-card-desc">Day 0 is the first day you own a programme: handover done, clock started. Enter any company to see how I'd run the first 30 days.</div>
         </div>
       </div>
       <div class="lab-examples">
@@ -225,13 +225,13 @@ input[type=text]:focus { border-color:var(--accent); }
       <div class="lab-card-title">
         <span class="lab-card-icon">💬</span>
         <div>
-          <div class="lab-card-name">Miru — live demo</div>
+          <div class="lab-card-name">Miru: live demo</div>
           <div class="lab-card-desc">WhatsApp-first AI for everyday UK life. Ask it about Miru, a company, or anything practical.</div>
         </div>
       </div>
     </div>
     <div id="miru-chat-messages">
-      <div class="chat-bubble-miru">Hi — I'm Miru. I help with everyday UK life: school comms, local intel, company research, and more. What do you want to know?</div>
+      <div class="chat-bubble-miru">Hi, I'm Miru. I help with everyday UK life: school comms, local intel, company research, and more. What do you want to know?</div>
     </div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
       <button class="lab-example-btn" onclick="miruChip(this)">What is Miru?</button>
@@ -255,7 +255,7 @@ input[type=text]:focus { border-color:var(--accent); }
         <span class="lab-card-icon">✍️</span>
         <div>
           <div class="lab-card-name">Personalised outreach</div>
-          <div class="lab-card-desc">How I pitch — specific to a company and role, not a template.</div>
+          <div class="lab-card-desc">How I pitch, specific to a company and role, not a template.</div>
         </div>
       </div>
       <div class="lab-examples">
@@ -317,10 +317,10 @@ async function _labStream(url, body, resultEl, btn, btnLabel, copyBtnId) {
         try{var tok=JSON.parse(pl); if(tok.t){ accumulated+=tok.t; resultEl.textContent=accumulated; }}catch(e){}
       }
     }
-    if(!accumulated.trim()){ resultEl.innerHTML="Something went wrong — try again."; return; }
+    if(!accumulated.trim()){ resultEl.innerHTML="Something went wrong, try again."; return; }
     resultEl.innerHTML = _mdToHtml(accumulated);
     if(copyBtnId) document.getElementById(copyBtnId).style.display = "inline-block";
-  } catch(e) { resultEl.innerHTML="Something went wrong — try again."; }
+  } catch(e) { resultEl.innerHTML="Something went wrong, try again."; }
   btn.disabled=false; btn.textContent=btnLabel;
 }
 
@@ -372,7 +372,7 @@ async function miruSend(){
       }
     }
     if(!text.trim()) mBubble.textContent="Sorry, something went wrong.";
-  } catch(e){ mBubble.textContent="Something went wrong — try again."; }
+  } catch(e){ mBubble.textContent="Something went wrong, try again."; }
   sendBtn.disabled=false; messages.scrollTop=messages.scrollHeight;
 }
 

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Intel — Agentic AI in action</title>
-<meta name="description" content="Watch an AI agent autonomously research any company — news, leadership, strategy, hiring signals — and return a structured brief in seconds. Built by Vikram Mekala.">
+<title>Intel: Agentic AI in action</title>
+<meta name="description" content="Watch an AI agent autonomously research any company (news, leadership, strategy, hiring signals) and return a structured brief in seconds. Built by Vikram Mekala.">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -139,11 +139,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 
   <div class="header">
     <h1>Company Intel</h1>
-    <p>Type a company name. An AI agent autonomously searches news, reads leadership signals, scans hiring trends, and returns a structured brief — without you doing anything else.</p>
+    <p>Type a company name. An AI agent autonomously searches news, reads leadership signals, scans hiring trends, and returns a structured brief, without you doing anything else.</p>
   </div>
 
   <div class="what-is-agentic">
-    <p><strong>What makes this agentic?</strong> It's not a chatbot answering a question. It's an agent — it decides what to research, runs multiple searches in parallel, synthesises across sources, and produces structured output. You give it a goal; it figures out how to get there.</p>
+    <p><strong>What makes this agentic?</strong> It's not a chatbot answering a question. It's an agent: it decides what to research, runs multiple searches in parallel, synthesises across sources, and produces structured output. You give it a goal; it figures out how to get there.</p>
   </div>
 
   <!-- Pipeline visualization -->
@@ -196,9 +196,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
       <div class="confidence-badge" id="r-conf" onclick="_toggleConfExplain()" style="cursor:pointer"></div>
     </div>
     <div id="r-conf-explain" style="display:none;font-size:12px;line-height:1.6;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:12px">
-      <b style="color:var(--text)">High</b> — multiple strong public sources confirm the picture (filings, press, LinkedIn signals).<br>
-      <b style="color:var(--text)">Medium</b> — good signal but some gaps; treat as directional, not definitive.<br>
-      <b style="color:var(--text)">Low</b> — limited public data; AI has filled gaps with inference. Verify before acting.
+      <b style="color:var(--text)">High</b>: multiple strong public sources confirm the picture (filings, press, LinkedIn signals).<br>
+      <b style="color:var(--text)">Medium</b>: good signal but some gaps; treat as directional, not definitive.<br>
+      <b style="color:var(--text)">Low</b>: limited public data; AI has filled gaps with inference. Verify before acting.
     </div>
     <!-- Company at a Glance (snapshot) -->
     <div id="r-snapshot-wrap" style="display:none;margin-bottom:16px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
@@ -238,9 +238,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-se
 
     <div class="pitch">
       <div class="pitch-eyebrow">Agentic AI · Built by</div>
-      <h3>Vikram Mekala — AI &amp; Transformation</h3>
-      <p>Intel is a working example of what agentic AI looks like in production — not a demo, not a wrapper around a chatbot. The agent decides what to research, runs it autonomously, and delivers structured output you can act on.</p>
-      <p>I build these kinds of systems for organisations — identifying where agents create real leverage, then shipping them. If you're thinking about what agentic AI could do for your business, let's talk.</p>
+      <h3>Vikram Mekala, AI &amp; Transformation</h3>
+      <p>Intel is a working example of what agentic AI looks like in production, not a demo, not a wrapper around a chatbot. The agent decides what to research, runs it autonomously, and delivers structured output you can act on.</p>
+      <p>I build these kinds of systems for organisations: identifying where agents create real leverage, then shipping them. If you're thinking about what agentic AI could do for your business, let's talk.</p>
       <div class="pitch-links">
         <a class="pitch-link primary" href="https://mekalav.com">About me →</a>
         <a class="pitch-link secondary" href="https://calendly.com/mekala/15min" target="_blank" rel="noopener">📅 Book 15 min</a>
@@ -447,7 +447,7 @@ async function sendEmail() {
     const d = await r.json();
     if (d.ok) {
       statusEl.style.color = '#16a34a';
-      statusEl.textContent = '✓ Sent! Check your inbox — from reports@mekalav.com.';
+      statusEl.textContent = '✓ Sent! Check your inbox (from reports@mekalav.com).';
     } else if (r.status === 503) {
       statusEl.style.color = '#d97706';
       statusEl.textContent = 'Email service not yet configured. Coming soon!';

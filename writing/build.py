@@ -195,7 +195,7 @@ def list_page(posts):
   <p class="no-results" hidden>Nothing matches that yet. Try another word or clear the filter.</p>
 </main>"""
     return page(
-        title=f"Writing — {SITE_NAME}",
+        title=f"Writing | {SITE_NAME}",
         description="Essays on AI, building and work, by Vikram Mekala.",
         canonical=f"{SITE_URL}/writing/",
         current="/writing/",
@@ -233,7 +233,7 @@ def post_page(post):
   <a class="back" href="/writing/">← All writing</a>
 </main>"""
     return page(
-        title=f"{title} — {SITE_NAME}",
+        title=f"{title} | {SITE_NAME}",
         description=description,
         canonical=url,
         current="/writing/",
