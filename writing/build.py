@@ -63,11 +63,32 @@ def link(match):
     return f'<a href="{url}">{label}</a>'
 
 
+FENCE = re.compile(r"^```[^\n]*\n(.*?)\n```[ \t]*$", re.S | re.M)
+
+
+def prompt_block(text):
+    """A fenced ``` block, shown as a copyable prompt with a Copy button."""
+    return (
+        '<div class="prompt"><button type="button" class="prompt-copy">Copy</button>'
+        f"<pre><code>{html.escape(text.strip(), quote=False)}</code></pre></div>"
+    )
+
+
 def render_body(markdown):
+    # Pull out fenced blocks first, because they can contain blank lines.
+    fences = []
+
+    def stash(match):
+        fences.append(prompt_block(match.group(1)))
+        return f"\n\n@@FENCE{len(fences) - 1}@@\n\n"
+
+    markdown = FENCE.sub(stash, markdown)
     out = []
     for block in re.split(r"\n\s*\n", markdown.strip()):
         lines = [line.strip() for line in block.strip().splitlines()]
-        if lines == ["---"]:
+        if len(lines) == 1 and re.fullmatch(r"@@FENCE\d+@@", lines[0]):
+            out.append(fences[int(lines[0][7:-2])])
+        elif lines == ["---"]:
             out.append("<hr>")
         elif lines[0].startswith("## "):
             text, css_class = HEADING_CLASS.match(lines[0][3:]).groups()

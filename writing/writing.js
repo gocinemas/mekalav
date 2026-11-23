@@ -52,3 +52,23 @@ function setTheme(t) {
   });
   apply();
 })();
+
+
+// Copy buttons on prompt blocks in posts.
+document.querySelectorAll(".prompt-copy").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const text = btn.parentElement.querySelector("code").innerText;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (e) {
+      const range = document.createRange();
+      range.selectNodeContents(btn.parentElement.querySelector("code"));
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      document.execCommand("copy");
+      sel.removeAllRanges();
+    }
+    btn.textContent = "Copied";
+    btn.classList.add("done");
+    setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("done"); }, 1800);
+  });
+});

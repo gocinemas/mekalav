@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI prompts I&#x27;d actually use on a programme | Vikram Mekala</title>
+<meta name="description" content="Nine copy-and-paste prompts for programme and project work: status reports, RAID logs, pre-mortems, steering packs, go-live checks and more.">
+<link rel="canonical" href="https://mekalav.com/writing/ai-prompts-for-programmes/">
+<meta property="og:site_name" content="Vikram Mekala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI prompts I&#x27;d actually use on a programme">
+<meta property="og:description" content="Nine copy-and-paste prompts for programme and project work: status reports, RAID logs, pre-mortems, steering packs, go-live checks and more.">
+<meta property="og:url" content="https://mekalav.com/writing/ai-prompts-for-programmes/">
+<meta property="og:image" content="https://mekalav.com/vikram.jpg">
+<meta property="article:published_time" content="2026-11-23">
+<meta property="article:author" content="Vikram Mekala">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI prompts I&#x27;d actually use on a programme">
+<meta name="twitter:description" content="Nine copy-and-paste prompts for programme and project work: status reports, RAID logs, pre-mortems, steering packs, go-live checks and more.">
+<meta name="twitter:image" content="https://mekalav.com/vikram.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/writing/writing.css">
+<style id="mobile-fixes">
+/* Phones: let form controls shrink inside rows, stop media spilling over, and avoid iOS zoom on focus */
+input, textarea, select, button { min-width: 0; max-width: 100%; }
+img, video, iframe { max-width: 100%; }
+@media (max-width: 640px) { input, textarea, select { font-size: 16px !important; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-brand">
+    <img src="/vikram.jpg" alt="Vikram" class="nav-brand-photo">
+    <div class="nav-name">Vikram<span>.</span></div>
+    <span class="nav-avail" title="Available for work, based in London"><span class="nav-avail-dot"></span>Available · London</span>
+  </a>
+  <div class="nav-links">
+    <a href="/labs">Products</a>
+    <a href="/#story">Story</a>
+    <a href="/#career">Career</a>
+    <a href="/#building">Work</a>
+    <a href="/writing/" aria-current="page">Writing</a>
+    <a href="/#trivia">Trivia</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <a href="/#contact" class="nav-mobile-cta">Contact</a>
+    <div class="theme-toggle">
+      <button class="theme-btn" data-t="light" onclick="setTheme('light')" title="Light">☀️</button>
+      <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="System">⚙️</button>
+      <button class="theme-btn" data-t="dark" onclick="setTheme('dark')" title="Dark">🌙</button>
+    </div>
+  </div>
+</nav>
+<main class="wrap post">
+  <p class="eyebrow"><a href="/writing/">Writing</a></p>
+  <h1>AI prompts I&#x27;d actually use on a programme</h1>
+  <p class="meta"><time datetime="2026-11-23">23 November 2026</time> · Vikram Mekala</p>
+  <div class="post-body">
+<p>I've run programmes for a long time, and a lot of the job is the same handful of things every week. Status reports. RAID logs. Getting a steering pack together. Working out who actually decides.</p>
+<p>AI is good at the first drafts of most of this. It's not good at the conversations that come after. So these prompts are about getting the drafting done quickly, so you've got more time for the people part.</p>
+<p>Copy any of them into ChatGPT, Claude or Copilot. Fill in the bits in square brackets.</p>
+<p>One thing before you start: check what your company allows. Don't paste client names, financials or anything confidential into a public AI tool. Use your company's approved tool, or strip the names out first.</p>
+<hr>
+<h2>1. How exposed is your week to AI?</h2>
+<p>Start here. It shows you how much of your week is work AI can already help with, and how much is the work only you can do.</p>
+<div class="prompt"><button type="button" class="prompt-copy">Copy</button><pre><code>Here's how I spent my working hours last week: [list your main tasks and roughly how many hours each, or just paste last week's calendar].
+
+Put each task into one of four groups:
+
+1. Routine work that ends in a document or code
+2. Tricky work that still ends in a document
+3. Routine work with people, like status calls
+4. Messy work with people, like getting a decision or sorting out a conflict
+
+Show the percentage of my week in each group. Then tell me which two tasks AI could take off me, and what I should spend that time on instead.</code></pre></div>
+<p>Group 1 is the most exposed. Group 4 is the safest. The four groups come from Maurizio Cuna's <a href="https://newsletter.consultingintel.com/p/whats-left-of-the-consultant" target="_blank" rel="noopener noreferrer">Consulting AI Threat Matrix</a> at Consulting Intel.</p>
+<hr>
+<h2>2. Status report from messy notes</h2>
+<p>For when you've got updates scattered across emails, chats and your notebook, and the report is due in an hour.</p>
+<div class="prompt"><button type="button" class="prompt-copy">Copy</button><pre><code>I'm a programme manager writing this week's status report for [audience, e.g. the steering committee].
+
+Here are my raw notes and updates: [paste notes, emails, chat messages].
+
+Write a one-page status report with:
+- Overall RAG status, with one line on why
+- What got done this week
+- What's planned for next week
+- Top 3 risks or issues, each with an owner and next step
+- Any decisions we need from the audience
+
+Be honest about the RAG. If the notes suggest something is amber or red, say so, even if nobody has written it down. Keep it plain and short. Flag anything in my notes that looks like a problem I haven't called out.</code></pre></div>
+<p>The last line is the useful bit. It stops you writing a green report on an amber programme.</p>
+<hr>
+<h2>3. RAID log from meeting notes</h2>
+<div class="prompt"><button type="button" class="prompt-copy">Copy</button><pre><code>Here are notes from [meeting name] on [date]: [paste notes or transcript].
+
+Pull out every risk, assumption, issue and dependency mentioned, even if it was only said in passing.
+
+Put them in a table with these columns: Type (Risk / Assumption / Issue / Dependency), Description, Impact (High / Medium / Low), Owner (if mentioned, otherwise "TBC"), Next step.
+
+After the table, list anything that sounded like a risk but nobody owned it.</code></pre></div>
+<hr>
+<h2>4. Pre-mortem before a go-live</h2>
+<p>Imagine it's gone wrong, then work back. Much better before go-live than after.</p>
+<div class="prompt"><button type="button" class="prompt-copy">Copy</button><pre><code>We're going live with [what's going live] on [date]. It involves [systems, teams, countries, number of users].
+
+Imagine it's two weeks after go-live and it has gone badly wrong. Write the 10 most likely reasons why, based on what usually goes wrong in this kind of go-live.
+
+For each one, give:
+- An early warning sign we could spot now
+- One thing we could do this week to reduce the risk
+
+Then tell me which three I should worry about most and why.</code></pre></div>
+<hr>
+<h2>5. Who actually decides?</h2>
+<p>Org charts tell you who reports to whom. They don't tell you who can say yes, or who can quietly stop things.</p>
+<div class="prompt"><button type="button" class="prompt-copy">Copy</button><pre><code>I'm running [programme] and I need [decision or outcome, e.g. sign-off on the cutover date].
+
+Here are the people involved, their roles and what I know about them: [list names or roles, what they care about, how they've reacted so far].
+
+Help me map them out:
+- Who can actually make this decision
+- Who can block it, even if they're not on paper
+- Who influences the decision makers
+- What each of them is worried about
+
+Then suggest the order I should talk to them in, and what to say to each one first.</code></pre></div>
+<p>Use roles instead of real names if you're on a public tool.</p>
+<hr>
+<h2>6. Steering pack that gets a decision</h2>
+<p>Most steering packs report. Good ones ask for something.</p>
+<div class="prompt"><button type="button" class="prompt-copy">Copy</button><pre><code>I've got a steering committee on [date] with [who attends].
+
+Here's the current situation: [paste status, issues, options].
+
+Write a short steering pack, no more than 5 slides, as an outline:
+- Slide 1: the decision we need today, in one sentence
+- Slide 2: where we are, in plain terms
+- Slide 3: the options, with cost, risk and time for each
+- Slide 4: what we recommend and why
+- Slide 5: what happens if we don't decide today
+
+Then list the three hardest questions the committee is likely to ask, with a short answer for each.</code></pre></div>
+<hr>
+<h2>7. Go-live readiness check</h2>
+<div class="prompt"><button type="button" class="prompt-copy">Copy</button><pre><code>We're planning to go live with [what] on [date]. Here's where we are: [paste readiness status, test results, open defects, training, data migration status, support setup].
+
+Act as a sceptical go-live assessor. Go through each area and tell me if it's ready, not ready, or unclear. For anything not ready or unclear, tell me what evidence I'd need to be confident.
+
+Finish with a plain recommendation: go, go with conditions, or no-go. Don't be polite about it.</code></pre></div>
+<hr>
+<h2>8. Triage after go-live</h2>
+<p>For the first days of hypercare, when tickets are coming in faster than anyone can read them.</p>
+<div class="prompt"><button type="button" class="prompt-copy">Copy</button><pre><code>Here's a list of incidents raised since go-live: [paste ticket list with titles, descriptions, times, areas].
+
+Group them into themes. For each theme give:
+- How many tickets
+- Which business process is affected
+- Whether it looks like one root cause or several
+- How urgent it is for the business, not just for IT
+
+Then give me the top five things to fix first, and which ones can wait. Point out anything that looks like a data or training problem rather than a system bug.</code></pre></div>
+<p>When hundreds of tickets come in, the hard part isn't fixing them. It's seeing which ten actually matter.</p>
+<hr>
+<h2>9. Lessons learned that people will actually read</h2>
+<div class="prompt"><button type="button" class="prompt-copy">Copy</button><pre><code>Here are notes from our lessons learned session on [programme]: [paste notes].
+
+Turn them into no more than five lessons. For each one:
+- What happened, in one or two lines
+- What we'd do differently
+- Who should know about this on the next programme
+
+Leave out anything generic like "communication could be better" unless there's a specific example behind it.</code></pre></div>
+<hr>
+<p>These save time on the drafting. The real work is still in the room: getting people to agree, calling the red early, deciding what to fix first. That's the bit worth keeping for yourself.</p>
+<p>If you've got a prompt you use on programmes that works, send it over. I'll add the good ones here.</p>
+  </div>
+  <ul class="tags"><li><a href="/writing/?tag=AI">AI</a></li></ul>
+  <a class="back" href="/writing/">← All writing</a>
+</main>
+<script src="/writing/writing.js"></script>
+</body>
+</html>
