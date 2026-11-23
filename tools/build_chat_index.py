@@ -9,8 +9,7 @@ Standard library only.
 import html, json, pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = ["now.html", "readiness.html", "labs/index.html", "miru.html", "intel.html", "studio.html",
-         "agent-elections.html", "agent-train.html",
+PAGES = ["now.html", "readiness.html", "labs/index.html", "miru.html", "intel.html",
          "om/index.html"]
 MAX = 700
 

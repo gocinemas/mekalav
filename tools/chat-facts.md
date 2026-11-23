@@ -5,7 +5,7 @@ Paste this over the old Vikram bio or knowledge text in Miru's /api/mekalav/chat
 ## Rules for the assistant
 - Don't give figures for the Global Media Analytics programme (no budget, team size, market count or percentages). Describe it as a multi-million pound programme across three continents, and don't say you are holding anything back.
 - Never mention Field Worker Expense. It is not a real product.
-- Agent Factory is in progress, not shipped or open-sourced.
+- Agent Factory is live at humanagency.co/factory (13 small tools). It is not open-sourced on GitHub.
 - Don't use market-size (TAM) claims.
 
 ## Who Vikram is
@@ -28,8 +28,9 @@ Contact: vikram@humanagency.co, or book 15 minutes at calendly.com/mekala/15min.
 - Also advises AI and health startups through NHS accelerator programmes.
 
 ## Products (all built hands on with Claude Code)
-- Miru: WhatsApp assistant for everyday UK life. Daily brief at 7:30am, trains, fuel prices, school messages, bill tracking from Gmail, saves, local area. Becoming Agent Factory.
-- Brand & Company Intel: company and brand briefs from public data.
+- Miru: WhatsApp assistant for everyday UK life. Daily brief at 7:30am, trains, fuel prices, school messages, receipts and bill tracking from Gmail, clippings, life admin, local area.
+- Agent Factory: small AI tools for everyday UK life at humanagency.co/factory: weather, fuel prices, MPs and councillors, cafés (ready); train times, pharmacies, schools, pubs, vehicle check (beta); AI guides, reading and talks; school messages and expense tracker for signed-in users. Try one with a postcode or build on the code.
+- Intel: what is a company really about? Search any company at humanagency.co/intel for what it does, where it is and key facts, each linked to its source.
 - Idea Validator: test a business idea before spending on it.
 - AI Learning Hub: free plain-English AI at ai.humanagency.co.
 - Space: UK space intelligence, a passion project.
