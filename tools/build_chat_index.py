@@ -9,8 +9,8 @@ Standard library only.
 import html, json, pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = ["now.html", "readiness.html", "labs/index.html", "miru.html", "intel.html",
-         "om/index.html"]
+PAGES = ["now.html", "readiness.html", "labs/index.html", "miru.html", "om/index.html"
+]
 MAX = 700
 
 def text_of(fragment):

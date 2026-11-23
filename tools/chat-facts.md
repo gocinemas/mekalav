@@ -30,7 +30,7 @@ Contact: vikram@humanagency.co, or book 15 minutes at calendly.com/mekala/15min.
 ## Products (all built hands on with Claude Code)
 - Miru: WhatsApp assistant for everyday UK life. Daily brief at 7:30am, trains, fuel prices, school messages, receipts and bill tracking from Gmail, clippings, life admin, local area.
 - Agent Factory: small AI tools for everyday UK life at humanagency.co/factory: weather, fuel prices, MPs and councillors, cafés (ready); train times, pharmacies, schools, pubs, vehicle check (beta); AI guides, reading and talks; school messages and expense tracker for signed-in users. Try one with a postcode or build on the code.
-- Intel: what is a company really about? Search any company at humanagency.co/intel for what it does, where it is and key facts, each linked to its source.
+- Intel: what is a company really about? Search any company at humanagency.co/factory/intel for what it does, where it is and key facts, each linked to its source.
 - Idea Validator: test a business idea before spending on it.
 - AI Learning Hub: free plain-English AI at ai.humanagency.co.
 - Space: UK space intelligence, a passion project.
