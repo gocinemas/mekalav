@@ -31,6 +31,7 @@ NAV_LINKS = [
     ("/#career", "Career"),
     ("/#building", "Work"),
     ("/writing/", "Writing"),
+    ("/#trivia", "Trivia"),
     ("/#contact", "Contact"),
 ]
 NUMBERED = re.compile(r"^\d+\. ")

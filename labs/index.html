@@ -117,8 +117,8 @@ input[type=text]:focus { border-color:var(--accent); }
   .lab-card-header { flex-direction:column; }
   nav { padding:10px 16px; gap:0; }
   .nav-links { gap:12px; }
-  .nav-links a[href="#career"],
-  .nav-links a[href="#articles"] { display:none; }
+  .nav-links a[href="/#career"] { display:none; }
+  .nav-avail { display:none; }
 }
 @media(max-width:480px){
   nav { padding:10px 16px; gap:0; }
@@ -131,6 +131,8 @@ input[type=text]:focus { border-color:var(--accent); }
   .page { padding:24px 16px 60px; }
   .lab-inputs-grid { grid-template-columns:1fr !important; }
 }
+@media (max-width: 820px) { .theme-toggle { display: none; } }
+@media (max-width: 760px) { .cmdK-nav-btn { display: none; } }
 </style>
 <script>
 (function() {
@@ -169,14 +171,12 @@ img, video, iframe { max-width: 100%; }
     <span class="nav-avail" title="Available for work, based in London"><span class="nav-avail-dot"></span>Available · London</span>
   </a>
   <div class="nav-links">
-    <a href="/#tools">Tools</a>
-    <a href="/labs" class="active">Labs</a>
+    <a href="/labs" class="active">Products</a>
     <a href="/#story">Story</a>
     <a href="/#career">Career</a>
-    <a href="/#building">Builder's Lab</a>
-    <a href="/#ai-patterns">AI Patterns</a>
+    <a href="/#building">Work</a>
     <a href="/writing/">Writing</a>
-    <a href="/now">Now</a>
+    <a href="/#trivia">Trivia</a>
     <a href="/#contact">Contact</a>
   </div>
   <div class="nav-right">
