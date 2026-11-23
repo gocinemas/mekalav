@@ -2979,7 +2979,7 @@ async function intelDemoSearch() {
     if (d.ceo) parts.push("👤 CEO: " + d.ceo);
     if ((d.competitors||[]).length) parts.push("⚔️ vs " + d.competitors.slice(0,3).map(function(c){return typeof c==="string"?c:c.name||"";}).join(", "));
     res.innerHTML = "<strong>" + (d.name||q) + "</strong><br><br>" + parts.join("<br>");
-    res.innerHTML += '<br><br><a href="https://intel.humanagency.co?q=' + encodeURIComponent(q) + '" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:var(--accent)">Full Intel brief →</a>';
+    res.innerHTML += '<br><br><a href="https://humanagency.co/intel/?q=' + encodeURIComponent(q) + '" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:var(--accent)">Full Intel brief →</a>';
   } catch(e) { res.textContent = "Couldn't load data, try again."; }
   btn.disabled = false; btn.textContent = "Search →";
 }
