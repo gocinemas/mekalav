@@ -19,13 +19,13 @@ The headline is that beans are now outselling rice at Waitrose. Bold Bean Co's Q
 
 Two things felt personal though.
 
-**Mutti.** Sales of Mutti tomatoes are up 19%. Waitrose puts it under what it calls the "larder flex". People are cutting back on nights out but treating themselves to small things that make cooking at home feel special, like premium tinned tomatoes, good olive oil and jarred fish. Mutti has for sure become part of our usage at home. We don't really look at another tin now. Jo put it well: Mutti made us care which tin of chopped tomatoes we bought. That's a brand turning a basic into a choice.
+**Mutti.** Sales of Mutti tomatoes are up 19%. Waitrose puts it under what it calls the "larder flex". People are cutting back on nights out but treating themselves to small things that make cooking at home feel special, like premium tinned tomatoes, good olive oil and jarred fish. Mutti has for sure become part of our usage at home. We don't really look at another tin now. Jo put it well: Mutti made us care which tin of chopped tomatoes we bought.
 
 **Coffee as a seasoning.** Searches on waitrose.com for coffee-rubbed chicken wings are up 175%, and coffee-marinated steak is up 49%. Waitrose's development chef says we're starting to treat coffee like salt or black pepper. Dark roasted flavours are on the way up, and super sweet jams are on the way down. I didn't see that one coming, but it fits the wider pattern of richer, deeper flavour.
 
 ## The AI section nobody's talking about
 
-Tucked inside the report is a section called "The new shopping (AI)sle". In Waitrose's AI survey of around 1,000 customers, 72% said they actively use tools like ChatGPT, Claude and Google Gemini. Almost half of those use them to put together meal plans. 52% use them to work out what to do with leftovers or whatever's sitting in the fridge.
+There's a section in the report called "The new shopping (AI)sle". In Waitrose's AI survey of around 1,000 customers, 72% said they actively use tools like ChatGPT, Claude and Google Gemini. Almost half of those use them to put together meal plans. 52% use them to work out what to do with leftovers or whatever's sitting in the fridge.
 
 Waitrose is also trialling a feature with 38,000 customers and Partners. You take a photo of your handwritten shopping list, and it turns it into a list of personalised products you can add to your online basket in one click.
 
@@ -39,9 +39,9 @@ For me, the shelf still does most of the work. Promotions, packaging, a good alt
 
 Here's the thing I keep coming back to. If an assistant is building the basket from a handwritten list or a photo of the fridge, which brand gets picked? Mutti and Queen butter beans won because people asked for them by name. When you write "tomatoes" on a list, the AI decides. When you write "Mutti", you do.
 
-So the old basics matter more, not less. A product people genuinely love, a name they remember, a reason to ask for it. Strong brands get named. The rest get substituted.
+So for me the basics still matter, maybe even more now. A product people really love and a name they remember and ask for. If you're a brand people ask for by name, you'll get picked. If not, the AI will probably swap you for something else.
 
-Jo ends her series with a "so what": which trend fits where your growth will come from, and what would get a retailer and shoppers coming back? I'd add one more question to that list. Would your product still get picked if the shopper never walked down the aisle?
+Jo ends her series with a "so what": which trend fits where your growth will come from, and what would get a retailer and shoppers coming back? I'd add one more to that. If the AI is doing the shopping, will it still pick your brand? I'm not sure everyone's thinking about that yet.
 
 ## Read more
 
